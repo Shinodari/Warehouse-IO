@@ -8,5 +8,9 @@ namespace Warehouse_IO.Authentication
 {
     class User
     {
+        public User()
+        {
+
+        }
     }
 }
