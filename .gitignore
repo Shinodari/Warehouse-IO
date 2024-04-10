@@ -242,7 +242,6 @@ ModelManifest.xml
 .fake/
 
 # Warehouse IO
-
-Properties/Settings.Designer.cs
-Properties/Settings.settings
+Settings.Designer.cs
+Settings.settings
 App.config
