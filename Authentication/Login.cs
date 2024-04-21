@@ -1,8 +1,6 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Warehouse_IO.WHIO.Model;
 
 namespace Warehouse_IO.Authentication
@@ -10,26 +8,19 @@ namespace Warehouse_IO.Authentication
     class Login
     {
         User user;
-        public User User { get; }
+        public User User { get { return user; } }
 
         bool iscomplete;
-        public bool IsComplete { get; set; }
+        public bool IsComplete { get { return iscomplete; } }
 
         public Login(string username)
         {
             user = new User(username);
         }
-        public User GetUser()
-        {
-            return User;
-        }
-        public bool GetIsComplete()
-        {
-            return IsComplete;
-        }
+
         public void Authenticate(string password)
         {
-            IsComplete = user.Authenticate(password);
+            iscomplete = user.Authenticate(password);
         }
     }
 }

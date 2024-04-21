@@ -3,37 +3,38 @@ using System.Text;
 using Warehouse_IO.WHIO.Model;
 using MySql.Data.MySqlClient;
 using System.Security.Cryptography;
+using System.Data;
 
 namespace Warehouse_IO.Authentication
 {
     class User
     {
         int id;
-        public int ID { get; }
+        public int ID { get { return id; } }
         string username;
-        public string Username { get; set; }
+        public string Username { get { return username; } set { username = value; } }
         string password;
         private string Password;
         string fullname;
-        public string FullName { get; set; }
+        public string FullName { get { return fullname; } set { fullname = value; } }
         string lastname;
-        public string LastName { get; set; }
+        public string LastName { get { return lastname; } set { lastname = value; } }
         bool isadmin;
-        public bool IsAdmin { get; set; }
+        public bool IsAdmin { get { return isadmin; } set { isadmin = value; } }
         Department department;
-        public Department Department { get; set; }
+        public Department Department { get { return department; } set { department = value; } }
 
         string connstr = Settings.Default.CONNECTION_STRING;
 
         //this method for checking parameter to retrive database
-        private void CheckAndUpdateField(string columnName, string value)
+        void CheckAndUpdateField(string columnName, string value)
         {
+            MySqlConnection conn = null;
             try
             {
-                using (var conn = new MySqlConnection(connstr))
-                {
-                    conn.Open();
-                    using (var cmd = conn.CreateCommand())
+                conn = new MySqlConnection(connstr);
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
                     {
                         string check = $"SELECT * FROM user WHERE {columnName} = @value";
                         cmd.CommandText = check;
@@ -52,19 +53,22 @@ namespace Warehouse_IO.Authentication
                             }
                         }
                     }
-                    conn.Close();
-                }
             }
             catch (MySqlException e) { }
+            finally
+            {
+                if (conn != null && conn.State != ConnectionState.Closed)
+                    conn.Close();
+            }
         }
 
         public User(int id)
         {
-            this.CheckAndUpdateField("ID", id.ToString());
+            CheckAndUpdateField("ID", id.ToString());
         }
         public User(string username)
         {
-            this.CheckAndUpdateField("Username", username);
+            CheckAndUpdateField("Username", username);
         }
         //this method for update field before create new user
         public User(string Username, string Password, string FullName, string LastName, bool IsAdmin, Department Department)
@@ -76,43 +80,15 @@ namespace Warehouse_IO.Authentication
             isadmin = IsAdmin;
             department = Department;
         }
-        
-        public int GetID() { return ID; }
-        public string GetUserName() { return Username; }
-        public string GetFullName() { return FullName; }
-        public string GetLastName() { return LastName; }
-        public bool GetIsAdmin() { return IsAdmin; }
-        public Department GetDepartment() { return Department; }
-
-        public void SetUserName(string username)
-        {
-            this.username = username;
-        }
-        public void SetFullName(string fullname)
-        {
-            this.fullname = fullname;
-        }
-        public void SetLastName(string lastname)
-        {
-            this.lastname = lastname;
-        }
-        public void SetIsAdmin(bool isadmin)
-        {
-            this.isadmin = isadmin;
-        }
-        public void SetDepartment(Department department)
-        {
-            this.department = department;
-        }
 
         public bool Create()
         {
+            MySqlConnection conn = null;
             try
             {
-                using (var conn = new MySqlConnection(connstr))
-                {
-                    conn.Open();
-                    using (var cmd = conn.CreateCommand())
+                conn = new MySqlConnection(connstr);
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
                     {
                         string insert = "INSERT INTO user (ID, Username, Password, FullName, LastName, IsAdmin, DepartmentID) VALUES (NULL, @username, @password, @fullname, @lastname, @isadmin, @department)";
                         cmd.CommandText = insert;
@@ -121,26 +97,29 @@ namespace Warehouse_IO.Authentication
                         cmd.Parameters.AddWithValue("@fullname", fullname);
                         cmd.Parameters.AddWithValue("@lastname", lastname);
                         cmd.Parameters.AddWithValue("@isadmin", isadmin);
-                        cmd.Parameters.AddWithValue("@department", department.GetID());
+                        cmd.Parameters.AddWithValue("@department", department.ID);
                         cmd.ExecuteNonQuery();
                     }
-                    conn.Close();
                     return true;
-                }
             }
             catch (MySqlException e)
             {
                 return false;
             }
+            finally
+            {
+                if (conn != null && conn.State != ConnectionState.Closed)
+                    conn.Close();
+            }
         }
         public bool Change()
         {
+            MySqlConnection conn = null;
             try
             {
-                using (var conn = new MySqlConnection(connstr))
-                {
-                    conn.Open();
-                    using (var cmd = conn.CreateCommand())
+                conn = new MySqlConnection(connstr);
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
                     {
                         string update = "UPDATE user SET Username = @username, FullName = @fullname, LastName = @lastname, IsAdmin = @isadmin, DepartmentID = @department WHERE ID = @id ";
                         cmd.CommandText = update;
@@ -148,47 +127,53 @@ namespace Warehouse_IO.Authentication
                         cmd.Parameters.AddWithValue("@fullname", fullname);
                         cmd.Parameters.AddWithValue("@lastname", lastname);
                         cmd.Parameters.AddWithValue("@isadmin", isadmin);
-                        cmd.Parameters.AddWithValue("@department", department.GetID());
+                        cmd.Parameters.AddWithValue("@department", department.ID);
                         cmd.Parameters.AddWithValue("@id", id);
                         cmd.ExecuteNonQuery();
                     }
-                    conn.Close();
                     return true;
-                }
             }
             catch (MySqlException e)
             {
                 return false;
             }
+            finally
+            {
+                if (conn != null && conn.State != ConnectionState.Closed)
+                    conn.Close();
+            }
         }
         public bool Remove()
         {
+            MySqlConnection conn = null;
             try
             {
-                using (var conn = new MySqlConnection(connstr))
-                {
-                    conn.Open();
-                    using (var cmd = conn.CreateCommand())
+                conn = new MySqlConnection(connstr);
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
                     {
                         string delete = "DELETE FROM user WHERE ID = @id";
                         cmd.CommandText = delete;
                         cmd.Parameters.AddWithValue("@id", id);
                         cmd.ExecuteNonQuery();
                     }
-                    conn.Close();
                     return true;
-                }
             }
             catch (MySqlException e)
             {
                 return false;
+            }
+            finally
+            {
+                if (conn != null && conn.State != ConnectionState.Closed)
+                    conn.Close();
             }
         }
 
         public bool ChangePassword(int id, string oldPassword, string newPassword)
         {
             oldPassword = EncryptPassword(oldPassword);
-            if (id == ID && oldPassword == password)
+            if (id == this.id && oldPassword == this.password)
             {
                 newPassword = EncryptPassword(newPassword);
                 this.password = newPassword;
@@ -197,10 +182,10 @@ namespace Warehouse_IO.Authentication
             else return false;
         }
 
-        public bool Authenticate(string password1)
+        public bool Authenticate(string password)
         {
-            password1 = this.EncryptPassword(password1);
-            if (password1 == password)
+            password = this.EncryptPassword(password);
+            if (password == this.password)
             {
                 return true;
             }
