@@ -1,52 +1,24 @@
-﻿using System;
-using MySql.Data.MySqlClient;
-using System.Data;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
+using System.Data;
 
 namespace Warehouse_IO.WHIO.Model
 {
-    class Department
+    class Truck
     {
         int id;
         public int ID { get { return id; } }
         string name;
         public string Name { get { return name; } set { name = value; } }
-        List<Storage> storagelist;
-        public List<Storage> StorageList { get { return storagelist; } }
+        string description;
+        public string Description { get { return description; } set { description = value; } }
 
         static string connstr = Settings.Default.CONNECTION_STRING;
-        void getstoragelist()
-        {
-            MySqlConnection conn = null;
-            try
-            {
-                conn = new MySqlConnection(connstr);
-                conn.Open();
-                using (var cmd = conn.CreateCommand())
-                {
-                    string check = "SELECT StorageID FROM departmenthavestorage WHERE DepartmentID = @id";
-                    cmd.CommandText = check;
-                    cmd.Parameters.AddWithValue("@id", id);
-                    using (var reader = cmd.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            int storageID = Convert.ToInt32(reader["StorageID"]);
-                            Storage item = new Storage(storageID);
-                            storagelist.Add(item);
-                        }
-                    }
-                }
-            }
-            catch (MySqlException e) { }
-            finally
-            {
-                if (conn != null && conn.State != ConnectionState.Closed)
-                    conn.Close();
-            }
-        }
+
         void CheckAndUpdateField(string columnName, string value)
         {
+
             MySqlConnection conn = null;
             try
             {
@@ -54,7 +26,7 @@ namespace Warehouse_IO.WHIO.Model
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                     {
-                        string check = $"SELECT * FROM department WHERE {columnName} = @value";
+                        string check = $"SELECT * FROM truck WHERE {columnName} = @value";
                         cmd.CommandText = check;
                         cmd.Parameters.AddWithValue("@value", value);
                         using (var reader = cmd.ExecuteReader())
@@ -63,6 +35,7 @@ namespace Warehouse_IO.WHIO.Model
                             {
                                 id = Convert.ToInt32(reader["ID"]);
                                 name = reader["Name"].ToString();
+                                description = reader["Description"].ToString();
                             }
                         }
                     }
@@ -74,15 +47,15 @@ namespace Warehouse_IO.WHIO.Model
                     conn.Close();
             }
         }
-        public Department(int id)
+
+        public Truck(int id)
         {
-            storagelist = new List<Storage>();
-            this.CheckAndUpdateField("ID",id.ToString());
-            getstoragelist();
+            this.CheckAndUpdateField("ID", id.ToString());
         }
-        public Department(string name)
+        public Truck(string name,string description = null)
         {
             this.name = name;
+            this.description = description;
         }
 
         public bool Create()
@@ -94,9 +67,10 @@ namespace Warehouse_IO.WHIO.Model
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                     {
-                        string insert = "INSERT INTO department (ID, Name) VALUES (NULL, @name)";
+                        string insert = "INSERT INTO truck (ID, Name, Description) VALUES (NULL, @name, @description)";
                         cmd.CommandText = insert;
                         cmd.Parameters.AddWithValue("@name", name);
+                        cmd.Parameters.AddWithValue("@description", description);
                         cmd.ExecuteNonQuery();
                     }
                     return true;
@@ -120,9 +94,10 @@ namespace Warehouse_IO.WHIO.Model
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                     {
-                        string update = "UPDATE department SET Name = @name WHERE ID = @id ";
+                        string update = "UPDATE truck SET Name = @name, Description = @description WHERE ID = @id";
                         cmd.CommandText = update;
                         cmd.Parameters.AddWithValue("@name", name);
+                        cmd.Parameters.AddWithValue("@description", description);
                         cmd.Parameters.AddWithValue("@id", id);
                         cmd.ExecuteNonQuery();
                     }
@@ -147,7 +122,7 @@ namespace Warehouse_IO.WHIO.Model
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                     {
-                        string delete = "DELETE FROM department WHERE ID = @id";
+                        string delete = "DELETE FROM truck WHERE ID = @id";
                         cmd.CommandText = delete;
                         cmd.Parameters.AddWithValue("@id", id);
                         cmd.ExecuteNonQuery();
@@ -165,80 +140,25 @@ namespace Warehouse_IO.WHIO.Model
             }
         }
 
-        public bool AddStorage(Storage storageId)
+        public static List<Truck> GetTruckList()
         {
             MySqlConnection conn = null;
-            try
-            {
-                conn = new MySqlConnection(connstr);
-                conn.Open();
-                using (var cmd = conn.CreateCommand())
-                {
-                    string insert = "INSERT INTO departmenthavestorage (DepartmentID, StorageID) VALUES (@id, @storage)";
-                    cmd.CommandText = insert;
-                    cmd.Parameters.AddWithValue("@id", ID);
-                    cmd.Parameters.AddWithValue("@storage", storageId.ID);
-                    cmd.ExecuteNonQuery();
-                }
-                return true;
-            }
-            catch (MySqlException e)
-            {
-                return false;
-            }
-            finally
-            {
-                if (conn != null && conn.State != ConnectionState.Closed)
-                    conn.Close();
-            }
-        }
-        public bool RemoveStorage(Storage storageID)
-        {
-            MySqlConnection conn = null;
-            try
-            {
-                conn = new MySqlConnection(connstr);
-                conn.Open();
-                using (var cmd = conn.CreateCommand())
-                {
-                    string delete = "DELETE FROM departmenthavestorage WHERE DepartmentID = @id AND StorageID = @stoid";
-                    cmd.CommandText = delete;
-                    cmd.Parameters.AddWithValue("@id", id);
-                    cmd.Parameters.AddWithValue("@stoid", storageID.ID );
-                    cmd.ExecuteNonQuery();
-                }
-                return true;
-            }
-            catch (MySqlException e)
-            {
-                return false;
-            }
-            finally
-            {
-                if (conn != null && conn.State != ConnectionState.Closed)
-                    conn.Close();
-            }
-        }
-
-        public static List<Department> GetDepartmentList()
-        {
-            MySqlConnection conn = null;
-            List<Department> departmentList = new List<Department>();
+            List<Truck> truckList = new List<Truck>();
             try
             {
                 conn = new MySqlConnection(connstr);
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                     {
-                        string updateArrayList = "SELECT * FROM department";
+                        string updateArrayList = "SELECT * FROM truck";
                         cmd.CommandText = updateArrayList;
                         using (var reader = cmd.ExecuteReader())
                         {
                             while (reader.Read())
                             {
                                 int id = Convert.ToInt32(reader["ID"]);
-                                Department item = new Department(id);
-                                departmentList.Add(item);
+                                Truck item = new Truck(id);
+                                truckList.Add(item);
                             }
                         }
                     }
@@ -249,7 +169,7 @@ namespace Warehouse_IO.WHIO.Model
                 if (conn != null && conn.State != ConnectionState.Closed)
                     conn.Close();
             }
-            return departmentList;
+            return truckList;
         }
     }
 }
