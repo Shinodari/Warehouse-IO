@@ -5,99 +5,32 @@ using System.Data;
 
 namespace Warehouse_IO.WHIO.Model
 {
-    class Transport
+    abstract class Transport
     {
-        protected int id;
+        int id;
         public int ID { get { return id; } }
-        protected string invoiceno;
+        string invoiceno;
         public string InvoiceNo { get { return invoiceno; } set { invoiceno = value; } }
-        protected DateTime deliverydate;
+        DateTime deliverydate;
         public DateTime DeliveryDate { get { return deliverydate; } set { deliverydate = value; } }
-        protected Supplier supplier;
+        Supplier supplier;
         public Supplier Supplier { get { return supplier; } set { supplier = value; } }
-        protected List<Truck> trucklist;
-        public List<Truck> TruckList { get { return trucklist; } }
-        protected Storage storage;
+        List<Truck> trucklist;
+        public List<Truck> TruckList { get { return trucklist; }set { trucklist = value; } }
+        Storage storage;
         public Storage Storage { get { return storage; } }
-        protected Dictionary <Product,int> quantityofproductlist;
+        Dictionary <Product,int> quantityofproductlist;
         public Dictionary<Product, int> QuantityOfProductList { get { return quantityofproductlist; }set { quantityofproductlist = value; } }
-
-        protected virtual string TableName { get { return GetType().Name.ToLower(); } }
-        protected virtual string TableName1 { get { return GetType().Name.ToLower()+"truck"; } }
-        protected virtual string TableName2 { get { return GetType().Name.ToLower() + "quantityofproductlist"; } }
-        protected virtual string ColumnName
-        {
-            get
-            {
-                string typeName = GetType().Name;
-                string tableName = typeName.Substring(0, 1).ToUpper() + typeName.Substring(1).ToLower() + "ID";
-                return tableName;
-            }
-        }
 
         static string connstr = Settings.Default.CONNECTION_STRING;
 
-        void gettrucklist()
+        string GetTableNameFromClassName()
         {
-            MySqlConnection conn = null;
-            try
-            {
-                conn = new MySqlConnection(connstr);
-                conn.Open();
-                using (var cmd = conn.CreateCommand())
-                {
-                    string check = $"SELECT TruckID FROM {TableName1} WHERE {ColumnName} = @id";
-                    cmd.CommandText = check;
-                    cmd.Parameters.AddWithValue("@id", id);
-                    using (var reader = cmd.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            int truck = Convert.ToInt32(reader["TruckID"]);
-                            Truck item = new Truck(truck);
-                            trucklist.Add(item);
-                        }
-                    }
-                }
-            }
-            catch (MySqlException e) { }
-            finally
-            {
-                if (conn != null && conn.State != ConnectionState.Closed)
-                    conn.Close();
-            }
+            string className = GetType().Name;
+            string tableName = className.ToLower();
+            return tableName;
         }
-        void getquantityofproductlist()
-        {
-            MySqlConnection conn = null;
-            try
-            {
-                conn = new MySqlConnection(connstr);
-                conn.Open();
-                using (var cmd = conn.CreateCommand())
-                {
-                    string check = $"SELECT * FROM {TableName2} WHERE {ColumnName} = @id";
-                    cmd.CommandText = check;
-                    cmd.Parameters.AddWithValue("@id", id);
-                    using (var reader = cmd.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            int product = Convert.ToInt32(reader["ProductID"]);
-                            Product item = new Product(product);
-                            int qty = Convert.ToInt32(reader["Quantity"]);
-                            quantityofproductlist.Add(item,qty);
-                        }
-                    }
-                }
-            }
-            catch (MySqlException e) { }
-            finally
-            {
-                if (conn != null && conn.State != ConnectionState.Closed)
-                    conn.Close();
-            }
-        }
+
         void CheckAndUpdateField(string value)
         {
             MySqlConnection conn = null;
@@ -107,7 +40,8 @@ namespace Warehouse_IO.WHIO.Model
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                     {
-                        string check = $"SELECT * FROM {TableName} WHERE ID = @value";
+                    string tableName = GetTableNameFromClassName();
+                        string check = $"SELECT * FROM {tableName} WHERE ID = @value";
                         cmd.CommandText = check;
                         cmd.Parameters.AddWithValue("@value", value);
                         using (var reader = cmd.ExecuteReader())
@@ -133,11 +67,12 @@ namespace Warehouse_IO.WHIO.Model
 
         public Transport(int id)
         {
-            quantityofproductlist = new Dictionary<Product, int>();
-            trucklist = new List<Truck>();
             CheckAndUpdateField(id.ToString());
-            gettrucklist();
-            getquantityofproductlist();
+            if(invoiceno != null)
+            {
+                quantityofproductlist = new Dictionary<Product, int>();
+                trucklist = new List<Truck>();
+            }
         }
         public Transport(string invoiceNo,DateTime deliveryDate,Supplier supplier,Storage storage)
         {
@@ -147,203 +82,59 @@ namespace Warehouse_IO.WHIO.Model
             this.storage = storage;
         }
 
-        public bool Create()
+        public abstract bool Create();
+        public abstract bool Change();
+        public abstract bool Remove();
+
+        public bool AddTruck(Truck truck)
         {
-            MySqlConnection conn = null;
-            try
+            if (truck != null)
             {
-                conn = new MySqlConnection(connstr);
-                conn.Open();
-                using (var cmd = conn.CreateCommand())
-                {
-                    string insert = $"INSERT INTO {TableName} (ID, InvoiceNo, DeliveryDate, SupplierID, StorageID) VALUES (NULL, @invoice, @date, @sup, @sto)";
-                    cmd.CommandText = insert;
-                    cmd.Parameters.AddWithValue("@invoice", invoiceno);
-                    cmd.Parameters.AddWithValue("@date", deliverydate);
-                    cmd.Parameters.AddWithValue("@sup", supplier.ID);
-                    cmd.Parameters.AddWithValue("@sto", storage.ID);
-                    cmd.ExecuteNonQuery();
-                }
+                trucklist.Add(truck);
                 return true;
             }
-            catch (MySqlException e)
-            {
-                return false;
-            }
-            finally
-            {
-                if (conn != null && conn.State != ConnectionState.Closed)
-                    conn.Close();
-            }
+            else  return false;
         }
-        public bool Change()
+        public bool RemoveTruck(Truck truck)
         {
-            MySqlConnection conn = null;
-            try
+            if (truck != null)
             {
-                conn = new MySqlConnection(connstr);
-                conn.Open();
-                using (var cmd = conn.CreateCommand())
-                {
-                    string update = $"UPDATE {TableName} SET InvoiceNo = @invoice, DeliveryDate = @date, SupplierID = @sup, StorageID = @sto WHERE ID = @id ";
-                    cmd.CommandText = update;
-                    cmd.Parameters.AddWithValue("@invoice", invoiceno);
-                    cmd.Parameters.AddWithValue("@date", deliverydate);
-                    cmd.Parameters.AddWithValue("@sup", supplier.ID);
-                    cmd.Parameters.AddWithValue("@sto", storage.ID);
-                    cmd.Parameters.AddWithValue("@id", id);
-                    cmd.ExecuteNonQuery();
-                }
+                trucklist.Remove(truck);
                 return true;
             }
-            catch (MySqlException e)
-            {
-                return false;
-            }
-            finally
-            {
-                if (conn != null && conn.State != ConnectionState.Closed)
-                    conn.Close();
-            }
-        }
-        public bool Remove()
-        {
-            MySqlConnection conn = null;
-            try
-            {
-                conn = new MySqlConnection(connstr);
-                conn.Open();
-                using (var cmd = conn.CreateCommand())
-                {
-                    string delete = $"DELETE FROM {TableName} WHERE ID = @id";
-                    cmd.CommandText = delete;
-                    cmd.Parameters.AddWithValue("@id", id);
-                    cmd.ExecuteNonQuery();
-                }
-                return true;
-            }
-            catch (MySqlException e)
-            {
-                return false;
-            }
-            finally
-            {
-                if (conn != null && conn.State != ConnectionState.Closed)
-                    conn.Close();
-            }
+            else return false;
         }
 
-        public bool AddTruck(Truck truckID)
+        public bool AddProduct(Product pro,int qty)
         {
-            MySqlConnection conn = null;
-            try
+            if (pro != null)
             {
-                conn = new MySqlConnection(connstr);
-                conn.Open();
-                using (var cmd = conn.CreateCommand())
-                {
-                    string insert = $"INSERT INTO {TableName1} ({ColumnName}, TruckID) VALUES (@id, @truck)";
-                    cmd.CommandText = insert;
-                    cmd.Parameters.AddWithValue("@id", id);
-                    cmd.Parameters.AddWithValue("@truck", truckID.ID);
-                    cmd.ExecuteNonQuery();
-                }
+                quantityofproductlist.Add(pro, qty);
                 return true;
             }
-            catch (MySqlException e)
-            {
-                return false;
-            }
-            finally
-            {
-                if (conn != null && conn.State != ConnectionState.Closed)
-                    conn.Close();
-            }
+            else return false;
         }
-        public bool RemoveTruck(Truck truckID)
+        public bool RemoveProduct(Product pro)
         {
-            MySqlConnection conn = null;
-            try
+            if (pro != null)
             {
-                conn = new MySqlConnection(connstr);
-                conn.Open();
-                using (var cmd = conn.CreateCommand())
-                {
-                    string delete = $"DELETE FROM {TableName1} WHERE {ColumnName} = @id AND TruckID = @truck";
-                    cmd.CommandText = delete;
-                    cmd.Parameters.AddWithValue("@id", id);
-                    cmd.Parameters.AddWithValue("@truck", truckID.ID);
-                    cmd.ExecuteNonQuery();
-                }
+                quantityofproductlist.Remove(pro);
                 return true;
             }
-            catch (MySqlException e)
+            else return false;
+        }
+        public bool ChangeQuantityOfProduct(Product pro,int qty)
+        {
+            if (pro != null && quantityofproductlist.ContainsKey(pro))
             {
-                return false;
+                quantityofproductlist[pro] = qty;
+                return true;
             }
-            finally
-            {
-                if (conn != null && conn.State != ConnectionState.Closed)
-                    conn.Close();
-            }
+            else return false;
         }
 
-        public bool AddProduct(Product productID,int qty)
-        {
-            MySqlConnection conn = null;
-            try
-            {
-                conn = new MySqlConnection(connstr);
-                conn.Open();
-                using (var cmd = conn.CreateCommand())
-                {
-                    string insert = $"INSERT INTO {TableName2} (ProductID, {ColumnName}, Quantity) VALUES (@product, @id, @qty)";
-                    cmd.CommandText = insert;
-                    cmd.Parameters.AddWithValue("@product", productID.ID);
-                    cmd.Parameters.AddWithValue("@id", id);
-                    cmd.Parameters.AddWithValue("@qty", qty);
-                    cmd.ExecuteNonQuery();
-                }
-                return true;
-            }
-            catch (MySqlException e)
-            {
-                return false;
-            }
-            finally
-            {
-                if (conn != null && conn.State != ConnectionState.Closed)
-                    conn.Close();
-            }
-        }
-        public bool RemoveProduct(Product productID, int qty)
-        {
-            MySqlConnection conn = null;
-            try
-            {
-                conn = new MySqlConnection(connstr);
-                conn.Open();
-                using (var cmd = conn.CreateCommand())
-                {
-                    string delete = $"DELETE FROM {TableName2} WHERE ProductID = @proID AND {ColumnName} = @id AND Quantity = @qty";
-                    cmd.CommandText = delete;
-                    cmd.Parameters.AddWithValue("@proID", productID.ID);
-                    cmd.Parameters.AddWithValue("@id", id);
-                    cmd.Parameters.AddWithValue("@qty", qty);
-                    cmd.ExecuteNonQuery();
-                }
-                return true;
-            }
-            catch (MySqlException e)
-            {
-                return false;
-            }
-            finally
-            {
-                if (conn != null && conn.State != ConnectionState.Closed)
-                    conn.Close();
-            }
-        }
-
+        public abstract bool UpdateTruck();
+        public abstract bool UpdateProduct();
+        
     }
 }

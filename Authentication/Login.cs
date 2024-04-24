@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using Warehouse_IO.WHIO.Model;
-
+﻿
 namespace Warehouse_IO.Authentication
 {
     class Login

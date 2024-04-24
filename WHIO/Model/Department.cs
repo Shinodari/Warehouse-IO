@@ -165,61 +165,62 @@ namespace Warehouse_IO.WHIO.Model
             }
         }
 
-        public bool AddStorage(Storage storageId)
+        public bool AddStorage(Storage sto)
         {
-            MySqlConnection conn = null;
-            try
+            if (sto != null)
             {
-                conn = new MySqlConnection(connstr);
-                conn.Open();
-                using (var cmd = conn.CreateCommand())
-                {
-                    string insert = "INSERT INTO departmenthavestorage (DepartmentID, StorageID) VALUES (@id, @storage)";
-                    cmd.CommandText = insert;
-                    cmd.Parameters.AddWithValue("@id", ID);
-                    cmd.Parameters.AddWithValue("@storage", storageId.ID);
-                    cmd.ExecuteNonQuery();
-                }
+                storagelist.Add(sto);
                 return true;
             }
-            catch (MySqlException e)
-            {
-                return false;
-            }
-            finally
-            {
-                if (conn != null && conn.State != ConnectionState.Closed)
-                    conn.Close();
-            }
+            else return false;
         }
-        public bool RemoveStorage(Storage storageID)
+        public bool RemoveStorage(Storage sto)
         {
-            MySqlConnection conn = null;
-            try
+            if (sto != null)
             {
-                conn = new MySqlConnection(connstr);
-                conn.Open();
-                using (var cmd = conn.CreateCommand())
-                {
-                    string delete = "DELETE FROM departmenthavestorage WHERE DepartmentID = @id AND StorageID = @stoid";
-                    cmd.CommandText = delete;
-                    cmd.Parameters.AddWithValue("@id", id);
-                    cmd.Parameters.AddWithValue("@stoid", storageID.ID );
-                    cmd.ExecuteNonQuery();
-                }
+                storagelist.Remove(sto);
                 return true;
             }
-            catch (MySqlException e)
-            {
-                return false;
-            }
-            finally
-            {
-                if (conn != null && conn.State != ConnectionState.Closed)
-                    conn.Close();
-            }
+            else return false;
         }
 
+        public bool UpdateStorage()
+        {
+            MySqlConnection conn = null;
+            try
+            {
+                conn = new MySqlConnection(connstr);
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    string delete = "DELETE FROM departmenthavestorage WHERE ID = @id";
+                    cmd.CommandText = delete;
+                    cmd.Parameters.AddWithValue("@id", id);
+                    cmd.ExecuteNonQuery();
+
+                    string insert = $"INSERT INTO departmenthavestorage (DepartmentID, StorageID) VALUES (@id, @sto)";
+                    cmd.CommandText = insert;
+                    foreach (Storage t in storagelist)
+                    {
+                        cmd.Parameters.Clear();
+                        cmd.Parameters.AddWithValue("@id", id);
+                        cmd.Parameters.AddWithValue("@sto", t.ID);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+                return true;
+            }
+            catch (MySqlException e)
+            {
+                return false;
+            }
+            finally
+            {
+                if (conn != null && conn.State != ConnectionState.Closed)
+                    conn.Close();
+            }
+        }
+      
         public static List<Department> GetDepartmentList()
         {
             MySqlConnection conn = null;

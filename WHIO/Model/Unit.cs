@@ -3,16 +3,19 @@ using System.Data;
 
 namespace Warehouse_IO.WHIO.Model
 {
-    class Unit
+    abstract class Unit
     {
-        protected string name;
+        string name;
         public string Name { get { return name; }set { name = value; } }
-        string oldname; //for change
-        string newname; //for create
 
         static string connstr = Settings.Default.CONNECTION_STRING;
 
-        protected virtual string TableName { get { return GetType().Name.ToLower(); } }
+        string GetTableNameFromClassName()
+        {
+            string className = GetType().Name;
+            string tableName = className.ToLower();
+            return tableName;
+        }
 
         public Unit(string name)
         {
@@ -23,7 +26,8 @@ namespace Warehouse_IO.WHIO.Model
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                     {
-                        string check = $"SELECT * FROM {TableName} WHERE Name = @name";
+                    string tableName = GetTableNameFromClassName();
+                    string check = $"SELECT * FROM {tableName} WHERE Name = @name";
                         cmd.CommandText = check;
                         cmd.Parameters.AddWithValue("@name", name);
                         using (var reader = cmd.ExecuteReader())
@@ -31,11 +35,6 @@ namespace Warehouse_IO.WHIO.Model
                             if (reader.Read())
                             {
                                 this.name = reader["Name"].ToString();
-                                oldname = reader["Name"].ToString();
-                            }
-                            else
-                            {
-                                newname = name;
                             }
                         }
                     }
@@ -48,84 +47,8 @@ namespace Warehouse_IO.WHIO.Model
             }
         }
 
-        public bool Create()
-        {
-            MySqlConnection conn = null;
-            try
-            {
-                conn = new MySqlConnection(connstr);
-                conn.Open();
-                using (var cmd = conn.CreateCommand())
-                    {
-                        string insert = $"INSERT INTO {TableName} (Name) VALUES (@name)";
-                        cmd.CommandText = insert;
-                        cmd.Parameters.AddWithValue("@name", newname);
-                        cmd.ExecuteNonQuery();
-                    }
-                    return true;
-            }
-            catch (MySqlException e)
-            {
-                return false;
-            }
-            finally
-            {
-                if (conn != null && conn.State != ConnectionState.Closed)
-                    conn.Close();
-            }
-        }
-        public bool Change()
-        {
-            MySqlConnection conn = null;
-            try
-            {
-                conn = new MySqlConnection(connstr);
-                conn.Open();
-                using (var cmd = conn.CreateCommand())
-                    {
-                        string update = $"UPDATE {TableName} SET Name = @name WHERE {TableName} . Name = @oldname ";
-                        cmd.CommandText = update;
-                        cmd.Parameters.AddWithValue("@name", name);
-                        cmd.Parameters.AddWithValue("@oldname", oldname);
-                        cmd.ExecuteNonQuery();
-                    }
-                    return true;
-            }
-            catch (MySqlException e)
-            {
-                return false;
-            }
-            finally
-            {
-                if (conn != null && conn.State != ConnectionState.Closed)
-                    conn.Close();
-            }
-        }
-        public bool Remove()
-        {
-            MySqlConnection conn = null;
-            try
-            {
-                conn = new MySqlConnection(connstr);
-                conn.Open();
-                using (var cmd = conn.CreateCommand())
-                    {
-                        string delete = $"DELETE FROM {TableName} WHERE Name = @name";
-                        cmd.CommandText = delete;
-                        cmd.Parameters.AddWithValue("@name", name);
-                        cmd.ExecuteNonQuery();
-                    }
-                    return true;
-            }
-            catch (MySqlException e)
-            {
-                return false;
-            }
-            finally
-            {
-                if (conn != null && conn.State != ConnectionState.Closed)
-                    conn.Close();
-            }
-        }
+        public abstract bool Create();
+        public abstract bool Change();
+        public abstract bool Remove();
     }
 }

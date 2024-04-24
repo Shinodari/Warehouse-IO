@@ -4,6 +4,7 @@ using Warehouse_IO.WHIO.Model;
 using MySql.Data.MySqlClient;
 using System.Security.Cryptography;
 using System.Data;
+using System.Collections.Generic;
 
 namespace Warehouse_IO.Authentication
 {
@@ -190,6 +191,38 @@ namespace Warehouse_IO.Authentication
                 return true;
             }
             else return false;
+        }
+
+        public List<User> GetUserList()
+        {
+            MySqlConnection conn = null;
+            List<User> userlist = new List<User>();
+            try
+            {
+                conn = new MySqlConnection(connstr);
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    string updateArrayList = "SELECT * FROM user";
+                    cmd.CommandText = updateArrayList;
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            int id = Convert.ToInt32(reader["ID"]);
+                            User item = new User(id);
+                            userlist.Add(item);
+                        }
+                    }
+                }
+            }
+            catch (MySqlException e) { }
+            finally
+            {
+                if (conn != null && conn.State != ConnectionState.Closed)
+                    conn.Close();
+            }
+            return userlist;
         }
 
         private string EncryptPassword(string password)
