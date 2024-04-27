@@ -123,7 +123,7 @@ namespace Warehouse_IO.WHIO.Model
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    string delete = "DELETE FROM unitofdimension WHERE Name = @name";
+                    string delete = "DELETE FROM package WHERE Name = @name";
                     cmd.CommandText = delete;
                     cmd.Parameters.AddWithValue("@name", Name);
                     cmd.ExecuteNonQuery();
