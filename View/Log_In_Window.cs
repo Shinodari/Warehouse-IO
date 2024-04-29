@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Drawing;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Warehouse_IO.Authentication;
@@ -12,10 +11,23 @@ namespace Warehouse_IO
         public event EventHandler LoggedIn;
         public Log_In_Window()
         {
-            InitializeComponent();          
+            InitializeComponent();
+            textBox2.KeyPress += LogIn_KeyPress;  
         }
 
         private void LogIn_Click(object sender, EventArgs e)
+        {
+            AttemptLogin();
+        }
+        private void LogIn_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                AttemptLogin();
+            }
+        }
+
+        private void AttemptLogin()
         {
             string u = textBox1.Text;
             if (IsValid(u))
@@ -30,7 +42,7 @@ namespace Warehouse_IO
                 }
                 else
                 {
-                    MessageBox.Show(this,"Invalid");
+                    MessageBox.Show(this, "Invalid");
                 }
             }
             else
@@ -44,10 +56,5 @@ namespace Warehouse_IO
             return regex.IsMatch(u);
         }
 
-        private void Click_Cerate_User(object sender, EventArgs e)
-        {
-            Create_User create = new Create_User();
-            create.Show();
-        }
     }
 }

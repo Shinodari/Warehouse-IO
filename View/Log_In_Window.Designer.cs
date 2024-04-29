@@ -36,7 +36,7 @@
             // textBox1
             // 
             this.textBox1.Location = new System.Drawing.Point(18, 24);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(2);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(175, 20);
             this.textBox1.TabIndex = 0;
@@ -44,7 +44,7 @@
             // textBox2
             // 
             this.textBox2.Location = new System.Drawing.Point(18, 69);
-            this.textBox2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBox2.Margin = new System.Windows.Forms.Padding(2);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(174, 20);
             this.textBox2.TabIndex = 1;
@@ -53,13 +53,14 @@
             // logInButt
             // 
             this.logInButt.Location = new System.Drawing.Point(232, 40);
-            this.logInButt.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.logInButt.Margin = new System.Windows.Forms.Padding(2);
             this.logInButt.Name = "logInButt";
             this.logInButt.Size = new System.Drawing.Size(92, 29);
             this.logInButt.TabIndex = 2;
             this.logInButt.Text = "Log In";
             this.logInButt.UseVisualStyleBackColor = true;
             this.logInButt.Click += new System.EventHandler(this.LogIn_Click);
+            this.logInButt.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.LogIn_KeyPress);
             // 
             // Log_In_Window
             // 
@@ -68,7 +69,7 @@
             this.Controls.Add(this.logInButt);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.textBox1);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Log_In_Window";
             this.Size = new System.Drawing.Size(364, 110);
             this.ResumeLayout(false);
