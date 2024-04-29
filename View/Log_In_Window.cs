@@ -55,6 +55,5 @@ namespace Warehouse_IO
             Regex regex = new Regex(@"^\S.{4,}\S$", RegexOptions.Compiled);
             return regex.IsMatch(u);
         }
-
     }
 }
