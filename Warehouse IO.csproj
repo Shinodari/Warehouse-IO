@@ -120,10 +120,53 @@
   <ItemGroup>
     <Compile Include="Authentication\Login.cs" />
     <Compile Include="Authentication\User.cs" />
-    <Compile Include="MainForm.cs">
+    <Compile Include="Common\Global.cs" />
+    <Compile Include="View\Create_User.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainForm.Designer.cs">
+    <Compile Include="View\Create_User.Designer.cs">
+      <DependentUpon>Create_User.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\DepartmentFormSource\DepartmentForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\DepartmentFormSource\DepartmentForm.Designer.cs">
+      <DependentUpon>DepartmentForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\DepartmentFormSource\EditDep.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\DepartmentFormSource\EditDep.Designer.cs">
+      <DependentUpon>EditDep.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\Dimension\UnitOfVolumeSource\EditUnitOfVolume.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\Dimension\UnitOfVolumeSource\EditUnitOfVolume.Designer.cs">
+      <DependentUpon>EditUnitOfVolume.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\Dimension\UnitOfVolumeSource\RemoveUnitOfVolume.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\Dimension\UnitOfVolumeSource\RemoveUnitOfVolume.Designer.cs">
+      <DependentUpon>RemoveUnitOfVolume.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\Dimension\UnitOfVolumeSource\UnitOfVolumeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Dimension\UnitOfVolumeSource\UnitOfVolumeForm.Designer.cs">
+      <DependentUpon>UnitOfVolumeForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\Dimension\UnitOfVolumeSource\AddUnitOfVolume.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\Dimension\UnitOfVolumeSource\AddUnitOfVolume.Designer.cs">
+      <DependentUpon>AddUnitOfVolume.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
@@ -131,6 +174,144 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="View\Log_In_Window.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\Log_In_Window.Designer.cs">
+      <DependentUpon>Log_In_Window.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\DepartmentFormSource\AddDep.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\DepartmentFormSource\AddDep.Designer.cs">
+      <DependentUpon>AddDep.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\DepartmentFormSource\RemoveDep.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\DepartmentFormSource\RemoveDep.Designer.cs">
+      <DependentUpon>RemoveDep.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\StorageFormSource\AddStorage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\StorageFormSource\AddStorage.Designer.cs">
+      <DependentUpon>AddStorage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\StorageFormSource\EditStorage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\StorageFormSource\EditStorage.Designer.cs">
+      <DependentUpon>EditStorage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\StorageFormSource\RemoveStorage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\StorageFormSource\RemoveStorage.Designer.cs">
+      <DependentUpon>RemoveStorage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\StorageFormSource\StorageLocationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\StorageFormSource\StorageLocationForm.Designer.cs">
+      <DependentUpon>StorageLocationForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\Transport\SupplierFormSource\AddSup.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\Transport\SupplierFormSource\AddSup.Designer.cs">
+      <DependentUpon>AddSup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\Transport\SupplierFormSource\EditSup.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\Transport\SupplierFormSource\EditSup.Designer.cs">
+      <DependentUpon>EditSup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\Transport\SupplierFormSource\RemoveSup.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\Transport\SupplierFormSource\RemoveSup.Designer.cs">
+      <DependentUpon>RemoveSup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\Transport\SupplierFormSource\SupplierForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Transport\SupplierFormSource\SupplierForm.Designer.cs">
+      <DependentUpon>SupplierForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\Transport\TruckFormSource\AddTruck.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\Transport\TruckFormSource\AddTruck.Designer.cs">
+      <DependentUpon>AddTruck.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\Transport\TruckFormSource\EditTruck.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\Transport\TruckFormSource\EditTruck.Designer.cs">
+      <DependentUpon>EditTruck.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\Transport\TruckFormSource\RemoveTruck.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\Transport\TruckFormSource\RemoveTruck.Designer.cs">
+      <DependentUpon>RemoveTruck.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\Transport\TruckFormSource\TruckForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Transport\TruckFormSource\TruckForm.Designer.cs">
+      <DependentUpon>TruckForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\Weight\PackagingSource\AddPackage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\Weight\PackagingSource\AddPackage.Designer.cs">
+      <DependentUpon>AddPackage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\Weight\PackagingSource\EditPackage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\Weight\PackagingSource\EditPackage.Designer.cs">
+      <DependentUpon>EditPackage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\Weight\PackagingSource\PackagingForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Weight\PackagingSource\PackagingForm.Designer.cs">
+      <DependentUpon>PackagingForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\Weight\PackagingSource\RemovePackage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\Weight\PackagingSource\RemovePackage.Designer.cs">
+      <DependentUpon>RemovePackage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\Weight\UnitOfWeightSource\AddUnitOfWeight.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\Weight\UnitOfWeightSource\AddUnitOfWeight.Designer.cs">
+      <DependentUpon>AddUnitOfWeight.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\Weight\UnitOfWeightSource\EditUnitOfWeight.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\Weight\UnitOfWeightSource\EditUnitOfWeight.Designer.cs">
+      <DependentUpon>EditUnitOfWeight.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\Weight\UnitOfWeightSource\RemoveUnitOfWeight.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\Weight\UnitOfWeightSource\RemoveUnitOfWeight.Designer.cs">
+      <DependentUpon>RemoveUnitOfWeight.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\Weight\UnitOfWeightSource\UnitOfWeightForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Weight\UnitOfWeightSource\UnitOfWeightForm.Designer.cs">
+      <DependentUpon>UnitOfWeightForm.cs</DependentUpon>
     </Compile>
     <Compile Include="WHIO\Model\Inbound.cs" />
     <Compile Include="WHIO\Model\Outbound.cs" />
@@ -146,8 +327,98 @@
     <Compile Include="WHIO\Model\Transport.cs" />
     <Compile Include="WHIO\Model\Storage.cs" />
     <Compile Include="WHIO\Model\Department.cs" />
-    <EmbeddedResource Include="MainForm.resx">
+    <EmbeddedResource Include="View\Create_User.resx">
+      <DependentUpon>Create_User.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\DepartmentFormSource\DepartmentForm.resx">
+      <DependentUpon>DepartmentForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\DepartmentFormSource\EditDep.resx">
+      <DependentUpon>EditDep.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Dimension\UnitOfVolumeSource\AddUnitOfVolume.resx">
+      <DependentUpon>AddUnitOfVolume.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Dimension\UnitOfVolumeSource\EditUnitOfVolume.resx">
+      <DependentUpon>EditUnitOfVolume.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Dimension\UnitOfVolumeSource\RemoveUnitOfVolume.resx">
+      <DependentUpon>RemoveUnitOfVolume.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Dimension\UnitOfVolumeSource\UnitOfVolumeForm.resx">
+      <DependentUpon>UnitOfVolumeForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Log_In_Window.resx">
+      <DependentUpon>Log_In_Window.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\DepartmentFormSource\AddDep.resx">
+      <DependentUpon>AddDep.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\DepartmentFormSource\RemoveDep.resx">
+      <DependentUpon>RemoveDep.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\StorageFormSource\AddStorage.resx">
+      <DependentUpon>AddStorage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\StorageFormSource\EditStorage.resx">
+      <DependentUpon>EditStorage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\StorageFormSource\RemoveStorage.resx">
+      <DependentUpon>RemoveStorage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\StorageFormSource\StorageLocationForm.resx">
+      <DependentUpon>StorageLocationForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Transport\SupplierFormSource\AddSup.resx">
+      <DependentUpon>AddSup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Transport\SupplierFormSource\EditSup.resx">
+      <DependentUpon>EditSup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Transport\SupplierFormSource\RemoveSup.resx">
+      <DependentUpon>RemoveSup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Transport\SupplierFormSource\SupplierForm.resx">
+      <DependentUpon>SupplierForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Transport\TruckFormSource\AddTruck.resx">
+      <DependentUpon>AddTruck.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Transport\TruckFormSource\EditTruck.resx">
+      <DependentUpon>EditTruck.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Transport\TruckFormSource\RemoveTruck.resx">
+      <DependentUpon>RemoveTruck.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Transport\TruckFormSource\TruckForm.resx">
+      <DependentUpon>TruckForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Weight\PackagingSource\AddPackage.resx">
+      <DependentUpon>AddPackage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Weight\PackagingSource\EditPackage.resx">
+      <DependentUpon>EditPackage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Weight\PackagingSource\PackagingForm.resx">
+      <DependentUpon>PackagingForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Weight\PackagingSource\RemovePackage.resx">
+      <DependentUpon>RemovePackage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Weight\UnitOfWeightSource\AddUnitOfWeight.resx">
+      <DependentUpon>AddUnitOfWeight.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Weight\UnitOfWeightSource\EditUnitOfWeight.resx">
+      <DependentUpon>EditUnitOfWeight.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Weight\UnitOfWeightSource\RemoveUnitOfWeight.resx">
+      <DependentUpon>RemoveUnitOfWeight.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Weight\UnitOfWeightSource\UnitOfWeightForm.resx">
+      <DependentUpon>UnitOfWeightForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Settings.settings">
@@ -160,6 +431,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
+    <Folder Include="View\Dimension\DimensionSource\" />
+    <Folder Include="View\UOM\" />
+    <Folder Include="View\Weight\WeightPerUnitSource\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
