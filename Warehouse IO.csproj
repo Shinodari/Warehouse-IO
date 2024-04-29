@@ -121,12 +121,6 @@
     <Compile Include="Authentication\Login.cs" />
     <Compile Include="Authentication\User.cs" />
     <Compile Include="Common\Global.cs" />
-    <Compile Include="View\Create_User.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="View\Create_User.Designer.cs">
-      <DependentUpon>Create_User.cs</DependentUpon>
-    </Compile>
     <Compile Include="View\DepartmentFormSource\DepartmentForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -327,9 +321,6 @@
     <Compile Include="WHIO\Model\Transport.cs" />
     <Compile Include="WHIO\Model\Storage.cs" />
     <Compile Include="WHIO\Model\Department.cs" />
-    <EmbeddedResource Include="View\Create_User.resx">
-      <DependentUpon>Create_User.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="View\DepartmentFormSource\DepartmentForm.resx">
       <DependentUpon>DepartmentForm.cs</DependentUpon>
     </EmbeddedResource>
