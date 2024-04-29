@@ -91,6 +91,7 @@
             this.PasswordButton.TabIndex = 6;
             this.PasswordButton.Text = "E&xit";
             this.PasswordButton.UseVisualStyleBackColor = true;
+            this.PasswordButton.Click += new System.EventHandler(this.PasswordButton_Click);
             // 
             // Log_In_Window
             // 
