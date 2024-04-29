@@ -66,7 +66,7 @@
             this.mainMenuStrip.Location = new System.Drawing.Point(0, 0);
             this.mainMenuStrip.Name = "mainMenuStrip";
             this.mainMenuStrip.Padding = new System.Windows.Forms.Padding(4, 2, 0, 2);
-            this.mainMenuStrip.Size = new System.Drawing.Size(107, 545);
+            this.mainMenuStrip.Size = new System.Drawing.Size(107, 561);
             this.mainMenuStrip.TabIndex = 1;
             this.mainMenuStrip.Text = "menuStrip1";
             // 
@@ -133,20 +133,20 @@
             // uOMToolStripMenuItem
             // 
             this.uOMToolStripMenuItem.Name = "uOMToolStripMenuItem";
-            this.uOMToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.uOMToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.uOMToolStripMenuItem.Text = "UoM";
             // 
             // uOMOfDimensionToolStripMenuItem
             // 
             this.uOMOfDimensionToolStripMenuItem.Name = "uOMOfDimensionToolStripMenuItem";
-            this.uOMOfDimensionToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.uOMOfDimensionToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.uOMOfDimensionToolStripMenuItem.Text = "Unit of Weight";
             this.uOMOfDimensionToolStripMenuItem.Click += new System.EventHandler(this.click_UnitOfWeight);
             // 
             // packagingToolStripMenuItem
             // 
             this.packagingToolStripMenuItem.Name = "packagingToolStripMenuItem";
-            this.packagingToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.packagingToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.packagingToolStripMenuItem.Text = "Packaging";
             this.packagingToolStripMenuItem.Click += new System.EventHandler(this.click_Package);
             // 
@@ -219,14 +219,11 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(727, 545);
-            this.ControlBox = false;
+            this.ClientSize = new System.Drawing.Size(784, 561);
             this.Controls.Add(this.mainMenuStrip);
             this.IsMdiContainer = true;
             this.MainMenuStrip = this.mainMenuStrip;
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(743, 561);
+            this.MinimumSize = new System.Drawing.Size(800, 600);
             this.Name = "MainForm";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
