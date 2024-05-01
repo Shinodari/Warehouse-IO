@@ -9,9 +9,10 @@ namespace Warehouse_IO.View.Dimension.UnitOfVolumeSource
 {
     public partial class UnitOfVolumeForm : Form
     {
-        private AddUnitOfVolume addUnit;
-        private EditUnitOfVolume editUnit;
-        private RemoveUnitOfVolume removeUnit;
+        private Add add;
+        private Edit edit;
+        private Remove remove;
+        MainForm main;
 
         List<UnitOfDimension> unitOfDi;
         BindingSource uBind;
@@ -22,6 +23,7 @@ namespace Warehouse_IO.View.Dimension.UnitOfVolumeSource
             InitializeComponent();
             unitOfDi = new List<UnitOfDimension>();
             UpdateDatagridView();
+            main = new MainForm();
         }
 
         private void UnitOfVolume_Load(object sender, EventArgs e)
@@ -32,6 +34,7 @@ namespace Warehouse_IO.View.Dimension.UnitOfVolumeSource
         {
             unitOfDi = UnitOfDimension.GetUnitOfDimension();
             uBind = new BindingSource(unitOfDi, null);
+            unitOfDi.Sort((x, y) => x.Name.CompareTo(y.Name));
             UnitOfDiGridView.DataSource = uBind;
         }
 
@@ -47,48 +50,30 @@ namespace Warehouse_IO.View.Dimension.UnitOfVolumeSource
 
         private void addButton_Click(object sender, EventArgs e)
         {
-            addUnit = new AddUnitOfVolume();
-            addUnit.Enabled = true;
-            int x = (this.Width - addUnit.Width) / 2;
-            int y = (this.Height - addUnit.Height) / 2;
-            addUnit.Location = new Point(x, y);
+            add = new Add();
+            add.Owner = main;
 
-            addUnit.UpdateGrid += OnUpdate;
-            addUnit.Closed += OnClosed;
-
-            Controls.Add(addUnit);
-            addUnit.BringToFront();
-            UnitOfDiGridView.Enabled = false;
+            add.UpdateGrid += OnUpdate;
+            add.Shown += (s, ev) => CenterChildForm(add);
+            add.ShowDialog();
         }
         private void editButton_Click(object sender, EventArgs e)
         {
-            editUnit = new EditUnitOfVolume();
-            editUnit.Enabled = true;
-            int x = (this.Width - editUnit.Width) / 2;
-            int y = (this.Height - editUnit.Height) / 2;
-            editUnit.Location = new Point(x, y);
+            edit = new Edit();
+            edit.Owner = main;
 
-            editUnit.UpdateGrid += OnUpdate;
-            editUnit.Closed += OnClosed;
-
-            Controls.Add(editUnit);
-            editUnit.BringToFront();
-            UnitOfDiGridView.Enabled = false;
+            edit.UpdateGrid += OnUpdate;
+            edit.Shown += (s, ev) => CenterChildForm(add);
+            edit.ShowDialog();
         }
         private void removeButton_Click(object sender, EventArgs e)
         {
-            removeUnit = new RemoveUnitOfVolume();
-            removeUnit.Enabled = true;
-            int x = (this.Width - removeUnit.Width) / 2;
-            int y = (this.Height - removeUnit.Height) / 2;
-            removeUnit.Location = new Point(x, y);
+            remove = new Remove();
+            remove.Owner = main;
 
-            removeUnit.UpdateGrid += OnUpdate;
-            removeUnit.Closed += OnClosed;
-
-            Controls.Add(removeUnit);
-            removeUnit.BringToFront();
-            UnitOfDiGridView.Enabled = false;
+            remove.UpdateGrid += OnUpdate;
+            remove.Shown += (s, ev) => CenterChildForm(add);
+            remove.ShowDialog();
         }
 
         private void exitButton_Click(object sender, EventArgs e)
@@ -101,9 +86,21 @@ namespace Warehouse_IO.View.Dimension.UnitOfVolumeSource
         {
             UpdateDatagridView();
         }
-        private void OnClosed(object sender, EventArgs e)
+        private void CenterChildForm(Form childForm)
         {
-            UnitOfDiGridView.Enabled = true;
+            if (childForm != null && childForm.Owner != null)
+            {
+                int x = childForm.Owner.Left + (childForm.Owner.Width - childForm.Width) / 2;
+                int y = childForm.Owner.Top + (childForm.Owner.Height - childForm.Height) / 2;
+                childForm.Location = new Point(x, y);
+            }
+        }
+        private void ParentForm_LocationChanged(object sender, EventArgs e)
+        {
+            if (add != null && add.Owner != null)
+            {
+                CenterChildForm(add);
+            }
         }
     }
 }

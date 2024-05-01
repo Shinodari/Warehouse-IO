@@ -4,14 +4,16 @@ using System.Drawing;
 using System.Windows.Forms;
 using Warehouse_IO.WHIO.Model;
 using Warehouse_IO.Common;
+using Warehouse_IO.View.Transport.TruckFormSource;
 
 namespace Warehouse_IO.View.TruckFormSource
 {
     public partial class TruckForm : Form
     {
-        private AddTruck addTruckWindow;
-        private EditTruck editTruckWindow;
-        private RemoveTruck removetruckWindow;
+        private Add add;
+        private Edit edit;
+        private Remove remove;
+        MainForm main;
 
         List<Truck> truck;
         BindingSource truckBind;
@@ -22,6 +24,7 @@ namespace Warehouse_IO.View.TruckFormSource
             InitializeComponent();
             truck = new List<Truck>();
             UpdateTruckDatagridView();
+            main = new MainForm();
         }
 
         private void TruckForm_Load(object sender, EventArgs e)
@@ -32,6 +35,7 @@ namespace Warehouse_IO.View.TruckFormSource
         {
             truck = Truck.GetTruckList();
             truckBind = new BindingSource(truck, null);
+            truck.Sort((x, y) => x.ID.CompareTo(y.ID));
             truckGridView.DataSource = truck;
         }
 
@@ -47,50 +51,32 @@ namespace Warehouse_IO.View.TruckFormSource
 
         private void addTruckButton_Click(object sender, EventArgs e)
         {
-            addTruckWindow = new AddTruck();
-            addTruckWindow.Enabled = true;
-            int x = (this.Width - addTruckWindow.Width) / 2;
-            int y = (this.Height - addTruckWindow.Height) / 2;
-            addTruckWindow.Location = new Point(x, y);
+            add = new Add();
+            add.Owner = main;
 
-            addTruckWindow.UpdateGrid += OnUpdate;
-            addTruckWindow.Closed += OnClosed;
-
-            Controls.Add(addTruckWindow);
-            addTruckWindow.BringToFront();
-            truckGridView.Enabled = false;
+            add.UpdateGrid += OnUpdate;
+            add.Shown += (s, ev) => CenterChildForm(add);
+            add.ShowDialog();
         }
 
         private void editTruckButton_Click(object sender, EventArgs e)
         {
-            editTruckWindow = new EditTruck();
-            editTruckWindow.Enabled = true;
-            int x = (this.Width - editTruckWindow.Width) / 2;
-            int y = (this.Height - editTruckWindow.Height) / 2;
-            editTruckWindow.Location = new Point(x, y);
+            edit = new Edit();
+            edit.Owner = main;
 
-            editTruckWindow.UpdateGrid += OnUpdate;
-            editTruckWindow.Closed += OnClosed;
-
-            Controls.Add(editTruckWindow);
-            editTruckWindow.BringToFront();
-            truckGridView.Enabled = false;
+            edit.UpdateGrid += OnUpdate;
+            edit.Shown += (s, ev) => CenterChildForm(add);
+            edit.ShowDialog();
         }
 
         private void removeTruckButton_Click(object sender, EventArgs e)
         {
-            removetruckWindow = new RemoveTruck();
-            removetruckWindow.Enabled = true;
-            int x = (this.Width - removetruckWindow.Width) / 2;
-            int y = (this.Height - removetruckWindow.Height) / 2;
-            removetruckWindow.Location = new Point(x, y);
+            remove = new Remove();
+            remove.Owner = main;
 
-            removetruckWindow.UpdateGrid += OnUpdate;
-            removetruckWindow.Closed += OnClosed;
-
-            Controls.Add(removetruckWindow);
-            removetruckWindow.BringToFront();
-            truckGridView.Enabled = false;
+            remove.UpdateGrid += OnUpdate;
+            remove.Shown += (s, ev) => CenterChildForm(add);
+            remove.ShowDialog();
         }
 
         private void exitTruckButton_Click(object sender, EventArgs e)
@@ -103,9 +89,21 @@ namespace Warehouse_IO.View.TruckFormSource
         {
             UpdateTruckDatagridView();
         }
-        private void OnClosed(object sender, EventArgs e)
+        private void CenterChildForm(Form childForm)
         {
-            truckGridView.Enabled = true;
+            if (childForm != null && childForm.Owner != null)
+            {
+                int x = childForm.Owner.Left + (childForm.Owner.Width - childForm.Width) / 2;
+                int y = childForm.Owner.Top + (childForm.Owner.Height - childForm.Height) / 2;
+                childForm.Location = new Point(x, y);
+            }
+        }
+        private void ParentForm_LocationChanged(object sender, EventArgs e)
+        {
+            if (add != null && add.Owner != null)
+            {
+                CenterChildForm(add);
+            }
         }
     }
 }

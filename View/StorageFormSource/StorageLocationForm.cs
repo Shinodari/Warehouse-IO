@@ -10,9 +10,10 @@ namespace Warehouse_IO.View
 {
     public partial class StorageLocationForm : Form
     {
-        private AddStorage addStorageWindow;
-        private EditStorage editStorageWindow;
-        private RemoveStorage removeStorageWindow;
+        private Add add;
+        private Edit edit;
+        private Remove remove;
+        MainForm main;
 
         List<Storage> sto;
         BindingSource stoBind;
@@ -23,6 +24,7 @@ namespace Warehouse_IO.View
             InitializeComponent();
             sto = new List<Storage>();
             UpdateDepDatagridView();
+            main = new MainForm();
         }
         private void StorageLocationForm_Load(object sender, EventArgs e)
         {
@@ -32,6 +34,7 @@ namespace Warehouse_IO.View
         {
             sto = Storage.GetStorage();
             stoBind = new BindingSource(sto, null);
+            sto.Sort((x, y) => x.ID.CompareTo(y.ID));
             stoGridView.DataSource = stoBind;
         }
 
@@ -47,50 +50,32 @@ namespace Warehouse_IO.View
 
         private void addStoButton_Click(object sender, EventArgs e)
         {
-            addStorageWindow = new AddStorage();
-            addStorageWindow.Enabled = true;
-            int x = (this.Width - addStorageWindow.Width) / 2;
-            int y = (this.Height - addStorageWindow.Height) / 2;
-            addStorageWindow.Location = new Point(x, y);
+            add = new Add();
+            add.Owner = main;
 
-            addStorageWindow.UpdateGrid += OnUpdate;
-            addStorageWindow.Closed += OnClosed;
-
-            Controls.Add(addStorageWindow);
-            addStorageWindow.BringToFront();
-            stoGridView.Enabled = false;
+            add.UpdateGrid += OnUpdate;
+            add.Shown += (s, ev) => CenterChildForm(add);
+            add.ShowDialog();
         }
 
         private void editStoButton_Click(object sender, EventArgs e)
         {
-            editStorageWindow = new EditStorage();
-            editStorageWindow.Enabled = true;
-            int x = (this.Width - editStorageWindow.Width) / 2;
-            int y = (this.Height - editStorageWindow.Height) / 2;
-            editStorageWindow.Location = new Point(x, y);
+            edit = new Edit();
+            edit.Owner = main;
 
-            editStorageWindow.UpdateGrid += OnUpdate;
-            editStorageWindow.Closed += OnClosed;
-
-            Controls.Add(editStorageWindow);
-            editStorageWindow.BringToFront();
-            stoGridView.Enabled = false;
+            edit.UpdateGrid += OnUpdate;
+            edit.Shown += (s, ev) => CenterChildForm(add);
+            edit.ShowDialog();
         }
 
         private void removeStoButton_Click(object sender, EventArgs e)
         {
-            removeStorageWindow = new RemoveStorage();
-            removeStorageWindow.Enabled = true;
-            int x = (this.Width - removeStorageWindow.Width) / 2;
-            int y = (this.Height - removeStorageWindow.Height) / 2;
-            removeStorageWindow.Location = new Point(x, y);
+            remove = new Remove();
+            remove.Owner = main;
 
-            removeStorageWindow.UpdateGrid += OnUpdate;
-            removeStorageWindow.Closed += OnClosed;
-
-            Controls.Add(removeStorageWindow);
-            removeStorageWindow.BringToFront();
-            stoGridView.Enabled = false;
+            remove.UpdateGrid += OnUpdate;
+            remove.Shown += (s, ev) => CenterChildForm(add);
+            remove.ShowDialog();
         }
 
         private void exitStoButton_Click(object sender, EventArgs e)
@@ -103,9 +88,21 @@ namespace Warehouse_IO.View
         {
             UpdateDepDatagridView();
         }
-        private void OnClosed(object sender, EventArgs e)
+        private void CenterChildForm(Form childForm)
         {
-            stoGridView.Enabled = true;
+            if (childForm != null && childForm.Owner != null)
+            {
+                int x = childForm.Owner.Left + (childForm.Owner.Width - childForm.Width) / 2;
+                int y = childForm.Owner.Top + (childForm.Owner.Height - childForm.Height) / 2;
+                childForm.Location = new Point(x, y);
+            }
+        }
+        private void ParentForm_LocationChanged(object sender, EventArgs e)
+        {
+            if (add != null && add.Owner != null)
+            {
+                CenterChildForm(add);
+            }
         }
     }
 }

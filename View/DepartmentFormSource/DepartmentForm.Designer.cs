@@ -109,7 +109,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(605, 493);
+            this.ClientSize = new System.Drawing.Size(601, 489);
             this.ControlBox = false;
             this.Controls.Add(this.label1);
             this.Controls.Add(this.depGridView);

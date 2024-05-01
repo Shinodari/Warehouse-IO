@@ -5,14 +5,14 @@ using System.Windows.Forms;
 using Warehouse_IO.WHIO.Model;
 using Warehouse_IO.Common;
 
-
 namespace Warehouse_IO.View.Weight.PackagingSource
 {
     public partial class PackagingForm : Form
     {
-        private AddPackage addPack;
-        private EditPackage editPack;
-        private RemovePackage removePack;
+        private Add add;
+        private Edit edit;
+        private Remove remove;
+        MainForm main;
 
         List<Package> packlist;
         BindingSource bind;
@@ -23,6 +23,7 @@ namespace Warehouse_IO.View.Weight.PackagingSource
             InitializeComponent();
             packlist = new List<Package>();
             UpdateDatagridView();
+            main = new MainForm();
         }
 
         private void Packaging_Load(object sender, EventArgs e)
@@ -33,6 +34,7 @@ namespace Warehouse_IO.View.Weight.PackagingSource
         {
             packlist = Package.GetPackageList();
             bind = new BindingSource(packlist, null);
+            packlist.Sort((x, y) => x.Name.CompareTo(y.Name));
             DataGridView.DataSource = bind;
         }
 
@@ -48,49 +50,31 @@ namespace Warehouse_IO.View.Weight.PackagingSource
 
         private void addButton_Click(object sender, EventArgs e)
         {
-            addPack = new AddPackage();
-            addPack.Enabled = true;
-            int x = (this.Width - addPack.Width) / 2;
-            int y = (this.Height - addPack.Height) / 2;
-            addPack.Location = new Point(x, y);
+            add = new Add();
+            add.Owner = main;
 
-            addPack.UpdateGrid += OnUpdate;
-            addPack.Closed += OnClosed;
-
-            Controls.Add(addPack);
-            addPack.BringToFront();
-            DataGridView.Enabled = false;
+            add.UpdateGrid += OnUpdate;
+            add.Shown += (s, ev) => CenterChildForm(add);
+            add.ShowDialog();
         }
         private void editButton_Click(object sender, EventArgs e)
         {
-            editPack = new EditPackage();
-            editPack.Enabled = true;
-            int x = (this.Width - editPack.Width) / 2;
-            int y = (this.Height - editPack.Height) / 2;
-            editPack.Location = new Point(x, y);
+            edit = new Edit();
+            edit.Owner = main;
 
-            editPack.UpdateGrid += OnUpdate;
-            editPack.Closed += OnClosed;
-
-            Controls.Add(editPack);
-            editPack.BringToFront();
-            DataGridView.Enabled = false;
+            edit.UpdateGrid += OnUpdate;
+            edit.Shown += (s, ev) => CenterChildForm(add);
+            edit.ShowDialog();
         }
 
         private void removeButton_Click(object sender, EventArgs e)
         {
-            removePack = new RemovePackage();
-            removePack.Enabled = true;
-            int x = (this.Width - removePack.Width) / 2;
-            int y = (this.Height - removePack.Height) / 2;
-            removePack.Location = new Point(x, y);
+            remove = new Remove();
+            remove.Owner = main;
 
-            removePack.UpdateGrid += OnUpdate;
-            removePack.Closed += OnClosed;
-
-            Controls.Add(removePack);
-            removePack.BringToFront();
-            DataGridView.Enabled = false;
+            remove.UpdateGrid += OnUpdate;
+            remove.Shown += (s, ev) => CenterChildForm(add);
+            remove.ShowDialog();
         }
 
         private void exitButton_Click(object sender, EventArgs e)
@@ -103,9 +87,21 @@ namespace Warehouse_IO.View.Weight.PackagingSource
         {
             UpdateDatagridView();
         }
-        private void OnClosed(object sender, EventArgs e)
+        private void CenterChildForm(Form childForm)
         {
-            DataGridView.Enabled = true;
+            if (childForm != null && childForm.Owner != null)
+            {
+                int x = childForm.Owner.Left + (childForm.Owner.Width - childForm.Width) / 2;
+                int y = childForm.Owner.Top + (childForm.Owner.Height - childForm.Height) / 2;
+                childForm.Location = new Point(x, y);
+            }
+        }
+        private void ParentForm_LocationChanged(object sender, EventArgs e)
+        {
+            if (add != null && add.Owner != null)
+            {
+                CenterChildForm(add);
+            }
         }
     }
 }

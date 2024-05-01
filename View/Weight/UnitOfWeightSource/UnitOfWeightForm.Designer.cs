@@ -32,9 +32,9 @@
             this.r = new System.Windows.Forms.Button();
             this.e = new System.Windows.Forms.Button();
             this.a = new System.Windows.Forms.Button();
-            this.UnitOfDiGridView = new System.Windows.Forms.DataGridView();
+            this.UnitOfUOMGridView = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.UnitOfDiGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.UnitOfUOMGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // x
@@ -81,19 +81,19 @@
             this.a.UseVisualStyleBackColor = true;
             this.a.Click += new System.EventHandler(this.addButton_Click);
             // 
-            // UnitOfDiGridView
+            // UnitOfUOMGridView
             // 
-            this.UnitOfDiGridView.AllowUserToResizeColumns = false;
-            this.UnitOfDiGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.UnitOfDiGridView.Location = new System.Drawing.Point(9, 28);
-            this.UnitOfDiGridView.Margin = new System.Windows.Forms.Padding(2);
-            this.UnitOfDiGridView.Name = "UnitOfDiGridView";
-            this.UnitOfDiGridView.ReadOnly = true;
-            this.UnitOfDiGridView.RowTemplate.Height = 24;
-            this.UnitOfDiGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.UnitOfDiGridView.Size = new System.Drawing.Size(475, 474);
-            this.UnitOfDiGridView.TabIndex = 19;
-            this.UnitOfDiGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_CellClick1);
+            this.UnitOfUOMGridView.AllowUserToResizeColumns = false;
+            this.UnitOfUOMGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.UnitOfUOMGridView.Location = new System.Drawing.Point(9, 28);
+            this.UnitOfUOMGridView.Margin = new System.Windows.Forms.Padding(2);
+            this.UnitOfUOMGridView.Name = "UnitOfUOMGridView";
+            this.UnitOfUOMGridView.ReadOnly = true;
+            this.UnitOfUOMGridView.RowTemplate.Height = 24;
+            this.UnitOfUOMGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.UnitOfUOMGridView.Size = new System.Drawing.Size(475, 474);
+            this.UnitOfUOMGridView.TabIndex = 19;
+            this.UnitOfUOMGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_CellClick1);
             // 
             // label1
             // 
@@ -109,13 +109,13 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(593, 481);
+            this.ClientSize = new System.Drawing.Size(589, 477);
             this.ControlBox = false;
             this.Controls.Add(this.x);
             this.Controls.Add(this.r);
             this.Controls.Add(this.e);
             this.Controls.Add(this.a);
-            this.Controls.Add(this.UnitOfDiGridView);
+            this.Controls.Add(this.UnitOfUOMGridView);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.MaximizeBox = false;
@@ -126,7 +126,7 @@
             this.Text = "UnitOfWeight";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.UnitOfWeight_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.UnitOfDiGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.UnitOfUOMGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -138,7 +138,7 @@
         private System.Windows.Forms.Button r;
         private System.Windows.Forms.Button e;
         private System.Windows.Forms.Button a;
-        private System.Windows.Forms.DataGridView UnitOfDiGridView;
+        private System.Windows.Forms.DataGridView UnitOfUOMGridView;
         private System.Windows.Forms.Label label1;
     }
 }

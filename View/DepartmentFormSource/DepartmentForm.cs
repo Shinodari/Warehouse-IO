@@ -4,15 +4,16 @@ using System.Drawing;
 using System.Windows.Forms;
 using Warehouse_IO.WHIO.Model;
 using Warehouse_IO.Common;
-using Warehouse_IO.View;
+using Warehouse_IO.View.DepartmentFormSource;
 
 namespace Warehouse_IO
 {
     public partial class DepartmentForm : Form
     {
-        private AddDep addDepWindow;
-        private EditDep editDepWindow;
-        private RemoveDep removeDepWindow;
+        private Add add;
+        private Edit edit;
+        private Remove remove;
+        MainForm main;
 
         List<Department> dep;
         BindingSource depBind;
@@ -23,6 +24,7 @@ namespace Warehouse_IO
             InitializeComponent();
             dep = new List<Department>();
             UpdateDepDatagridView();
+            main = new MainForm();
         }
         private void DepartmentForm_Load(object sender, EventArgs e)
         {
@@ -32,6 +34,7 @@ namespace Warehouse_IO
         {
             dep = Department.GetDepartmentList();
             depBind = new BindingSource(dep, null);
+            dep.Sort((x, y) => x.ID.CompareTo(y.ID));
             depGridView.DataSource = depBind;
         }
 
@@ -47,48 +50,30 @@ namespace Warehouse_IO
 
         private void addDepButton(object sender, EventArgs e)
         {
-            addDepWindow = new AddDep();
-            addDepWindow.Enabled = true;
-            int x = (this.Width - addDepWindow.Width) / 2;
-            int y = (this.Height - addDepWindow.Height) / 2;
-            addDepWindow.Location = new Point(x, y);
+            add = new Add();
+            add.Owner = main;
 
-            addDepWindow.UpdateGrid += OnUpdate;
-            addDepWindow.Closed += OnClosed;
-
-            Controls.Add(addDepWindow);
-            addDepWindow.BringToFront();
-            depGridView.Enabled = false;
+            add.UpdateGrid += OnUpdate;
+            add.Shown += (s, ev) => CenterChildForm(add);
+            add.ShowDialog();
         }
         private void editDepButton(object sender, EventArgs e)
         {
-            editDepWindow = new EditDep();
-            editDepWindow.Enabled = true;
-            int x = (this.Width - editDepWindow.Width) / 2;
-            int y = (this.Height - editDepWindow.Height) / 2;
-            editDepWindow.Location = new Point(x, y);
+            edit = new Edit();
+            edit.Owner = main;
 
-            editDepWindow.UpdateGrid += OnUpdate;
-            editDepWindow.Closed += OnClosed;
-
-            Controls.Add(editDepWindow);
-            editDepWindow.BringToFront();
-            depGridView.Enabled = false;
+            edit.UpdateGrid += OnUpdate;
+            edit.Shown += (s, ev) => CenterChildForm(add);
+            edit.ShowDialog();
         }
         private void removeDepButton(object sender, EventArgs e)
         {
-            removeDepWindow = new RemoveDep();
-            removeDepWindow.Enabled = true;
-            int x = (this.Width - removeDepWindow.Width) / 2;
-            int y = (this.Height - removeDepWindow.Height) / 2;
-            removeDepWindow.Location = new Point(x,y);
+            remove = new Remove();
+            remove.Owner = main;
 
-            removeDepWindow.UpdateGrid += OnUpdate;
-            removeDepWindow.Closed += OnClosed;
-
-            Controls.Add(removeDepWindow);
-            removeDepWindow.BringToFront();
-            depGridView.Enabled = false;
+            remove.UpdateGrid += OnUpdate;
+            remove.Shown += (s, ev) => CenterChildForm(add);
+            remove.ShowDialog();
         }
         private void exitDepButton(object sender, EventArgs e)
         {
@@ -100,9 +85,21 @@ namespace Warehouse_IO
         {
             UpdateDepDatagridView();
         }
-        private void OnClosed(object sender, EventArgs e)
+        private void CenterChildForm(Form childForm)
         {
-            depGridView.Enabled = true;
+            if (childForm != null && childForm.Owner != null)
+            {
+                int x = childForm.Owner.Left + (childForm.Owner.Width - childForm.Width) / 2;
+                int y = childForm.Owner.Top + (childForm.Owner.Height - childForm.Height) / 2;
+                childForm.Location = new Point(x, y);
+            }
+        }
+        private void ParentForm_LocationChanged(object sender, EventArgs e)
+        {
+            if (add != null && add.Owner != null)
+            {
+                CenterChildForm(add);
+            }
         }
     }
 }
