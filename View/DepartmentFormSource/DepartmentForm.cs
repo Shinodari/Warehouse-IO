@@ -25,10 +25,7 @@ namespace Warehouse_IO
             UpdateDepDatagridView();
             main = new MainForm();
         }
-        private void DepartmentForm_Load(object sender, EventArgs e)
-        {
-            WindowState = FormWindowState.Maximized;
-        }
+
         public void UpdateDepDatagridView()
         {
             dep = Department.GetDepartmentList();
@@ -76,7 +73,6 @@ namespace Warehouse_IO
             returnMain?.Invoke(this, EventArgs.Empty);
             Close();
         }
-        
         private void OnUpdate(object sender, EventArgs e)
         {
             UpdateDepDatagridView();

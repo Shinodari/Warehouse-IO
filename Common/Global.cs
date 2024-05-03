@@ -8,5 +8,9 @@ namespace Warehouse_IO.Common
 
         public static int tempPkey;
         public static string tempPkeyName;
+
+        public static string packageTempName;
+        public static string unitOfUOMTempName;
+
     }
 }

@@ -133,20 +133,21 @@
             // uOMToolStripMenuItem
             // 
             this.uOMToolStripMenuItem.Name = "uOMToolStripMenuItem";
-            this.uOMToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.uOMToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.uOMToolStripMenuItem.Text = "UoM";
+            this.uOMToolStripMenuItem.Click += new System.EventHandler(this.click_Uom);
             // 
             // uOMOfDimensionToolStripMenuItem
             // 
             this.uOMOfDimensionToolStripMenuItem.Name = "uOMOfDimensionToolStripMenuItem";
-            this.uOMOfDimensionToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.uOMOfDimensionToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.uOMOfDimensionToolStripMenuItem.Text = "Unit of Weight";
             this.uOMOfDimensionToolStripMenuItem.Click += new System.EventHandler(this.click_UnitOfWeight);
             // 
             // packagingToolStripMenuItem
             // 
             this.packagingToolStripMenuItem.Name = "packagingToolStripMenuItem";
-            this.packagingToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.packagingToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.packagingToolStripMenuItem.Text = "Packaging";
             this.packagingToolStripMenuItem.Click += new System.EventHandler(this.click_Package);
             // 

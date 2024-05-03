@@ -121,6 +121,12 @@
     <Compile Include="Authentication\Login.cs" />
     <Compile Include="Authentication\User.cs" />
     <Compile Include="Common\Global.cs" />
+    <Compile Include="View\Add,Edit,Remove Components\AddEditUOMForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Add,Edit,Remove Components\AddEditUOMForm.Designer.cs">
+      <DependentUpon>AddEditUOMForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\Add,Edit,Remove Components\AddForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -205,6 +211,12 @@
     <Compile Include="View\Log_In_Window.Designer.cs">
       <DependentUpon>Log_In_Window.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\ParentFormComponents\ParentForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\ParentFormComponents\ParentForm.Designer.cs">
+      <DependentUpon>ParentForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\StorageFormSource\Add.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -277,6 +289,30 @@
     <Compile Include="View\Transport\TruckFormSource\TruckForm.Designer.cs">
       <DependentUpon>TruckForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\UOMSource\AddUOM.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\UOMSource\AddUOM.Designer.cs">
+      <DependentUpon>AddUOM.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\UOMSource\EditUOM.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\UOMSource\EditUOM.Designer.cs">
+      <DependentUpon>EditUOM.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\UOMSource\Remove.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\UOMSource\Remove.Designer.cs">
+      <DependentUpon>Remove.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\UOMSource\UOMForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\UOMSource\UOMForm.Designer.cs">
+      <DependentUpon>UOMForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\Weight\PackagingSource\Add.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -339,6 +375,9 @@
     <Compile Include="WHIO\Model\Transport.cs" />
     <Compile Include="WHIO\Model\Storage.cs" />
     <Compile Include="WHIO\Model\Department.cs" />
+    <EmbeddedResource Include="View\Add,Edit,Remove Components\AddEditUOMForm.resx">
+      <DependentUpon>AddEditUOMForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\Add,Edit,Remove Components\AddForm.resx">
       <DependentUpon>AddForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -363,6 +402,9 @@
     <EmbeddedResource Include="View\Log_In_Window.resx">
       <DependentUpon>Log_In_Window.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="View\ParentFormComponents\ParentForm.resx">
+      <DependentUpon>ParentForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\StorageFormSource\StorageLocationForm.resx">
       <DependentUpon>StorageLocationForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -377,6 +419,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="View\Transport\TruckFormSource\TruckForm.resx">
       <DependentUpon>TruckForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\UOMSource\AddUOM.resx">
+      <DependentUpon>AddUOM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\UOMSource\EditUOM.resx">
+      <DependentUpon>EditUOM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\UOMSource\UOMForm.resx">
+      <DependentUpon>UOMForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\Weight\PackagingSource\PackagingForm.resx">
       <DependentUpon>PackagingForm.cs</DependentUpon>
@@ -396,7 +447,6 @@
   <ItemGroup>
     <Folder Include="Properties\" />
     <Folder Include="View\Dimension\DimensionSource\" />
-    <Folder Include="View\UOM\" />
     <Folder Include="View\Weight\WeightPerUnitSource\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
