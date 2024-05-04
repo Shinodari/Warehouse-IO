@@ -7,7 +7,6 @@ namespace Warehouse_IO.View.Add_Edit_Remove_Components
         public AddEditUOMForm()
         {
             InitializeComponent();
-            this.Focus();
         }
     }
 }

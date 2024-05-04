@@ -26,7 +26,7 @@
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent()
+        protected void InitializeComponent()
         {
             this.nameTextBox = new System.Windows.Forms.TextBox();
             this.widthTextBox = new System.Windows.Forms.TextBox();
@@ -180,10 +180,10 @@
         protected System.Windows.Forms.ListBox unitOfVolumeListBox;
         protected System.Windows.Forms.Button AddButton;
         protected System.Windows.Forms.Button cancelButton;
-        private System.Windows.Forms.Label nameLabel;
-        private System.Windows.Forms.Label widthLabel;
-        private System.Windows.Forms.Label lengthLabel;
-        private System.Windows.Forms.Label heightLabel;
-        private System.Windows.Forms.Label unitOfVolumeLabel;
+        protected System.Windows.Forms.Label nameLabel;
+        protected System.Windows.Forms.Label widthLabel;
+        protected System.Windows.Forms.Label lengthLabel;
+        protected System.Windows.Forms.Label heightLabel;
+        protected System.Windows.Forms.Label unitOfVolumeLabel;
     }
 }
