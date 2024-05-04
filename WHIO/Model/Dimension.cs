@@ -9,6 +9,8 @@ namespace Warehouse_IO.WHIO.Model
     {
         int id;
         public int ID { get { return id; } }
+        string name;
+        public string Name { get { return name; } set{ name = value; } }
         double width;
         public double Width { get { return width; }set { width = value; } }
         double length;
@@ -37,6 +39,7 @@ namespace Warehouse_IO.WHIO.Model
                         if (reader.Read())
                         {
                             id = Convert.ToInt32(reader["ID"]);
+                            name = reader["Name"].ToString();
                             width = Convert.ToDouble(reader["Width"]);
                             length = Convert.ToDouble(reader["Length"]);
                             height = Convert.ToDouble(reader["Height"]);
@@ -54,8 +57,9 @@ namespace Warehouse_IO.WHIO.Model
         }
 
         public Dimension(int id) { this.CheckAndUpdateField("ID", id.ToString()); }
-        public Dimension(double width,double length,double height, UnitOfDimension unit)
+        public Dimension(double width,double length,double height, UnitOfDimension unit, string name = null)
         {
+            this.name = name;
             this.width = width;
             this.length = length;
             this.height = height;
@@ -71,8 +75,9 @@ namespace Warehouse_IO.WHIO.Model
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    string insert = "INSERT INTO dimension (ID, Width, Length, Height, UnitOfDimensionName) VALUES (NULL, @width, @length, @height, @unit)";
+                    string insert = "INSERT INTO dimension (ID, Name, Width, Length, Height, UnitOfDimensionName) VALUES (NULL, @name, @width, @length, @height, @unit)";
                     cmd.CommandText = insert;
+                    cmd.Parameters.AddWithValue("@name", name);
                     cmd.Parameters.AddWithValue("@width", width);
                     cmd.Parameters.AddWithValue("@length", length);
                     cmd.Parameters.AddWithValue("@height", height);
@@ -100,8 +105,9 @@ namespace Warehouse_IO.WHIO.Model
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    string update = "UPDATE dimension SET Width = @width, Length = @length, Height = @height, UnitOfDimensionName = @unit WHERE ID = @id ";
+                    string update = "UPDATE dimension SET Name = @name, Width = @width, Length = @length, Height = @height, UnitOfDimensionName = @unit WHERE ID = @id ";
                     cmd.CommandText = update;
+                    cmd.Parameters.AddWithValue("@name", name);
                     cmd.Parameters.AddWithValue("@width", width);
                     cmd.Parameters.AddWithValue("@length", length);
                     cmd.Parameters.AddWithValue("@height", height);

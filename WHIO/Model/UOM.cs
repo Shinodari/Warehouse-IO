@@ -10,6 +10,8 @@ namespace Warehouse_IO.WHIO.Model
     {
         int id;
         public int ID { get { return id; } }
+        string name;
+        public string Name { get { return name; } set { name = value; } }
         double quantity;
         public double Quantity { get { return quantity; }set { quantity = value; } }
         UnitOfUOM unit;
@@ -39,6 +41,7 @@ namespace Warehouse_IO.WHIO.Model
                                 quantity = Convert.ToDouble(reader["Quantity"]);
                                 package = new Package(reader["PackageName"].ToString());
                                 unit = new UnitOfUOM(reader["UnitOfUOMName"].ToString());
+                                name = reader["Name"].ToString();
                             }
                         }
                     }
@@ -55,11 +58,12 @@ namespace Warehouse_IO.WHIO.Model
         {
             CheckAndUpdateField("ID", id.ToString());
         }
-        public UOM(double quantity,UnitOfUOM unit,Package package)
+        public UOM(double quantity,UnitOfUOM unit,Package package,string name = null)
         {
             this.quantity = quantity;
             this.unit = unit;
             this.package = package;
+            this.name = name;
         }
 
         public bool Create()
@@ -71,11 +75,12 @@ namespace Warehouse_IO.WHIO.Model
                     conn.Open();
                     using (var cmd = conn.CreateCommand())
                     {
-                        string insert = "INSERT INTO uom (ID, Quantity, PackageName, UnitOfUOMName) VALUES (NULL, @quantity, @package, @unitofuom)";
+                        string insert = "INSERT INTO uom (ID, Quantity, PackageName, UnitOfUOMName, Name) VALUES (NULL, @quantity, @package, @unitofuom, @name)";
                         cmd.CommandText = insert;
                         cmd.Parameters.AddWithValue("@quantity", quantity);
                         cmd.Parameters.AddWithValue("@package", package.Name);
                         cmd.Parameters.AddWithValue("@unitofuom", unit.Name);
+                        cmd.Parameters.AddWithValue("@name", name);
                         cmd.ExecuteNonQuery();
                     }
                     return true;
@@ -99,11 +104,12 @@ namespace Warehouse_IO.WHIO.Model
                 conn.Open();
                     using (var cmd = conn.CreateCommand())
                     {
-                        string update = "UPDATE uom SET Quantity = @quantity, PackageName = @package, UnitOfUOMName = @unitofuom WHERE ID = @id ";
+                        string update = "UPDATE uom SET Quantity = @quantity, PackageName = @package, UnitOfUOMName = @unitofuom, Name = @name WHERE ID = @id ";
                         cmd.CommandText = update;
                         cmd.Parameters.AddWithValue("@quantity", quantity);
                         cmd.Parameters.AddWithValue("@package", package.Name);
                         cmd.Parameters.AddWithValue("@unitofuom", unit.Name);
+                        cmd.Parameters.AddWithValue("@name", name);
                         cmd.Parameters.AddWithValue("@id", id);
                         cmd.ExecuteNonQuery();
                     }

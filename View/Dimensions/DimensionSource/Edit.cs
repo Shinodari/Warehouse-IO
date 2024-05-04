@@ -88,6 +88,7 @@ namespace Warehouse_IO.View.Dimensions.DimensionSource
                 return;
             }
             string selectedUnitOfDimension = unitOfVolumeListBox.SelectedItem.ToString();
+            edit.Name = name;
             edit.Width = width;
             edit.Length = length;
             edit.Height = height;

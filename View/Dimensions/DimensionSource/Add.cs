@@ -82,7 +82,7 @@ namespace Warehouse_IO.View.Dimensions.DimensionSource
             }
             string selectedUnitOfDimension = unitOfVolumeListBox.SelectedItem.ToString();
             unitOfDimensionName = new UnitOfDimension(selectedUnitOfDimension);
-            add = new WHIO.Model.Dimension(width, length, height, unitOfDimensionName);
+            add = new WHIO.Model.Dimension(width, length, height, unitOfDimensionName,name);
             if (add.Create())
             {
                 MessageBox.Show(this, "Dimension Create");

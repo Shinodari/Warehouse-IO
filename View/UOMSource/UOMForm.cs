@@ -21,6 +21,7 @@ namespace Warehouse_IO.View.UOMSource
         public UOMForm()
         {
             InitializeComponent();
+            dataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             list = new List<UOM>();
             UpdateDatagridView();
             main = new MainForm();
@@ -41,19 +42,19 @@ namespace Warehouse_IO.View.UOMSource
         }
         private void DataGridView_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (e.ColumnIndex == 2 || e.ColumnIndex == 3)
+            if (e.ColumnIndex == 3 || e.ColumnIndex == 4)
             {
                 if (dataGridView.Rows[e.RowIndex].DataBoundItem != null)
                 {
                     UOM uom = (UOM)dataGridView.Rows[e.RowIndex].DataBoundItem;
 
-                    if (e.ColumnIndex == 2)
-                    {
-                        e.Value = uom.Package.Name;
-                    }
-                    else if (e.ColumnIndex == 3)
+                    if (e.ColumnIndex == 3)
                     {
                         e.Value = uom.Unit.Name;
+                    }
+                    else if (e.ColumnIndex == 4)
+                    {
+                        e.Value = uom.Package.Name;
                     }
                 }
             }

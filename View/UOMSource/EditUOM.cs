@@ -26,10 +26,12 @@ namespace Warehouse_IO.View.UOMSource
             unitofUomList = new List<UnitOfUOM>();
             updateList();
 
+            nameTextBox.Text = edit.Name.ToString();
             quantityTextBox.Text = edit.Quantity.ToString();
             unitOfWeightListBox.SelectedItem = edit.Unit.Name;
             perPackageListBox.SelectedItem = edit.Package.Name;
 
+            nameTextBox.KeyPress += addButton_KeyPress;
             quantityTextBox.KeyPress += addButton_KeyPress;
             unitOfWeightListBox.KeyPress += addButton_KeyPress;
             perPackageListBox.KeyPress += addButton_KeyPress;
@@ -78,6 +80,7 @@ namespace Warehouse_IO.View.UOMSource
             edit.Quantity = value;
             edit.Unit.Name = selectedUnitOfWeight;
             edit.Package.Name = selectedPerPackage;
+            edit.Name = nameTextBox.Text;
             if (edit.Change())
             {
                 MessageBox.Show(this, "Change Completed");

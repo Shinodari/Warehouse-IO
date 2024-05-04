@@ -22,9 +22,11 @@ namespace Warehouse_IO.View.UOMSource
         {
             InitializeComponent();
             quantityTextBox.KeyPress += addButton_KeyPress;
+            nameTextBox.KeyPress += addButton_KeyPress;
             unitOfWeightListBox.KeyPress += addButton_KeyPress;
             perPackageListBox.KeyPress += addButton_KeyPress;
             cancelButton.Click += cancelButton_Click;
+
             packageList = new List<Package>();
             unitofUomList = new List<UnitOfUOM>();
             updateList();
@@ -64,7 +66,7 @@ namespace Warehouse_IO.View.UOMSource
             string selectedPerPackage = perPackageListBox.SelectedItem.ToString();
             unitofUom = new UnitOfUOM(selectedUnitOfWeight);
             package = new Package(selectedPerPackage);
-            add = new UOM(value, unitofUom, package);
+            add = new UOM(value, unitofUom, package, nameTextBox.Text);
             if (add.Create())
             {
                 MessageBox.Show(this, "UOM Create");

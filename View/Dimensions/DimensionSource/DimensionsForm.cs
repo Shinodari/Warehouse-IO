@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using Warehouse_IO.WHIO.Model;
 using Warehouse_IO.Common;
 using Warehouse_IO.View.ParentFormComponents;
 
@@ -42,13 +41,13 @@ namespace Warehouse_IO.View.Dimensions.DimensionSource
         }
         private void DataGridView_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (e.ColumnIndex == 4)
+            if (e.ColumnIndex == 5)
             {
                 if (dataGridView.Rows[e.RowIndex].DataBoundItem != null)
                 {
                     Warehouse_IO.WHIO.Model.Dimension uom = (Warehouse_IO.WHIO.Model.Dimension)dataGridView.Rows[e.RowIndex].DataBoundItem;
 
-                    if (e.ColumnIndex == 4)
+                    if (e.ColumnIndex == 5)
                     {
                         e.Value = uom.Unit.Name;
                     }
