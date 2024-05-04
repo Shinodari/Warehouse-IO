@@ -14,6 +14,7 @@ namespace Warehouse_IO.View.UOMSource
         List<UnitOfUOM> unitofUomList;
 
         double value;
+        bool conversionFailed = false;
 
         public event EventHandler UpdateGrid;
 
@@ -64,6 +65,13 @@ namespace Warehouse_IO.View.UOMSource
             catch (FormatException)
             {
                 MessageBox.Show("Invalid Quantity Format");
+                conversionFailed = true;
+            }
+            if (conversionFailed)
+            {
+                MessageBox.Show("Create Fail");
+                conversionFailed = false;
+                return;
             }
             string selectedUnitOfWeight = unitOfWeightListBox.SelectedItem.ToString();
             string selectedPerPackage = perPackageListBox.SelectedItem.ToString();

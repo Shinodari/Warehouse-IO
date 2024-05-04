@@ -5,34 +5,35 @@ using Warehouse_IO.WHIO.Model;
 using Warehouse_IO.Common;
 using Warehouse_IO.View.ParentFormComponents;
 
-namespace Warehouse_IO.View.UOMSource
+namespace Warehouse_IO.View.Dimensions.DimensionSource
 {
-    public partial class UOMForm : ParentForm
+    public partial class DimensionsForm : ParentForm
     {
-        private AddUOM add;
-        private EditUOM edit;
+        private Add add;
+        private Edit edit;
         private Remove remove;
         MainForm main;
 
-        List<UOM> list;
+        List<Warehouse_IO.WHIO.Model.Dimension> list;
         BindingSource bind = new BindingSource();
         public event EventHandler returnMain;
 
-        public UOMForm()
+        public DimensionsForm()
         {
             InitializeComponent();
-            list = new List<UOM>();
+            dataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            list = new List<Warehouse_IO.WHIO.Model.Dimension>();
             UpdateDatagridView();
             main = new MainForm();
         }
 
-        private void UOMForm_Load(object sender, EventArgs e)
+        private void DimensionsForm_Load(object sender, EventArgs e)
         {
             WindowState = FormWindowState.Maximized;
         }
         public void UpdateDatagridView()
         {
-            list = UOM.GetUOMList();
+            list = Warehouse_IO.WHIO.Model.Dimension.GetDimensionList();
             bind.DataSource = list;
             list.Sort((x, y) => x.ID.CompareTo(y.ID));
             dataGridView.DataSource = bind;
@@ -41,17 +42,13 @@ namespace Warehouse_IO.View.UOMSource
         }
         private void DataGridView_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (e.ColumnIndex == 2 || e.ColumnIndex == 3)
+            if (e.ColumnIndex == 4)
             {
                 if (dataGridView.Rows[e.RowIndex].DataBoundItem != null)
                 {
-                    UOM uom = (UOM)dataGridView.Rows[e.RowIndex].DataBoundItem;
+                    Warehouse_IO.WHIO.Model.Dimension uom = (Warehouse_IO.WHIO.Model.Dimension)dataGridView.Rows[e.RowIndex].DataBoundItem;
 
-                    if (e.ColumnIndex == 2)
-                    {
-                        e.Value = uom.Package.Name;
-                    }
-                    else if (e.ColumnIndex == 3)
+                    if (e.ColumnIndex == 4)
                     {
                         e.Value = uom.Unit.Name;
                     }
@@ -61,7 +58,7 @@ namespace Warehouse_IO.View.UOMSource
 
         private void a_Click(object sender, EventArgs e)
         {
-            add = new AddUOM();
+            add = new Add();
             add.Owner = main;
 
             add.UpdateGrid += OnUpdate;
@@ -74,7 +71,7 @@ namespace Warehouse_IO.View.UOMSource
             int value = (int)selectedRow.Cells[0].Value;
             Global.tempPkey = value;
 
-            edit = new EditUOM();
+            edit = new Edit();
             edit.Owner = main;
 
             edit.UpdateGrid += OnUpdate;
@@ -93,6 +90,7 @@ namespace Warehouse_IO.View.UOMSource
             remove.UpdateGrid += OnUpdate;
             remove.ShowDialog();
         }
+
         private void x_Click(object sender, EventArgs e)
         {
             returnMain?.Invoke(this, EventArgs.Empty);
@@ -102,6 +100,6 @@ namespace Warehouse_IO.View.UOMSource
         private void OnUpdate(object sender, EventArgs e)
         {
             UpdateDatagridView();
-        }
+        }  
     }
 }

@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Warehouse_IO
+namespace Warehouse_IO.View.Add_Edit_Remove_Components
 {
-    public partial class MainForm : Form
+    public partial class AddEditDimensionFrom : Form
     {
-        public MainForm()
+        public AddEditDimensionFrom()
         {
             InitializeComponent();
         }

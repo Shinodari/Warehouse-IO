@@ -121,6 +121,12 @@
     <Compile Include="Authentication\Login.cs" />
     <Compile Include="Authentication\User.cs" />
     <Compile Include="Common\Global.cs" />
+    <Compile Include="View\Add,Edit,Remove Components\AddEditDimensionFrom.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Add,Edit,Remove Components\AddEditDimensionFrom.Designer.cs">
+      <DependentUpon>AddEditDimensionFrom.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\Add,Edit,Remove Components\AddEditUOMForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -169,28 +175,52 @@
     <Compile Include="View\DepartmentFormSource\Remove.Designer.cs">
       <DependentUpon>Remove.cs</DependentUpon>
     </Compile>
-    <Compile Include="View\Dimension\UnitOfVolumeSource\Add.cs">
+    <Compile Include="View\Dimensions\DimensionSource\Add.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\Dimension\UnitOfVolumeSource\Add.Designer.cs">
+    <Compile Include="View\Dimensions\DimensionSource\Add.Designer.cs">
       <DependentUpon>Add.cs</DependentUpon>
     </Compile>
-    <Compile Include="View\Dimension\UnitOfVolumeSource\Edit.cs">
+    <Compile Include="View\Dimensions\DimensionSource\DimensionsForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\Dimension\UnitOfVolumeSource\Edit.Designer.cs">
+    <Compile Include="View\Dimensions\DimensionSource\DimensionsForm.Designer.cs">
+      <DependentUpon>DimensionsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\Dimensions\DimensionSource\Edit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Dimensions\DimensionSource\Edit.Designer.cs">
       <DependentUpon>Edit.cs</DependentUpon>
     </Compile>
-    <Compile Include="View\Dimension\UnitOfVolumeSource\Remove.cs">
+    <Compile Include="View\Dimensions\DimensionSource\Remove.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\Dimension\UnitOfVolumeSource\Remove.Designer.cs">
+    <Compile Include="View\Dimensions\DimensionSource\Remove.Designer.cs">
       <DependentUpon>Remove.cs</DependentUpon>
     </Compile>
-    <Compile Include="View\Dimension\UnitOfVolumeSource\UnitOfVolumeForm.cs">
+    <Compile Include="View\Dimensions\UnitOfVolumeSource\Add.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\Dimension\UnitOfVolumeSource\UnitOfVolumeForm.Designer.cs">
+    <Compile Include="View\Dimensions\UnitOfVolumeSource\Add.Designer.cs">
+      <DependentUpon>Add.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\Dimensions\UnitOfVolumeSource\Edit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Dimensions\UnitOfVolumeSource\Edit.Designer.cs">
+      <DependentUpon>Edit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\Dimensions\UnitOfVolumeSource\Remove.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Dimensions\UnitOfVolumeSource\Remove.Designer.cs">
+      <DependentUpon>Remove.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\Dimensions\UnitOfVolumeSource\UnitOfVolumeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Dimensions\UnitOfVolumeSource\UnitOfVolumeForm.Designer.cs">
       <DependentUpon>UnitOfVolumeForm.cs</DependentUpon>
     </Compile>
     <Compile Include="View\MainForm.cs">
@@ -375,6 +405,9 @@
     <Compile Include="WHIO\Model\Transport.cs" />
     <Compile Include="WHIO\Model\Storage.cs" />
     <Compile Include="WHIO\Model\Department.cs" />
+    <EmbeddedResource Include="View\Add,Edit,Remove Components\AddEditDimensionFrom.resx">
+      <DependentUpon>AddEditDimensionFrom.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\Add,Edit,Remove Components\AddEditUOMForm.resx">
       <DependentUpon>AddEditUOMForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -393,7 +426,16 @@
     <EmbeddedResource Include="View\DepartmentFormSource\DepartmentForm.resx">
       <DependentUpon>DepartmentForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="View\Dimension\UnitOfVolumeSource\UnitOfVolumeForm.resx">
+    <EmbeddedResource Include="View\Dimensions\DimensionSource\Add.resx">
+      <DependentUpon>Add.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Dimensions\DimensionSource\DimensionsForm.resx">
+      <DependentUpon>DimensionsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Dimensions\DimensionSource\Edit.resx">
+      <DependentUpon>Edit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Dimensions\UnitOfVolumeSource\UnitOfVolumeForm.resx">
       <DependentUpon>UnitOfVolumeForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\MainForm.resx">
@@ -446,8 +488,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
-    <Folder Include="View\Dimension\DimensionSource\" />
-    <Folder Include="View\Weight\WeightPerUnitSource\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

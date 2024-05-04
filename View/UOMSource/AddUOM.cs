@@ -14,7 +14,7 @@ namespace Warehouse_IO.View.UOMSource
         UnitOfUOM unitofUom;
         List<UnitOfUOM> unitofUomList;
 
-        double value;
+        double value = 1;
 
         public event EventHandler UpdateGrid;
 
@@ -40,11 +40,11 @@ namespace Warehouse_IO.View.UOMSource
             unitOfWeightListBox.Items.Clear();
             perPackageListBox.Items.Clear();
 
-            foreach (var package in packageList)
+            foreach (Package package in packageList)
             {
                 perPackageListBox.Items.Add(package.Name);
             }
-            foreach (var unitOfUOM in unitofUomList)
+            foreach (UnitOfUOM unitOfUOM in unitofUomList)
             {
                 unitOfWeightListBox.Items.Add(unitOfUOM.Name);
             }

@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using Warehouse_IO.Common;
 using Warehouse_IO.View;
 using Warehouse_IO.View.Dimension.UnitOfVolumeSource;
+using Warehouse_IO.View.Dimensions.DimensionSource;
 using Warehouse_IO.View.SupplierFormSource;
 using Warehouse_IO.View.TruckFormSource;
 using Warehouse_IO.View.UOMSource;
@@ -23,6 +24,7 @@ namespace Warehouse_IO
         UnitOfWeightForm uOfW;
         PackagingForm pack;
         UOMForm uom;
+        DimensionsForm dimension;
 
         public MainForm()
         {
@@ -163,6 +165,16 @@ namespace Warehouse_IO
             DisableMainForm();
 
             uom.returnMain += EventToActiveAdmin;
+        }
+
+        private void click_Dimension(object sender, EventArgs e)
+        {
+            dimension = new DimensionsForm();
+            dimension.MdiParent = this;
+            dimension.Show();
+
+            DisableMainForm();
+            dimension.returnMain += EventToActiveAdmin;
         }
     }
 }
