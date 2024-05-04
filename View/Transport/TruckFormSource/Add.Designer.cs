@@ -44,6 +44,7 @@
             // AddTextBox
             // 
             this.AddTextBox.Location = new System.Drawing.Point(94, 11);
+            this.AddTextBox.Size = new System.Drawing.Size(143, 20);
             // 
             // descriptionTextBox
             // 
@@ -74,11 +75,12 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(282, 160);
+            this.ClientSize = new System.Drawing.Size(282, 130);
             this.Controls.Add(this.labelDescription);
             this.Controls.Add(this.labelType);
             this.Controls.Add(this.descriptionTextBox);
             this.Name = "Add";
+            this.Controls.SetChildIndex(this.nameLabel, 0);
             this.Controls.SetChildIndex(this.AddTextBox, 0);
             this.Controls.SetChildIndex(this.OKButton, 0);
             this.Controls.SetChildIndex(this.CancelButton, 0);

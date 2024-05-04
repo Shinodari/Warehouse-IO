@@ -40,6 +40,7 @@
             // EditTextBox
             // 
             this.EditTextBox.Location = new System.Drawing.Point(94, 11);
+            this.EditTextBox.Size = new System.Drawing.Size(142, 20);
             // 
             // OKEdit
             // 
@@ -74,7 +75,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(282, 160);
+            this.ClientSize = new System.Drawing.Size(282, 130);
             this.Controls.Add(this.labelDescription);
             this.Controls.Add(this.labelType);
             this.Controls.Add(this.descriptionTextBox);

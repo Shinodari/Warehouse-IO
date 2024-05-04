@@ -15,13 +15,21 @@ namespace Warehouse_IO.View.Add_Edit_Remove_Components
 
         private void OKAddClick(object sender, EventArgs e)
         {
-            AttemptAdd();
+            if (!string.IsNullOrEmpty(AddTextBox.Text))
+            {
+                AttemptAdd();
+            }
+            else MessageBox.Show(this, "Please put name");
         }
         private void OKKeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == (char)Keys.Enter)
             {
-                AttemptAdd();
+                if (!string.IsNullOrEmpty(AddTextBox.Text))
+                {
+                    AttemptAdd();
+                }
+                else MessageBox.Show(this, "Please put name");
             }
         }
         private void CancelButton_Click(object sender, EventArgs e)

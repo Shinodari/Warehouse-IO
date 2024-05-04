@@ -19,14 +19,22 @@ namespace Warehouse_IO.View.Add_Edit_Remove_Components
 
         private void OKEdit_Click(object sender, EventArgs e)
         {
-            AttemptEdit();
+            if (!string.IsNullOrEmpty(EditTextBox.Text))
+            {
+                AttemptEdit();
+            }
+            else MessageBox.Show(this, "Please put name");
         }
 
         private void OKEdit_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == (char)Keys.Enter)
             {
-                AttemptEdit();
+                if (!string.IsNullOrEmpty(EditTextBox.Text))
+                {
+                    AttemptEdit();
+                }
+                else MessageBox.Show(this, "Please put name");
             }
         }
 

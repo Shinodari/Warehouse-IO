@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
-using Warehouse_IO.View.Add_Edit_Remove_Components;
 using Warehouse_IO.WHIO.Model;
+using Warehouse_IO.View.Add_Edit_Remove_Components;
 
 namespace Warehouse_IO.View.DepartmentFormSource
 {

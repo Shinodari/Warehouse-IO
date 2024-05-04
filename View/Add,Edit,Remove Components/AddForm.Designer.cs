@@ -26,12 +26,13 @@
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent()
+        protected void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddForm));
             this.CancelButton = new System.Windows.Forms.Button();
             this.OKButton = new System.Windows.Forms.Button();
             this.AddTextBox = new System.Windows.Forms.TextBox();
+            this.nameLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // CancelButton
@@ -54,12 +55,18 @@
             resources.ApplyResources(this.AddTextBox, "AddTextBox");
             this.AddTextBox.Name = "AddTextBox";
             // 
+            // nameLabel
+            // 
+            resources.ApplyResources(this.nameLabel, "nameLabel");
+            this.nameLabel.Name = "nameLabel";
+            // 
             // AddForm
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
             this.ControlBox = false;
+            this.Controls.Add(this.nameLabel);
             this.Controls.Add(this.CancelButton);
             this.Controls.Add(this.OKButton);
             this.Controls.Add(this.AddTextBox);
@@ -78,5 +85,6 @@
         protected System.Windows.Forms.Button CancelButton;
         protected System.Windows.Forms.Button OKButton;
         protected System.Windows.Forms.TextBox AddTextBox;
+        protected System.Windows.Forms.Label nameLabel;
     }
 }
