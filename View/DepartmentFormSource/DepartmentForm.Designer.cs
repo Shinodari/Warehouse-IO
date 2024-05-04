@@ -109,7 +109,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(597, 485);
+            this.ClientSize = new System.Drawing.Size(593, 481);
             this.ControlBox = false;
             this.Controls.Add(this.label1);
             this.Controls.Add(this.depGridView);
@@ -126,6 +126,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Department";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Load += new System.EventHandler(this.DepartmentForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.depGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

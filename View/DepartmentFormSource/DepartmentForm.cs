@@ -77,5 +77,10 @@ namespace Warehouse_IO
         {
             UpdateDepDatagridView();
         }
+
+        private void DepartmentForm_Load(object sender, EventArgs e)
+        {
+            WindowState = FormWindowState.Maximized;
+        }
     }
 }
