@@ -26,7 +26,7 @@
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent()
+        protected void InitializeComponent()
         {
             this.dataGridView = new System.Windows.Forms.DataGridView();
             this.x = new System.Windows.Forms.Button();
@@ -94,7 +94,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnablePreventFocusChange;
-            this.ClientSize = new System.Drawing.Size(581, 469);
+            this.ClientSize = new System.Drawing.Size(617, 535);
             this.ControlBox = false;
             this.Controls.Add(this.dataGridView);
             this.Controls.Add(this.x);

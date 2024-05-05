@@ -11,6 +11,5 @@ namespace Warehouse_IO.Common
 
         public static string packageTempName;
         public static string unitOfUOMTempName;
-
     }
 }
