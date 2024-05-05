@@ -80,8 +80,16 @@ namespace Warehouse_IO.View.Dimensions.DimensionSource
                 conversionFailed = false;
                 return;
             }
-            string selectedUnitOfDimension = unitOfVolumeListBox.SelectedItem.ToString();
-            unitOfDimensionName = new UnitOfDimension(selectedUnitOfDimension);
+            if (unitOfVolumeListBox.SelectedItem != null)
+            {
+                string selectedUnitOfDimension = unitOfVolumeListBox.SelectedItem.ToString();
+                unitOfDimensionName = new UnitOfDimension(selectedUnitOfDimension);
+            }
+            else
+            {
+                MessageBox.Show("Please select Unit of Volume");
+                return;
+            }
             add = new WHIO.Model.Dimension(width, length, height, unitOfDimensionName,name);
             if (add.Create())
             {
@@ -90,6 +98,7 @@ namespace Warehouse_IO.View.Dimensions.DimensionSource
                 Close();
             }
             else MessageBox.Show(this, "Create Fail");
+            return;
         }
 
         private double convertToDouble(string text)

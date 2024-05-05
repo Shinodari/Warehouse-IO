@@ -5,6 +5,7 @@ using Warehouse_IO.Common;
 using Warehouse_IO.View;
 using Warehouse_IO.View.Dimension.UnitOfVolumeSource;
 using Warehouse_IO.View.Dimensions.DimensionSource;
+using Warehouse_IO.View.ProductSource;
 using Warehouse_IO.View.SupplierFormSource;
 using Warehouse_IO.View.TruckFormSource;
 using Warehouse_IO.View.UOMSource;
@@ -25,6 +26,7 @@ namespace Warehouse_IO
         PackagingForm pack;
         UOMForm uom;
         DimensionsForm dimension;
+        ProductForm product;
 
         public MainForm()
         {
@@ -175,6 +177,16 @@ namespace Warehouse_IO
 
             DisableMainForm();
             dimension.returnMain += EventToActiveAdmin;
+        }
+
+        private void click_Product(object sender, EventArgs e)
+        {
+            product = new ProductForm();
+            product.MdiParent = this;
+            product.Show();
+
+            DisableMainForm();
+            product.returnMain += EventToActiveAdmin;
         }
     }
 }

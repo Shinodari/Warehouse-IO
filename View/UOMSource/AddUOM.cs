@@ -62,10 +62,26 @@ namespace Warehouse_IO.View.UOMSource
             {
                 MessageBox.Show("Invalid Quantity Format");
             }
-            string selectedUnitOfWeight = unitOfWeightListBox.SelectedItem.ToString();
-            string selectedPerPackage = perPackageListBox.SelectedItem.ToString();
-            unitofUom = new UnitOfUOM(selectedUnitOfWeight);
-            package = new Package(selectedPerPackage);
+            if (unitOfWeightListBox.SelectedItem != null)
+            {
+                string selectedUnitOfWeight = unitOfWeightListBox.SelectedItem.ToString();
+                unitofUom = new UnitOfUOM(selectedUnitOfWeight);
+            }
+            else
+            {
+                MessageBox.Show("Please select Unit of Weight");
+                return;
+            }
+            if (perPackageListBox.SelectedItem != null)
+            {
+                string selectedPerPackage = perPackageListBox.SelectedItem.ToString();
+                package = new Package(selectedPerPackage);
+            }
+            else
+            {
+                MessageBox.Show("Please select Package");
+                return;
+            }
             add = new UOM(value, unitofUom, package, nameTextBox.Text);
             if (add.Create())
             {
@@ -74,6 +90,7 @@ namespace Warehouse_IO.View.UOMSource
                 UpdateGrid?.Invoke(this, EventArgs.Empty);
             }
             else MessageBox.Show(this, "Create Fail");
+            return;
         }
         private double convertToDouble(string text)
         {

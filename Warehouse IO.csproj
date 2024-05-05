@@ -127,6 +127,12 @@
     <Compile Include="View\Add,Edit,Remove Components\AddEditDimensionFrom.Designer.cs">
       <DependentUpon>AddEditDimensionFrom.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\Add,Edit,Remove Components\AddEditProductForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Add,Edit,Remove Components\AddEditProductForm.Designer.cs">
+      <DependentUpon>AddEditProductForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\Add,Edit,Remove Components\AddEditUOMForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -246,6 +252,30 @@
     </Compile>
     <Compile Include="View\ParentFormComponents\ParentForm.Designer.cs">
       <DependentUpon>ParentForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\ProductSource\Add.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\ProductSource\Add.Designer.cs">
+      <DependentUpon>Add.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\ProductSource\Edit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\ProductSource\Edit.Designer.cs">
+      <DependentUpon>Edit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\ProductSource\ProductForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\ProductSource\ProductForm.Designer.cs">
+      <DependentUpon>ProductForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\ProductSource\Remove.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\ProductSource\Remove.Designer.cs">
+      <DependentUpon>Remove.cs</DependentUpon>
     </Compile>
     <Compile Include="View\StorageFormSource\Add.cs">
       <SubType>Form</SubType>
@@ -408,6 +438,9 @@
     <EmbeddedResource Include="View\Add,Edit,Remove Components\AddEditDimensionFrom.resx">
       <DependentUpon>AddEditDimensionFrom.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="View\Add,Edit,Remove Components\AddEditProductForm.resx">
+      <DependentUpon>AddEditProductForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\Add,Edit,Remove Components\AddEditUOMForm.resx">
       <DependentUpon>AddEditUOMForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -446,6 +479,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="View\ParentFormComponents\ParentForm.resx">
       <DependentUpon>ParentForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\ProductSource\Add.resx">
+      <DependentUpon>Add.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\ProductSource\Edit.resx">
+      <DependentUpon>Edit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\ProductSource\ProductForm.resx">
+      <DependentUpon>ProductForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\StorageFormSource\StorageLocationForm.resx">
       <DependentUpon>StorageLocationForm.cs</DependentUpon>
