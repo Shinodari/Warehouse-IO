@@ -185,5 +185,9 @@ namespace Warehouse_IO.WHIO.Model
             }
             return dimensionlist;
         }
+        public double GetM3()
+        {
+            return width * length * height/1000000;
+        }
     }
 }
