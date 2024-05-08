@@ -26,7 +26,7 @@ namespace Warehouse_IO.WHIO.Model
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    string check = "SELECT TruckID FROM inboundtruck WHERE InboundID = @id";
+                    string check = "SELECT * FROM inboundtruck WHERE InboundID = @id";
                     cmd.CommandText = check;
                     cmd.Parameters.AddWithValue("@id", ID);
                     using (var reader = cmd.ExecuteReader())
@@ -35,7 +35,8 @@ namespace Warehouse_IO.WHIO.Model
                         {
                             int truck = Convert.ToInt32(reader["TruckID"]);
                             Truck item = new Truck(truck);
-                            TruckList.Add(item);
+                            int qty = Convert.ToInt32(reader["Quantity"]);
+                            TruckQuantityPerShipmentList.Add(item,qty);
                         }
                     }
                 }
@@ -211,7 +212,7 @@ namespace Warehouse_IO.WHIO.Model
                 {
                     string delete = "DELETE FROM inboundquantityofproductlist WHERE InboundID = @id";
                     cmd.CommandText = delete;
-                    cmd.Parameters.AddWithValue("@id", ID);
+                    cmd.Parameters.AddWithValue("@id", this.ID);
                     cmd.ExecuteNonQuery();
 
                     string insert = $"INSERT INTO inboundquantityofproductlist (ProductID, InboundID, Quantity) VALUES (@pro, @out, @qty)";
@@ -222,7 +223,7 @@ namespace Warehouse_IO.WHIO.Model
                         int qty = kvp.Value;
                         cmd.Parameters.Clear();
                         cmd.Parameters.AddWithValue("@pro", pro.ID);
-                        cmd.Parameters.AddWithValue("@out", ID);
+                        cmd.Parameters.AddWithValue("@out", this.ID);
                         cmd.Parameters.AddWithValue("@qty", qty);
                         cmd.ExecuteNonQuery();
                     }
@@ -251,16 +252,19 @@ namespace Warehouse_IO.WHIO.Model
                 {
                     string delete = "DELETE FROM inboundtruck WHERE InboundID = @id";
                     cmd.CommandText = delete;
-                    cmd.Parameters.AddWithValue("@id", ID);
+                    cmd.Parameters.AddWithValue("@id", this.ID);
                     cmd.ExecuteNonQuery();
 
-                    string insert = $"INSERT INTO inboundtruck (InboundID, TruckID) VALUES (@id, @truck)";
+                    string insert = $"INSERT INTO inboundtruck (InboundID, TruckID, Quantity) VALUES (@id, @truck, @qty)";
                     cmd.CommandText = insert;
-                    foreach (Truck t in TruckList)
+                    foreach (KeyValuePair<Truck, int> kvp in TruckQuantityPerShipmentList)
                     {
+                        Truck truck = kvp.Key;
+                        int qty = kvp.Value;
                         cmd.Parameters.Clear();
                         cmd.Parameters.AddWithValue("@id", ID);
-                        cmd.Parameters.AddWithValue("@truck", t.ID);
+                        cmd.Parameters.AddWithValue("@truck", truck.ID);
+                        cmd.Parameters.AddWithValue("@qty", qty);
                         cmd.ExecuteNonQuery();
                     }
                 }

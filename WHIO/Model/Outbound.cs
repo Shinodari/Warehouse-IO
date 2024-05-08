@@ -26,7 +26,7 @@ namespace Warehouse_IO.WHIO.Model
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    string check = "SELECT TruckID FROM outboundtruck WHERE OutboundID = @id";
+                    string check = "SELECT * FROM outboundtruck WHERE OutboundID = @id";
                     cmd.CommandText = check;
                     cmd.Parameters.AddWithValue("@id", ID);
                     using (var reader = cmd.ExecuteReader())
@@ -35,7 +35,8 @@ namespace Warehouse_IO.WHIO.Model
                         {
                             int truck = Convert.ToInt32(reader["TruckID"]);
                             Truck item = new Truck(truck);
-                            TruckList.Add(item);
+                            int qty = Convert.ToInt32(reader["Quantity"]);
+                            TruckQuantityPerShipmentList.Add(item,qty);
                         }
                     }
                 }
@@ -200,43 +201,6 @@ namespace Warehouse_IO.WHIO.Model
             }
         }
 
-        public override bool UpdateTruck()
-        {
-            MySqlConnection conn = null;
-            try
-            {
-                conn = new MySqlConnection(connstr);
-                conn.Open();
-                using (var cmd = conn.CreateCommand())
-                {
-                    string delete = "DELETE FROM outboundtruck WHERE OutboundID = @id";
-                    cmd.CommandText = delete;
-                    cmd.Parameters.AddWithValue("@id", ID);
-                    cmd.ExecuteNonQuery();
-
-                    string insert = $"INSERT INTO outboundtruck (OutboundID, TruckID) VALUES (@id, @truck)";
-                    cmd.CommandText = insert;
-                    foreach(Truck t in TruckList)
-                    {
-                        cmd.Parameters.Clear();
-                        cmd.Parameters.AddWithValue("@id", ID);
-                        cmd.Parameters.AddWithValue("@truck", t.ID);
-                        cmd.ExecuteNonQuery();
-                    }               
-                }
-                return true;
-            }
-            catch (MySqlException e)
-            {
-                return false;
-            }
-            finally
-            {
-                if (conn != null && conn.State != ConnectionState.Closed)
-                    conn.Close();
-            }
-        }
-
         public override bool UpdateProduct()
         {
             MySqlConnection conn = null;
@@ -253,7 +217,7 @@ namespace Warehouse_IO.WHIO.Model
 
                     string insert = $"INSERT INTO outboundquantityofproductlist (ProductID, OutboundID, Quantity) VALUES (@pro, @out, @qty)";
                     cmd.CommandText = insert;
-                    foreach (KeyValuePair<Product,int> kvp in QuantityOfProductList)
+                    foreach (KeyValuePair<Product, int> kvp in QuantityOfProductList)
                     {
                         Product pro = kvp.Key;
                         int qty = kvp.Value;
@@ -276,5 +240,47 @@ namespace Warehouse_IO.WHIO.Model
                     conn.Close();
             }
         }
+
+        public override bool UpdateTruck()
+        {
+            MySqlConnection conn = null;
+            try
+            {
+                conn = new MySqlConnection(connstr);
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    string delete = "DELETE FROM outboundtruck WHERE OutboundID = @id";
+                    cmd.CommandText = delete;
+                    cmd.Parameters.AddWithValue("@id", ID);
+                    cmd.ExecuteNonQuery();
+
+                    string insert = $"INSERT INTO outboundtruck (OutboundID, TruckID, Quantity) VALUES (@id, @truck, @qty)";
+                    cmd.CommandText = insert;
+                    foreach(KeyValuePair<Truck, int> kvp in TruckQuantityPerShipmentList)
+                    {
+                        Truck truck = kvp.Key;
+                        int qty = kvp.Value;
+                        cmd.Parameters.Clear();
+                        cmd.Parameters.AddWithValue("@id", ID);
+                        cmd.Parameters.AddWithValue("@truck", truck.ID);
+                        cmd.Parameters.AddWithValue("@qty", qty);
+                        cmd.ExecuteNonQuery();
+                    }               
+                }
+                return true;
+            }
+            catch (MySqlException e)
+            {
+                return false;
+            }
+            finally
+            {
+                if (conn != null && conn.State != ConnectionState.Closed)
+                    conn.Close();
+            }
+        }
+
+        
     }
 }

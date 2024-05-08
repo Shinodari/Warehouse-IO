@@ -139,6 +139,12 @@
     <Compile Include="View\Add,Edit,Remove Components\AddEditUOMForm.Designer.cs">
       <DependentUpon>AddEditUOMForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\Add,Edit,Remove Components\AddEdit_Inbound_Outbound_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Add,Edit,Remove Components\AddEdit_Inbound_Outbound_Form.Designer.cs">
+      <DependentUpon>AddEdit_Inbound_Outbound_Form.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\Add,Edit,Remove Components\AddForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -229,11 +235,35 @@
     <Compile Include="View\Dimensions\UnitOfVolumeSource\UnitOfVolumeForm.Designer.cs">
       <DependentUpon>UnitOfVolumeForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\InboundSource\Add.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\InboundSource\Add.Designer.cs">
+      <DependentUpon>Add.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\InboundSource\Edit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\InboundSource\Edit.Designer.cs">
+      <DependentUpon>Edit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\InboundSource\EditProductQuantity.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\InboundSource\EditProductQuantity.Designer.cs">
+      <DependentUpon>EditProductQuantity.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\InboundSource\InboundForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="View\InboundSource\InboundForm.Designer.cs">
       <DependentUpon>InboundForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\InboundSource\Remove.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\InboundSource\Remove.Designer.cs">
+      <DependentUpon>Remove.cs</DependentUpon>
     </Compile>
     <Compile Include="View\MainForm.cs">
       <SubType>Form</SubType>
@@ -450,6 +480,9 @@
     <EmbeddedResource Include="View\Add,Edit,Remove Components\AddEditUOMForm.resx">
       <DependentUpon>AddEditUOMForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="View\Add,Edit,Remove Components\AddEdit_Inbound_Outbound_Form.resx">
+      <DependentUpon>AddEdit_Inbound_Outbound_Form.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\Add,Edit,Remove Components\AddForm.resx">
       <DependentUpon>AddForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -476,6 +509,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="View\Dimensions\UnitOfVolumeSource\UnitOfVolumeForm.resx">
       <DependentUpon>UnitOfVolumeForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\InboundSource\Add.resx">
+      <DependentUpon>Add.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\InboundSource\Edit.resx">
+      <DependentUpon>Edit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\InboundSource\EditProductQuantity.resx">
+      <DependentUpon>EditProductQuantity.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\InboundSource\InboundForm.resx">
       <DependentUpon>InboundForm.cs</DependentUpon>
