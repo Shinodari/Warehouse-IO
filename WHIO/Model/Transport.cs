@@ -15,10 +15,10 @@ namespace Warehouse_IO.WHIO.Model
         public DateTime DeliveryDate { get { return deliverydate; } set { deliverydate = value; } }
         Supplier supplier;
         public Supplier Supplier { get { return supplier; } set { supplier = value; } }
-        List<Truck> trucklist;
-        public List<Truck> TruckList { get { return trucklist; }set { trucklist = value; } }
+        Dictionary<Truck, int> truckquantitypershipmentlist;
+        public Dictionary<Truck, int> TruckQuantityPerShipmentList { get { return truckquantitypershipmentlist; }set { truckquantitypershipmentlist = value; } }
         Storage storage;
-        public Storage Storage { get { return storage; } }
+        public Storage Storage { get { return storage; }set { storage = value; } }
         Dictionary <Product,int> quantityofproductlist;
         public Dictionary<Product, int> QuantityOfProductList { get { return quantityofproductlist; }set { quantityofproductlist = value; } }
 
@@ -67,15 +67,14 @@ namespace Warehouse_IO.WHIO.Model
 
         public Transport(int id)
         {
+            quantityofproductlist = new Dictionary<Product, int>();
+            truckquantitypershipmentlist = new Dictionary<Truck, int>();
             CheckAndUpdateField(id.ToString());
-            if(invoiceno != null)
-            {
-                quantityofproductlist = new Dictionary<Product, int>();
-                trucklist = new List<Truck>();
-            }
         }
         public Transport(string invoiceNo,DateTime deliveryDate,Supplier supplier,Storage storage)
         {
+            quantityofproductlist = new Dictionary<Product, int>();
+            truckquantitypershipmentlist = new Dictionary<Truck, int>();
             invoiceno = invoiceNo;
             deliverydate = deliveryDate;
             this.supplier = supplier;
@@ -86,11 +85,11 @@ namespace Warehouse_IO.WHIO.Model
         public abstract bool Change();
         public abstract bool Remove();
 
-        public bool AddTruck(Truck truck)
+        public bool AddTruck(Truck truck,int qty)
         {
             if (truck != null)
             {
-                trucklist.Add(truck);
+                truckquantitypershipmentlist.Add(truck,qty);
                 return true;
             }
             else  return false;
@@ -99,7 +98,16 @@ namespace Warehouse_IO.WHIO.Model
         {
             if (truck != null)
             {
-                trucklist.Remove(truck);
+                truckquantitypershipmentlist.Remove(truck);
+                return true;
+            }
+            else return false;
+        }
+        public bool ChangeQuantityOfTruck(Truck truck,int qty)
+        {
+            if (truck != null && truckquantitypershipmentlist.ContainsKey(truck))
+            {
+                truckquantitypershipmentlist[truck] = qty;
                 return true;
             }
             else return false;
