@@ -15,11 +15,14 @@ namespace Warehouse_IO.WHIO.Model
         public DateTime DeliveryDate { get { return deliverydate; } set { deliverydate = value; } }
         Supplier supplier;
         public Supplier Supplier { get { return supplier; } set { supplier = value; } }
-        Dictionary<Truck, int> truckquantitypershipmentlist;
+
+        private Dictionary<Truck, int> truckquantitypershipmentlist = new Dictionary<Truck, int>(new TruckEqualityComparer());
         public Dictionary<Truck, int> TruckQuantityPerShipmentList { get { return truckquantitypershipmentlist; }set { truckquantitypershipmentlist = value; } }
+
         Storage storage;
         public Storage Storage { get { return storage; }set { storage = value; } }
-        Dictionary <Product,int> quantityofproductlist;
+
+        Dictionary<Product, int> quantityofproductlist = new Dictionary<Product, int>(new ProductEqualityComparer());
         public Dictionary<Product, int> QuantityOfProductList { get { return quantityofproductlist; }set { quantityofproductlist = value; } }
 
         static string connstr = Settings.Default.CONNECTION_STRING;
@@ -67,14 +70,14 @@ namespace Warehouse_IO.WHIO.Model
 
         public Transport(int id)
         {
-            quantityofproductlist = new Dictionary<Product, int>();
-            truckquantitypershipmentlist = new Dictionary<Truck, int>();
+            quantityofproductlist = new Dictionary<Product, int>(new ProductEqualityComparer());
+            truckquantitypershipmentlist = new Dictionary<Truck, int>(new TruckEqualityComparer());
             CheckAndUpdateField(id.ToString());
         }
         public Transport(string invoiceNo,DateTime deliveryDate,Supplier supplier,Storage storage)
         {
-            quantityofproductlist = new Dictionary<Product, int>();
-            truckquantitypershipmentlist = new Dictionary<Truck, int>();
+            quantityofproductlist = new Dictionary<Product, int>(new ProductEqualityComparer());
+            truckquantitypershipmentlist = new Dictionary<Truck, int>(new TruckEqualityComparer());
             invoiceno = invoiceNo;
             deliverydate = deliveryDate;
             this.supplier = supplier;
@@ -84,6 +87,11 @@ namespace Warehouse_IO.WHIO.Model
         public abstract bool Create();
         public abstract bool Change();
         public abstract bool Remove();
+
+        public override string ToString()
+        {
+            return ID.ToString();
+        }
 
         public bool AddTruck(Truck truck,int qty)
         {
@@ -143,6 +151,37 @@ namespace Warehouse_IO.WHIO.Model
 
         public abstract bool UpdateTruck();
         public abstract bool UpdateProduct();
-        
+
+        public class TruckEqualityComparer : IEqualityComparer<Truck>
+        {
+            public bool Equals(Truck x, Truck y)
+            {
+                if (x == null || y == null)
+                {
+                    return false;
+                }
+                return x.ID == y.ID;
+            }
+            public int GetHashCode(Truck obj)
+            {
+                return obj.ID.GetHashCode();
+            }
+        }
+
+        public class ProductEqualityComparer : IEqualityComparer<Product>
+        {
+            public bool Equals(Product x, Product y)
+            {
+                if (x == null || y == null)
+                {
+                    return false;
+                }
+                return x.ID == y.ID;
+            }
+            public int GetHashCode(Product obj)
+            {
+                return obj.ID.GetHashCode();
+            }
+        }
     }
 }

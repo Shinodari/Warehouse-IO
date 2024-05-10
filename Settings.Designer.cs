@@ -25,7 +25,7 @@ namespace Warehouse_IO {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("server=127.0.0.1;uid=root;pwd=93252935;database=warehouse-io")]
+        [global::System.Configuration.DefaultSettingValueAttribute("server=127.0.0.1;uid=root;pwd=12345678;database=warehouse-io")]
         public string CONNECTION_STRING {
             get {
                 return ((string)(this["CONNECTION_STRING"]));

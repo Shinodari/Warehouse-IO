@@ -183,7 +183,7 @@ namespace Warehouse_IO.WHIO.Model
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    string delete = $"DELETE FROM outbond WHERE ID = @id";
+                    string delete = $"DELETE FROM outbound WHERE ID = @id";
                     cmd.CommandText = delete;
                     cmd.Parameters.AddWithValue("@id", ID);
                     cmd.ExecuteNonQuery();
