@@ -5,6 +5,7 @@ using Warehouse_IO.Common;
 using Warehouse_IO.View;
 using Warehouse_IO.View.Dimension.UnitOfVolumeSource;
 using Warehouse_IO.View.Dimensions.DimensionSource;
+using Warehouse_IO.View.InboundSource;
 using Warehouse_IO.View.ProductSource;
 using Warehouse_IO.View.SupplierFormSource;
 using Warehouse_IO.View.TruckFormSource;
@@ -27,6 +28,7 @@ namespace Warehouse_IO
         UOMForm uom;
         DimensionsForm dimension;
         ProductForm product;
+        InboundForm inbound;
 
         public MainForm()
         {
@@ -108,7 +110,6 @@ namespace Warehouse_IO
 
             sto.returnMain += EventToActiveAdmin;
         }
-
         private void click_Suplier(object sender, EventArgs e)
         {
             sup = new SupplierForm();
@@ -118,7 +119,6 @@ namespace Warehouse_IO
 
             sup.returnMain += EventToActiveAdmin;
         }
-
         private void click_Truck(object sender, EventArgs e)
         {
             truck = new TruckForm();
@@ -128,7 +128,6 @@ namespace Warehouse_IO
 
             truck.returnMain += EventToActiveAdmin;
         }
-
         private void click_UnitOfVolume(object sender, EventArgs e)
         {
             uOfV = new UnitOfVolumeForm();
@@ -138,7 +137,6 @@ namespace Warehouse_IO
 
             uOfV.returnMain += EventToActiveAdmin;
         }
-
         private void click_UnitOfWeight(object sender, EventArgs e)
         {
             uOfW = new UnitOfWeightForm();
@@ -148,7 +146,6 @@ namespace Warehouse_IO
 
             uOfW.returnMain += EventToActiveAdmin;
         }
-
         private void click_Package(object sender, EventArgs e)
         {
             pack = new PackagingForm();
@@ -158,7 +155,6 @@ namespace Warehouse_IO
 
             pack.returnMain += EventToActiveAdmin;
         }
-
         private void click_Uom(object sender, EventArgs e)
         {
             uom = new UOMForm();
@@ -168,7 +164,6 @@ namespace Warehouse_IO
 
             uom.returnMain += EventToActiveAdmin;
         }
-
         private void click_Dimension(object sender, EventArgs e)
         {
             dimension = new DimensionsForm();
@@ -178,7 +173,6 @@ namespace Warehouse_IO
             DisableMainForm();
             dimension.returnMain += EventToActiveAdmin;
         }
-
         private void click_Product(object sender, EventArgs e)
         {
             product = new ProductForm();
@@ -187,6 +181,16 @@ namespace Warehouse_IO
 
             DisableMainForm();
             product.returnMain += EventToActiveAdmin;
+        }
+        // User part
+        private void click_Inbound(object sender, EventArgs e)
+        {
+            inbound = new InboundForm();
+            inbound.MdiParent = this;
+            inbound.Show();
+
+            DisableMainForm();
+            inbound.returnMain += EventToActiveAdmin;
         }
     }
 }

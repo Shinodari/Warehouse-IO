@@ -75,6 +75,7 @@
             this.inbondToolStripMenuItem.Name = "inbondToolStripMenuItem";
             this.inbondToolStripMenuItem.Size = new System.Drawing.Size(98, 19);
             this.inbondToolStripMenuItem.Text = "Inbond";
+            this.inbondToolStripMenuItem.Click += new System.EventHandler(this.click_Inbound);
             // 
             // outbondToolStripMenuItem
             // 

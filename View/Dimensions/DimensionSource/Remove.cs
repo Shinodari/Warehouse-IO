@@ -26,6 +26,7 @@ namespace Warehouse_IO.View.Dimensions.DimensionSource
                 Close();
             }
             else MessageBox.Show(this, "It's foreign key");
+            Close();
         }
     }
 }

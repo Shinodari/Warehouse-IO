@@ -1,6 +1,6 @@
-﻿namespace Warehouse_IO.View.Add_Edit_Remove_Components
+﻿namespace Warehouse_IO.View.InboundSource
 {
-    partial class EditForm
+    partial class EditQuantityWindow
     {
         /// <summary>
         /// Required designer variable.
@@ -28,11 +28,21 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.nameLabel = new System.Windows.Forms.Label();
             this.CancelButton = new System.Windows.Forms.Button();
             this.EditTextBox = new System.Windows.Forms.TextBox();
             this.OKEdit = new System.Windows.Forms.Button();
-            this.nameLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
+            // 
+            // nameLabel
+            // 
+            this.nameLabel.AutoSize = true;
+            this.nameLabel.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.nameLabel.Location = new System.Drawing.Point(12, 14);
+            this.nameLabel.Name = "nameLabel";
+            this.nameLabel.Size = new System.Drawing.Size(52, 13);
+            this.nameLabel.TabIndex = 12;
+            this.nameLabel.Text = "Quantity :";
             // 
             // CancelButton
             // 
@@ -40,7 +50,7 @@
             this.CancelButton.Margin = new System.Windows.Forms.Padding(2);
             this.CancelButton.Name = "CancelButton";
             this.CancelButton.Size = new System.Drawing.Size(62, 23);
-            this.CancelButton.TabIndex = 7;
+            this.CancelButton.TabIndex = 11;
             this.CancelButton.Text = "CANCEL";
             this.CancelButton.UseVisualStyleBackColor = true;
             this.CancelButton.Click += new System.EventHandler(this.CancelButton_Click);
@@ -51,7 +61,8 @@
             this.EditTextBox.Margin = new System.Windows.Forms.Padding(2);
             this.EditTextBox.Name = "EditTextBox";
             this.EditTextBox.Size = new System.Drawing.Size(197, 20);
-            this.EditTextBox.TabIndex = 6;
+            this.EditTextBox.TabIndex = 10;
+            this.EditTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.EditTextBox_KeyPress);
             // 
             // OKEdit
             // 
@@ -59,23 +70,12 @@
             this.OKEdit.Margin = new System.Windows.Forms.Padding(2);
             this.OKEdit.Name = "OKEdit";
             this.OKEdit.Size = new System.Drawing.Size(62, 23);
-            this.OKEdit.TabIndex = 5;
+            this.OKEdit.TabIndex = 9;
             this.OKEdit.Text = "OK";
             this.OKEdit.UseVisualStyleBackColor = true;
             this.OKEdit.Click += new System.EventHandler(this.OKEdit_Click);
-            this.OKEdit.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.OKEdit_KeyPress);
             // 
-            // nameLabel
-            // 
-            this.nameLabel.AutoSize = true;
-            this.nameLabel.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.nameLabel.Location = new System.Drawing.Point(12, 14);
-            this.nameLabel.Name = "nameLabel";
-            this.nameLabel.Size = new System.Drawing.Size(41, 13);
-            this.nameLabel.TabIndex = 8;
-            this.nameLabel.Text = "Name :";
-            // 
-            // EditForm
+            // EditQuantityWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -88,10 +88,9 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "EditForm";
+            this.Name = "EditQuantityWindow";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Edit";
-            this.TopMost = true;
+            this.Text = "EditQuantityWindow";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -99,9 +98,9 @@
 
         #endregion
 
+        protected System.Windows.Forms.Label nameLabel;
         protected System.Windows.Forms.Button CancelButton;
         protected System.Windows.Forms.TextBox EditTextBox;
         protected System.Windows.Forms.Button OKEdit;
-        protected System.Windows.Forms.Label nameLabel;
     }
 }

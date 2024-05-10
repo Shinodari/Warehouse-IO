@@ -15,7 +15,7 @@ namespace Warehouse_IO.Authentication
         string username;
         public string Username { get { return username; } set { username = value; } }
         string password;
-        private string Password;
+        private string Password { get { return password; } }
         string fullname;
         public string FullName { get { return fullname; } set { fullname = value; } }
         string lastname;
