@@ -1,6 +1,6 @@
-﻿namespace Warehouse_IO.View.StorageFormSource
+﻿namespace Warehouse_IO.View.DeliveryplaceSource
 {
-    partial class Remove
+    partial class Edit
     {
         /// <summary>
         /// Required designer variable.
@@ -30,12 +30,12 @@
         {
             this.SuspendLayout();
             // 
-            // Remove
+            // Edit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(154, 121);
-            this.Name = "Remove";
+            this.ClientSize = new System.Drawing.Size(288, 75);
+            this.Name = "Edit";
             this.ResumeLayout(false);
             this.PerformLayout();
 

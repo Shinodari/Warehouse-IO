@@ -1,4 +1,4 @@
-﻿namespace Warehouse_IO.View.StorageFormSource
+﻿namespace Warehouse_IO.View.DeliveryplaceSource
 {
     partial class Remove
     {

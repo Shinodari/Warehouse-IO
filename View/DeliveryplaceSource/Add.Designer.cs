@@ -1,6 +1,6 @@
-﻿namespace Warehouse_IO.View.StorageFormSource
+﻿namespace Warehouse_IO.View.DeliveryplaceSource
 {
-    partial class Remove
+    partial class Add
     {
         /// <summary>
         /// Required designer variable.
@@ -28,17 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.SuspendLayout();
-            // 
-            // Remove
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.components = new System.ComponentModel.Container();
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(154, 121);
-            this.Name = "Remove";
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            this.Text = "Add";
         }
 
         #endregion

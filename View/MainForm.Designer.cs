@@ -49,6 +49,7 @@
             this.storageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.departmentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.userToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.userToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.mainMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -82,6 +83,7 @@
             this.outbondToolStripMenuItem.Name = "outbondToolStripMenuItem";
             this.outbondToolStripMenuItem.Size = new System.Drawing.Size(98, 19);
             this.outbondToolStripMenuItem.Text = "Outbond";
+            this.outbondToolStripMenuItem.Click += new System.EventHandler(this.click_Outbound);
             // 
             // inOutActivityToolStripMenuItem
             // 
@@ -110,7 +112,8 @@
             this.transportSettingToolStripMenuItem,
             this.storageToolStripMenuItem,
             this.departmentToolStripMenuItem,
-            this.userToolStripMenuItem});
+            this.userToolStripMenuItem,
+            this.userToolStripMenuItem1});
             this.settingToolStripMenuItem.Name = "settingToolStripMenuItem";
             this.settingToolStripMenuItem.Size = new System.Drawing.Size(98, 19);
             this.settingToolStripMenuItem.Text = "Setting";
@@ -217,7 +220,14 @@
             // 
             this.userToolStripMenuItem.Name = "userToolStripMenuItem";
             this.userToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
-            this.userToolStripMenuItem.Text = "User";
+            this.userToolStripMenuItem.Text = "Delivery Place";
+            this.userToolStripMenuItem.Click += new System.EventHandler(this.click_DeliveryPlace);
+            // 
+            // userToolStripMenuItem1
+            // 
+            this.userToolStripMenuItem1.Name = "userToolStripMenuItem1";
+            this.userToolStripMenuItem1.Size = new System.Drawing.Size(171, 22);
+            this.userToolStripMenuItem1.Text = "User";
             // 
             // MainForm
             // 
@@ -263,6 +273,7 @@
         private System.Windows.Forms.ToolStripMenuItem storageToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem departmentToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem userToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem userToolStripMenuItem1;
     }
 }
 

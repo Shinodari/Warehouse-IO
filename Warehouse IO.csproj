@@ -178,6 +178,30 @@
     <Compile Include="View\Add,Edit,Remove Components\RemoveForm.Designer.cs">
       <DependentUpon>RemoveForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\DeliveryplaceSource\Add.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\DeliveryplaceSource\Add.Designer.cs">
+      <DependentUpon>Add.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\DeliveryplaceSource\DeliveryplaceForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\DeliveryplaceSource\DeliveryplaceForm.Designer.cs">
+      <DependentUpon>DeliveryplaceForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\DeliveryplaceSource\Edit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\DeliveryplaceSource\Edit.Designer.cs">
+      <DependentUpon>Edit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\DeliveryplaceSource\Remove.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\DeliveryplaceSource\Remove.Designer.cs">
+      <DependentUpon>Remove.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\DepartmentFormSource\Add.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -297,6 +321,36 @@
     </Compile>
     <Compile Include="View\Log_In_Window.Designer.cs">
       <DependentUpon>Log_In_Window.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\OutboundSource\Add.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\OutboundSource\Add.Designer.cs">
+      <DependentUpon>Add.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\OutboundSource\Edit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\OutboundSource\Edit.Designer.cs">
+      <DependentUpon>Edit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\OutboundSource\EditQuantityWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\OutboundSource\EditQuantityWindow.Designer.cs">
+      <DependentUpon>EditQuantityWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\OutboundSource\OutboundForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\OutboundSource\OutboundForm.Designer.cs">
+      <DependentUpon>OutboundForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\OutboundSource\Remove.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\OutboundSource\Remove.Designer.cs">
+      <DependentUpon>Remove.cs</DependentUpon>
     </Compile>
     <Compile Include="View\ParentFormComponents\ParentForm.cs">
       <SubType>Form</SubType>
@@ -472,6 +526,7 @@
     <Compile Include="View\Weight\UnitOfWeightSource\UnitOfWeightForm.Designer.cs">
       <DependentUpon>UnitOfWeightForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="WHIO\Model\Deliveryplace.cs" />
     <Compile Include="WHIO\Model\Inbound.cs" />
     <Compile Include="WHIO\Model\Outbound.cs" />
     <Compile Include="WHIO\Model\Product.cs" />
@@ -506,6 +561,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="View\Add,Edit,Remove Components\RemoveForm.resx">
       <DependentUpon>RemoveForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\DeliveryplaceSource\DeliveryplaceForm.resx">
+      <DependentUpon>DeliveryplaceForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\DeliveryplaceSource\Edit.resx">
+      <DependentUpon>Edit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\DeliveryplaceSource\Remove.resx">
+      <DependentUpon>Remove.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\DepartmentFormSource\Add.resx">
       <DependentUpon>Add.cs</DependentUpon>
@@ -546,6 +610,21 @@
     <EmbeddedResource Include="View\Log_In_Window.resx">
       <DependentUpon>Log_In_Window.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="View\OutboundSource\Add.resx">
+      <DependentUpon>Add.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\OutboundSource\Edit.resx">
+      <DependentUpon>Edit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\OutboundSource\EditQuantityWindow.resx">
+      <DependentUpon>EditQuantityWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\OutboundSource\OutboundForm.resx">
+      <DependentUpon>OutboundForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\OutboundSource\Remove.resx">
+      <DependentUpon>Remove.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\ParentFormComponents\ParentForm.resx">
       <DependentUpon>ParentForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -557,6 +636,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="View\ProductSource\ProductForm.resx">
       <DependentUpon>ProductForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\StorageFormSource\Remove.resx">
+      <DependentUpon>Remove.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\StorageFormSource\StorageLocationForm.resx">
       <DependentUpon>StorageLocationForm.cs</DependentUpon>

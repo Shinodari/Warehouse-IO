@@ -1,6 +1,6 @@
-﻿namespace Warehouse_IO.View.StorageFormSource
+﻿namespace Warehouse_IO.View.DeliveryplaceSource
 {
-    partial class Remove
+    partial class DeliveryplaceForm
     {
         /// <summary>
         /// Required designer variable.
@@ -30,14 +30,32 @@
         {
             this.SuspendLayout();
             // 
-            // Remove
+            // x
+            // 
+            this.x.Click += new System.EventHandler(this.x_Click);
+            // 
+            // r
+            // 
+            this.r.Click += new System.EventHandler(this.r_Click);
+            // 
+            // e
+            // 
+            this.e.Click += new System.EventHandler(this.e_Click);
+            // 
+            // a
+            // 
+            this.a.Click += new System.EventHandler(this.a_Click);
+            // 
+            // DeliveryplaceForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(154, 121);
-            this.Name = "Remove";
+            this.ClientSize = new System.Drawing.Size(660, 523);
+            this.Location = new System.Drawing.Point(0, 0);
+            this.Name = "DeliveryplaceForm";
+            this.Text = "DeliveryplaceForm";
+            this.Load += new System.EventHandler(this.DeliveryplaceForm_Load);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 

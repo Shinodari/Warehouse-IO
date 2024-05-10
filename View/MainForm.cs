@@ -3,9 +3,11 @@ using System.Drawing;
 using System.Windows.Forms;
 using Warehouse_IO.Common;
 using Warehouse_IO.View;
+using Warehouse_IO.View.DeliveryplaceSource;
 using Warehouse_IO.View.Dimension.UnitOfVolumeSource;
 using Warehouse_IO.View.Dimensions.DimensionSource;
 using Warehouse_IO.View.InboundSource;
+using Warehouse_IO.View.OutboundSource;
 using Warehouse_IO.View.ProductSource;
 using Warehouse_IO.View.SupplierFormSource;
 using Warehouse_IO.View.TruckFormSource;
@@ -29,6 +31,8 @@ namespace Warehouse_IO
         DimensionsForm dimension;
         ProductForm product;
         InboundForm inbound;
+        OutboundForm outbound;
+        DeliveryplaceForm deliveryplace;
 
         public MainForm()
         {
@@ -182,6 +186,16 @@ namespace Warehouse_IO
             DisableMainForm();
             product.returnMain += EventToActiveAdmin;
         }
+        private void click_DeliveryPlace(object sender, EventArgs e)
+        {
+            deliveryplace = new DeliveryplaceForm();
+            deliveryplace.MdiParent = this;
+            deliveryplace.Show();
+
+            DisableMainForm();
+            deliveryplace.returnMain += EventToActiveAdmin;
+        }
+
         // User part
         private void click_Inbound(object sender, EventArgs e)
         {
@@ -192,5 +206,16 @@ namespace Warehouse_IO
             DisableMainForm();
             inbound.returnMain += EventToActiveAdmin;
         }
+        private void click_Outbound(object sender, EventArgs e)
+        {
+            outbound = new OutboundForm();
+            outbound.MdiParent = this;
+            outbound.Show();
+
+            DisableMainForm();
+            outbound.returnMain += EventToActiveAdmin;
+        }
+
+
     }
 }
