@@ -39,7 +39,7 @@
             this.CancelButton.Margin = new System.Windows.Forms.Padding(2);
             this.CancelButton.Name = "CancelButton";
             this.CancelButton.Size = new System.Drawing.Size(62, 50);
-            this.CancelButton.TabIndex = 9;
+            this.CancelButton.TabIndex = 11;
             this.CancelButton.Text = "CANCEL";
             this.CancelButton.UseVisualStyleBackColor = true;
             this.CancelButton.Click += new System.EventHandler(this.CancelButton_Click);
@@ -50,7 +50,7 @@
             this.OKButton.Margin = new System.Windows.Forms.Padding(2);
             this.OKButton.Name = "OKButton";
             this.OKButton.Size = new System.Drawing.Size(62, 50);
-            this.OKButton.TabIndex = 8;
+            this.OKButton.TabIndex = 10;
             this.OKButton.Text = "OK";
             this.OKButton.UseVisualStyleBackColor = true;
             this.OKButton.Click += new System.EventHandler(this.OKButton_Click);
@@ -63,7 +63,7 @@
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(79, 13);
-            this.label1.TabIndex = 7;
+            this.label1.TabIndex = 100;
             this.label1.Text = "Are You Sure ?";
             // 
             // RemoveForm

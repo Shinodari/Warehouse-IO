@@ -51,7 +51,7 @@
             this.descriptionTextBox.Location = new System.Drawing.Point(94, 49);
             this.descriptionTextBox.Name = "descriptionTextBox";
             this.descriptionTextBox.Size = new System.Drawing.Size(142, 20);
-            this.descriptionTextBox.TabIndex = 8;
+            this.descriptionTextBox.TabIndex = 13;
             // 
             // labelDescription
             // 
@@ -59,7 +59,7 @@
             this.labelDescription.Location = new System.Drawing.Point(12, 52);
             this.labelDescription.Name = "labelDescription";
             this.labelDescription.Size = new System.Drawing.Size(66, 13);
-            this.labelDescription.TabIndex = 11;
+            this.labelDescription.TabIndex = 15;
             this.labelDescription.Text = "Description :";
             // 
             // labelType
@@ -68,7 +68,7 @@
             this.labelType.Location = new System.Drawing.Point(12, 18);
             this.labelType.Name = "labelType";
             this.labelType.Size = new System.Drawing.Size(65, 13);
-            this.labelType.TabIndex = 10;
+            this.labelType.TabIndex = 14;
             this.labelType.Text = "Truck Type:";
             // 
             // Edit
@@ -80,6 +80,7 @@
             this.Controls.Add(this.labelType);
             this.Controls.Add(this.descriptionTextBox);
             this.Name = "Edit";
+            this.Controls.SetChildIndex(this.nameLabel, 0);
             this.Controls.SetChildIndex(this.OKEdit, 0);
             this.Controls.SetChildIndex(this.EditTextBox, 0);
             this.Controls.SetChildIndex(this.CancelButton, 0);

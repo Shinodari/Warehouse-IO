@@ -40,7 +40,7 @@
             this.CancelButton.Margin = new System.Windows.Forms.Padding(2);
             this.CancelButton.Name = "CancelButton";
             this.CancelButton.Size = new System.Drawing.Size(62, 23);
-            this.CancelButton.TabIndex = 7;
+            this.CancelButton.TabIndex = 12;
             this.CancelButton.Text = "CANCEL";
             this.CancelButton.UseVisualStyleBackColor = true;
             this.CancelButton.Click += new System.EventHandler(this.CancelButton_Click);
@@ -51,7 +51,7 @@
             this.EditTextBox.Margin = new System.Windows.Forms.Padding(2);
             this.EditTextBox.Name = "EditTextBox";
             this.EditTextBox.Size = new System.Drawing.Size(197, 20);
-            this.EditTextBox.TabIndex = 6;
+            this.EditTextBox.TabIndex = 10;
             // 
             // OKEdit
             // 
@@ -59,7 +59,7 @@
             this.OKEdit.Margin = new System.Windows.Forms.Padding(2);
             this.OKEdit.Name = "OKEdit";
             this.OKEdit.Size = new System.Drawing.Size(62, 23);
-            this.OKEdit.TabIndex = 5;
+            this.OKEdit.TabIndex = 11;
             this.OKEdit.Text = "OK";
             this.OKEdit.UseVisualStyleBackColor = true;
             this.OKEdit.Click += new System.EventHandler(this.OKEdit_Click);
@@ -72,7 +72,7 @@
             this.nameLabel.Location = new System.Drawing.Point(12, 14);
             this.nameLabel.Name = "nameLabel";
             this.nameLabel.Size = new System.Drawing.Size(41, 13);
-            this.nameLabel.TabIndex = 8;
+            this.nameLabel.TabIndex = 100;
             this.nameLabel.Text = "Name :";
             // 
             // EditForm

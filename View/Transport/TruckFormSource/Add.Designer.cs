@@ -51,7 +51,7 @@
             this.descriptionTextBox.Location = new System.Drawing.Point(94, 49);
             this.descriptionTextBox.Name = "descriptionTextBox";
             this.descriptionTextBox.Size = new System.Drawing.Size(142, 20);
-            this.descriptionTextBox.TabIndex = 7;
+            this.descriptionTextBox.TabIndex = 13;
             // 
             // labelType
             // 
@@ -59,7 +59,7 @@
             this.labelType.Location = new System.Drawing.Point(12, 18);
             this.labelType.Name = "labelType";
             this.labelType.Size = new System.Drawing.Size(65, 13);
-            this.labelType.TabIndex = 8;
+            this.labelType.TabIndex = 14;
             this.labelType.Text = "Truck Type:";
             // 
             // labelDescription
@@ -68,7 +68,7 @@
             this.labelDescription.Location = new System.Drawing.Point(12, 52);
             this.labelDescription.Name = "labelDescription";
             this.labelDescription.Size = new System.Drawing.Size(66, 13);
-            this.labelDescription.TabIndex = 9;
+            this.labelDescription.TabIndex = 15;
             this.labelDescription.Text = "Description :";
             // 
             // Add

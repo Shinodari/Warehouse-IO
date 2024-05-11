@@ -45,7 +45,7 @@
             this.quantityTextBox.Location = new System.Drawing.Point(99, 46);
             this.quantityTextBox.Name = "quantityTextBox";
             this.quantityTextBox.Size = new System.Drawing.Size(133, 20);
-            this.quantityTextBox.TabIndex = 0;
+            this.quantityTextBox.TabIndex = 11;
             // 
             // unitOfWeightListBox
             // 
@@ -53,7 +53,7 @@
             this.unitOfWeightListBox.Location = new System.Drawing.Point(99, 90);
             this.unitOfWeightListBox.Name = "unitOfWeightListBox";
             this.unitOfWeightListBox.Size = new System.Drawing.Size(133, 160);
-            this.unitOfWeightListBox.TabIndex = 1;
+            this.unitOfWeightListBox.TabIndex = 12;
             // 
             // perPackageListBox
             // 
@@ -61,7 +61,7 @@
             this.perPackageListBox.Location = new System.Drawing.Point(342, 90);
             this.perPackageListBox.Name = "perPackageListBox";
             this.perPackageListBox.Size = new System.Drawing.Size(133, 160);
-            this.perPackageListBox.TabIndex = 2;
+            this.perPackageListBox.TabIndex = 13;
             // 
             // quantityLabel
             // 
@@ -69,7 +69,7 @@
             this.quantityLabel.Location = new System.Drawing.Point(24, 49);
             this.quantityLabel.Name = "quantityLabel";
             this.quantityLabel.Size = new System.Drawing.Size(52, 13);
-            this.quantityLabel.TabIndex = 3;
+            this.quantityLabel.TabIndex = 17;
             this.quantityLabel.Text = "Quantity :";
             // 
             // unitOfWeightLabel
@@ -78,7 +78,7 @@
             this.unitOfWeightLabel.Location = new System.Drawing.Point(12, 90);
             this.unitOfWeightLabel.Name = "unitOfWeightLabel";
             this.unitOfWeightLabel.Size = new System.Drawing.Size(81, 13);
-            this.unitOfWeightLabel.TabIndex = 4;
+            this.unitOfWeightLabel.TabIndex = 17;
             this.unitOfWeightLabel.Text = "Unit of Weight :";
             // 
             // perPackageLabel
@@ -87,7 +87,7 @@
             this.perPackageLabel.Location = new System.Drawing.Point(248, 90);
             this.perPackageLabel.Name = "perPackageLabel";
             this.perPackageLabel.Size = new System.Drawing.Size(74, 13);
-            this.perPackageLabel.TabIndex = 5;
+            this.perPackageLabel.TabIndex = 18;
             this.perPackageLabel.Text = "per Package :";
             // 
             // addButton
@@ -95,7 +95,7 @@
             this.addButton.Location = new System.Drawing.Point(319, 267);
             this.addButton.Name = "addButton";
             this.addButton.Size = new System.Drawing.Size(75, 23);
-            this.addButton.TabIndex = 6;
+            this.addButton.TabIndex = 14;
             this.addButton.Text = "Add";
             this.addButton.UseVisualStyleBackColor = true;
             // 
@@ -104,7 +104,7 @@
             this.cancelButton.Location = new System.Drawing.Point(400, 267);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(75, 23);
-            this.cancelButton.TabIndex = 7;
+            this.cancelButton.TabIndex = 15;
             this.cancelButton.Text = "Cancel";
             this.cancelButton.UseVisualStyleBackColor = true;
             // 
@@ -113,7 +113,7 @@
             this.nameTextBox.Location = new System.Drawing.Point(99, 12);
             this.nameTextBox.Name = "nameTextBox";
             this.nameTextBox.Size = new System.Drawing.Size(133, 20);
-            this.nameTextBox.TabIndex = 8;
+            this.nameTextBox.TabIndex = 10;
             // 
             // nameLabel
             // 
@@ -121,7 +121,7 @@
             this.nameLabel.Location = new System.Drawing.Point(24, 15);
             this.nameLabel.Name = "nameLabel";
             this.nameLabel.Size = new System.Drawing.Size(41, 13);
-            this.nameLabel.TabIndex = 9;
+            this.nameLabel.TabIndex = 16;
             this.nameLabel.Text = "Name :";
             // 
             // AddEditUOMForm

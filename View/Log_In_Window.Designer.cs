@@ -42,7 +42,7 @@
             this.textBox1.Margin = new System.Windows.Forms.Padding(2);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(157, 20);
-            this.textBox1.TabIndex = 0;
+            this.textBox1.TabIndex = 10;
             // 
             // textBox2
             // 
@@ -50,7 +50,7 @@
             this.textBox2.Margin = new System.Windows.Forms.Padding(2);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(156, 20);
-            this.textBox2.TabIndex = 1;
+            this.textBox2.TabIndex = 11;
             this.textBox2.UseSystemPasswordChar = true;
             // 
             // logInButt
@@ -59,7 +59,7 @@
             this.logInButt.Margin = new System.Windows.Forms.Padding(2);
             this.logInButt.Name = "logInButt";
             this.logInButt.Size = new System.Drawing.Size(75, 23);
-            this.logInButt.TabIndex = 2;
+            this.logInButt.TabIndex = 12;
             this.logInButt.Text = "Login";
             this.logInButt.UseVisualStyleBackColor = true;
             this.logInButt.Click += new System.EventHandler(this.LogIn_Click);
@@ -71,7 +71,7 @@
             this.UsernameLabel.Location = new System.Drawing.Point(16, 19);
             this.UsernameLabel.Name = "UsernameLabel";
             this.UsernameLabel.Size = new System.Drawing.Size(61, 13);
-            this.UsernameLabel.TabIndex = 3;
+            this.UsernameLabel.TabIndex = 14;
             this.UsernameLabel.Text = "Username :";
             // 
             // PasswordLabel
@@ -80,7 +80,7 @@
             this.PasswordLabel.Location = new System.Drawing.Point(18, 43);
             this.PasswordLabel.Name = "PasswordLabel";
             this.PasswordLabel.Size = new System.Drawing.Size(59, 13);
-            this.PasswordLabel.TabIndex = 4;
+            this.PasswordLabel.TabIndex = 15;
             this.PasswordLabel.Text = "Password :";
             // 
             // PasswordButton
@@ -88,7 +88,7 @@
             this.PasswordButton.Location = new System.Drawing.Point(164, 65);
             this.PasswordButton.Name = "PasswordButton";
             this.PasswordButton.Size = new System.Drawing.Size(75, 23);
-            this.PasswordButton.TabIndex = 6;
+            this.PasswordButton.TabIndex = 13;
             this.PasswordButton.Text = "E&xit";
             this.PasswordButton.UseVisualStyleBackColor = true;
             this.PasswordButton.Click += new System.EventHandler(this.PasswordButton_Click);

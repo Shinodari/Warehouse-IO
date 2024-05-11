@@ -47,8 +47,8 @@
             this.truckGridView.ReadOnly = true;
             this.truckGridView.RowTemplate.Height = 24;
             this.truckGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.truckGridView.Size = new System.Drawing.Size(475, 474);
-            this.truckGridView.TabIndex = 6;
+            this.truckGridView.Size = new System.Drawing.Size(541, 474);
+            this.truckGridView.TabIndex = 10;
             this.truckGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_CellClick);
             // 
             // label1
@@ -58,12 +58,12 @@
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(54, 13);
-            this.label1.TabIndex = 7;
+            this.label1.TabIndex = 200;
             this.label1.Text = "Truck List";
             // 
             // x
             // 
-            this.x.Location = new System.Drawing.Point(508, 447);
+            this.x.Location = new System.Drawing.Point(554, 447);
             this.x.Margin = new System.Windows.Forms.Padding(2);
             this.x.Name = "x";
             this.x.Size = new System.Drawing.Size(96, 55);
@@ -74,7 +74,7 @@
             // 
             // r
             // 
-            this.r.Location = new System.Drawing.Point(508, 148);
+            this.r.Location = new System.Drawing.Point(554, 148);
             this.r.Margin = new System.Windows.Forms.Padding(2);
             this.r.Name = "r";
             this.r.Size = new System.Drawing.Size(96, 55);
@@ -85,7 +85,7 @@
             // 
             // e
             // 
-            this.e.Location = new System.Drawing.Point(508, 88);
+            this.e.Location = new System.Drawing.Point(554, 88);
             this.e.Margin = new System.Windows.Forms.Padding(2);
             this.e.Name = "e";
             this.e.Size = new System.Drawing.Size(96, 55);
@@ -96,7 +96,7 @@
             // 
             // a
             // 
-            this.a.Location = new System.Drawing.Point(508, 28);
+            this.a.Location = new System.Drawing.Point(554, 28);
             this.a.Margin = new System.Windows.Forms.Padding(2);
             this.a.Name = "a";
             this.a.Size = new System.Drawing.Size(96, 55);
@@ -109,7 +109,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(601, 489);
+            this.ClientSize = new System.Drawing.Size(652, 515);
             this.ControlBox = false;
             this.Controls.Add(this.x);
             this.Controls.Add(this.r);

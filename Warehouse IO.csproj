@@ -586,6 +586,12 @@
     <EmbeddedResource Include="View\DepartmentFormSource\DepartmentForm.resx">
       <DependentUpon>DepartmentForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="View\DepartmentFormSource\Edit.resx">
+      <DependentUpon>Edit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\DepartmentFormSource\Remove.resx">
+      <DependentUpon>Remove.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\Dimensions\DimensionSource\Add.resx">
       <DependentUpon>Add.cs</DependentUpon>
     </EmbeddedResource>
@@ -594,6 +600,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="View\Dimensions\DimensionSource\Edit.resx">
       <DependentUpon>Edit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Dimensions\DimensionSource\Remove.resx">
+      <DependentUpon>Remove.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Dimensions\UnitOfVolumeSource\Edit.resx">
+      <DependentUpon>Edit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Dimensions\UnitOfVolumeSource\Remove.resx">
+      <DependentUpon>Remove.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\Dimensions\UnitOfVolumeSource\UnitOfVolumeForm.resx">
       <DependentUpon>UnitOfVolumeForm.cs</DependentUpon>
@@ -646,11 +661,23 @@
     <EmbeddedResource Include="View\ProductSource\ProductForm.resx">
       <DependentUpon>ProductForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="View\ProductSource\Remove.resx">
+      <DependentUpon>Remove.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\StorageFormSource\Edit.resx">
+      <DependentUpon>Edit.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\StorageFormSource\Remove.resx">
       <DependentUpon>Remove.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\StorageFormSource\StorageLocationForm.resx">
       <DependentUpon>StorageLocationForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Transport\SupplierFormSource\Edit.resx">
+      <DependentUpon>Edit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Transport\SupplierFormSource\Remove.resx">
+      <DependentUpon>Remove.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\Transport\SupplierFormSource\SupplierForm.resx">
       <DependentUpon>SupplierForm.cs</DependentUpon>
@@ -661,6 +688,9 @@
     <EmbeddedResource Include="View\Transport\TruckFormSource\Edit.resx">
       <DependentUpon>Edit.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="View\Transport\TruckFormSource\Remove.resx">
+      <DependentUpon>Remove.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\Transport\TruckFormSource\TruckForm.resx">
       <DependentUpon>TruckForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -670,11 +700,26 @@
     <EmbeddedResource Include="View\UOMSource\EditUOM.resx">
       <DependentUpon>EditUOM.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="View\UOMSource\Remove.resx">
+      <DependentUpon>Remove.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\UOMSource\UOMForm.resx">
       <DependentUpon>UOMForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="View\Weight\PackagingSource\Edit.resx">
+      <DependentUpon>Edit.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\Weight\PackagingSource\PackagingForm.resx">
       <DependentUpon>PackagingForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Weight\PackagingSource\Remove.resx">
+      <DependentUpon>Remove.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Weight\UnitOfWeightSource\Edit.resx">
+      <DependentUpon>Edit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Weight\UnitOfWeightSource\Remove.resx">
+      <DependentUpon>Remove.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\Weight\UnitOfWeightSource\UnitOfWeightForm.resx">
       <DependentUpon>UnitOfWeightForm.cs</DependentUpon>

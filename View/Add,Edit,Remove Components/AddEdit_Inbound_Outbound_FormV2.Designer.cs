@@ -30,6 +30,7 @@
         {
             this.shipmentGroupBox = new System.Windows.Forms.GroupBox();
             this.importShipmentGroupBox = new System.Windows.Forms.GroupBox();
+            this.IsInterCheckBox = new System.Windows.Forms.CheckBox();
             this.storageLocationLabel = new System.Windows.Forms.Label();
             this.createShipmentButton = new System.Windows.Forms.Button();
             this.deliveryDateLabel = new System.Windows.Forms.Label();
@@ -61,7 +62,6 @@
             this.productListBox = new System.Windows.Forms.ListBox();
             this.doneButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
-            this.IsInterCheckBox = new System.Windows.Forms.CheckBox();
             this.shipmentGroupBox.SuspendLayout();
             this.importShipmentGroupBox.SuspendLayout();
             this.truckGroupBox.SuspendLayout();
@@ -85,7 +85,7 @@
             this.shipmentGroupBox.Location = new System.Drawing.Point(0, 0);
             this.shipmentGroupBox.Name = "shipmentGroupBox";
             this.shipmentGroupBox.Size = new System.Drawing.Size(665, 91);
-            this.shipmentGroupBox.TabIndex = 1;
+            this.shipmentGroupBox.TabIndex = 50;
             this.shipmentGroupBox.TabStop = false;
             this.shipmentGroupBox.Text = "Shipment";
             // 
@@ -95,9 +95,19 @@
             this.importShipmentGroupBox.Location = new System.Drawing.Point(242, 42);
             this.importShipmentGroupBox.Name = "importShipmentGroupBox";
             this.importShipmentGroupBox.Size = new System.Drawing.Size(265, 43);
-            this.importShipmentGroupBox.TabIndex = 10;
+            this.importShipmentGroupBox.TabIndex = 55;
             this.importShipmentGroupBox.TabStop = false;
             this.importShipmentGroupBox.Text = "Import Shipment";
+            // 
+            // IsInterCheckBox
+            // 
+            this.IsInterCheckBox.AutoSize = true;
+            this.IsInterCheckBox.Location = new System.Drawing.Point(65, 19);
+            this.IsInterCheckBox.Name = "IsInterCheckBox";
+            this.IsInterCheckBox.Size = new System.Drawing.Size(145, 17);
+            this.IsInterCheckBox.TabIndex = 14;
+            this.IsInterCheckBox.Text = "Yes / If no, leave it blank";
+            this.IsInterCheckBox.UseVisualStyleBackColor = true;
             // 
             // storageLocationLabel
             // 
@@ -105,7 +115,7 @@
             this.storageLocationLabel.Location = new System.Drawing.Point(23, 68);
             this.storageLocationLabel.Name = "storageLocationLabel";
             this.storageLocationLabel.Size = new System.Drawing.Size(50, 13);
-            this.storageLocationLabel.TabIndex = 9;
+            this.storageLocationLabel.TabIndex = 53;
             this.storageLocationLabel.Text = "Storage :";
             // 
             // createShipmentButton
@@ -113,7 +123,7 @@
             this.createShipmentButton.Location = new System.Drawing.Point(559, 27);
             this.createShipmentButton.Name = "createShipmentButton";
             this.createShipmentButton.Size = new System.Drawing.Size(96, 55);
-            this.createShipmentButton.TabIndex = 4;
+            this.createShipmentButton.TabIndex = 15;
             this.createShipmentButton.Text = "Create Shipment";
             this.createShipmentButton.UseVisualStyleBackColor = true;
             // 
@@ -123,7 +133,7 @@
             this.deliveryDateLabel.Location = new System.Drawing.Point(227, 19);
             this.deliveryDateLabel.Name = "deliveryDateLabel";
             this.deliveryDateLabel.Size = new System.Drawing.Size(77, 13);
-            this.deliveryDateLabel.TabIndex = 8;
+            this.deliveryDateLabel.TabIndex = 54;
             this.deliveryDateLabel.Text = "Delivery Date :";
             // 
             // invoiceLabel
@@ -132,7 +142,7 @@
             this.invoiceLabel.Location = new System.Drawing.Point(8, 43);
             this.invoiceLabel.Name = "invoiceLabel";
             this.invoiceLabel.Size = new System.Drawing.Size(65, 13);
-            this.invoiceLabel.TabIndex = 6;
+            this.invoiceLabel.TabIndex = 52;
             this.invoiceLabel.Text = "Invoice No :";
             // 
             // supplierLabel
@@ -141,7 +151,7 @@
             this.supplierLabel.Location = new System.Drawing.Point(22, 18);
             this.supplierLabel.Name = "supplierLabel";
             this.supplierLabel.Size = new System.Drawing.Size(51, 13);
-            this.supplierLabel.TabIndex = 5;
+            this.supplierLabel.TabIndex = 51;
             this.supplierLabel.Text = "Supplier :";
             // 
             // deliveryDatedateTimePicker
@@ -149,7 +159,7 @@
             this.deliveryDatedateTimePicker.Location = new System.Drawing.Point(307, 15);
             this.deliveryDatedateTimePicker.Name = "deliveryDatedateTimePicker";
             this.deliveryDatedateTimePicker.Size = new System.Drawing.Size(200, 20);
-            this.deliveryDatedateTimePicker.TabIndex = 2;
+            this.deliveryDatedateTimePicker.TabIndex = 13;
             // 
             // storageLocationComboBox
             // 
@@ -157,7 +167,7 @@
             this.storageLocationComboBox.Location = new System.Drawing.Point(76, 64);
             this.storageLocationComboBox.Name = "storageLocationComboBox";
             this.storageLocationComboBox.Size = new System.Drawing.Size(148, 21);
-            this.storageLocationComboBox.TabIndex = 3;
+            this.storageLocationComboBox.TabIndex = 12;
             // 
             // supplierComboBox
             // 
@@ -165,14 +175,14 @@
             this.supplierComboBox.Location = new System.Drawing.Point(76, 15);
             this.supplierComboBox.Name = "supplierComboBox";
             this.supplierComboBox.Size = new System.Drawing.Size(148, 21);
-            this.supplierComboBox.TabIndex = 0;
+            this.supplierComboBox.TabIndex = 10;
             // 
             // invoiceTextBox
             // 
             this.invoiceTextBox.Location = new System.Drawing.Point(76, 40);
             this.invoiceTextBox.Name = "invoiceTextBox";
             this.invoiceTextBox.Size = new System.Drawing.Size(148, 20);
-            this.invoiceTextBox.TabIndex = 1;
+            this.invoiceTextBox.TabIndex = 11;
             // 
             // truckGroupBox
             // 
@@ -188,7 +198,7 @@
             this.truckGroupBox.Location = new System.Drawing.Point(0, 97);
             this.truckGroupBox.Name = "truckGroupBox";
             this.truckGroupBox.Size = new System.Drawing.Size(665, 150);
-            this.truckGroupBox.TabIndex = 20;
+            this.truckGroupBox.TabIndex = 200;
             this.truckGroupBox.TabStop = false;
             this.truckGroupBox.Text = "Truck Details";
             // 
@@ -198,7 +208,7 @@
             this.productQuantityLabel.Location = new System.Drawing.Point(21, 103);
             this.productQuantityLabel.Name = "productQuantityLabel";
             this.productQuantityLabel.Size = new System.Drawing.Size(52, 13);
-            this.productQuantityLabel.TabIndex = 18;
+            this.productQuantityLabel.TabIndex = 202;
             this.productQuantityLabel.Text = "Quantity :";
             // 
             // removeTruckButton
@@ -206,7 +216,7 @@
             this.removeTruckButton.Location = new System.Drawing.Point(421, 124);
             this.removeTruckButton.Name = "removeTruckButton";
             this.removeTruckButton.Size = new System.Drawing.Size(100, 23);
-            this.removeTruckButton.TabIndex = 10;
+            this.removeTruckButton.TabIndex = 25;
             this.removeTruckButton.Text = "Remove";
             this.removeTruckButton.UseVisualStyleBackColor = true;
             // 
@@ -215,7 +225,7 @@
             this.editTruckQuantityButton.Location = new System.Drawing.Point(302, 124);
             this.editTruckQuantityButton.Name = "editTruckQuantityButton";
             this.editTruckQuantityButton.Size = new System.Drawing.Size(100, 23);
-            this.editTruckQuantityButton.TabIndex = 9;
+            this.editTruckQuantityButton.TabIndex = 24;
             this.editTruckQuantityButton.Text = "Edit Quantity";
             this.editTruckQuantityButton.UseVisualStyleBackColor = true;
             // 
@@ -224,14 +234,14 @@
             this.quantityTruckTextBox.Location = new System.Drawing.Point(76, 100);
             this.quantityTruckTextBox.Name = "quantityTruckTextBox";
             this.quantityTruckTextBox.Size = new System.Drawing.Size(148, 20);
-            this.quantityTruckTextBox.TabIndex = 6;
+            this.quantityTruckTextBox.TabIndex = 21;
             // 
             // addTruckButton
             // 
             this.addTruckButton.Location = new System.Drawing.Point(149, 124);
             this.addTruckButton.Name = "addTruckButton";
             this.addTruckButton.Size = new System.Drawing.Size(75, 23);
-            this.addTruckButton.TabIndex = 7;
+            this.addTruckButton.TabIndex = 22;
             this.addTruckButton.Text = "Add";
             this.addTruckButton.UseVisualStyleBackColor = true;
             // 
@@ -241,7 +251,7 @@
             this.label1.Location = new System.Drawing.Point(239, 19);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(60, 13);
-            this.label1.TabIndex = 23;
+            this.label1.TabIndex = 203;
             this.label1.Text = "Truck List :";
             // 
             // truckDataGridView
@@ -253,7 +263,7 @@
             this.truckDataGridView.ReadOnly = true;
             this.truckDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.truckDataGridView.Size = new System.Drawing.Size(219, 106);
-            this.truckDataGridView.TabIndex = 8;
+            this.truckDataGridView.TabIndex = 23;
             // 
             // truckListBox
             // 
@@ -261,7 +271,7 @@
             this.truckListBox.Location = new System.Drawing.Point(76, 12);
             this.truckListBox.Name = "truckListBox";
             this.truckListBox.Size = new System.Drawing.Size(148, 82);
-            this.truckListBox.TabIndex = 5;
+            this.truckListBox.TabIndex = 20;
             // 
             // truckLabel
             // 
@@ -269,7 +279,7 @@
             this.truckLabel.Location = new System.Drawing.Point(5, 19);
             this.truckLabel.Name = "truckLabel";
             this.truckLabel.Size = new System.Drawing.Size(68, 13);
-            this.truckLabel.TabIndex = 21;
+            this.truckLabel.TabIndex = 201;
             this.truckLabel.Text = "Truck Type :";
             // 
             // productGroupBox
@@ -286,7 +296,7 @@
             this.productGroupBox.Location = new System.Drawing.Point(0, 250);
             this.productGroupBox.Name = "productGroupBox";
             this.productGroupBox.Size = new System.Drawing.Size(542, 279);
-            this.productGroupBox.TabIndex = 21;
+            this.productGroupBox.TabIndex = 301;
             this.productGroupBox.TabStop = false;
             this.productGroupBox.Text = "Product Details";
             // 
@@ -295,7 +305,7 @@
             this.removeProductButton.Location = new System.Drawing.Point(421, 253);
             this.removeProductButton.Name = "removeProductButton";
             this.removeProductButton.Size = new System.Drawing.Size(100, 23);
-            this.removeProductButton.TabIndex = 16;
+            this.removeProductButton.TabIndex = 35;
             this.removeProductButton.Text = "Remove";
             this.removeProductButton.UseVisualStyleBackColor = true;
             // 
@@ -304,7 +314,7 @@
             this.editProductQuantityButton.Location = new System.Drawing.Point(302, 253);
             this.editProductQuantityButton.Name = "editProductQuantityButton";
             this.editProductQuantityButton.Size = new System.Drawing.Size(100, 23);
-            this.editProductQuantityButton.TabIndex = 15;
+            this.editProductQuantityButton.TabIndex = 34;
             this.editProductQuantityButton.Text = "Edit Quantity";
             this.editProductQuantityButton.UseVisualStyleBackColor = true;
             // 
@@ -314,7 +324,7 @@
             this.productListLabel.Location = new System.Drawing.Point(230, 22);
             this.productListLabel.Name = "productListLabel";
             this.productListLabel.Size = new System.Drawing.Size(69, 13);
-            this.productListLabel.TabIndex = 23;
+            this.productListLabel.TabIndex = 304;
             this.productListLabel.Text = "Product List :";
             // 
             // productListDatagridView
@@ -329,7 +339,7 @@
             this.productListDatagridView.ReadOnly = true;
             this.productListDatagridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.productListDatagridView.Size = new System.Drawing.Size(219, 228);
-            this.productListDatagridView.TabIndex = 14;
+            this.productListDatagridView.TabIndex = 33;
             // 
             // label2
             // 
@@ -337,7 +347,7 @@
             this.label2.Location = new System.Drawing.Point(21, 230);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(52, 13);
-            this.label2.TabIndex = 21;
+            this.label2.TabIndex = 303;
             this.label2.Text = "Quantity :";
             // 
             // addProductButton
@@ -345,7 +355,7 @@
             this.addProductButton.Location = new System.Drawing.Point(150, 253);
             this.addProductButton.Name = "addProductButton";
             this.addProductButton.Size = new System.Drawing.Size(74, 23);
-            this.addProductButton.TabIndex = 13;
+            this.addProductButton.TabIndex = 32;
             this.addProductButton.Text = "Add";
             this.addProductButton.UseVisualStyleBackColor = true;
             // 
@@ -354,7 +364,7 @@
             this.productQuantityTextBox.Location = new System.Drawing.Point(76, 227);
             this.productQuantityTextBox.Name = "productQuantityTextBox";
             this.productQuantityTextBox.Size = new System.Drawing.Size(148, 20);
-            this.productQuantityTextBox.TabIndex = 12;
+            this.productQuantityTextBox.TabIndex = 31;
             // 
             // productLabel
             // 
@@ -362,7 +372,7 @@
             this.productLabel.Location = new System.Drawing.Point(23, 22);
             this.productLabel.Name = "productLabel";
             this.productLabel.Size = new System.Drawing.Size(50, 13);
-            this.productLabel.TabIndex = 18;
+            this.productLabel.TabIndex = 302;
             this.productLabel.Text = "Product :";
             // 
             // productListBox
@@ -371,14 +381,14 @@
             this.productListBox.Location = new System.Drawing.Point(76, 19);
             this.productListBox.Name = "productListBox";
             this.productListBox.Size = new System.Drawing.Size(148, 199);
-            this.productListBox.TabIndex = 11;
+            this.productListBox.TabIndex = 30;
             // 
             // doneButton
             // 
             this.doneButton.Location = new System.Drawing.Point(560, 438);
             this.doneButton.Name = "doneButton";
             this.doneButton.Size = new System.Drawing.Size(96, 55);
-            this.doneButton.TabIndex = 17;
+            this.doneButton.TabIndex = 40;
             this.doneButton.Text = "Done";
             this.doneButton.UseVisualStyleBackColor = true;
             // 
@@ -387,19 +397,9 @@
             this.cancelButton.Location = new System.Drawing.Point(559, 499);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(96, 28);
-            this.cancelButton.TabIndex = 18;
+            this.cancelButton.TabIndex = 41;
             this.cancelButton.Text = "Cancel";
             this.cancelButton.UseVisualStyleBackColor = true;
-            // 
-            // IsInterCheckBox
-            // 
-            this.IsInterCheckBox.AutoSize = true;
-            this.IsInterCheckBox.Location = new System.Drawing.Point(65, 19);
-            this.IsInterCheckBox.Name = "IsInterCheckBox";
-            this.IsInterCheckBox.Size = new System.Drawing.Size(145, 17);
-            this.IsInterCheckBox.TabIndex = 1;
-            this.IsInterCheckBox.Text = "Yes / If no, leave it blank";
-            this.IsInterCheckBox.UseVisualStyleBackColor = true;
             // 
             // AddEdit_Inbound_Outbound_FormV2
             // 

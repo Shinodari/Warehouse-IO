@@ -39,44 +39,44 @@
             // 
             // x
             // 
-            this.x.Location = new System.Drawing.Point(508, 447);
+            this.x.Location = new System.Drawing.Point(545, 447);
             this.x.Margin = new System.Windows.Forms.Padding(2);
             this.x.Name = "x";
             this.x.Size = new System.Drawing.Size(96, 55);
-            this.x.TabIndex = 23;
+            this.x.TabIndex = 14;
             this.x.Text = "Exit";
             this.x.UseVisualStyleBackColor = true;
             this.x.Click += new System.EventHandler(this.exitButton_Click);
             // 
             // r
             // 
-            this.r.Location = new System.Drawing.Point(508, 148);
+            this.r.Location = new System.Drawing.Point(545, 148);
             this.r.Margin = new System.Windows.Forms.Padding(2);
             this.r.Name = "r";
             this.r.Size = new System.Drawing.Size(96, 55);
-            this.r.TabIndex = 22;
+            this.r.TabIndex = 13;
             this.r.Text = "Remove";
             this.r.UseVisualStyleBackColor = true;
             this.r.Click += new System.EventHandler(this.removeButton_Click);
             // 
             // e
             // 
-            this.e.Location = new System.Drawing.Point(508, 88);
+            this.e.Location = new System.Drawing.Point(545, 88);
             this.e.Margin = new System.Windows.Forms.Padding(2);
             this.e.Name = "e";
             this.e.Size = new System.Drawing.Size(96, 55);
-            this.e.TabIndex = 21;
+            this.e.TabIndex = 12;
             this.e.Text = "Edit";
             this.e.UseVisualStyleBackColor = true;
             this.e.Click += new System.EventHandler(this.editButton_Click);
             // 
             // a
             // 
-            this.a.Location = new System.Drawing.Point(508, 28);
+            this.a.Location = new System.Drawing.Point(545, 28);
             this.a.Margin = new System.Windows.Forms.Padding(2);
             this.a.Name = "a";
             this.a.Size = new System.Drawing.Size(96, 55);
-            this.a.TabIndex = 20;
+            this.a.TabIndex = 11;
             this.a.Text = "Add";
             this.a.UseVisualStyleBackColor = true;
             this.a.Click += new System.EventHandler(this.addButton_Click);
@@ -91,8 +91,8 @@
             this.UnitOfUOMGridView.ReadOnly = true;
             this.UnitOfUOMGridView.RowTemplate.Height = 24;
             this.UnitOfUOMGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.UnitOfUOMGridView.Size = new System.Drawing.Size(475, 474);
-            this.UnitOfUOMGridView.TabIndex = 19;
+            this.UnitOfUOMGridView.Size = new System.Drawing.Size(532, 474);
+            this.UnitOfUOMGridView.TabIndex = 10;
             this.UnitOfUOMGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_CellClick1);
             // 
             // label1
@@ -102,14 +102,14 @@
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(94, 13);
-            this.label1.TabIndex = 18;
+            this.label1.TabIndex = 200;
             this.label1.Text = "Unit of Weight List";
             // 
             // UnitOfWeightForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(589, 477);
+            this.ClientSize = new System.Drawing.Size(652, 515);
             this.ControlBox = false;
             this.Controls.Add(this.x);
             this.Controls.Add(this.r);

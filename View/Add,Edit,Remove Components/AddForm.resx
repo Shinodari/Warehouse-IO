@@ -133,7 +133,7 @@
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="CancelButton.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
+    <value>12</value>
   </data>
   <data name="CancelButton.Text" xml:space="preserve">
     <value>CANCEL</value>
@@ -163,7 +163,7 @@
     <value>62, 23</value>
   </data>
   <data name="OKButton.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
+    <value>11</value>
   </data>
   <data name="OKButton.Text" xml:space="preserve">
     <value>OK</value>
@@ -193,7 +193,7 @@
     <value>197, 20</value>
   </data>
   <data name="AddTextBox.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
+    <value>10</value>
   </data>
   <data name="&gt;&gt;AddTextBox.Name" xml:space="preserve">
     <value>AddTextBox</value>
@@ -217,7 +217,7 @@
     <value>41, 13</value>
   </data>
   <data name="nameLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>7</value>
+    <value>100</value>
   </data>
   <data name="nameLabel.Text" xml:space="preserve">
     <value>Name :</value>

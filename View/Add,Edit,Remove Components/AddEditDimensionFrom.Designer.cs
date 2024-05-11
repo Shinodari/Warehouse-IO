@@ -47,28 +47,28 @@
             this.nameTextBox.Location = new System.Drawing.Point(138, 12);
             this.nameTextBox.Name = "nameTextBox";
             this.nameTextBox.Size = new System.Drawing.Size(148, 20);
-            this.nameTextBox.TabIndex = 0;
+            this.nameTextBox.TabIndex = 10;
             // 
             // widthTextBox
             // 
             this.widthTextBox.Location = new System.Drawing.Point(138, 38);
             this.widthTextBox.Name = "widthTextBox";
             this.widthTextBox.Size = new System.Drawing.Size(148, 20);
-            this.widthTextBox.TabIndex = 1;
+            this.widthTextBox.TabIndex = 11;
             // 
             // lengthTextBox
             // 
             this.lengthTextBox.Location = new System.Drawing.Point(138, 64);
             this.lengthTextBox.Name = "lengthTextBox";
             this.lengthTextBox.Size = new System.Drawing.Size(148, 20);
-            this.lengthTextBox.TabIndex = 2;
+            this.lengthTextBox.TabIndex = 12;
             // 
             // heightTextBox
             // 
             this.heightTextBox.Location = new System.Drawing.Point(138, 90);
             this.heightTextBox.Name = "heightTextBox";
             this.heightTextBox.Size = new System.Drawing.Size(148, 20);
-            this.heightTextBox.TabIndex = 3;
+            this.heightTextBox.TabIndex = 13;
             // 
             // unitOfVolumeListBox
             // 
@@ -76,14 +76,14 @@
             this.unitOfVolumeListBox.Location = new System.Drawing.Point(138, 116);
             this.unitOfVolumeListBox.Name = "unitOfVolumeListBox";
             this.unitOfVolumeListBox.Size = new System.Drawing.Size(148, 160);
-            this.unitOfVolumeListBox.TabIndex = 4;
+            this.unitOfVolumeListBox.TabIndex = 14;
             // 
             // AddButton
             // 
             this.AddButton.Location = new System.Drawing.Point(306, 12);
             this.AddButton.Name = "AddButton";
             this.AddButton.Size = new System.Drawing.Size(88, 20);
-            this.AddButton.TabIndex = 5;
+            this.AddButton.TabIndex = 50;
             this.AddButton.Text = "Add";
             this.AddButton.UseVisualStyleBackColor = true;
             // 
@@ -92,7 +92,7 @@
             this.cancelButton.Location = new System.Drawing.Point(306, 38);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(88, 20);
-            this.cancelButton.TabIndex = 6;
+            this.cancelButton.TabIndex = 51;
             this.cancelButton.Text = "Cancel";
             this.cancelButton.UseVisualStyleBackColor = true;
             // 
@@ -102,7 +102,7 @@
             this.nameLabel.Location = new System.Drawing.Point(91, 15);
             this.nameLabel.Name = "nameLabel";
             this.nameLabel.Size = new System.Drawing.Size(41, 13);
-            this.nameLabel.TabIndex = 7;
+            this.nameLabel.TabIndex = 60;
             this.nameLabel.Text = "Name :";
             // 
             // widthLabel
@@ -111,7 +111,7 @@
             this.widthLabel.Location = new System.Drawing.Point(91, 41);
             this.widthLabel.Name = "widthLabel";
             this.widthLabel.Size = new System.Drawing.Size(41, 13);
-            this.widthLabel.TabIndex = 8;
+            this.widthLabel.TabIndex = 61;
             this.widthLabel.Text = "Width :";
             // 
             // lengthLabel
@@ -120,7 +120,7 @@
             this.lengthLabel.Location = new System.Drawing.Point(86, 67);
             this.lengthLabel.Name = "lengthLabel";
             this.lengthLabel.Size = new System.Drawing.Size(46, 13);
-            this.lengthLabel.TabIndex = 9;
+            this.lengthLabel.TabIndex = 62;
             this.lengthLabel.Text = "Length :";
             // 
             // heightLabel
@@ -129,7 +129,7 @@
             this.heightLabel.Location = new System.Drawing.Point(88, 93);
             this.heightLabel.Name = "heightLabel";
             this.heightLabel.Size = new System.Drawing.Size(44, 13);
-            this.heightLabel.TabIndex = 10;
+            this.heightLabel.TabIndex = 63;
             this.heightLabel.Text = "Height :";
             // 
             // unitOfVolumeLabel
@@ -138,7 +138,7 @@
             this.unitOfVolumeLabel.Location = new System.Drawing.Point(50, 116);
             this.unitOfVolumeLabel.Name = "unitOfVolumeLabel";
             this.unitOfVolumeLabel.Size = new System.Drawing.Size(82, 13);
-            this.unitOfVolumeLabel.TabIndex = 11;
+            this.unitOfVolumeLabel.TabIndex = 64;
             this.unitOfVolumeLabel.Text = "Unit of Volume :";
             // 
             // AddEditDimensionFrom

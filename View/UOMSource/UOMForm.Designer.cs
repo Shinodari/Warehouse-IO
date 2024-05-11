@@ -50,7 +50,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(581, 469);
+            this.ClientSize = new System.Drawing.Size(652, 515);
             this.Location = new System.Drawing.Point(0, 0);
             this.Name = "UOMForm";
             this.Text = "UOMForm";
