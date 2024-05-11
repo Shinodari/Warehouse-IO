@@ -352,6 +352,12 @@
     <Compile Include="View\OutboundSource\OutboundForm.Designer.cs">
       <DependentUpon>OutboundForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\OutboundSource\Remove.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\OutboundSource\Remove.Designer.cs">
+      <DependentUpon>Remove.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\ParentFormComponents\ParentForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -624,6 +630,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="View\OutboundSource\OutboundForm.resx">
       <DependentUpon>OutboundForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\OutboundSource\Remove.resx">
+      <DependentUpon>Remove.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\ParentFormComponents\ParentForm.resx">
       <DependentUpon>ParentForm.cs</DependentUpon>

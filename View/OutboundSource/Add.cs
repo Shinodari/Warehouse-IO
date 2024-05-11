@@ -504,6 +504,7 @@ namespace Warehouse_IO.View.OutboundSource
                     return;
                 }
             }
+            UpdateGrid?.Invoke(this, EventArgs.Empty);
             Close();     
         }
         private void doneButton_Click(object sender, EventArgs e)

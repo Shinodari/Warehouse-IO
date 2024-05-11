@@ -7,7 +7,6 @@ namespace Warehouse_IO.View.OutboundSource
 {
     public partial class Remove : Form
     {
-        Outbound remove;
 
         public event EventHandler UpdateGrid;
 
@@ -17,7 +16,7 @@ namespace Warehouse_IO.View.OutboundSource
         }
         private void AttemptRemove()
         {
-            remove = new Outbound(Global.tempPkey);
+            Outbound remove = new Outbound(Global.tempPkey);
             if (remove.Remove())
             {
                 Global.tempPkey = -1;

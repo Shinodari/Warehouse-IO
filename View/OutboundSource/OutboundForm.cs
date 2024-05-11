@@ -14,6 +14,7 @@ namespace Warehouse_IO.View.OutboundSource
     {
         private Add add;
         private Edit edit;
+        private Remove remove;
 
         MainForm main;
 
@@ -119,6 +120,11 @@ namespace Warehouse_IO.View.OutboundSource
             int value = (int)selectedRow.Cells[6].Value;
             Global.tempPkey = value;
 
+            remove = new Remove();
+            remove.Owner = main;
+
+            remove.UpdateGrid += OnUpdate;
+            remove.ShowDialog();
         }
 
         private void x_Click(object sender, EventArgs e)
