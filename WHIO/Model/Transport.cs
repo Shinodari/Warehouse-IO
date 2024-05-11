@@ -22,6 +22,9 @@ namespace Warehouse_IO.WHIO.Model
         Dictionary<Product, int> quantityofproductlist = new Dictionary<Product, int>(new ProductEqualityComparer());
         public Dictionary<Product, int> QuantityOfProductList { get { return quantityofproductlist; }set { quantityofproductlist = value; } }
 
+        bool inter;
+        public bool Inter { get { return inter; }set { inter = value; } }
+
         static string connstr = Settings.Default.CONNECTION_STRING;
 
         string GetTableNameFromClassName()
