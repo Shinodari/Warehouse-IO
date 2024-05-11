@@ -32,6 +32,7 @@
             this.deliveryPlaceGroupBox.SuspendLayout();
             this.truckGroupBox.SuspendLayout();
             this.productGroupBox.SuspendLayout();
+            this.exportShipmentGroupbox.SuspendLayout();
             this.SuspendLayout();
             // 
             // createShipmentButton
@@ -100,7 +101,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(668, 531);
             this.Name = "Add";
-            this.Text = "Add";
+            this.Text = "Add Outbound";
             this.shipmentGroupBox.ResumeLayout(false);
             this.shipmentGroupBox.PerformLayout();
             this.deliveryPlaceGroupBox.ResumeLayout(false);
@@ -109,6 +110,8 @@
             this.truckGroupBox.PerformLayout();
             this.productGroupBox.ResumeLayout(false);
             this.productGroupBox.PerformLayout();
+            this.exportShipmentGroupbox.ResumeLayout(false);
+            this.exportShipmentGroupbox.PerformLayout();
             this.ResumeLayout(false);
 
         }

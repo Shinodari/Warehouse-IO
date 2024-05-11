@@ -5,7 +5,6 @@ using System.Data;
 using MySql.Data.MySqlClient;
 using Warehouse_IO.WHIO.Model;
 using Warehouse_IO.View.Add_Edit_Remove_Components;
-using Warehouse_IO.Common;
 
 namespace Warehouse_IO.View.InboundSource
 {
@@ -178,7 +177,7 @@ namespace Warehouse_IO.View.InboundSource
                 storage = new Storage(selectedStorageID);
             }
 
-            add = new Inbound(invoiceTextBox.Text, deliverydate, supplier, storage);
+            add = new Inbound(invoiceTextBox.Text, deliverydate, supplier, storage, IsInterCheckBox.Checked);
 
             if (add.Create())
             {
@@ -438,6 +437,7 @@ namespace Warehouse_IO.View.InboundSource
                     return;
                 }
             }
+            UpdateGrid?.Invoke(this, EventArgs.Empty);
             Close();
         }
         private void doneButton_Click(object sender, EventArgs e)

@@ -45,7 +45,7 @@ namespace Warehouse_IO.View.OutboundSource
             dataTable.Columns.Add("Customer");
             dataTable.Columns.Add("Place");
             dataTable.Columns.Add("TotalM3", typeof(double));
-            dataTable.Columns.Add("Truck", typeof(int));
+            dataTable.Columns.Add("Import", typeof(bool));
             dataTable.Columns.Add("ID", typeof(int));
 
             foreach(Outbound outbound in outboundlist)
@@ -59,7 +59,7 @@ namespace Warehouse_IO.View.OutboundSource
                 {
                     foreach (Deliveryplace deliveryplace in outbound.DeliveryplaceList)
                     {
-                        deliveryPlaces.Append(deliveryplace.Name).Append(", ");
+                        deliveryPlaces.Append(deliveryplace.Name).Append(" / ");
                     }
                     if (deliveryPlaces.Length > 0)
                         deliveryPlaces.Length -= 2;
@@ -78,13 +78,15 @@ namespace Warehouse_IO.View.OutboundSource
                 }
                 double TotalM3 = M3perUnit * totalQty;
                 row["TotalM3"] = TotalM3.ToString("0.00");
-                row["Truck"] = outbound.TruckQuantityPerShipmentList.Keys.Count;
+                row["Import"] = outbound.Inter;
                 row["ID"] = outbound.ID;
 
                 dataTable.Rows.Add(row);
             }
             dataTable.DefaultView.Sort = "Date DESC";
             dataGridView.DataSource = dataTable.DefaultView;
+
+            dataGridView.Columns["ID"].Visible = false;
         }
 
         private void a_Click(object sender, EventArgs e)

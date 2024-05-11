@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.shipmentGroupBox = new System.Windows.Forms.GroupBox();
+            this.exportShipmentGroupbox = new System.Windows.Forms.GroupBox();
             this.createShipmentButton = new System.Windows.Forms.Button();
             this.deliveryDateLabel = new System.Windows.Forms.Label();
             this.invoiceLabel = new System.Windows.Forms.Label();
@@ -66,7 +67,9 @@
             this.productListBox = new System.Windows.Forms.ListBox();
             this.doneButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
+            this.IsInterCheckBox = new System.Windows.Forms.CheckBox();
             this.shipmentGroupBox.SuspendLayout();
+            this.exportShipmentGroupbox.SuspendLayout();
             this.deliveryPlaceGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.deliveryPlaceDatagridView)).BeginInit();
             this.truckGroupBox.SuspendLayout();
@@ -77,6 +80,7 @@
             // 
             // shipmentGroupBox
             // 
+            this.shipmentGroupBox.Controls.Add(this.exportShipmentGroupbox);
             this.shipmentGroupBox.Controls.Add(this.createShipmentButton);
             this.shipmentGroupBox.Controls.Add(this.deliveryDateLabel);
             this.shipmentGroupBox.Controls.Add(this.invoiceLabel);
@@ -90,6 +94,16 @@
             this.shipmentGroupBox.TabIndex = 2;
             this.shipmentGroupBox.TabStop = false;
             this.shipmentGroupBox.Text = "Shipment";
+            // 
+            // exportShipmentGroupbox
+            // 
+            this.exportShipmentGroupbox.Controls.Add(this.IsInterCheckBox);
+            this.exportShipmentGroupbox.Location = new System.Drawing.Point(230, 36);
+            this.exportShipmentGroupbox.Name = "exportShipmentGroupbox";
+            this.exportShipmentGroupbox.Size = new System.Drawing.Size(312, 33);
+            this.exportShipmentGroupbox.TabIndex = 9;
+            this.exportShipmentGroupbox.TabStop = false;
+            this.exportShipmentGroupbox.Text = "Export Shipment";
             // 
             // createShipmentButton
             // 
@@ -216,7 +230,7 @@
             // 
             this.deliveryPlaceTextBox.Location = new System.Drawing.Point(76, 19);
             this.deliveryPlaceTextBox.Name = "deliveryPlaceTextBox";
-            this.deliveryPlaceTextBox.Size = new System.Drawing.Size(238, 20);
+            this.deliveryPlaceTextBox.Size = new System.Drawing.Size(244, 20);
             this.deliveryPlaceTextBox.TabIndex = 1;
             // 
             // deliveryplaceListBox
@@ -444,6 +458,16 @@
             this.cancelButton.Text = "Cancel";
             this.cancelButton.UseVisualStyleBackColor = true;
             // 
+            // IsInterCheckBox
+            // 
+            this.IsInterCheckBox.AutoSize = true;
+            this.IsInterCheckBox.Location = new System.Drawing.Point(96, 11);
+            this.IsInterCheckBox.Name = "IsInterCheckBox";
+            this.IsInterCheckBox.Size = new System.Drawing.Size(145, 17);
+            this.IsInterCheckBox.TabIndex = 1;
+            this.IsInterCheckBox.Text = "Yes / If no, leave it blank";
+            this.IsInterCheckBox.UseVisualStyleBackColor = true;
+            // 
             // AddEdit_Outbound_Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -464,6 +488,8 @@
             this.Text = "AddEdit_Outbound_Form";
             this.shipmentGroupBox.ResumeLayout(false);
             this.shipmentGroupBox.PerformLayout();
+            this.exportShipmentGroupbox.ResumeLayout(false);
+            this.exportShipmentGroupbox.PerformLayout();
             this.deliveryPlaceGroupBox.ResumeLayout(false);
             this.deliveryPlaceGroupBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.deliveryPlaceDatagridView)).EndInit();
@@ -517,5 +543,7 @@
         protected System.Windows.Forms.ListBox productListBox;
         protected System.Windows.Forms.Button doneButton;
         protected System.Windows.Forms.Button cancelButton;
+        protected System.Windows.Forms.GroupBox exportShipmentGroupbox;
+        protected System.Windows.Forms.CheckBox IsInterCheckBox;
     }
 }

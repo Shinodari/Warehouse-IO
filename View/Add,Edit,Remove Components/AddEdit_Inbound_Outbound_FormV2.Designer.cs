@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.shipmentGroupBox = new System.Windows.Forms.GroupBox();
+            this.importShipmentGroupBox = new System.Windows.Forms.GroupBox();
             this.storageLocationLabel = new System.Windows.Forms.Label();
             this.createShipmentButton = new System.Windows.Forms.Button();
             this.deliveryDateLabel = new System.Windows.Forms.Label();
@@ -60,7 +61,9 @@
             this.productListBox = new System.Windows.Forms.ListBox();
             this.doneButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
+            this.IsInterCheckBox = new System.Windows.Forms.CheckBox();
             this.shipmentGroupBox.SuspendLayout();
+            this.importShipmentGroupBox.SuspendLayout();
             this.truckGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.truckDataGridView)).BeginInit();
             this.productGroupBox.SuspendLayout();
@@ -69,6 +72,7 @@
             // 
             // shipmentGroupBox
             // 
+            this.shipmentGroupBox.Controls.Add(this.importShipmentGroupBox);
             this.shipmentGroupBox.Controls.Add(this.storageLocationLabel);
             this.shipmentGroupBox.Controls.Add(this.createShipmentButton);
             this.shipmentGroupBox.Controls.Add(this.deliveryDateLabel);
@@ -85,18 +89,28 @@
             this.shipmentGroupBox.TabStop = false;
             this.shipmentGroupBox.Text = "Shipment";
             // 
+            // importShipmentGroupBox
+            // 
+            this.importShipmentGroupBox.Controls.Add(this.IsInterCheckBox);
+            this.importShipmentGroupBox.Location = new System.Drawing.Point(242, 42);
+            this.importShipmentGroupBox.Name = "importShipmentGroupBox";
+            this.importShipmentGroupBox.Size = new System.Drawing.Size(265, 43);
+            this.importShipmentGroupBox.TabIndex = 10;
+            this.importShipmentGroupBox.TabStop = false;
+            this.importShipmentGroupBox.Text = "Import Shipment";
+            // 
             // storageLocationLabel
             // 
             this.storageLocationLabel.AutoSize = true;
-            this.storageLocationLabel.Location = new System.Drawing.Point(245, 58);
+            this.storageLocationLabel.Location = new System.Drawing.Point(23, 68);
             this.storageLocationLabel.Name = "storageLocationLabel";
-            this.storageLocationLabel.Size = new System.Drawing.Size(94, 13);
+            this.storageLocationLabel.Size = new System.Drawing.Size(50, 13);
             this.storageLocationLabel.TabIndex = 9;
-            this.storageLocationLabel.Text = "Storage Location :";
+            this.storageLocationLabel.Text = "Storage :";
             // 
             // createShipmentButton
             // 
-            this.createShipmentButton.Location = new System.Drawing.Point(560, 27);
+            this.createShipmentButton.Location = new System.Drawing.Point(559, 27);
             this.createShipmentButton.Name = "createShipmentButton";
             this.createShipmentButton.Size = new System.Drawing.Size(96, 55);
             this.createShipmentButton.TabIndex = 4;
@@ -106,7 +120,7 @@
             // deliveryDateLabel
             // 
             this.deliveryDateLabel.AutoSize = true;
-            this.deliveryDateLabel.Location = new System.Drawing.Point(262, 28);
+            this.deliveryDateLabel.Location = new System.Drawing.Point(227, 19);
             this.deliveryDateLabel.Name = "deliveryDateLabel";
             this.deliveryDateLabel.Size = new System.Drawing.Size(77, 13);
             this.deliveryDateLabel.TabIndex = 8;
@@ -115,7 +129,7 @@
             // invoiceLabel
             // 
             this.invoiceLabel.AutoSize = true;
-            this.invoiceLabel.Location = new System.Drawing.Point(8, 57);
+            this.invoiceLabel.Location = new System.Drawing.Point(8, 43);
             this.invoiceLabel.Name = "invoiceLabel";
             this.invoiceLabel.Size = new System.Drawing.Size(65, 13);
             this.invoiceLabel.TabIndex = 6;
@@ -124,7 +138,7 @@
             // supplierLabel
             // 
             this.supplierLabel.AutoSize = true;
-            this.supplierLabel.Location = new System.Drawing.Point(22, 30);
+            this.supplierLabel.Location = new System.Drawing.Point(22, 18);
             this.supplierLabel.Name = "supplierLabel";
             this.supplierLabel.Size = new System.Drawing.Size(51, 13);
             this.supplierLabel.TabIndex = 5;
@@ -132,7 +146,7 @@
             // 
             // deliveryDatedateTimePicker
             // 
-            this.deliveryDatedateTimePicker.Location = new System.Drawing.Point(342, 27);
+            this.deliveryDatedateTimePicker.Location = new System.Drawing.Point(307, 15);
             this.deliveryDatedateTimePicker.Name = "deliveryDatedateTimePicker";
             this.deliveryDatedateTimePicker.Size = new System.Drawing.Size(200, 20);
             this.deliveryDatedateTimePicker.TabIndex = 2;
@@ -140,7 +154,7 @@
             // storageLocationComboBox
             // 
             this.storageLocationComboBox.FormattingEnabled = true;
-            this.storageLocationComboBox.Location = new System.Drawing.Point(342, 54);
+            this.storageLocationComboBox.Location = new System.Drawing.Point(76, 64);
             this.storageLocationComboBox.Name = "storageLocationComboBox";
             this.storageLocationComboBox.Size = new System.Drawing.Size(148, 21);
             this.storageLocationComboBox.TabIndex = 3;
@@ -148,14 +162,14 @@
             // supplierComboBox
             // 
             this.supplierComboBox.FormattingEnabled = true;
-            this.supplierComboBox.Location = new System.Drawing.Point(76, 27);
+            this.supplierComboBox.Location = new System.Drawing.Point(76, 15);
             this.supplierComboBox.Name = "supplierComboBox";
             this.supplierComboBox.Size = new System.Drawing.Size(148, 21);
             this.supplierComboBox.TabIndex = 0;
             // 
             // invoiceTextBox
             // 
-            this.invoiceTextBox.Location = new System.Drawing.Point(76, 54);
+            this.invoiceTextBox.Location = new System.Drawing.Point(76, 40);
             this.invoiceTextBox.Name = "invoiceTextBox";
             this.invoiceTextBox.Size = new System.Drawing.Size(148, 20);
             this.invoiceTextBox.TabIndex = 1;
@@ -377,6 +391,16 @@
             this.cancelButton.Text = "Cancel";
             this.cancelButton.UseVisualStyleBackColor = true;
             // 
+            // IsInterCheckBox
+            // 
+            this.IsInterCheckBox.AutoSize = true;
+            this.IsInterCheckBox.Location = new System.Drawing.Point(65, 19);
+            this.IsInterCheckBox.Name = "IsInterCheckBox";
+            this.IsInterCheckBox.Size = new System.Drawing.Size(145, 17);
+            this.IsInterCheckBox.TabIndex = 1;
+            this.IsInterCheckBox.Text = "Yes / If no, leave it blank";
+            this.IsInterCheckBox.UseVisualStyleBackColor = true;
+            // 
             // AddEdit_Inbound_Outbound_FormV2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -396,6 +420,8 @@
             this.Text = "AddEdit_Inbound_Outbound_FormV2";
             this.shipmentGroupBox.ResumeLayout(false);
             this.shipmentGroupBox.PerformLayout();
+            this.importShipmentGroupBox.ResumeLayout(false);
+            this.importShipmentGroupBox.PerformLayout();
             this.truckGroupBox.ResumeLayout(false);
             this.truckGroupBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.truckDataGridView)).EndInit();
@@ -440,5 +466,7 @@
         protected System.Windows.Forms.Button editProductQuantityButton;
         protected System.Windows.Forms.Button doneButton;
         protected System.Windows.Forms.Button cancelButton;
+        protected System.Windows.Forms.GroupBox importShipmentGroupBox;
+        protected System.Windows.Forms.CheckBox IsInterCheckBox;
     }
 }

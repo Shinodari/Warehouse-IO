@@ -56,7 +56,7 @@ namespace Warehouse_IO.View.OutboundSource
             supplierComboBox.Text = edit.Supplier.Name;
             invoiceTextBox.Text = edit.InvoiceNo;
             deliveryDatedateTimePicker.Value = edit.DeliveryDate;
-
+            IsInterCheckBox.Checked = edit.Inter;
             //Create instance for update components
             supplierList = new List<Supplier>();
             truckList = new List<Truck>();
@@ -206,7 +206,16 @@ namespace Warehouse_IO.View.OutboundSource
                 edit.DeliveryDate = deliveryDatedateTimePicker.Value;
                 MessageBox.Show(this, "Delivery date Edited");
             }
-            return isSuccess;
+            if (edit.Inter != IsInterCheckBox.Checked)
+            {
+                edit.Inter = IsInterCheckBox.Checked;
+                if (edit.Inter == true)
+                {
+                    MessageBox.Show(this, "Change status to Import");
+                }
+                else MessageBox.Show(this, "Change status to Domestic");
+            }
+                return isSuccess;
         }
         private void createShipmentButton_Click(object sender, EventArgs e)
         {

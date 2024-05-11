@@ -45,9 +45,7 @@ namespace Warehouse_IO.View.InboundSource
             dataTable.Columns.Add("Customer");
             dataTable.Columns.Add("Storage");
             dataTable.Columns.Add("TotalM3", typeof(double));
-            dataTable.Columns.Add("Items");
-            dataTable.Columns.Add("Qty", typeof(int));
-            dataTable.Columns.Add("Truck", typeof(int));
+            dataTable.Columns.Add("Import",typeof(bool));
             dataTable.Columns.Add("Inbound ID", typeof(int));
             dataTable.Columns.Add("Storage ID", typeof(int));
 
@@ -58,9 +56,7 @@ namespace Warehouse_IO.View.InboundSource
                 row["Date"] = inbound.DeliveryDate.ToString("dd MMM yy");
                 row["Customer"] = inbound.Supplier.Name;
                 row["Storage"] = inbound.Storage.Name;
-                row["Items"] = inbound.QuantityOfProductList.Keys.Count;
                 int totalQty = inbound.QuantityOfProductList.Values.Sum();
-                row["Qty"] = totalQty;
                 double M3perUnit = 0;
                 foreach (KeyValuePair<Product, int> productQty in inbound.QuantityOfProductList)
                 {
@@ -72,7 +68,7 @@ namespace Warehouse_IO.View.InboundSource
                 }
                 double TotalM3 = M3perUnit * totalQty;
                 row["TotalM3"] = TotalM3.ToString("0.00");
-                row["Truck"] = inbound.TruckQuantityPerShipmentList.Keys.Count;
+                row["Import"] = inbound.Inter;
                 row["Inbound ID"] = inbound.ID;
                 row["Storage ID"] = inbound.Storage.ID;
 
@@ -80,6 +76,9 @@ namespace Warehouse_IO.View.InboundSource
             }
             dataTable.DefaultView.Sort = "Date DESC";
             dataGridView.DataSource = dataTable.DefaultView;
+
+            dataGridView.Columns["Inbound ID"].Visible = false;
+            dataGridView.Columns["Storage ID"].Visible = false;
         }
 
         private void a_Click(object sender, EventArgs e)
@@ -96,8 +95,8 @@ namespace Warehouse_IO.View.InboundSource
             Global.tempPkey = -1;
             Global.tempStorageKey = -1;
             DataGridViewRow selectedRow = dataGridView.CurrentRow;
-            int value = (int)selectedRow.Cells[8].Value;
-            int storageKey = (int)selectedRow.Cells[9].Value;
+            int value = (int)selectedRow.Cells[6].Value;
+            int storageKey = (int)selectedRow.Cells[7].Value;
 
             Global.tempStorageKey = storageKey;
             Global.tempPkey = value;
@@ -114,8 +113,8 @@ namespace Warehouse_IO.View.InboundSource
             Global.tempPkey = -1;
             Global.tempStorageKey = -1;
             DataGridViewRow selectedRow = dataGridView.CurrentRow;
-            int value = (int)selectedRow.Cells[8].Value;
-            int storageKey = (int)selectedRow.Cells[9].Value;
+            int value = (int)selectedRow.Cells[6].Value;
+            int storageKey = (int)selectedRow.Cells[7].Value;
 
             Global.tempStorageKey = storageKey;
             Global.tempPkey = value;

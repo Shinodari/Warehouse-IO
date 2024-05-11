@@ -83,7 +83,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(668, 531);
             this.Name = "AddV2";
-            this.Text = "AddV2";
+            this.Text = "Add Inbound";
             this.shipmentGroupBox.ResumeLayout(false);
             this.shipmentGroupBox.PerformLayout();
             this.truckGroupBox.ResumeLayout(false);
