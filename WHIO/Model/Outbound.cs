@@ -116,7 +116,7 @@ namespace Warehouse_IO.WHIO.Model
                     conn.Close();
             }
         }
-        public Outbound(string invoiceNo, DateTime deliveryDate, Supplier supplier) : base(invoiceNo, deliveryDate, supplier) { }
+        public Outbound(string invoiceNo, DateTime deliveryDate, Supplier supplier, bool isinter) : base(invoiceNo, deliveryDate, supplier, isinter) { }
 
         //Method only for Outbound (not in Transport)
         public static List<Outbound> GetOutboundList()
@@ -160,11 +160,12 @@ namespace Warehouse_IO.WHIO.Model
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    string insert = $"INSERT INTO outbound (ID, InvoiceNo, DeliveryDate, SupplierID) VALUES (NULL, @invoice, @date, @sup)";
+                    string insert = $"INSERT INTO outbound (ID, InvoiceNo, DeliveryDate, SupplierID, IsInter) VALUES (NULL, @invoice, @date, @sup, @isinter)";
                     cmd.CommandText = insert;
                     cmd.Parameters.AddWithValue("@invoice", InvoiceNo);
                     cmd.Parameters.AddWithValue("@date", DeliveryDate);
                     cmd.Parameters.AddWithValue("@sup", Supplier.ID);
+                    cmd.Parameters.AddWithValue("@isinter", Inter);
                     cmd.ExecuteNonQuery();
                 }
                 return true;
@@ -189,11 +190,12 @@ namespace Warehouse_IO.WHIO.Model
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    string update = $"UPDATE outbound SET InvoiceNo = @invoice, DeliveryDate = @date, SupplierID = @sup WHERE ID = @id ";
+                    string update = $"UPDATE outbound SET InvoiceNo = @invoice, DeliveryDate = @date, SupplierID = @sup, IsInter = @isinter WHERE ID = @id ";
                     cmd.CommandText = update;
                     cmd.Parameters.AddWithValue("@invoice", InvoiceNo);
                     cmd.Parameters.AddWithValue("@date", DeliveryDate);
                     cmd.Parameters.AddWithValue("@sup", Supplier.ID);
+                    cmd.Parameters.AddWithValue("@isinter", Inter);
                     cmd.Parameters.AddWithValue("@id", ID);
                     cmd.ExecuteNonQuery();
                 }

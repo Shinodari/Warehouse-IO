@@ -55,6 +55,7 @@ namespace Warehouse_IO.WHIO.Model
                                 invoiceno = reader["InvoiceNo"].ToString();
                                 deliverydate = reader.GetDateTime(reader.GetOrdinal("DeliveryDate"));
                                 supplier = new Supplier(Convert.ToInt32(reader["SupplierID"]));
+                                inter = reader.GetBoolean("IsInter");
                             }
                         }
                     }
@@ -73,13 +74,14 @@ namespace Warehouse_IO.WHIO.Model
             truckquantitypershipmentlist = new Dictionary<Truck, int>(new TruckEqualityComparer());
             CheckAndUpdateField(id.ToString());
         }
-        public Transport(string invoiceNo,DateTime deliveryDate,Supplier supplier)
+        public Transport(string invoiceNo,DateTime deliveryDate,Supplier supplier,bool isinter)
         {
             quantityofproductlist = new Dictionary<Product, int>(new ProductEqualityComparer());
             truckquantitypershipmentlist = new Dictionary<Truck, int>(new TruckEqualityComparer());
             invoiceno = invoiceNo;
             deliverydate = deliveryDate;
             this.supplier = supplier;
+            this.inter = isinter;
         }
 
         public abstract bool Create();

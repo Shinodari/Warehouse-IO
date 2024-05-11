@@ -83,7 +83,7 @@ namespace Warehouse_IO.WHIO.Model
                     conn.Close();
             }
         }
-        public Inbound(string invoiceNo, DateTime deliveryDate, Supplier supplier, Storage storage) : base(invoiceNo, deliveryDate, supplier)
+        public Inbound(string invoiceNo, DateTime deliveryDate, Supplier supplier, Storage storage, bool isinter) : base(invoiceNo, deliveryDate, supplier, isinter)
         {
             this.storage = storage;
         }
@@ -121,7 +121,7 @@ namespace Warehouse_IO.WHIO.Model
             return inboundList;
         }
 
-        public override bool Change()
+        public override bool Create()
         {
             MySqlConnection conn = null;
             try
@@ -130,13 +130,13 @@ namespace Warehouse_IO.WHIO.Model
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    string update = $"UPDATE inbound SET InvoiceNo = @invoice, DeliveryDate = @date, SupplierID = @sup, StorageID = @sto WHERE ID = @id ";
-                    cmd.CommandText = update;
+                    string insert = $"INSERT INTO inbound (ID, InvoiceNo, DeliveryDate, SupplierID, StorageID, IsInter) VALUES (NULL, @invoice, @date, @sup, @sto, @isinter)";
+                    cmd.CommandText = insert;
                     cmd.Parameters.AddWithValue("@invoice", InvoiceNo);
                     cmd.Parameters.AddWithValue("@date", DeliveryDate);
                     cmd.Parameters.AddWithValue("@sup", Supplier.ID);
                     cmd.Parameters.AddWithValue("@sto", Storage.ID);
-                    cmd.Parameters.AddWithValue("@id", ID);
+                    cmd.Parameters.AddWithValue("@isinter", Inter);
                     cmd.ExecuteNonQuery();
                 }
                 return true;
@@ -152,7 +152,7 @@ namespace Warehouse_IO.WHIO.Model
             }
         }
 
-        public override bool Create()
+        public override bool Change()
         {
             MySqlConnection conn = null;
             try
@@ -161,12 +161,14 @@ namespace Warehouse_IO.WHIO.Model
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    string insert = $"INSERT INTO inbound (ID, InvoiceNo, DeliveryDate, SupplierID, StorageID) VALUES (NULL, @invoice, @date, @sup, @sto)";
-                    cmd.CommandText = insert;
+                    string update = $"UPDATE inbound SET InvoiceNo = @invoice, DeliveryDate = @date, SupplierID = @sup, StorageID = @sto, IsInter = @isinter WHERE ID = @id ";
+                    cmd.CommandText = update;
                     cmd.Parameters.AddWithValue("@invoice", InvoiceNo);
                     cmd.Parameters.AddWithValue("@date", DeliveryDate);
                     cmd.Parameters.AddWithValue("@sup", Supplier.ID);
                     cmd.Parameters.AddWithValue("@sto", Storage.ID);
+                    cmd.Parameters.AddWithValue("@isinter", Inter);
+                    cmd.Parameters.AddWithValue("@id", ID);
                     cmd.ExecuteNonQuery();
                 }
                 return true;
