@@ -6,23 +6,21 @@ using Warehouse_IO.WHIO.Model;
 using Warehouse_IO.View.Add_Edit_Remove_Components;
 using Warehouse_IO.Common;
 
-namespace Warehouse_IO.View.InboundSource
+namespace Warehouse_IO.View.OutboundSource
 {
-    public partial class EditV2 : AddEdit_Inbound_Outbound_FormV2
+    public partial class Edit : AddEdit_Outbound_Form
     {
-        Inbound edit;
+        Outbound edit;
 
-        //Variables for update components
+        //Variable for update components
         List<Supplier> supplierList;
         List<Truck> truckList;
-        List<Storage> storageList;
+        List<Deliveryplace> deliveryplaceList;
         List<Product> productList;
 
-        //Variable for compare selected Index when edit shipment
+        //Variable for compare selected Index when create shipment
         private List<int> supplierID = new List<int>();
         private List<int> truckID = new List<int>();
-        private List<Truck> selectedTruck = new List<Truck>();
-        private List<int> storageID = new List<int>();
         private List<int> productID = new List<int>();
 
         //Variable to to compare if it's changed
@@ -31,23 +29,26 @@ namespace Warehouse_IO.View.InboundSource
         //Variable for create selected object on EditShipment()
         Supplier supplier;
         Truck truck;
-        Storage storage;
         Product product;
+        Deliveryplace deliveryplace;
+
+        //Variable for tracking deliveryplace after sorted
+        private readonly Dictionary<string, Deliveryplace> deliveryplaceNameToDeliveryplace = new Dictionary<string, Deliveryplace>();
 
         //Edit quantity pop-Up window components
         EditQuantityWindow editQuantity;
         MainForm main;
 
-        //Event to Invoke Update Inbound List
+        //Event to Invoke Update Outbound List
         public event EventHandler UpdateGrid;
 
-        public EditV2()
+        public Edit()
         {
             InitializeComponent();
 
             //Create selected Instance from InboundFrom
-            storage = new Storage(Global.tempStorageKey);
-            edit = new Inbound(Global.tempPkey, storage);
+            edit = new Outbound(Global.tempPkey);
+
             //Duplicate inv TextBox for compare at Done & Close
             inv = edit.InvoiceNo;
 
@@ -55,11 +56,11 @@ namespace Warehouse_IO.View.InboundSource
             supplierComboBox.Text = edit.Supplier.Name;
             invoiceTextBox.Text = edit.InvoiceNo;
             deliveryDatedateTimePicker.Value = edit.DeliveryDate;
-            storageLocationComboBox.Text = edit.Storage.Name;
+
             //Create instance for update components
             supplierList = new List<Supplier>();
             truckList = new List<Truck>();
-            storageList = new List<Storage>();
+            deliveryplaceList = new List<Deliveryplace>();
             productList = new List<Product>();
 
             //Create instance for edit quantity pop-Up window components
@@ -67,12 +68,14 @@ namespace Warehouse_IO.View.InboundSource
             main = new MainForm();
 
             //Set truck & product gridview auto adjust cell
+            deliveryPlaceDatagridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             truckDataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             productListDatagridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
 
             updateComponent();
             UpdateTruckGridView();
             UpdateProductGridView();
+            UpdateDeliveryplaceGridView();
         }
 
         private void updateComponent()
@@ -86,6 +89,17 @@ namespace Warehouse_IO.View.InboundSource
                 supplierID.Add(supplier.ID);
             }
 
+            deliveryplaceList = Deliveryplace.GetDeliveryplaceList();
+            deliveryplaceList.Sort((x, y) => x.Name.CompareTo(y.Name));
+            deliveryplaceListBox.Items.Clear();
+            foreach (Deliveryplace delivery in deliveryplaceList)
+            {
+                string displayedName = delivery.Name;
+                deliveryplaceListBox.Items.Add(displayedName);
+
+                deliveryplaceNameToDeliveryplace[displayedName] = delivery;
+            }
+
             truckList = Truck.GetTruckList();
             truckList.Sort((x, y) => x.Name.CompareTo(y.Name));
             truckListBox.Items.Clear();
@@ -93,15 +107,6 @@ namespace Warehouse_IO.View.InboundSource
             {
                 truckListBox.Items.Add(truck.Name);
                 truckID.Add(truck.ID);
-            }
-
-            storageList = Storage.GetStorage();
-            storageList.Sort((x, y) => x.Name.CompareTo(y.Name));
-            storageLocationComboBox.Items.Clear();
-            foreach (Storage storage in storageList)
-            {
-                storageLocationComboBox.Items.Add(storage.Name);
-                storageID.Add(storage.ID);
             }
 
             productList = Product.GetProductList();
@@ -152,12 +157,27 @@ namespace Warehouse_IO.View.InboundSource
             datatable.DefaultView.Sort = "Name ASC";
             productListDatagridView.DataSource = datatable.DefaultView;
         }
+        private void UpdateDeliveryplaceGridView()
+        {
+            DataTable datatable = new DataTable();
+            datatable.Columns.Add("Name");
+            datatable.Columns.Add("ID", typeof(int));
+            foreach (Deliveryplace deliveryplace in edit.DeliveryplaceList)
+            {
+                DataRow row = datatable.NewRow();
+                row["Name"] = deliveryplace.Name;
+                row["ID"] = deliveryplace.ID;
+                datatable.Rows.Add(row);
+            }
+            datatable.DefaultView.Sort = "Name ASC";
+            deliveryPlaceDatagridView.DataSource = datatable.DefaultView;
+        }
 
-        //Edit Shipment
+        //Edit shipment
         private bool EditShipment()
         {
             bool isSuccess = true;
-            if(edit.Supplier.Name != (supplierComboBox.SelectedItem as Supplier)?.Name)
+            if (edit.Supplier.Name != (supplierComboBox.SelectedItem as Supplier)?.Name)
             {
                 int selectedSupplierIndex = supplierComboBox.SelectedIndex;
                 if (selectedSupplierIndex >= 0 && selectedSupplierIndex < supplierID.Count)
@@ -181,28 +201,15 @@ namespace Warehouse_IO.View.InboundSource
                 MessageBox.Show(this, "Invoice can't be blank");
                 isSuccess = false;
             }
-
             if (edit.DeliveryDate != deliveryDatedateTimePicker.Value)
             {
                 edit.DeliveryDate = deliveryDatedateTimePicker.Value;
                 MessageBox.Show(this, "Delivery date Edited");
             }
-            if(edit.Storage.Name != (storageLocationComboBox.SelectedItem as Storage)?.Name)
-            {
-                int selectedStorageIndex = storageLocationComboBox.SelectedIndex;
-                if(selectedStorageIndex >= 0 && selectedStorageIndex < storageID.Count)
-                {
-                    int selectedStorageID = storageID[selectedStorageIndex];
-                    storage = new Storage(selectedStorageID);
-                    edit.Storage = storage;
-                    MessageBox.Show(this, "Storage Edited");
-                }
-            }
             return isSuccess;
         }
         private void createShipmentButton_Click(object sender, EventArgs e)
         {
-            inv = invoiceTextBox.Text;
             EditShipment();
         }
 
@@ -229,7 +236,7 @@ namespace Warehouse_IO.View.InboundSource
             }
             else MessageBox.Show(this, "Please select truck & put quantity");
         }
-        private void addTruckButton_Click(object sender, EventArgs e)
+        private void addButtonTruck_Click(object sender, EventArgs e)
         {
             int addQty;
             string qty = quantityTruckTextBox.Text;
@@ -403,6 +410,59 @@ namespace Warehouse_IO.View.InboundSource
             RemoveProductFromShipment();
         }
 
+        //Add Deliveryplace to shipment
+        private void AddDeliveryplace()
+        {
+            if (deliveryplaceListBox.SelectedIndex >= 0)
+            {
+                string selectedName = (string)deliveryplaceListBox.SelectedItem;
+
+                if (deliveryplaceNameToDeliveryplace.ContainsKey(selectedName))
+                {
+                    Deliveryplace selectedDeliveryplace = deliveryplaceNameToDeliveryplace[selectedName];
+                    int selectedDeliveryplaceID = selectedDeliveryplace.ID;
+
+                    deliveryplace = new Deliveryplace(selectedDeliveryplaceID);
+                    edit.AddDeliveryPlace(deliveryplace);
+                    deliveryPlaceTextBox.Text = "";
+                    UpdateDeliveryplaceGridView();
+                }
+                else
+                {
+                    MessageBox.Show(this, "Selected item not found in list.");
+                }
+            }
+            else
+            {
+                MessageBox.Show(this, "Please select a delivery place.");
+            }
+        }
+        private void addPlaceButton_Click(object sender, EventArgs e)
+        {
+            AddDeliveryplace();
+        }
+        private void deliveryplaceListBox_DoubleClick(object sender, EventArgs e)
+        {
+            AddDeliveryplace();
+        }
+
+        //Remove Deliveryplace from shipment
+        private void RemoveDeliveryPlaceFromShipment()
+        {
+            DataGridViewRow selectedRow = deliveryPlaceDatagridView.CurrentRow;
+            int id = Convert.ToInt32(selectedRow.Cells[1].Value);
+            deliveryplace = new Deliveryplace(id);
+            if (edit.RemoveDeliveryPlace(deliveryplace))
+            {
+                UpdateDeliveryplaceGridView();
+            }
+            else MessageBox.Show(this, "Remove fails");
+        }
+        private void removePlaceButton_Click(object sender, EventArgs e)
+        {
+            RemoveDeliveryPlaceFromShipment();
+        }
+
         //Check all are good before done!!
         private bool CheckAllThings()
         {
@@ -410,16 +470,17 @@ namespace Warehouse_IO.View.InboundSource
             inv = invoiceTextBox.Text;
             edit.UpdateTruck();
             edit.UpdateProduct();
+            edit.UpdateDeliveryplace();
             if (EditShipment())
             {
                 if (!edit.Change())
                 {
-                    MessageBox.Show(this,"Can't update shipment in database");
+                    MessageBox.Show(this, "Can't update shipment in database");
                     isSuccess = false;
                 }
             }
             else isSuccess = false;
-            if (edit.TruckQuantityPerShipmentList.Values.Count == 0 && edit.QuantityOfProductList.Values.Count == 0)
+            if (edit.TruckQuantityPerShipmentList.Values.Count == 0 && edit.QuantityOfProductList.Values.Count == 0 && edit.DeliveryplaceList.Count == 0)
             {
                 if (MessageBox.Show(this, "Shipment has no truck and product. Remove shipment?", "Empty Shipment", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
@@ -427,14 +488,13 @@ namespace Warehouse_IO.View.InboundSource
                 }
                 else isSuccess = false;
             }
-            else if (edit.TruckQuantityPerShipmentList.Values.Count == 0 || edit.QuantityOfProductList.Values.Count == 0)
+            else if (edit.TruckQuantityPerShipmentList.Values.Count == 0 || edit.QuantityOfProductList.Values.Count == 0 || edit.DeliveryplaceList.Count == 0)
             {
                 MessageBox.Show(this, "You need to complete truck and product");
                 isSuccess = false;
             }
             return isSuccess;
         }
-
         private void doneButton_Click(object sender, EventArgs e)
         {
             if (CheckAllThings())
@@ -452,6 +512,22 @@ namespace Warehouse_IO.View.InboundSource
                 Close();
             }
             return;
+        }
+
+        //Searching deliveryplace algorithm
+        private void deliveryPlaceTextBox_TextChanged(object sender, EventArgs e)
+        {
+            string searchText = deliveryPlaceTextBox.Text.ToLower();
+
+            deliveryplaceListBox.Items.Clear();
+
+            foreach (Deliveryplace item in deliveryplaceList)
+            {
+                if (item.Name.ToLower().Contains(searchText))
+                {
+                    deliveryplaceListBox.Items.Add(item.Name);
+                }
+            }
         }
     }
 }

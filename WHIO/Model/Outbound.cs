@@ -7,16 +7,23 @@ namespace Warehouse_IO.WHIO.Model
 {
     class Outbound : Transport
     {
+        List<Deliveryplace> deliveryplacelist;
+        public List<Deliveryplace> DeliveryplaceList { get{return deliveryplacelist; } set { deliveryplacelist = value; } }
+
         static string connstr = Settings.Default.CONNECTION_STRING;
 
         public Outbound(int id) : base(id)
         {
             if(InvoiceNo != null)
             {
+                deliveryplacelist = new List<Deliveryplace>();
                 gettrucklist();
                 getquantityofproductlist();
+                getdeliveryplacelist();
             }
         }
+
+        //Method only for Outbound (not in Transport)
         void gettrucklist()
         {
             MySqlConnection conn = null;
@@ -79,8 +86,39 @@ namespace Warehouse_IO.WHIO.Model
                     conn.Close();
             }
         }
-        public Outbound(string invoiceNo, DateTime deliveryDate, Supplier supplier, Storage storage) : base(invoiceNo, deliveryDate, supplier, storage) { }
+        void getdeliveryplacelist()
+        {
+            MySqlConnection conn = null;
+            try
+            {
+                conn = new MySqlConnection(connstr);
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    string check = $"SELECT * FROM outbounddeliveryplace WHERE OutboundID = @id";
+                    cmd.CommandText = check;
+                    cmd.Parameters.AddWithValue("@id", ID);
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            int deliveryPlace = Convert.ToInt32(reader["DeliveryplaceID"]);
+                            Deliveryplace item = new Deliveryplace(deliveryPlace);
+                            deliveryplacelist.Add(item);
+                        }
+                    }
+                }
+            }
+            catch (MySqlException e) { }
+            finally
+            {
+                if (conn != null && conn.State != ConnectionState.Closed)
+                    conn.Close();
+            }
+        }
+        public Outbound(string invoiceNo, DateTime deliveryDate, Supplier supplier) : base(invoiceNo, deliveryDate, supplier) { }
 
+        //Method only for Outbound (not in Transport)
         public static List<Outbound> GetOutboundList()
         {
             MySqlConnection conn = null;
@@ -122,12 +160,11 @@ namespace Warehouse_IO.WHIO.Model
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    string insert = $"INSERT INTO outbound (ID, InvoiceNo, DeliveryDate, SupplierID, StorageID) VALUES (NULL, @invoice, @date, @sup, @sto)";
+                    string insert = $"INSERT INTO outbound (ID, InvoiceNo, DeliveryDate, SupplierID) VALUES (NULL, @invoice, @date, @sup)";
                     cmd.CommandText = insert;
                     cmd.Parameters.AddWithValue("@invoice", InvoiceNo);
                     cmd.Parameters.AddWithValue("@date", DeliveryDate);
                     cmd.Parameters.AddWithValue("@sup", Supplier.ID);
-                    cmd.Parameters.AddWithValue("@sto", Storage.ID);
                     cmd.ExecuteNonQuery();
                 }
                 return true;
@@ -152,12 +189,11 @@ namespace Warehouse_IO.WHIO.Model
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    string update = $"UPDATE outbound SET InvoiceNo = @invoice, DeliveryDate = @date, SupplierID = @sup, StorageID = @sto WHERE ID = @id ";
+                    string update = $"UPDATE outbound SET InvoiceNo = @invoice, DeliveryDate = @date, SupplierID = @sup WHERE ID = @id ";
                     cmd.CommandText = update;
                     cmd.Parameters.AddWithValue("@invoice", InvoiceNo);
                     cmd.Parameters.AddWithValue("@date", DeliveryDate);
                     cmd.Parameters.AddWithValue("@sup", Supplier.ID);
-                    cmd.Parameters.AddWithValue("@sto", Storage.ID);
                     cmd.Parameters.AddWithValue("@id", ID);
                     cmd.ExecuteNonQuery();
                 }
@@ -187,6 +223,44 @@ namespace Warehouse_IO.WHIO.Model
                     cmd.CommandText = delete;
                     cmd.Parameters.AddWithValue("@id", ID);
                     cmd.ExecuteNonQuery();
+                }
+                return true;
+            }
+            catch (MySqlException e)
+            {
+                return false;
+            }
+            finally
+            {
+                if (conn != null && conn.State != ConnectionState.Closed)
+                    conn.Close();
+            }
+        }
+
+        //Method only for Outbound (not in Transport)
+        public bool UpdateDeliveryplace()
+        {
+            MySqlConnection conn = null;
+            try
+            {
+                conn = new MySqlConnection(connstr);
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    string delete = "DELETE FROM outbounddeliveryplace WHERE OutboundID = @id";
+                    cmd.CommandText = delete;
+                    cmd.Parameters.AddWithValue("@id", ID);
+                    cmd.ExecuteNonQuery();
+
+                    string insert = $"INSERT INTO outbounddeliveryplace (OutboundID, DeliveryplaceID) VALUES (@id, @deliver)";
+                    cmd.CommandText = insert;
+                    foreach (Deliveryplace delivery in deliveryplacelist)
+                    {
+                        cmd.Parameters.Clear();
+                        cmd.Parameters.AddWithValue("@id", ID);
+                        cmd.Parameters.AddWithValue("@deliver", delivery.ID);
+                        cmd.ExecuteNonQuery();
+                    }
                 }
                 return true;
             }
@@ -281,6 +355,25 @@ namespace Warehouse_IO.WHIO.Model
             }
         }
 
-        
+        //Method only for Outbound (not in Transport)
+        public bool AddDeliveryPlace(Deliveryplace deliveryplace)
+        {
+            if (deliveryplace != null)
+            {
+                deliveryplacelist.Add(deliveryplace);
+                return true;
+            }
+            else return false;
+        }
+        public bool RemoveDeliveryPlace(Deliveryplace deliveryplace)
+        {
+            if (deliveryplace != null)
+            {
+                int removeCound = deliveryplacelist.RemoveAll(dp => dp.ID == deliveryplace.ID);
+                return removeCound > 0;
+            }
+            return false;
+        }
+      
     }
 }

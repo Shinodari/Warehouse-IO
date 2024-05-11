@@ -19,9 +19,6 @@ namespace Warehouse_IO.WHIO.Model
         private Dictionary<Truck, int> truckquantitypershipmentlist = new Dictionary<Truck, int>(new TruckEqualityComparer());
         public Dictionary<Truck, int> TruckQuantityPerShipmentList { get { return truckquantitypershipmentlist; }set { truckquantitypershipmentlist = value; } }
 
-        Storage storage;
-        public Storage Storage { get { return storage; }set { storage = value; } }
-
         Dictionary<Product, int> quantityofproductlist = new Dictionary<Product, int>(new ProductEqualityComparer());
         public Dictionary<Product, int> QuantityOfProductList { get { return quantityofproductlist; }set { quantityofproductlist = value; } }
 
@@ -55,7 +52,6 @@ namespace Warehouse_IO.WHIO.Model
                                 invoiceno = reader["InvoiceNo"].ToString();
                                 deliverydate = reader.GetDateTime(reader.GetOrdinal("DeliveryDate"));
                                 supplier = new Supplier(Convert.ToInt32(reader["SupplierID"]));
-                                storage = new Storage(Convert.ToInt32(reader["StorageID"]));
                             }
                         }
                     }
@@ -74,24 +70,18 @@ namespace Warehouse_IO.WHIO.Model
             truckquantitypershipmentlist = new Dictionary<Truck, int>(new TruckEqualityComparer());
             CheckAndUpdateField(id.ToString());
         }
-        public Transport(string invoiceNo,DateTime deliveryDate,Supplier supplier,Storage storage)
+        public Transport(string invoiceNo,DateTime deliveryDate,Supplier supplier)
         {
             quantityofproductlist = new Dictionary<Product, int>(new ProductEqualityComparer());
             truckquantitypershipmentlist = new Dictionary<Truck, int>(new TruckEqualityComparer());
             invoiceno = invoiceNo;
             deliverydate = deliveryDate;
             this.supplier = supplier;
-            this.storage = storage;
         }
 
         public abstract bool Create();
         public abstract bool Change();
         public abstract bool Remove();
-
-        public override string ToString()
-        {
-            return ID.ToString();
-        }
 
         public bool AddTruck(Truck truck,int qty)
         {
@@ -167,7 +157,6 @@ namespace Warehouse_IO.WHIO.Model
                 return obj.ID.GetHashCode();
             }
         }
-
         public class ProductEqualityComparer : IEqualityComparer<Product>
         {
             public bool Equals(Product x, Product y)

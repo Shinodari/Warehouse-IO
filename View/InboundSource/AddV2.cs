@@ -24,7 +24,6 @@ namespace Warehouse_IO.View.InboundSource
         //Variable for compare selected Index when create shipment
         private List<int> supplierID = new List<int>();
         private List<int> truckID = new List<int>();
-        private List<Truck> selectedTruck = new List<Truck>();
         private List<int> storageID = new List<int>();
         private List<int> productID = new List<int>();
 
@@ -38,9 +37,6 @@ namespace Warehouse_IO.View.InboundSource
         //Edit quantity pop-Up window components
         EditQuantityWindow editQuantity;
         MainForm main;
-
-        //Remove incomplete shipment before leave
-        Remove remove;
 
         //Event to Invoke Update Inbound List
         public event EventHandler UpdateGrid;
@@ -110,11 +106,11 @@ namespace Warehouse_IO.View.InboundSource
 
         private void UpdateTruckGridView()
         {
-            DataTable datatable = datatable = new DataTable();
+            DataTable datatable = new DataTable();
             datatable.Columns.Add("Truck");
             datatable.Columns.Add("Quantity", typeof(int));
             datatable.Columns.Add("ID", typeof(int));
-            foreach(KeyValuePair<Truck,int> truckGridlistEntry in newInbound.TruckQuantityPerShipmentList)
+            foreach (KeyValuePair<Truck, int> truckGridlistEntry in newInbound.TruckQuantityPerShipmentList)
             {
                 Truck truck = truckGridlistEntry.Key;
                 int quantity = truckGridlistEntry.Value;
@@ -129,7 +125,7 @@ namespace Warehouse_IO.View.InboundSource
         }
         private void UpdateProductGridView()
         {
-            DataTable datatable = datatable = new DataTable();
+            DataTable datatable = new DataTable();
             datatable.Columns.Add("Name");
             datatable.Columns.Add("Quantity", typeof(int));
             datatable.Columns.Add("ID", typeof(int));
@@ -190,21 +186,24 @@ namespace Warehouse_IO.View.InboundSource
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = "SELECT LAST_INSERT_ID()";
-                    object result = cmd.ExecuteScalar();
-
-                    if (result != DBNull.Value && result != null)
+                    cmd.CommandText = "SELECT LAST_INSERT_ID() , StorageID FROM inbound WHERE ID = LAST_INSERT_ID()";
+                    using (var reader = cmd.ExecuteReader())
                     {
-                        int newAddId = Convert.ToInt32(result);
-                        newInbound = new Inbound(newAddId);
-                        MessageBox.Show(this, "Inbound Shipment Created with ID: " + newAddId);
-                        shipmentGroupBox.Enabled = false;
-                        truckGroupBox.Enabled = true;
-                        productGroupBox.Enabled = true;
-                    }
-                    else
-                    {
-                        MessageBox.Show(this, "Failed to retrieve Inbound ID.");
+                        if (reader.Read())
+                        {
+                            int newAddId = Convert.ToInt32(reader["LAST_INSERT_ID()"]);
+                            int storageId = Convert.ToInt32(reader["StorageID"]);
+                            Storage sto = new Storage(storageId);
+                            newInbound = new Inbound(newAddId, sto);
+                            MessageBox.Show(this, "Inbound Shipment Created with ID: " + newAddId);
+                            shipmentGroupBox.Enabled = false;
+                            truckGroupBox.Enabled = true;
+                            productGroupBox.Enabled = true;
+                        }
+                        else
+                        {
+                            MessageBox.Show(this, "Failed to retrieve Inbound ID.");
+                        }
                     }
                     conn.Close();
                     return;
@@ -221,7 +220,7 @@ namespace Warehouse_IO.View.InboundSource
         //Add truck to shipment
         private void AddTruckToShipment()
         {
-            if(truckListBox.SelectedItem != null)
+            if (truckListBox.SelectedItem != null)
             {
                 int selectedTruckIndex = truckListBox.SelectedIndex;
                 if (selectedTruckIndex >= 0 && selectedTruckIndex < truckID.Count)
@@ -256,7 +255,7 @@ namespace Warehouse_IO.View.InboundSource
         }
         private void quantityTruckTextBox_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if(e.KeyChar == (char)Keys.Enter)
+            if (e.KeyChar == (char)Keys.Enter)
             {
                 int addQty;
                 string qty = quantityTruckTextBox.Text;
@@ -274,7 +273,7 @@ namespace Warehouse_IO.View.InboundSource
         //Edit truck quantity
         private void EditTruckQuantityFromShipment()
         {
-            if(truckDataGridView.SelectedRows.Count > 0)
+            if (truckDataGridView.SelectedRows.Count > 0)
             {
                 editQuantity.Owner = main;
 
@@ -300,7 +299,7 @@ namespace Warehouse_IO.View.InboundSource
         //Remove truck from shipment
         private void RemoveTruckFromShipment()
         {
-            if(truckDataGridView.SelectedRows.Count > 0)
+            if (truckDataGridView.SelectedRows.Count > 0)
             {
                 DataGridViewRow selectedRow = truckDataGridView.CurrentRow;
                 int id = Convert.ToInt32(selectedRow.Cells[2].Value);
@@ -320,10 +319,10 @@ namespace Warehouse_IO.View.InboundSource
         //Add product to shipment
         private void AddProductToShipment()
         {
-            if(productListBox.SelectedItem != null)
+            if (productListBox.SelectedItem != null)
             {
                 int selectedProductIndex = productListBox.SelectedIndex;
-                if(selectedProductIndex >= 0 && selectedProductIndex < productID.Count)
+                if (selectedProductIndex >= 0 && selectedProductIndex < productID.Count)
                 {
                     int selectedProductID = productID[selectedProductIndex];
                     product = new WHIO.Model.Product(selectedProductID);
@@ -372,7 +371,7 @@ namespace Warehouse_IO.View.InboundSource
         //Edit product quantity
         private void EditProductQuantity()
         {
-            if(productListDatagridView.SelectedRows.Count > 0)
+            if (productListDatagridView.SelectedRows.Count > 0)
             {
                 editQuantity.Owner = main;
 
@@ -420,33 +419,23 @@ namespace Warehouse_IO.View.InboundSource
         {
             if (newInbound != null)
             {
-                if(newInbound.TruckQuantityPerShipmentList.Values.Count >0 && newInbound.QuantityOfProductList.Values.Count > 0)
+                newInbound.UpdateProduct();
+                newInbound.UpdateTruck();
+                if (newInbound.TruckQuantityPerShipmentList.Values.Count == 0 && newInbound.QuantityOfProductList.Values.Count == 0)
                 {
-                    if (!newInbound.UpdateTruck())
+                    if (MessageBox.Show(this, "Shipment has no trucks or products. Remove shipment?", "Empty Shipment", MessageBoxButtons.YesNo) == DialogResult.Yes)
                     {
-                        MessageBox.Show(this, "Trucklist update in Database Fail");
-                    }
-                    if (!newInbound.UpdateProduct())
-                    {
-                        MessageBox.Show(this, "Product update in Database Fail");
-                    }
-                    UpdateGrid?.Invoke(this, EventArgs.Empty);
-                    Close();
-                }
-                else
-                {
-                    MessageBox.Show("Shipment needs Truck & Product");
-                    MessageBox.Show("You want to removed ?");
-                    Global.tempPkey = -1;
-                    Global.tempPkey = newInbound.ID;
-                    remove = new Remove();
-                    remove.Owner = main;
-                    remove.ShowDialog();
-                    if (Global.tempPkey == -1)
-                    {
+                        newInbound.Remove();
                         UpdateGrid?.Invoke(this, EventArgs.Empty);
+                        Close();
+                        return;
                     }
-                    else return;
+                    return;
+                }
+               if(newInbound.TruckQuantityPerShipmentList.Values.Count == 0 || newInbound.QuantityOfProductList.Values.Count == 0)
+                {
+                    MessageBox.Show(this, "You need to complete truck and product");
+                    return;
                 }
             }
             Close();

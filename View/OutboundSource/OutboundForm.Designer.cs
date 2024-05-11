@@ -1,6 +1,6 @@
-﻿namespace Warehouse_IO.View.InboundSource
+﻿namespace Warehouse_IO.View.OutboundSource
 {
-    partial class InboundForm
+    partial class OutboundForm
     {
         /// <summary>
         /// Required designer variable.
@@ -44,18 +44,17 @@
             // 
             // a
             // 
-            this.a.Text = "New";
             this.a.Click += new System.EventHandler(this.a_Click);
             // 
-            // InboundForm
+            // OutboundForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(660, 523);
             this.Location = new System.Drawing.Point(0, 0);
-            this.Name = "InboundForm";
-            this.Text = "Inbound";
-            this.Load += new System.EventHandler(this.InboundForm_Load);
+            this.Name = "OutboundForm";
+            this.Text = "Outbound";
+            this.Load += new System.EventHandler(this.OutboundForm_Load);
             this.ResumeLayout(false);
 
         }

@@ -3,10 +3,11 @@ using System.Windows.Forms;
 using Warehouse_IO.Common;
 using Warehouse_IO.WHIO.Model;
 
-namespace Warehouse_IO.View.InboundSource
+namespace Warehouse_IO.View.OutboundSource
 {
     public partial class Remove : Form
     {
+        Outbound remove;
 
         public event EventHandler UpdateGrid;
 
@@ -16,8 +17,7 @@ namespace Warehouse_IO.View.InboundSource
         }
         private void AttemptRemove()
         {
-            Storage sto = new Storage(Global.tempStorageKey);
-            Inbound remove = new Inbound(Global.tempPkey, sto);
+            remove = new Outbound(Global.tempPkey);
             if (remove.Remove())
             {
                 Global.tempPkey = -1;

@@ -6,63 +6,69 @@ using Warehouse_IO.Common;
 using Warehouse_IO.View.ParentFormComponents;
 using System.Data;
 using System.Linq;
+using System.Text;
 
-namespace Warehouse_IO.View.InboundSource
+namespace Warehouse_IO.View.OutboundSource
 {
-    public partial class InboundForm : ParentForm
+    public partial class OutboundForm : ParentForm
     {
-        private AddV2 add;
-        private EditV2 edit;
-        private Remove remove;
+        private Add add;
+        private Edit edit;
 
         MainForm main;
 
-        List<Inbound> inboundlist;
+        List<Outbound> outboundlist;
 
         public event EventHandler returnMain;
 
-        public InboundForm()
+        public OutboundForm()
         {
             InitializeComponent();
-            inboundlist = new List<Inbound>();
+            outboundlist = new List<Outbound>();
             main = new MainForm();
 
             dataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             UpdateDatagridView();
         }
 
-        private void InboundForm_Load(object sender, EventArgs e)
+        private void OutboundForm_Load(object sender, EventArgs e)
         {
             WindowState = FormWindowState.Maximized;
         }
 
         public void UpdateDatagridView()
         {
-            inboundlist = Inbound.GetInboundList();
+            outboundlist = Outbound.GetOutboundList();
             DataTable dataTable = new DataTable();
             dataTable.Columns.Add("Invoice");
             dataTable.Columns.Add("Date", typeof(DateTime));
             dataTable.Columns.Add("Customer");
-            dataTable.Columns.Add("Storage");
+            dataTable.Columns.Add("Place");
             dataTable.Columns.Add("TotalM3", typeof(double));
-            dataTable.Columns.Add("Items");
-            dataTable.Columns.Add("Qty", typeof(int));
             dataTable.Columns.Add("Truck", typeof(int));
-            dataTable.Columns.Add("Inbound ID", typeof(int));
-            dataTable.Columns.Add("Storage ID", typeof(int));
+            dataTable.Columns.Add("ID", typeof(int));
 
-            foreach (Inbound inbound in inboundlist)
+            foreach(Outbound outbound in outboundlist)
             {
                 DataRow row = dataTable.NewRow();
-                row["Invoice"] = inbound.InvoiceNo;
-                row["Date"] = inbound.DeliveryDate.ToString("dd MMM yy");
-                row["Customer"] = inbound.Supplier.Name;
-                row["Storage"] = inbound.Storage.Name;
-                row["Items"] = inbound.QuantityOfProductList.Keys.Count;
-                int totalQty = inbound.QuantityOfProductList.Values.Sum();
-                row["Qty"] = totalQty;
+                row["Invoice"] = outbound.InvoiceNo;
+                row["Date"] = outbound.DeliveryDate.ToString("dd MMM yy");
+                row["Customer"] = outbound.Supplier.Name;
+                StringBuilder deliveryPlaces = new StringBuilder();
+                if(outbound.DeliveryplaceList != null)
+                {
+                    foreach (Deliveryplace deliveryplace in outbound.DeliveryplaceList)
+                    {
+                        deliveryPlaces.Append(deliveryplace.Name).Append(", ");
+                    }
+                    if (deliveryPlaces.Length > 0)
+                        deliveryPlaces.Length -= 2;
+
+                    row["Place"] = deliveryPlaces.ToString();
+                }
+                int totalQty = outbound.QuantityOfProductList.Values.Sum();
                 double M3perUnit = 0;
-                foreach (KeyValuePair<Product, int> productQty in inbound.QuantityOfProductList)
+                foreach (KeyValuePair<Product, int> productQty in outbound.QuantityOfProductList)
                 {
                     Warehouse_IO.WHIO.Model.Dimension dimension = productQty.Key.Dimension;
                     if (dimension != null)
@@ -72,9 +78,8 @@ namespace Warehouse_IO.View.InboundSource
                 }
                 double TotalM3 = M3perUnit * totalQty;
                 row["TotalM3"] = TotalM3.ToString("0.00");
-                row["Truck"] = inbound.TruckQuantityPerShipmentList.Keys.Count;
-                row["Inbound ID"] = inbound.ID;
-                row["Storage ID"] = inbound.Storage.ID;
+                row["Truck"] = outbound.TruckQuantityPerShipmentList.Keys.Count;
+                row["ID"] = outbound.ID;
 
                 dataTable.Rows.Add(row);
             }
@@ -84,7 +89,7 @@ namespace Warehouse_IO.View.InboundSource
 
         private void a_Click(object sender, EventArgs e)
         {
-            add = new InboundSource.AddV2();
+            add = new Add();
             add.Owner = main;
 
             add.UpdateGrid += OnUpdate;
@@ -94,15 +99,11 @@ namespace Warehouse_IO.View.InboundSource
         private void e_Click(object sender, EventArgs e)
         {
             Global.tempPkey = -1;
-            Global.tempStorageKey = -1;
             DataGridViewRow selectedRow = dataGridView.CurrentRow;
-            int value = (int)selectedRow.Cells[8].Value;
-            int storageKey = (int)selectedRow.Cells[9].Value;
-
-            Global.tempStorageKey = storageKey;
+            int value = (int)selectedRow.Cells[6].Value;
             Global.tempPkey = value;
 
-            edit = new EditV2();
+            edit = new OutboundSource.Edit();
             edit.Owner = main;
 
             edit.UpdateGrid += OnUpdate;
@@ -112,19 +113,10 @@ namespace Warehouse_IO.View.InboundSource
         private void r_Click(object sender, EventArgs e)
         {
             Global.tempPkey = -1;
-            Global.tempStorageKey = -1;
             DataGridViewRow selectedRow = dataGridView.CurrentRow;
-            int value = (int)selectedRow.Cells[8].Value;
-            int storageKey = (int)selectedRow.Cells[9].Value;
-
-            Global.tempStorageKey = storageKey;
+            int value = (int)selectedRow.Cells[6].Value;
             Global.tempPkey = value;
 
-            remove = new Remove();
-            remove.Owner = main;
-
-            remove.UpdateGrid += OnUpdate;
-            remove.ShowDialog();
         }
 
         private void x_Click(object sender, EventArgs e)
@@ -135,6 +127,6 @@ namespace Warehouse_IO.View.InboundSource
         private void OnUpdate(object sender, EventArgs e)
         {
             UpdateDatagridView();
-        } 
+        }
     }
 }

@@ -7,10 +7,14 @@ namespace Warehouse_IO.WHIO.Model
 {
     class Inbound : Transport
     {
+        Storage storage;
+        public Storage Storage { get { return storage; } set { storage = value; } }
+
         static string connstr = Settings.Default.CONNECTION_STRING;
 
-        public Inbound(int id) : base(id)
+        public Inbound(int id,Storage sto) : base(id)
         {
+            this.storage = sto;
             if (InvoiceNo != null)
             {
                 gettrucklist();
@@ -79,7 +83,10 @@ namespace Warehouse_IO.WHIO.Model
                     conn.Close();
             }
         }
-        public Inbound(string invoiceNo, DateTime deliveryDate, Supplier supplier, Storage storage) : base(invoiceNo, deliveryDate, supplier, storage) { }
+        public Inbound(string invoiceNo, DateTime deliveryDate, Supplier supplier, Storage storage) : base(invoiceNo, deliveryDate, supplier)
+        {
+            this.storage = storage;
+        }
 
         public static List<Inbound> GetInboundList()
         {
@@ -98,7 +105,8 @@ namespace Warehouse_IO.WHIO.Model
                         while (reader.Read())
                         {
                             int id = Convert.ToInt32(reader["ID"]);
-                            Inbound item = new Inbound(id);
+                            Storage sto = new Storage(Convert.ToInt32(reader["StorageID"]));
+                            Inbound item = new Inbound(id,sto);
                             inboundList.Add(item);
                         }
                     }
