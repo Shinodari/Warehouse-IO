@@ -38,16 +38,6 @@ namespace Warehouse_IO.View
             stoGridView.DataSource = stoBind;
         }
 
-        private void dataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex >= 0)
-            {
-                Global.tempPkey = -1;
-                DataGridViewRow row = stoGridView.Rows[e.RowIndex];
-                Global.tempPkey = (int)row.Cells[0].Value;
-            }
-        }
-
         private void addStoButton_Click(object sender, EventArgs e)
         {
             add = new Add();
@@ -59,6 +49,11 @@ namespace Warehouse_IO.View
 
         private void editStoButton_Click(object sender, EventArgs e)
         {
+            Global.tempPkey = -1;
+            DataGridViewRow selectedRow = stoGridView.CurrentRow;
+            int value = (int)selectedRow.Cells[0].Value;
+            Global.tempPkey = value;
+
             edit = new Edit();
             edit.Owner = main;
 
@@ -68,6 +63,11 @@ namespace Warehouse_IO.View
 
         private void removeStoButton_Click(object sender, EventArgs e)
         {
+            Global.tempPkey = -1;
+            DataGridViewRow selectedRow = stoGridView.CurrentRow;
+            int value = (int)selectedRow.Cells[0].Value;
+            Global.tempPkey = value;
+
             remove = new Remove();
             remove.Owner = main;
 
