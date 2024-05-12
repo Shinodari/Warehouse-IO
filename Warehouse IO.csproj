@@ -136,6 +136,11 @@
     <Compile Include="Authentication\Login.cs" />
     <Compile Include="Authentication\User.cs" />
     <Compile Include="Common\Global.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="View\Add,Edit,Remove Components\AddEditDimensionFrom.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -280,6 +285,12 @@
     <Compile Include="View\Dimensions\UnitOfVolumeSource\UnitOfVolumeForm.Designer.cs">
       <DependentUpon>UnitOfVolumeForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\In-Out_ActivityForm\InOutActivityForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\In-Out_ActivityForm\InOutActivityForm.Designer.cs">
+      <DependentUpon>InOutActivityForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\InboundSource\AddV2.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -327,6 +338,12 @@
     </Compile>
     <Compile Include="View\Log_In_Window.Designer.cs">
       <DependentUpon>Log_In_Window.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\MonitorSource\MonitorSettingForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\MonitorSource\MonitorSettingForm.Designer.cs">
+      <DependentUpon>MonitorSettingForm.cs</DependentUpon>
     </Compile>
     <Compile Include="View\OutboundSource\Add.cs">
       <SubType>Form</SubType>
@@ -547,6 +564,11 @@
     <Compile Include="WHIO\Model\Transport.cs" />
     <Compile Include="WHIO\Model\Storage.cs" />
     <Compile Include="WHIO\Model\Department.cs" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\Add,Edit,Remove Components\AddEditDimensionFrom.resx">
       <DependentUpon>AddEditDimensionFrom.cs</DependentUpon>
     </EmbeddedResource>
@@ -613,6 +635,9 @@
     <EmbeddedResource Include="View\Dimensions\UnitOfVolumeSource\UnitOfVolumeForm.resx">
       <DependentUpon>UnitOfVolumeForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="View\In-Out_ActivityForm\InOutActivityForm.resx">
+      <DependentUpon>InOutActivityForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\InboundSource\AddV2.resx">
       <DependentUpon>AddV2.cs</DependentUpon>
     </EmbeddedResource>
@@ -633,6 +658,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="View\Log_In_Window.resx">
       <DependentUpon>Log_In_Window.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\MonitorSource\MonitorSettingForm.resx">
+      <DependentUpon>MonitorSettingForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\OutboundSource\Add.resx">
       <DependentUpon>Add.cs</DependentUpon>
@@ -732,9 +760,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.8">

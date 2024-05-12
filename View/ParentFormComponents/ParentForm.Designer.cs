@@ -47,12 +47,12 @@
             this.dataGridView.ReadOnly = true;
             this.dataGridView.RowTemplate.Height = 24;
             this.dataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView.Size = new System.Drawing.Size(544, 474);
+            this.dataGridView.Size = new System.Drawing.Size(770, 686);
             this.dataGridView.TabIndex = 10;
             // 
             // x
             // 
-            this.x.Location = new System.Drawing.Point(557, 447);
+            this.x.Location = new System.Drawing.Point(783, 659);
             this.x.Margin = new System.Windows.Forms.Padding(2);
             this.x.Name = "x";
             this.x.Size = new System.Drawing.Size(96, 55);
@@ -62,7 +62,7 @@
             // 
             // r
             // 
-            this.r.Location = new System.Drawing.Point(557, 148);
+            this.r.Location = new System.Drawing.Point(783, 148);
             this.r.Margin = new System.Windows.Forms.Padding(2);
             this.r.Name = "r";
             this.r.Size = new System.Drawing.Size(96, 55);
@@ -72,7 +72,7 @@
             // 
             // e
             // 
-            this.e.Location = new System.Drawing.Point(557, 88);
+            this.e.Location = new System.Drawing.Point(783, 88);
             this.e.Margin = new System.Windows.Forms.Padding(2);
             this.e.Name = "e";
             this.e.Size = new System.Drawing.Size(96, 55);
@@ -82,7 +82,7 @@
             // 
             // a
             // 
-            this.a.Location = new System.Drawing.Point(557, 28);
+            this.a.Location = new System.Drawing.Point(783, 28);
             this.a.Margin = new System.Windows.Forms.Padding(2);
             this.a.Name = "a";
             this.a.Size = new System.Drawing.Size(96, 55);
@@ -95,7 +95,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnablePreventFocusChange;
-            this.ClientSize = new System.Drawing.Size(656, 519);
+            this.ClientSize = new System.Drawing.Size(890, 725);
             this.ControlBox = false;
             this.Controls.Add(this.dataGridView);
             this.Controls.Add(this.x);
