@@ -6,6 +6,7 @@ using Warehouse_IO.View;
 using Warehouse_IO.View.DeliveryplaceSource;
 using Warehouse_IO.View.Dimension.UnitOfVolumeSource;
 using Warehouse_IO.View.Dimensions.DimensionSource;
+using Warehouse_IO.View.In_Out_ActivityForm;
 using Warehouse_IO.View.InboundSource;
 using Warehouse_IO.View.OutboundSource;
 using Warehouse_IO.View.ProductSource;
@@ -33,6 +34,7 @@ namespace Warehouse_IO
         InboundForm inbound;
         OutboundForm outbound;
         DeliveryplaceForm deliveryplace;
+        InOutActivityForm inoutactivity;
 
         public MainForm()
         {
@@ -216,6 +218,14 @@ namespace Warehouse_IO
             outbound.returnMain += EventToActiveAdmin;
         }
 
+        private void click_InOut(object sender, EventArgs e)
+        {
+            inoutactivity = new InOutActivityForm();
+            inoutactivity.MdiParent = this;
+            inoutactivity.Show();
 
+            DisableMainForm();
+            inoutactivity.returnMain += EventToActiveAdmin;
+        }
     }
 }

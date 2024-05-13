@@ -34,15 +34,15 @@ namespace Warehouse_IO.View.ProductSource
         {
             dimensionList = Warehouse_IO.WHIO.Model.Dimension.GetDimensionList();
             uomList = UOM.GetUOMList();
-            dimensionList.Sort((x, y) => x.Name.CompareTo(y.Name));
-            uomList.Sort((x, y) => x.Name.CompareTo(y.Name));
+            dimensionList.Sort((x, y) => x.GetM3().CompareTo(y.GetM3()));
+            uomList.Sort((x, y) => x.Quantity.CompareTo(y.Quantity));
 
             UoMListBox.Items.Clear();
             dimensionListBox.Items.Clear();
 
             foreach (Warehouse_IO.WHIO.Model.Dimension dimension in dimensionList)
             {
-                string formattedDimension = $"{dimension.Width} x {dimension.Length} x {dimension.Height} {dimension.Unit.Name} {dimension.Name}";
+                string formattedDimension = $"{dimension.GetM3()} /// {dimension.Unit.Name} {dimension.Name}";
                 dimensionListBox.Items.Add(formattedDimension);
                 dimensionId.Add(dimension.ID);
             }

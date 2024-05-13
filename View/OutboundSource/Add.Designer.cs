@@ -95,6 +95,10 @@
             // 
             this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
             // 
+            // productTextBox
+            // 
+            this.productNameSearchTextBox.TextChanged += new System.EventHandler(this.productTextBox_TextChanged);
+            // 
             // Add
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);

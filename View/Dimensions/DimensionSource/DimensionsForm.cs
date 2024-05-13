@@ -34,7 +34,7 @@ namespace Warehouse_IO.View.Dimensions.DimensionSource
         {
             list = Warehouse_IO.WHIO.Model.Dimension.GetDimensionList();
             bind.DataSource = list;
-            list.Sort((x, y) => x.ID.CompareTo(y.ID));
+            list.Sort((x, y) => x.GetM3().CompareTo(y.GetM3()));
             dataGridView.DataSource = bind;
 
             dataGridView.CellFormatting += DataGridView_CellFormatting;
@@ -45,11 +45,11 @@ namespace Warehouse_IO.View.Dimensions.DimensionSource
             {
                 if (dataGridView.Rows[e.RowIndex].DataBoundItem != null)
                 {
-                    Warehouse_IO.WHIO.Model.Dimension uom = (Warehouse_IO.WHIO.Model.Dimension)dataGridView.Rows[e.RowIndex].DataBoundItem;
+                    Warehouse_IO.WHIO.Model.Dimension dimension = (Warehouse_IO.WHIO.Model.Dimension)dataGridView.Rows[e.RowIndex].DataBoundItem;
 
                     if (e.ColumnIndex == 5)
                     {
-                        e.Value = uom.Unit.Name;
+                        e.Value = dimension.GetM3();
                     }
                 }
             }

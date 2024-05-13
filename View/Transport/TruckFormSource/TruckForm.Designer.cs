@@ -49,7 +49,6 @@
             this.truckGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.truckGridView.Size = new System.Drawing.Size(541, 474);
             this.truckGridView.TabIndex = 10;
-            this.truckGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_CellClick);
             // 
             // label1
             // 
@@ -109,7 +108,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(652, 515);
+            this.ClientSize = new System.Drawing.Size(648, 511);
             this.ControlBox = false;
             this.Controls.Add(this.x);
             this.Controls.Add(this.r);

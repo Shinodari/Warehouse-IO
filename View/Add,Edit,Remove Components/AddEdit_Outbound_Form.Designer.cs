@@ -57,6 +57,7 @@
             this.truckListBox = new System.Windows.Forms.ListBox();
             this.truckLabel = new System.Windows.Forms.Label();
             this.productGroupBox = new System.Windows.Forms.GroupBox();
+            this.productNameSearchTextBox = new System.Windows.Forms.TextBox();
             this.removeProductButton = new System.Windows.Forms.Button();
             this.editProductQuantityButton = new System.Windows.Forms.Button();
             this.productListLabel = new System.Windows.Forms.Label();
@@ -351,6 +352,7 @@
             // 
             // productGroupBox
             // 
+            this.productGroupBox.Controls.Add(this.productNameSearchTextBox);
             this.productGroupBox.Controls.Add(this.removeProductButton);
             this.productGroupBox.Controls.Add(this.editProductQuantityButton);
             this.productGroupBox.Controls.Add(this.productListLabel);
@@ -366,6 +368,13 @@
             this.productGroupBox.TabIndex = 300;
             this.productGroupBox.TabStop = false;
             this.productGroupBox.Text = "Product Details";
+            // 
+            // productNameSearchTextBox
+            // 
+            this.productNameSearchTextBox.Location = new System.Drawing.Point(76, 22);
+            this.productNameSearchTextBox.Name = "productNameSearchTextBox";
+            this.productNameSearchTextBox.Size = new System.Drawing.Size(244, 20);
+            this.productNameSearchTextBox.TabIndex = 304;
             // 
             // removeProductButton
             // 
@@ -411,7 +420,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(21, 129);
+            this.label2.Location = new System.Drawing.Point(21, 152);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(52, 13);
             this.label2.TabIndex = 302;
@@ -419,7 +428,7 @@
             // 
             // addProductButton
             // 
-            this.addProductButton.Location = new System.Drawing.Point(246, 124);
+            this.addProductButton.Location = new System.Drawing.Point(246, 147);
             this.addProductButton.Name = "addProductButton";
             this.addProductButton.Size = new System.Drawing.Size(74, 23);
             this.addProductButton.TabIndex = 32;
@@ -428,7 +437,7 @@
             // 
             // productQuantityTextBox
             // 
-            this.productQuantityTextBox.Location = new System.Drawing.Point(76, 126);
+            this.productQuantityTextBox.Location = new System.Drawing.Point(76, 149);
             this.productQuantityTextBox.Name = "productQuantityTextBox";
             this.productQuantityTextBox.Size = new System.Drawing.Size(148, 20);
             this.productQuantityTextBox.TabIndex = 31;
@@ -445,7 +454,7 @@
             // productListBox
             // 
             this.productListBox.FormattingEnabled = true;
-            this.productListBox.Location = new System.Drawing.Point(76, 19);
+            this.productListBox.Location = new System.Drawing.Point(76, 48);
             this.productListBox.Name = "productListBox";
             this.productListBox.Size = new System.Drawing.Size(244, 95);
             this.productListBox.TabIndex = 30;
@@ -545,5 +554,6 @@
         protected System.Windows.Forms.Button cancelButton;
         protected System.Windows.Forms.GroupBox exportShipmentGroupbox;
         protected System.Windows.Forms.CheckBox IsInterCheckBox;
+        protected System.Windows.Forms.TextBox productNameSearchTextBox;
     }
 }

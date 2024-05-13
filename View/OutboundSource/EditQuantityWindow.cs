@@ -1,4 +1,6 @@
 ﻿using System.Windows.Forms;
+using Warehouse_IO.Common;
+using Warehouse_IO.WHIO.Model;
 
 namespace Warehouse_IO.View.OutboundSource
 {
@@ -13,14 +15,13 @@ namespace Warehouse_IO.View.OutboundSource
         }
         private void EditQuantity()
         {
-            string qty = EditTextBox.Text;
-            if (int.TryParse(qty, out editQty))
+            double qty = double.Parse(EditTextBox.Text);
+            if (qty > 0)
             {
-                if (editQty > 0)
-                {
-                    EditTextBox.Text = "";
-                    Close();
-                }
+                Product product = new Product(Global.tempPkey);
+                editQty = product.GetQuantity(qty);
+                EditTextBox.Text = "";
+                Close();
             }
             else MessageBox.Show(this, "Need number more than 0");
         }

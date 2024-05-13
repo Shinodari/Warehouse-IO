@@ -21,6 +21,7 @@ namespace Warehouse_IO.View.TruckFormSource
         public TruckForm()
         {
             InitializeComponent();
+            truckGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             truck = new List<Truck>();
             UpdateTruckDatagridView();
             main = new MainForm();
@@ -36,16 +37,7 @@ namespace Warehouse_IO.View.TruckFormSource
             truckBind = new BindingSource(truck, null);
             truck.Sort((x, y) => x.ID.CompareTo(y.ID));
             truckGridView.DataSource = truck;
-        }
 
-        private void dataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex >= 0)
-            {
-                Global.tempPkey = -1;
-                DataGridViewRow row = truckGridView.Rows[e.RowIndex];
-                Global.tempPkey = (int)row.Cells[0].Value;
-            }
         }
 
         private void addTruckButton_Click(object sender, EventArgs e)
@@ -59,6 +51,11 @@ namespace Warehouse_IO.View.TruckFormSource
 
         private void editTruckButton_Click(object sender, EventArgs e)
         {
+            DataGridViewRow selectedRow = truckGridView.CurrentRow;
+            Global.tempPkey = -1;
+            int value = (int)selectedRow.Cells[0].Value;
+            Global.tempPkey = value;
+
             edit = new Edit();
             edit.Owner = main;
 
@@ -68,19 +65,22 @@ namespace Warehouse_IO.View.TruckFormSource
 
         private void removeTruckButton_Click(object sender, EventArgs e)
         {
+            DataGridViewRow selectedRow = truckGridView.CurrentRow;
+            Global.tempPkey = -1;
+            int value = (int)selectedRow.Cells[0].Value;
+            Global.tempPkey = value;
+
             remove = new Remove();
             remove.Owner = main;
 
             remove.UpdateGrid += OnUpdate;
             remove.ShowDialog();
         }
-
         private void exitTruckButton_Click(object sender, EventArgs e)
         {
             returnMain?.Invoke(this, EventArgs.Empty);
             Close();
         }
-
         private void OnUpdate(object sender, EventArgs e)
         {
             UpdateTruckDatagridView();

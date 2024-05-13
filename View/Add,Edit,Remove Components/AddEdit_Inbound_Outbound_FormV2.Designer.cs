@@ -62,6 +62,7 @@
             this.productListBox = new System.Windows.Forms.ListBox();
             this.doneButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
+            this.productNameSearchTextBox = new System.Windows.Forms.TextBox();
             this.shipmentGroupBox.SuspendLayout();
             this.importShipmentGroupBox.SuspendLayout();
             this.truckGroupBox.SuspendLayout();
@@ -284,6 +285,7 @@
             // 
             // productGroupBox
             // 
+            this.productGroupBox.Controls.Add(this.productNameSearchTextBox);
             this.productGroupBox.Controls.Add(this.removeProductButton);
             this.productGroupBox.Controls.Add(this.editProductQuantityButton);
             this.productGroupBox.Controls.Add(this.productListLabel);
@@ -378,9 +380,9 @@
             // productListBox
             // 
             this.productListBox.FormattingEnabled = true;
-            this.productListBox.Location = new System.Drawing.Point(76, 19);
+            this.productListBox.Location = new System.Drawing.Point(76, 45);
             this.productListBox.Name = "productListBox";
-            this.productListBox.Size = new System.Drawing.Size(148, 199);
+            this.productListBox.Size = new System.Drawing.Size(148, 173);
             this.productListBox.TabIndex = 30;
             // 
             // doneButton
@@ -400,6 +402,13 @@
             this.cancelButton.TabIndex = 41;
             this.cancelButton.Text = "Cancel";
             this.cancelButton.UseVisualStyleBackColor = true;
+            // 
+            // productNameSearchTextBox
+            // 
+            this.productNameSearchTextBox.Location = new System.Drawing.Point(76, 22);
+            this.productNameSearchTextBox.Name = "productNameSearchTextBox";
+            this.productNameSearchTextBox.Size = new System.Drawing.Size(148, 20);
+            this.productNameSearchTextBox.TabIndex = 305;
             // 
             // AddEdit_Inbound_Outbound_FormV2
             // 
@@ -468,5 +477,6 @@
         protected System.Windows.Forms.Button cancelButton;
         protected System.Windows.Forms.GroupBox importShipmentGroupBox;
         protected System.Windows.Forms.CheckBox IsInterCheckBox;
+        protected System.Windows.Forms.TextBox productNameSearchTextBox;
     }
 }

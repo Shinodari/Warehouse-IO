@@ -35,7 +35,7 @@ namespace Warehouse_IO.View.UOMSource
         {
             list = UOM.GetUOMList();
             bind.DataSource = list;
-            list.Sort((x, y) => x.ID.CompareTo(y.ID));
+            list.Sort((x, y) => x.Quantity.CompareTo(y.Quantity));
             dataGridView.DataSource = bind;
 
             dataGridView.CellFormatting += DataGridView_CellFormatting;

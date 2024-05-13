@@ -44,10 +44,13 @@ namespace Warehouse_IO.View.InboundSource
             dataTable.Columns.Add("Date", typeof(DateTime));
             dataTable.Columns.Add("Customer");
             dataTable.Columns.Add("Storage");
-            dataTable.Columns.Add("TotalM3", typeof(double));
-            dataTable.Columns.Add("Import",typeof(bool));
+            dataTable.Columns.Add("Total Quantity", typeof(int));
+            dataTable.Columns.Add("Total M3", typeof(double));
+            dataTable.Columns.Add("Import", typeof(bool));
             dataTable.Columns.Add("Inbound ID", typeof(int));
             dataTable.Columns.Add("Storage ID", typeof(int));
+
+            double totalM3 = 0.0; // Accumulate total M3 for the shipment
 
             foreach (Inbound inbound in inboundlist)
             {
@@ -56,29 +59,39 @@ namespace Warehouse_IO.View.InboundSource
                 row["Date"] = inbound.DeliveryDate.ToString("dd MMM yy");
                 row["Customer"] = inbound.Supplier.Name;
                 row["Storage"] = inbound.Storage.Name;
-                int totalQty = inbound.QuantityOfProductList.Values.Sum();
-                double M3perUnit = 0;
+
+                int totalQuantity = 0; // Accumulate total quantity for the shipment
+
                 foreach (KeyValuePair<Product, int> productQty in inbound.QuantityOfProductList)
                 {
+                    totalQuantity += productQty.Value; // Add individual quantity to total
+
+                    // Check if product has a dimension
                     Warehouse_IO.WHIO.Model.Dimension dimension = productQty.Key.Dimension;
                     if (dimension != null)
                     {
-                        M3perUnit += dimension.GetM3();
+                        double m3PerUnit = dimension.GetM3();
+                        totalM3 += productQty.Value * m3PerUnit; // Add M3 per item to total M3
                     }
                 }
-                double TotalM3 = M3perUnit * totalQty;
-                row["TotalM3"] = TotalM3.ToString("0.00");
+
+                row["Total Quantity"] = totalQuantity;
+                // No need to calculate M3 in the loop anymore, totalM3 is already accumulated
+                row["Total M3"] = totalM3.ToString("0.00");
                 row["Import"] = inbound.Inter;
                 row["Inbound ID"] = inbound.ID;
                 row["Storage ID"] = inbound.Storage.ID;
 
                 dataTable.Rows.Add(row);
+
+                // Reset totalM3 for the next inbound shipment
+                totalM3 = 0.0;
             }
             dataTable.DefaultView.Sort = "Date DESC";
             dataGridView.DataSource = dataTable.DefaultView;
-
             dataGridView.Columns["Inbound ID"].Visible = false;
             dataGridView.Columns["Storage ID"].Visible = false;
+
         }
 
         private void a_Click(object sender, EventArgs e)
@@ -95,8 +108,8 @@ namespace Warehouse_IO.View.InboundSource
             Global.tempPkey = -1;
             Global.tempStorageKey = -1;
             DataGridViewRow selectedRow = dataGridView.CurrentRow;
-            int value = (int)selectedRow.Cells[6].Value;
-            int storageKey = (int)selectedRow.Cells[7].Value;
+            int value = (int)selectedRow.Cells[7].Value;
+            int storageKey = (int)selectedRow.Cells[8].Value;
 
             Global.tempStorageKey = storageKey;
             Global.tempPkey = value;
@@ -113,8 +126,8 @@ namespace Warehouse_IO.View.InboundSource
             Global.tempPkey = -1;
             Global.tempStorageKey = -1;
             DataGridViewRow selectedRow = dataGridView.CurrentRow;
-            int value = (int)selectedRow.Cells[6].Value;
-            int storageKey = (int)selectedRow.Cells[7].Value;
+            int value = (int)selectedRow.Cells[7].Value;
+            int storageKey = (int)selectedRow.Cells[8].Value;
 
             Global.tempStorageKey = storageKey;
             Global.tempPkey = value;

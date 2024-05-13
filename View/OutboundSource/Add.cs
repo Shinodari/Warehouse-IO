@@ -5,6 +5,7 @@ using System.Data;
 using MySql.Data.MySqlClient;
 using Warehouse_IO.WHIO.Model;
 using Warehouse_IO.View.Add_Edit_Remove_Components;
+using Warehouse_IO.Common;
 
 namespace Warehouse_IO.View.OutboundSource
 {
@@ -23,10 +24,10 @@ namespace Warehouse_IO.View.OutboundSource
         //Variable for compare selected Index when create shipment
         private List<int> supplierID = new List<int>();
         private List<int> truckID = new List<int>();
-        private List<int> productID = new List<int>();
 
-        //Variable for tracking deliveryplace after sorted
+        //Variable for tracking deliveryplace after filtered
         private readonly Dictionary<string, Deliveryplace> deliveryplaceNameToDeliveryplace = new Dictionary<string, Deliveryplace>();
+        private readonly Dictionary<string, Product> productNameToProduct = new Dictionary<string, Product>();
 
         //Variable for create selected object on CreateNewShipment()
         Supplier supplier;
@@ -91,7 +92,7 @@ namespace Warehouse_IO.View.OutboundSource
             }
 
             truckList = Truck.GetTruckList();
-            truckList.Sort((x, y) => x.Name.CompareTo(y.Name));
+            truckList.Sort((x, y) => x.Description.CompareTo(y.Description));
             truckListBox.Items.Clear();
             foreach (Truck truck in truckList)
             {
@@ -104,8 +105,10 @@ namespace Warehouse_IO.View.OutboundSource
             productListBox.Items.Clear();
             foreach (Product product in productList)
             {
-                productListBox.Items.Add(product.Name);
-                productID.Add(product.ID);
+                string displayedName = product.Name;
+                productListBox.Items.Add(displayedName);
+
+                productNameToProduct[displayedName] = product;
             }
         }
 
@@ -134,6 +137,7 @@ namespace Warehouse_IO.View.OutboundSource
             datatable.Columns.Add("Name");
             datatable.Columns.Add("Quantity", typeof(int));
             datatable.Columns.Add("ID", typeof(int));
+            datatable.Columns.Add("M3", typeof(double));
             foreach (KeyValuePair<Product, int> productGridlistEntry in newOutbound.QuantityOfProductList)
             {
                 Product product = productGridlistEntry.Key;
@@ -142,10 +146,24 @@ namespace Warehouse_IO.View.OutboundSource
                 row["Name"] = product.Name;
                 row["Quantity"] = quantity;
                 row["ID"] = product.ID;
+
+                Warehouse_IO.WHIO.Model.Dimension dimension = product.Dimension;
+                if (dimension != null)
+                {
+                    double m3PerUnit = dimension.GetM3();
+                    double totalM3PerItem = quantity * m3PerUnit;
+                    row["M3"] = totalM3PerItem.ToString("0.00");
+                }
+                else
+                {
+                    row["M3"] = "0.00";
+                }
                 datatable.Rows.Add(row);
             }
             datatable.DefaultView.Sort = "Name ASC";
             productListDatagridView.DataSource = datatable.DefaultView;
+
+            productListDatagridView.Columns["ID"].Visible = false;
         }
         private void UpdateDeliveryplaceGridView()
         {
@@ -331,18 +349,20 @@ namespace Warehouse_IO.View.OutboundSource
         //Add product to shipment
         private void AddProductToShipment()
         {
-            if (productListBox.SelectedItem != null)
+            if (productListBox.SelectedIndex >= 0)
             {
-                int selectedProductIndex = productListBox.SelectedIndex;
-                if (selectedProductIndex >= 0 && selectedProductIndex < productID.Count)
+                string selectedName = (string)productListBox.SelectedItem;
+                if (productNameToProduct.ContainsKey(selectedName))
                 {
-                    int selectedProductID = productID[selectedProductIndex];
-                    product = new WHIO.Model.Product(selectedProductID);
+                    Product selectedProduct = productNameToProduct[selectedName];
+                    int selectedProductID = selectedProduct.ID;
 
+                    product = new Product(selectedProductID);
                     if (!newOutbound.QuantityOfProductList.ContainsKey(product))
                     {
-                        int quantity = int.Parse(productQuantityTextBox.Text);
-                        newOutbound.AddProduct(product, quantity);
+                        double kgs = double.Parse(productQuantityTextBox.Text);
+                        int kgsToQuantity = product.GetQuantity(kgs);
+                        newOutbound.AddProduct(product, kgsToQuantity);
                         productQuantityTextBox.Text = "";
                         UpdateProductGridView();
                     }
@@ -386,9 +406,10 @@ namespace Warehouse_IO.View.OutboundSource
             if (productListDatagridView.SelectedRows.Count > 0)
             {
                 editQuantity.Owner = main;
-
+                Global.tempPkey = -1;
                 DataGridViewRow selectedRow = productListDatagridView.CurrentRow;
                 int id = Convert.ToInt32(selectedRow.Cells[2].Value);
+                Global.tempPkey = id;
 
                 editQuantity.ShowDialog();
 
@@ -532,6 +553,20 @@ namespace Warehouse_IO.View.OutboundSource
             }
         }
 
+        //Searching product algorithm
+        private void productTextBox_TextChanged(object sender, EventArgs e)
+        {
+            string searchText = productNameSearchTextBox.Text.ToLower();
 
+            productListBox.Items.Clear();
+
+            foreach (Product item in productList)
+            {
+                if (item.Name.ToLower().Contains(searchText))
+                {
+                    productListBox.Items.Add(item.Name);
+                }
+            }
+        }
     }
 }

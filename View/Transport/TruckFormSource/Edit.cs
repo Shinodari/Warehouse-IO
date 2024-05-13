@@ -16,13 +16,14 @@ namespace Warehouse_IO.View.Transport.TruckFormSource
         {
             InitializeComponent();
             edit = new WHIO.Model.Truck(Global.tempPkey);
+            EditTextBox.Text = edit.Name;
             oldName = edit.Name;
         }
         protected override void AttemptEdit()
         {
             edit.Name = EditTextBox.Text;
             edit.Description = descriptionTextBox.Text;
-            if (edit.Change()&&edit.Name!=oldName)
+            if (edit.Change())
             {
                 MessageBox.Show(this, "Edit Completed Old name : " + oldName + " New name : " + edit.Name);
                 UpdateGrid?.Invoke(this, EventArgs.Empty);

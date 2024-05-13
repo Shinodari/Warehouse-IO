@@ -45,16 +45,20 @@ namespace Warehouse_IO.View.OutboundSource
             dataTable.Columns.Add("Date", typeof(DateTime));
             dataTable.Columns.Add("Customer");
             dataTable.Columns.Add("Place");
+            dataTable.Columns.Add("Total Quantity", typeof(int));
             dataTable.Columns.Add("TotalM3", typeof(double));
             dataTable.Columns.Add("Import", typeof(bool));
             dataTable.Columns.Add("ID", typeof(int));
 
-            foreach(Outbound outbound in outboundlist)
+            double totalM3 = 0.0;
+
+            foreach (Outbound outbound in outboundlist)
             {
                 DataRow row = dataTable.NewRow();
                 row["Invoice"] = outbound.InvoiceNo;
                 row["Date"] = outbound.DeliveryDate.ToString("dd MMM yy");
                 row["Customer"] = outbound.Supplier.Name;
+
                 StringBuilder deliveryPlaces = new StringBuilder();
                 if(outbound.DeliveryplaceList != null)
                 {
@@ -67,26 +71,34 @@ namespace Warehouse_IO.View.OutboundSource
 
                     row["Place"] = deliveryPlaces.ToString();
                 }
-                int totalQty = outbound.QuantityOfProductList.Values.Sum();
-                double M3perUnit = 0;
+
+                int totalQuantity = 0;
+
                 foreach (KeyValuePair<Product, int> productQty in outbound.QuantityOfProductList)
                 {
+                    totalQuantity += productQty.Value; // Add individual quantity to total
+
+                    // Check if product has a dimension
                     Warehouse_IO.WHIO.Model.Dimension dimension = productQty.Key.Dimension;
                     if (dimension != null)
                     {
-                        M3perUnit += dimension.GetM3();
+                        double m3PerUnit = dimension.GetM3();
+                        totalM3 += productQty.Value * m3PerUnit; // Add M3 per item to total M3
                     }
                 }
-                double TotalM3 = M3perUnit * totalQty;
-                row["TotalM3"] = TotalM3.ToString("0.00");
+
+                row["Total Quantity"] = totalQuantity;
+                row["TotalM3"] = totalM3.ToString("0.00");
                 row["Import"] = outbound.Inter;
                 row["ID"] = outbound.ID;
 
                 dataTable.Rows.Add(row);
+
+                // Reset totalM3 for the next inbound shipment
+                totalM3 = 0.0;
             }
             dataTable.DefaultView.Sort = "Date DESC";
             dataGridView.DataSource = dataTable.DefaultView;
-
             dataGridView.Columns["ID"].Visible = false;
         }
 
@@ -103,7 +115,7 @@ namespace Warehouse_IO.View.OutboundSource
         {
             Global.tempPkey = -1;
             DataGridViewRow selectedRow = dataGridView.CurrentRow;
-            int value = (int)selectedRow.Cells[6].Value;
+            int value = (int)selectedRow.Cells[7].Value;
             Global.tempPkey = value;
 
             edit = new OutboundSource.Edit();
@@ -117,7 +129,7 @@ namespace Warehouse_IO.View.OutboundSource
         {
             Global.tempPkey = -1;
             DataGridViewRow selectedRow = dataGridView.CurrentRow;
-            int value = (int)selectedRow.Cells[6].Value;
+            int value = (int)selectedRow.Cells[7].Value;
             Global.tempPkey = value;
 
             remove = new Remove();

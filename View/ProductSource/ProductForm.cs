@@ -37,7 +37,7 @@ namespace Warehouse_IO.View.ProductSource
         {
             productList = Product.GetProductList();
             bind.DataSource = productList;
-            productList.Sort((x, y) => x.ID.CompareTo(y.ID));
+            productList.Sort((x, y) => x.Name.CompareTo(y.Name));
             dataGridView.DataSource = bind;
 
             dataGridView.CellFormatting += DataGridView_CellFormatting;

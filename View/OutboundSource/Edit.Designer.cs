@@ -32,6 +32,7 @@
             this.deliveryPlaceGroupBox.SuspendLayout();
             this.truckGroupBox.SuspendLayout();
             this.productGroupBox.SuspendLayout();
+            this.exportShipmentGroupbox.SuspendLayout();
             this.SuspendLayout();
             // 
             // createShipmentButton
@@ -90,6 +91,10 @@
             // 
             this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
             // 
+            // productNameSearchTextBox
+            // 
+            this.productNameSearchTextBox.TextChanged += new System.EventHandler(this.productNameSearchTextBox_TextChanged);
+            // 
             // Edit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -105,6 +110,8 @@
             this.truckGroupBox.PerformLayout();
             this.productGroupBox.ResumeLayout(false);
             this.productGroupBox.PerformLayout();
+            this.exportShipmentGroupbox.ResumeLayout(false);
+            this.exportShipmentGroupbox.PerformLayout();
             this.ResumeLayout(false);
 
         }

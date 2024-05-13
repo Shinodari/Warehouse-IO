@@ -90,6 +90,7 @@
             this.inOutActivityToolStripMenuItem.Name = "inOutActivityToolStripMenuItem";
             this.inOutActivityToolStripMenuItem.Size = new System.Drawing.Size(98, 19);
             this.inOutActivityToolStripMenuItem.Text = "In - Out Activity";
+            this.inOutActivityToolStripMenuItem.Click += new System.EventHandler(this.click_InOut);
             // 
             // toolStripMenuItem1
             // 
