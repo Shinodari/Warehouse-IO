@@ -176,5 +176,11 @@ namespace Warehouse_IO.WHIO.Model
             }
             return productList;
         }
+
+        public int GetQuantity(double kgs)
+        {
+            int uomQuantity = (int)uom.Quantity;
+            return (int) Math.Ceiling(kgs/ uomQuantity);
+        }
     }
 }
