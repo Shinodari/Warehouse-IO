@@ -37,6 +37,10 @@
             this.nameLabel = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.UoMSearchTextBox = new System.Windows.Forms.TextBox();
+            this.dimensionSearchTextBox = new System.Windows.Forms.TextBox();
+            this.detailTextBox = new System.Windows.Forms.TextBox();
+            this.detailLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // cancelButton
@@ -83,11 +87,35 @@
             resources.ApplyResources(this.label2, "label2");
             this.label2.Name = "label2";
             // 
+            // UoMSearchTextBox
+            // 
+            resources.ApplyResources(this.UoMSearchTextBox, "UoMSearchTextBox");
+            this.UoMSearchTextBox.Name = "UoMSearchTextBox";
+            // 
+            // dimensionSearchTextBox
+            // 
+            resources.ApplyResources(this.dimensionSearchTextBox, "dimensionSearchTextBox");
+            this.dimensionSearchTextBox.Name = "dimensionSearchTextBox";
+            // 
+            // detailTextBox
+            // 
+            resources.ApplyResources(this.detailTextBox, "detailTextBox");
+            this.detailTextBox.Name = "detailTextBox";
+            // 
+            // detailLabel
+            // 
+            resources.ApplyResources(this.detailLabel, "detailLabel");
+            this.detailLabel.Name = "detailLabel";
+            // 
             // AddEditProductForm
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ControlBox = false;
+            this.Controls.Add(this.detailLabel);
+            this.Controls.Add(this.detailTextBox);
+            this.Controls.Add(this.dimensionSearchTextBox);
+            this.Controls.Add(this.UoMSearchTextBox);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.nameLabel);
@@ -115,5 +143,9 @@
         protected System.Windows.Forms.Label nameLabel;
         protected System.Windows.Forms.Label label1;
         protected System.Windows.Forms.Label label2;
+        protected System.Windows.Forms.TextBox UoMSearchTextBox;
+        protected System.Windows.Forms.TextBox dimensionSearchTextBox;
+        protected System.Windows.Forms.TextBox detailTextBox;
+        protected System.Windows.Forms.Label detailLabel;
     }
 }

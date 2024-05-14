@@ -129,7 +129,7 @@
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="cancelButton.TabIndex" type="System.Int32, mscorlib">
-    <value>21</value>
+    <value>15</value>
   </data>
   <data name="cancelButton.Text" xml:space="preserve">
     <value>Cancel</value>
@@ -144,7 +144,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;cancelButton.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>8</value>
   </data>
   <metadata name="AddButton.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
@@ -156,7 +156,7 @@
     <value>88, 20</value>
   </data>
   <data name="AddButton.TabIndex" type="System.Int32, mscorlib">
-    <value>20</value>
+    <value>14</value>
   </data>
   <data name="AddButton.Text" xml:space="preserve">
     <value>Add</value>
@@ -171,19 +171,16 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;AddButton.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>9</value>
   </data>
-  <metadata name="dimensionListBox.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
   <data name="dimensionListBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>76, 231</value>
+    <value>76, 316</value>
   </data>
   <data name="dimensionListBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>224, 186</value>
+    <value>224, 225</value>
   </data>
   <data name="dimensionListBox.TabIndex" type="System.Int32, mscorlib">
-    <value>12</value>
+    <value>17</value>
   </data>
   <data name="&gt;&gt;dimensionListBox.Name" xml:space="preserve">
     <value>dimensionListBox</value>
@@ -195,7 +192,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;dimensionListBox.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>10</value>
   </data>
   <metadata name="nameTextBox.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
@@ -219,19 +216,16 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;nameTextBox.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>11</value>
   </data>
-  <metadata name="UoMListBox.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
   <data name="UoMListBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>76, 38</value>
+    <value>76, 97</value>
   </data>
   <data name="UoMListBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>224, 186</value>
   </data>
   <data name="UoMListBox.TabIndex" type="System.Int32, mscorlib">
-    <value>11</value>
+    <value>16</value>
   </data>
   <data name="&gt;&gt;UoMListBox.Name" xml:space="preserve">
     <value>UoMListBox</value>
@@ -243,13 +237,13 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;UoMListBox.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>7</value>
   </data>
   <data name="nameLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="nameLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>29, 15</value>
+    <value>33, 15</value>
   </data>
   <data name="nameLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>41, 13</value>
@@ -270,13 +264,13 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;nameLabel.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>6</value>
   </data>
   <data name="label1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>29, 38</value>
+    <value>37, 74</value>
   </data>
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
     <value>36, 13</value>
@@ -297,13 +291,13 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>5</value>
   </data>
   <data name="label2.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 231</value>
+    <value>11, 294</value>
   </data>
   <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
     <value>62, 13</value>
@@ -324,19 +318,106 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="UoMSearchTextBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>76, 71</value>
+  </data>
+  <data name="UoMSearchTextBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>224, 20</value>
+  </data>
+  <data name="UoMSearchTextBox.TabIndex" type="System.Int32, mscorlib">
+    <value>12</value>
+  </data>
+  <data name="&gt;&gt;UoMSearchTextBox.Name" xml:space="preserve">
+    <value>UoMSearchTextBox</value>
+  </data>
+  <data name="&gt;&gt;UoMSearchTextBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;UoMSearchTextBox.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;UoMSearchTextBox.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="dimensionSearchTextBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>76, 290</value>
+  </data>
+  <data name="dimensionSearchTextBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>224, 20</value>
+  </data>
+  <data name="dimensionSearchTextBox.TabIndex" type="System.Int32, mscorlib">
+    <value>13</value>
+  </data>
+  <data name="&gt;&gt;dimensionSearchTextBox.Name" xml:space="preserve">
+    <value>dimensionSearchTextBox</value>
+  </data>
+  <data name="&gt;&gt;dimensionSearchTextBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;dimensionSearchTextBox.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;dimensionSearchTextBox.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="detailTextBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>76, 39</value>
+  </data>
+  <data name="detailTextBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>224, 20</value>
+  </data>
+  <data name="detailTextBox.TabIndex" type="System.Int32, mscorlib">
+    <value>11</value>
+  </data>
+  <data name="&gt;&gt;detailTextBox.Name" xml:space="preserve">
+    <value>detailTextBox</value>
+  </data>
+  <data name="&gt;&gt;detailTextBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;detailTextBox.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;detailTextBox.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="detailLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="detailLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>30, 42</value>
+  </data>
+  <data name="detailLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>45, 13</value>
+  </data>
+  <data name="detailLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>204</value>
+  </data>
+  <data name="detailLabel.Text" xml:space="preserve">
+    <value>Details :</value>
+  </data>
+  <data name="&gt;&gt;detailLabel.Name" xml:space="preserve">
+    <value>detailLabel</value>
+  </data>
+  <data name="&gt;&gt;detailLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;detailLabel.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;detailLabel.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="$this.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
     <value>6, 13</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>425, 432</value>
+    <value>425, 551</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">

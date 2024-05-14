@@ -39,6 +39,10 @@
             // 
             this.createShipmentButton.Click += new System.EventHandler(this.createShipmentButton_Click);
             // 
+            // deliveryPlaceTextBox
+            // 
+            this.deliveryPlaceTextBox.TextChanged += new System.EventHandler(this.deliveryPlaceTextBox_TextChanged_1);
+            // 
             // deliveryplaceListBox
             // 
             this.deliveryplaceListBox.DoubleClick += new System.EventHandler(this.deliveryplaceListBox_DoubleClick);
@@ -99,7 +103,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(668, 531);
+            this.ClientSize = new System.Drawing.Size(1008, 729);
             this.Name = "Edit";
             this.Text = "Edit";
             this.shipmentGroupBox.ResumeLayout(false);

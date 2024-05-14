@@ -14,86 +14,109 @@ namespace Warehouse_IO.View.ProductSource
         Warehouse_IO.WHIO.Model.Dimension dimension;
         List<UOM> uomList;
         List<Warehouse_IO.WHIO.Model.Dimension> dimensionList;
-        private List<int> dimensionId = new List<int>();
-        private List<int> uomId = new List<int>();
+
+        //Variable for tracking Dimension and UOM in listBox
+        string targetDimension;
+        string targetUOM;
+        private readonly Dictionary<string, UOM> uomforSearchList = new Dictionary<string, UOM>();
+        private readonly Dictionary<string, Warehouse_IO.WHIO.Model.Dimension> dimensionforSearchList = new Dictionary<string, Warehouse_IO.WHIO.Model.Dimension>();
 
         public event EventHandler UpdateGrid;
 
         public Edit()
         {
             InitializeComponent();
-            updateList();
-            edit = new Product(Global.tempPkey);
-            nameTextBox.Text = edit.Name.ToString();
 
-            //Selected data in listbox referred by ID in private list
-            int uomIndex = uomId.IndexOf(edit.UOM.ID);
-            if (uomIndex >= 0)
-            {
-                UoMListBox.SelectedIndex = uomIndex;
-            }
-            int dimensionIndex = dimensionId.IndexOf(edit.Dimension.ID);
-            if (dimensionIndex >= 0)
-            {
-                dimensionListBox.SelectedIndex = dimensionIndex;
-            }
+            nameTextBox.Enabled = false;
 
             nameTextBox.KeyPress += AddButton_KeyPress;
             UoMListBox.KeyPress += AddButton_KeyPress;
             dimensionListBox.KeyPress += AddButton_KeyPress;
 
+            edit = new Product(Global.tempPkeyName);
+            //Create text pattern select in listbox
+            targetDimension = $"{edit.Dimension.GetM3()} // {edit.Dimension.Unit.Name} {edit.Dimension.Name}";
+            targetUOM = $"{edit.UOM.Quantity}{edit.UOM.Unit.Name}/{edit.UOM.Package.Name} {edit.UOM.Name}";
+            nameTextBox.Text = edit.ID;
+            detailTextBox.Text = edit.Name;
+
             dimensionList = new List<Warehouse_IO.WHIO.Model.Dimension>();
             uomList = new List<UOM>();
+
+            updateList();
         }
         private void updateList()
         {
             dimensionList = Warehouse_IO.WHIO.Model.Dimension.GetDimensionList();
             uomList = UOM.GetUOMList();
             dimensionList.Sort((x, y) => x.GetM3().CompareTo(y.GetM3()));
-            uomList.Sort((x, y) => x.Name.CompareTo(y.Name));
+            uomList.Sort((x, y) => x.Quantity.CompareTo(y.Quantity));
 
             UoMListBox.Items.Clear();
             dimensionListBox.Items.Clear();
 
             foreach (Warehouse_IO.WHIO.Model.Dimension dimension in dimensionList)
             {
-                string formattedDimension = $"{dimension.GetM3()} /// {dimension.Unit.Name} {dimension.Name}";
+                string formattedDimension = $"{dimension.GetM3()} // {dimension.Unit.Name} {dimension.Name}";
                 dimensionListBox.Items.Add(formattedDimension);
-                dimensionId.Add(dimension.ID);
+
+                dimensionforSearchList[formattedDimension] = dimension;
             }
             foreach (UOM uom in uomList)
             {
-                string formattedDimension = $"{uom.Quantity}{uom.Unit.Name}/{uom.Package.Name} {uom.Name}";
-                UoMListBox.Items.Add(formattedDimension);
-                uomId.Add(uom.ID);
+                string formattedUOM = $"{uom.Quantity}{uom.Unit.Name}/{uom.Package.Name} {uom.Name}";
+                UoMListBox.Items.Add(formattedUOM);
+
+                uomforSearchList[formattedUOM] = uom;
+            }
+            SelectListBoxItem(dimensionListBox, targetDimension);
+            SelectListBoxItem(UoMListBox, targetUOM);
+        }
+
+        //Method for select item in listbox
+        private void SelectListBoxItem(ListBox listBox, string targetItem)
+        {
+            if (listBox.Items.Contains(targetItem))
+            {
+                int index = listBox.FindString(targetItem);
+                if (index != -1)
+                {
+                    listBox.SetSelected(index, true);
+                }
             }
         }
+
         private void AttemptEdit()
-        {
-            edit.Name = nameTextBox.Text;
-            if (string.IsNullOrEmpty(nameTextBox.Text))
+        {   
+            edit.Name = detailTextBox.Text;
+            if (UoMListBox.SelectedIndex >= 0)
             {
-                MessageBox.Show(this, "Please enter a product name.");
-                return;
-            }
-            int selectedUOMIndex = UoMListBox.SelectedIndex;
-            if (selectedUOMIndex >= 0 && selectedUOMIndex < uomId.Count)
-            {
-                int selectedUOMID = uomId[selectedUOMIndex];
-                uom = new UOM(selectedUOMID);
-                edit.UOM = uom;
+                string selectedUOMName = (string)UoMListBox.SelectedItem;
+                if (uomforSearchList.ContainsKey(selectedUOMName))
+                {
+                    UOM selectedUOM = uomforSearchList[selectedUOMName];
+                    int selectedID = selectedUOM.ID;
+
+                    uom = new UOM(selectedID);
+                    edit.UOM = uom;
+                }
             }
             else
             {
                 MessageBox.Show(this, "Please select UOM");
                 return;
             }
-            int selectedDimensionIndex = dimensionListBox.SelectedIndex;
-            if (selectedDimensionIndex >= 0 && selectedDimensionIndex < dimensionId.Count)
+            if (dimensionListBox.SelectedIndex >= 0)
             {
-                int selectedDimensionID = dimensionId[selectedDimensionIndex];
-                dimension = new Warehouse_IO.WHIO.Model.Dimension(selectedDimensionID);
-                edit.Dimension = dimension;
+                string selectedDimensionName = (string)dimensionListBox.SelectedItem;
+                if (dimensionforSearchList.ContainsKey(selectedDimensionName))
+                {
+                    Warehouse_IO.WHIO.Model.Dimension selectedDimension = dimensionforSearchList[selectedDimensionName];
+                    int selectedID = selectedDimension.ID;
+
+                    dimension = new WHIO.Model.Dimension(selectedID);
+                    edit.Dimension = dimension;
+                }
             }
             else
             {
@@ -124,6 +147,40 @@ namespace Warehouse_IO.View.ProductSource
         private void cancelButton_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        //Searching UOM algorithm
+        private void UoMSearchTextBox_TextChanged(object sender, EventArgs e)
+        {
+            string searchText = UoMSearchTextBox.Text.ToLower();
+
+            UoMListBox.Items.Clear();
+
+            foreach (UOM item in uomList)
+            {
+                string formattedDimension = $"{item.Quantity}{item.Unit.Name}/{item.Package.Name} {item.Name}";
+                if (formattedDimension.ToLower().Contains(searchText))
+                {
+                    UoMListBox.Items.Add(formattedDimension);
+                }
+            }
+        }
+
+        //Searching Dimension algorithm
+        private void dimensionSearchTextBox_TextChanged(object sender, EventArgs e)
+        {
+            string searchText = dimensionSearchTextBox.Text.ToLower();
+
+            dimensionListBox.Items.Clear();
+
+            foreach (Warehouse_IO.WHIO.Model.Dimension item in dimensionList)
+            {
+                string formattedDimension = $"{item.GetM3()} // {item.Unit.Name} {item.Name}";
+                if (formattedDimension.ToLower().Contains(searchText))
+                {
+                    dimensionListBox.Items.Add(formattedDimension);
+                }
+            }
         }
     }
 }

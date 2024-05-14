@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using Warehouse_IO.WHIO.Model;
 using Warehouse_IO.Common;
 using Warehouse_IO.View.ParentFormComponents;
+using System.Data;
 
 namespace Warehouse_IO.View.ProductSource
 {
@@ -36,34 +37,28 @@ namespace Warehouse_IO.View.ProductSource
         public void UpdateDatagridView()
         {
             productList = Product.GetProductList();
-            bind.DataSource = productList;
-            productList.Sort((x, y) => x.Name.CompareTo(y.Name));
-            dataGridView.DataSource = bind;
+            DataTable dataTable = new DataTable();
+            dataTable.Columns.Add("Name");
+            dataTable.Columns.Add("Details");
+            dataTable.Columns.Add("M3",typeof(double));
+            dataTable.Columns.Add("Weight",typeof(double));
+            dataTable.Columns.Add("Unit");
+            dataTable.Columns.Add("Package");
 
-            dataGridView.CellFormatting += DataGridView_CellFormatting;
-        }
-        private void DataGridView_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
-        {
-
-            if (e.ColumnIndex == 2 || e.ColumnIndex == 3)
+            foreach (Product product in productList)
             {
-                if (dataGridView.Rows[e.RowIndex].DataBoundItem != null)
-                {
-                    Product data = (Product)dataGridView.Rows[e.RowIndex].DataBoundItem;
-                    uom = new UOM(data.UOM.ID);
-                    dimension = new WHIO.Model.Dimension(data.Dimension.ID);
-                    if (e.ColumnIndex == 2)
-                    {
-                        string formattedValue = $"{uom.Quantity}{uom.Unit.Name}/{uom.Package.Name} {uom.Name}";
-                        e.Value = formattedValue;
-                    }
-                    else if (e.ColumnIndex == 3)
-                    {
-                        string formattedValue = $"{dimension.Width} x {dimension.Length} x {dimension.Height} {dimension.Unit.Name} {dimension.Name}";
-                        e.Value = formattedValue;
-                    }
-                }
+                DataRow row = dataTable.NewRow();
+                row["Name"] = product.ID;
+                row["Details"] = product.Name ;
+                row["M3"] = product.Dimension.GetM3();
+                row["Weight"] = product.UOM.Quantity;
+                row["Unit"] = product.UOM.Unit.Name;
+                row["Package"] = product.UOM.Package.Name;
+
+                dataTable.Rows.Add(row);
             }
+            dataTable.DefaultView.Sort = "Name ASC";
+            dataGridView.DataSource = dataTable.DefaultView;
         }
 
         private void a_Click(object sender, EventArgs e)
@@ -77,9 +72,9 @@ namespace Warehouse_IO.View.ProductSource
         private void e_Click(object sender, EventArgs e)
         {
             DataGridViewRow selectedRow = dataGridView.CurrentRow;
-            Global.tempPkey = -1;
-            int value = (int)selectedRow.Cells[0].Value;
-            Global.tempPkey = value;
+            Global.tempPkeyName = null;
+            string id = (string)selectedRow.Cells["Name"].Value;
+            Global.tempPkeyName = id;
 
             edit = new Edit();
             edit.Owner = main;
@@ -89,10 +84,10 @@ namespace Warehouse_IO.View.ProductSource
         }
         private void r_Click(object sender, EventArgs e)
         {
+            Global.tempPkeyName = null;
             DataGridViewRow selectedRow = dataGridView.CurrentRow;
-            Global.tempPkey = -1;
-            int value = (int)selectedRow.Cells[0].Value;
-            Global.tempPkey = value;
+            string id = (string)selectedRow.Cells["Name"].Value;
+            Global.tempPkeyName = id;
 
             remove = new Remove();
             remove.Owner = main;
@@ -108,6 +103,12 @@ namespace Warehouse_IO.View.ProductSource
         private void OnUpdate(object sender, EventArgs e)
         {
             UpdateDatagridView();
-        }   
+        }
+
+        private void searchProductNameTextBox_TextChanged(object sender, EventArgs e)
+        {
+            string filterText = searchProductNameTextBox.Text;
+            (dataGridView.DataSource as DataView).RowFilter = $"Name LIKE '%{filterText}%' OR Details LIKE '%{filterText}%'";
+        }
     }
 }

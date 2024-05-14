@@ -69,6 +69,7 @@
             this.productListBox = new System.Windows.Forms.ListBox();
             this.doneButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
+            this.importFileButton = new System.Windows.Forms.Button();
             this.shipmentGroupBox.SuspendLayout();
             this.exportShipmentGroupbox.SuspendLayout();
             this.deliveryPlaceGroupBox.SuspendLayout();
@@ -91,7 +92,7 @@
             this.shipmentGroupBox.Controls.Add(this.invoiceTextBox);
             this.shipmentGroupBox.Location = new System.Drawing.Point(0, 0);
             this.shipmentGroupBox.Name = "shipmentGroupBox";
-            this.shipmentGroupBox.Size = new System.Drawing.Size(665, 76);
+            this.shipmentGroupBox.Size = new System.Drawing.Size(996, 76);
             this.shipmentGroupBox.TabIndex = 100;
             this.shipmentGroupBox.TabStop = false;
             this.shipmentGroupBox.Text = "Shipment";
@@ -99,7 +100,7 @@
             // exportShipmentGroupbox
             // 
             this.exportShipmentGroupbox.Controls.Add(this.IsInterCheckBox);
-            this.exportShipmentGroupbox.Location = new System.Drawing.Point(230, 36);
+            this.exportShipmentGroupbox.Location = new System.Drawing.Point(576, 36);
             this.exportShipmentGroupbox.Name = "exportShipmentGroupbox";
             this.exportShipmentGroupbox.Size = new System.Drawing.Size(312, 33);
             this.exportShipmentGroupbox.TabIndex = 200;
@@ -118,7 +119,7 @@
             // 
             // createShipmentButton
             // 
-            this.createShipmentButton.Location = new System.Drawing.Point(560, 14);
+            this.createShipmentButton.Location = new System.Drawing.Point(894, 14);
             this.createShipmentButton.Name = "createShipmentButton";
             this.createShipmentButton.Size = new System.Drawing.Size(96, 55);
             this.createShipmentButton.TabIndex = 14;
@@ -128,7 +129,7 @@
             // deliveryDateLabel
             // 
             this.deliveryDateLabel.AutoSize = true;
-            this.deliveryDateLabel.Location = new System.Drawing.Point(262, 15);
+            this.deliveryDateLabel.Location = new System.Drawing.Point(608, 15);
             this.deliveryDateLabel.Name = "deliveryDateLabel";
             this.deliveryDateLabel.Size = new System.Drawing.Size(77, 13);
             this.deliveryDateLabel.TabIndex = 103;
@@ -137,7 +138,7 @@
             // invoiceLabel
             // 
             this.invoiceLabel.AutoSize = true;
-            this.invoiceLabel.Location = new System.Drawing.Point(8, 44);
+            this.invoiceLabel.Location = new System.Drawing.Point(101, 18);
             this.invoiceLabel.Name = "invoiceLabel";
             this.invoiceLabel.Size = new System.Drawing.Size(65, 13);
             this.invoiceLabel.TabIndex = 102;
@@ -146,7 +147,7 @@
             // supplierLabel
             // 
             this.supplierLabel.AutoSize = true;
-            this.supplierLabel.Location = new System.Drawing.Point(22, 17);
+            this.supplierLabel.Location = new System.Drawing.Point(336, 15);
             this.supplierLabel.Name = "supplierLabel";
             this.supplierLabel.Size = new System.Drawing.Size(51, 13);
             this.supplierLabel.TabIndex = 101;
@@ -154,7 +155,7 @@
             // 
             // deliveryDatedateTimePicker
             // 
-            this.deliveryDatedateTimePicker.Location = new System.Drawing.Point(342, 14);
+            this.deliveryDatedateTimePicker.Location = new System.Drawing.Point(688, 14);
             this.deliveryDatedateTimePicker.Name = "deliveryDatedateTimePicker";
             this.deliveryDatedateTimePicker.Size = new System.Drawing.Size(200, 20);
             this.deliveryDatedateTimePicker.TabIndex = 12;
@@ -162,14 +163,14 @@
             // supplierComboBox
             // 
             this.supplierComboBox.FormattingEnabled = true;
-            this.supplierComboBox.Location = new System.Drawing.Point(76, 14);
+            this.supplierComboBox.Location = new System.Drawing.Point(389, 13);
             this.supplierComboBox.Name = "supplierComboBox";
             this.supplierComboBox.Size = new System.Drawing.Size(148, 21);
             this.supplierComboBox.TabIndex = 10;
             // 
             // invoiceTextBox
             // 
-            this.invoiceTextBox.Location = new System.Drawing.Point(76, 41);
+            this.invoiceTextBox.Location = new System.Drawing.Point(172, 15);
             this.invoiceTextBox.Name = "invoiceTextBox";
             this.invoiceTextBox.Size = new System.Drawing.Size(148, 20);
             this.invoiceTextBox.TabIndex = 11;
@@ -185,7 +186,7 @@
             this.deliveryPlaceGroupBox.Controls.Add(this.deliveryplaceListBox);
             this.deliveryPlaceGroupBox.Location = new System.Drawing.Point(0, 82);
             this.deliveryPlaceGroupBox.Name = "deliveryPlaceGroupBox";
-            this.deliveryPlaceGroupBox.Size = new System.Drawing.Size(665, 135);
+            this.deliveryPlaceGroupBox.Size = new System.Drawing.Size(996, 135);
             this.deliveryPlaceGroupBox.TabIndex = 200;
             this.deliveryPlaceGroupBox.TabStop = false;
             this.deliveryPlaceGroupBox.Text = "Delivery Place";
@@ -210,7 +211,7 @@
             // 
             // removePlaceButton
             // 
-            this.removePlaceButton.Location = new System.Drawing.Point(556, 104);
+            this.removePlaceButton.Location = new System.Drawing.Point(796, 106);
             this.removePlaceButton.Name = "removePlaceButton";
             this.removePlaceButton.Size = new System.Drawing.Size(100, 23);
             this.removePlaceButton.TabIndex = 25;
@@ -225,7 +226,7 @@
             this.deliveryPlaceDatagridView.Name = "deliveryPlaceDatagridView";
             this.deliveryPlaceDatagridView.ReadOnly = true;
             this.deliveryPlaceDatagridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.deliveryPlaceDatagridView.Size = new System.Drawing.Size(255, 81);
+            this.deliveryPlaceDatagridView.Size = new System.Drawing.Size(589, 81);
             this.deliveryPlaceDatagridView.TabIndex = 24;
             // 
             // addPlaceButton
@@ -263,9 +264,9 @@
             this.truckGroupBox.Controls.Add(this.truckDataGridView);
             this.truckGroupBox.Controls.Add(this.truckListBox);
             this.truckGroupBox.Controls.Add(this.truckLabel);
-            this.truckGroupBox.Location = new System.Drawing.Point(0, 403);
+            this.truckGroupBox.Location = new System.Drawing.Point(5, 451);
             this.truckGroupBox.Name = "truckGroupBox";
-            this.truckGroupBox.Size = new System.Drawing.Size(562, 127);
+            this.truckGroupBox.Size = new System.Drawing.Size(897, 277);
             this.truckGroupBox.TabIndex = 400;
             this.truckGroupBox.TabStop = false;
             this.truckGroupBox.Text = "Truck Details";
@@ -273,7 +274,7 @@
             // productQuantityLabel
             // 
             this.productQuantityLabel.AutoSize = true;
-            this.productQuantityLabel.Location = new System.Drawing.Point(21, 78);
+            this.productQuantityLabel.Location = new System.Drawing.Point(21, 219);
             this.productQuantityLabel.Name = "productQuantityLabel";
             this.productQuantityLabel.Size = new System.Drawing.Size(52, 13);
             this.productQuantityLabel.TabIndex = 402;
@@ -281,7 +282,7 @@
             // 
             // removeTruckButton
             // 
-            this.removeTruckButton.Location = new System.Drawing.Point(421, 98);
+            this.removeTruckButton.Location = new System.Drawing.Point(791, 239);
             this.removeTruckButton.Name = "removeTruckButton";
             this.removeTruckButton.Size = new System.Drawing.Size(100, 23);
             this.removeTruckButton.TabIndex = 45;
@@ -290,7 +291,7 @@
             // 
             // editTruckQuantityButton
             // 
-            this.editTruckQuantityButton.Location = new System.Drawing.Point(302, 98);
+            this.editTruckQuantityButton.Location = new System.Drawing.Point(432, 241);
             this.editTruckQuantityButton.Name = "editTruckQuantityButton";
             this.editTruckQuantityButton.Size = new System.Drawing.Size(100, 23);
             this.editTruckQuantityButton.TabIndex = 44;
@@ -299,14 +300,14 @@
             // 
             // quantityTruckTextBox
             // 
-            this.quantityTruckTextBox.Location = new System.Drawing.Point(76, 74);
+            this.quantityTruckTextBox.Location = new System.Drawing.Point(76, 215);
             this.quantityTruckTextBox.Name = "quantityTruckTextBox";
             this.quantityTruckTextBox.Size = new System.Drawing.Size(148, 20);
             this.quantityTruckTextBox.TabIndex = 41;
             // 
             // addButtonTruck
             // 
-            this.addButtonTruck.Location = new System.Drawing.Point(149, 98);
+            this.addButtonTruck.Location = new System.Drawing.Point(149, 240);
             this.addButtonTruck.Name = "addButtonTruck";
             this.addButtonTruck.Size = new System.Drawing.Size(75, 23);
             this.addButtonTruck.TabIndex = 42;
@@ -330,7 +331,7 @@
             this.truckDataGridView.Name = "truckDataGridView";
             this.truckDataGridView.ReadOnly = true;
             this.truckDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.truckDataGridView.Size = new System.Drawing.Size(219, 82);
+            this.truckDataGridView.Size = new System.Drawing.Size(589, 220);
             this.truckDataGridView.TabIndex = 43;
             // 
             // truckListBox
@@ -338,7 +339,7 @@
             this.truckListBox.FormattingEnabled = true;
             this.truckListBox.Location = new System.Drawing.Point(76, 12);
             this.truckListBox.Name = "truckListBox";
-            this.truckListBox.Size = new System.Drawing.Size(148, 56);
+            this.truckListBox.Size = new System.Drawing.Size(148, 199);
             this.truckListBox.TabIndex = 40;
             // 
             // truckLabel
@@ -352,6 +353,7 @@
             // 
             // productGroupBox
             // 
+            this.productGroupBox.Controls.Add(this.importFileButton);
             this.productGroupBox.Controls.Add(this.productNameSearchTextBox);
             this.productGroupBox.Controls.Add(this.removeProductButton);
             this.productGroupBox.Controls.Add(this.editProductQuantityButton);
@@ -364,7 +366,7 @@
             this.productGroupBox.Controls.Add(this.productListBox);
             this.productGroupBox.Location = new System.Drawing.Point(0, 223);
             this.productGroupBox.Name = "productGroupBox";
-            this.productGroupBox.Size = new System.Drawing.Size(665, 174);
+            this.productGroupBox.Size = new System.Drawing.Size(996, 222);
             this.productGroupBox.TabIndex = 300;
             this.productGroupBox.TabStop = false;
             this.productGroupBox.Text = "Product Details";
@@ -378,7 +380,7 @@
             // 
             // removeProductButton
             // 
-            this.removeProductButton.Location = new System.Drawing.Point(556, 145);
+            this.removeProductButton.Location = new System.Drawing.Point(796, 188);
             this.removeProductButton.Name = "removeProductButton";
             this.removeProductButton.Size = new System.Drawing.Size(100, 23);
             this.removeProductButton.TabIndex = 35;
@@ -387,7 +389,7 @@
             // 
             // editProductQuantityButton
             // 
-            this.editProductQuantityButton.Location = new System.Drawing.Point(437, 145);
+            this.editProductQuantityButton.Location = new System.Drawing.Point(437, 191);
             this.editProductQuantityButton.Name = "editProductQuantityButton";
             this.editProductQuantityButton.Size = new System.Drawing.Size(100, 23);
             this.editProductQuantityButton.TabIndex = 34;
@@ -414,13 +416,13 @@
             this.productListDatagridView.Name = "productListDatagridView";
             this.productListDatagridView.ReadOnly = true;
             this.productListDatagridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.productListDatagridView.Size = new System.Drawing.Size(255, 120);
+            this.productListDatagridView.Size = new System.Drawing.Size(589, 166);
             this.productListDatagridView.TabIndex = 33;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(21, 152);
+            this.label2.Location = new System.Drawing.Point(21, 198);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(52, 13);
             this.label2.TabIndex = 302;
@@ -428,7 +430,7 @@
             // 
             // addProductButton
             // 
-            this.addProductButton.Location = new System.Drawing.Point(246, 147);
+            this.addProductButton.Location = new System.Drawing.Point(198, 192);
             this.addProductButton.Name = "addProductButton";
             this.addProductButton.Size = new System.Drawing.Size(74, 23);
             this.addProductButton.TabIndex = 32;
@@ -437,9 +439,9 @@
             // 
             // productQuantityTextBox
             // 
-            this.productQuantityTextBox.Location = new System.Drawing.Point(76, 149);
+            this.productQuantityTextBox.Location = new System.Drawing.Point(76, 195);
             this.productQuantityTextBox.Name = "productQuantityTextBox";
-            this.productQuantityTextBox.Size = new System.Drawing.Size(148, 20);
+            this.productQuantityTextBox.Size = new System.Drawing.Size(116, 20);
             this.productQuantityTextBox.TabIndex = 31;
             // 
             // productLabel
@@ -456,12 +458,12 @@
             this.productListBox.FormattingEnabled = true;
             this.productListBox.Location = new System.Drawing.Point(76, 48);
             this.productListBox.Name = "productListBox";
-            this.productListBox.Size = new System.Drawing.Size(244, 95);
+            this.productListBox.Size = new System.Drawing.Size(244, 134);
             this.productListBox.TabIndex = 30;
             // 
             // doneButton
             // 
-            this.doneButton.Location = new System.Drawing.Point(569, 439);
+            this.doneButton.Location = new System.Drawing.Point(908, 631);
             this.doneButton.Name = "doneButton";
             this.doneButton.Size = new System.Drawing.Size(96, 55);
             this.doneButton.TabIndex = 50;
@@ -470,18 +472,27 @@
             // 
             // cancelButton
             // 
-            this.cancelButton.Location = new System.Drawing.Point(568, 500);
+            this.cancelButton.Location = new System.Drawing.Point(908, 687);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(96, 28);
             this.cancelButton.TabIndex = 51;
             this.cancelButton.Text = "Cancel";
             this.cancelButton.UseVisualStyleBackColor = true;
             // 
+            // importFileButton
+            // 
+            this.importFileButton.Location = new System.Drawing.Point(278, 191);
+            this.importFileButton.Name = "importFileButton";
+            this.importFileButton.Size = new System.Drawing.Size(75, 23);
+            this.importFileButton.TabIndex = 305;
+            this.importFileButton.Text = "Import File";
+            this.importFileButton.UseVisualStyleBackColor = true;
+            // 
             // AddEdit_Outbound_Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(668, 531);
+            this.ClientSize = new System.Drawing.Size(1008, 729);
             this.ControlBox = false;
             this.Controls.Add(this.doneButton);
             this.Controls.Add(this.cancelButton);
@@ -555,5 +566,6 @@
         protected System.Windows.Forms.GroupBox exportShipmentGroupbox;
         protected System.Windows.Forms.CheckBox IsInterCheckBox;
         protected System.Windows.Forms.TextBox productNameSearchTextBox;
+        protected System.Windows.Forms.Button importFileButton;
     }
 }

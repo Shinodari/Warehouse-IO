@@ -39,11 +39,19 @@
             this.AddButton.Click += new System.EventHandler(this.AddButton_Click);
             this.AddButton.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.AddButton_KeyPress);
             // 
+            // UoMSearchTextBox
+            // 
+            this.UoMSearchTextBox.TextChanged += new System.EventHandler(this.UoMSearchTextBox_TextChanged);
+            // 
+            // dimensionSearchTextBox
+            // 
+            this.dimensionSearchTextBox.TextChanged += new System.EventHandler(this.dimensionSearchTextBox_TextChanged);
+            // 
             // Add
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(425, 432);
+            this.ClientSize = new System.Drawing.Size(425, 527);
             this.Name = "Add";
             this.Text = "Add";
             this.ResumeLayout(false);

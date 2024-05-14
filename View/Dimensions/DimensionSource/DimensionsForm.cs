@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Windows.Forms;
 using Warehouse_IO.Common;
 using Warehouse_IO.View.ParentFormComponents;
@@ -33,26 +34,30 @@ namespace Warehouse_IO.View.Dimensions.DimensionSource
         public void UpdateDatagridView()
         {
             list = Warehouse_IO.WHIO.Model.Dimension.GetDimensionList();
-            bind.DataSource = list;
-            list.Sort((x, y) => x.GetM3().CompareTo(y.GetM3()));
-            dataGridView.DataSource = bind;
+            DataTable dataTable = new DataTable();
+            dataTable.Columns.Add("ID", typeof(int));
+            dataTable.Columns.Add("M3", typeof(double));
+            dataTable.Columns.Add("Unit");
+            dataTable.Columns.Add("Width", typeof(double));
+            dataTable.Columns.Add("Length", typeof(double));
+            dataTable.Columns.Add("Height", typeof(double));
+            dataTable.Columns.Add("Description");
 
-            dataGridView.CellFormatting += DataGridView_CellFormatting;
-        }
-        private void DataGridView_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
-        {
-            if (e.ColumnIndex == 5)
+            foreach (Warehouse_IO.WHIO.Model.Dimension dimension in list)
             {
-                if (dataGridView.Rows[e.RowIndex].DataBoundItem != null)
-                {
-                    Warehouse_IO.WHIO.Model.Dimension dimension = (Warehouse_IO.WHIO.Model.Dimension)dataGridView.Rows[e.RowIndex].DataBoundItem;
+                DataRow row = dataTable.NewRow();
+                row["ID"] = dimension.ID;
+                row["M3"] = dimension.GetM3();
+                row["Unit"] = dimension.Unit.Name;
+                row["Width"] = dimension.Width;
+                row["Length"] = dimension.Length;
+                row["Height"] = dimension.Height;
+                row["Description"] = dimension.Name;
 
-                    if (e.ColumnIndex == 5)
-                    {
-                        e.Value = dimension.GetM3();
-                    }
-                }
+                dataTable.Rows.Add(row);
             }
+            dataTable.DefaultView.Sort = "M3 ASC";
+            dataGridView.DataSource = dataTable.DefaultView;
         }
 
         private void a_Click(object sender, EventArgs e)

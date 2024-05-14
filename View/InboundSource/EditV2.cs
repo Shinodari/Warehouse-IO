@@ -108,11 +108,11 @@ namespace Warehouse_IO.View.InboundSource
             }
 
             productList = Product.GetProductList();
-            productList.Sort((x, y) => x.Name.CompareTo(y.Name));
+            productList.Sort((x, y) => x.ID.CompareTo(y.ID));
             productListBox.Items.Clear();
             foreach (Product product in productList)
             {
-                string displayedName = product.Name;
+                string displayedName = product.ID;
                 productListBox.Items.Add(displayedName);
 
                 productNameToProduct[displayedName] = product;
@@ -143,16 +143,16 @@ namespace Warehouse_IO.View.InboundSource
             DataTable datatable = new DataTable();
             datatable.Columns.Add("Name");
             datatable.Columns.Add("Quantity", typeof(int));
-            datatable.Columns.Add("ID", typeof(int));
+            datatable.Columns.Add("Details");
             datatable.Columns.Add("M3", typeof(double));
             foreach (KeyValuePair<Product, int> productGridlistEntry in edit.QuantityOfProductList)
             {
                 Product product = productGridlistEntry.Key;
                 int quantity = productGridlistEntry.Value;
                 DataRow row = datatable.NewRow();
-                row["Name"] = product.Name;
+                row["Name"] = product.ID;
                 row["Quantity"] = quantity;
-                row["ID"] = product.ID;
+                row["Details"] = product.Name;
 
                 Warehouse_IO.WHIO.Model.Dimension dimension = product.Dimension;
                 if (dimension != null)
@@ -167,10 +167,8 @@ namespace Warehouse_IO.View.InboundSource
                 }
                 datatable.Rows.Add(row);
             }
-            datatable.DefaultView.Sort = "M3 DESC";
+            datatable.DefaultView.Sort = "Name DESC";
             productListDatagridView.DataSource = datatable.DefaultView;
-
-            productListDatagridView.Columns["ID"].Visible = false;
         }
 
         //Edit Shipment
@@ -340,12 +338,8 @@ namespace Warehouse_IO.View.InboundSource
             if (productListBox.SelectedIndex >= 0)
             {
                 string selectedName = (string)productListBox.SelectedItem;
-                if (productNameToProduct.ContainsKey(selectedName))
-                {
-                    Product selectedProduct = productNameToProduct[selectedName];
-                    int selectedProductID = selectedProduct.ID;
 
-                    product = new Product(selectedProductID);
+                    product = new Product(selectedName);
                     if (!edit.QuantityOfProductList.ContainsKey(product))
                     {
                         double kgs = double.Parse(productQuantityTextBox.Text);
@@ -355,7 +349,6 @@ namespace Warehouse_IO.View.InboundSource
                         UpdateProductGridView();
                     }
                     else MessageBox.Show(this, "Same product is added");
-                }
             }
         }
         private void addProductButton_Click(object sender, EventArgs e)
@@ -394,10 +387,10 @@ namespace Warehouse_IO.View.InboundSource
             if (productListDatagridView.SelectedRows.Count > 0)
             {
                 editQuantity.Owner = main;
-                Global.tempPkey = -1;
+                Global.tempPkeyName = null;
                 DataGridViewRow selectedRow = productListDatagridView.CurrentRow;
-                int id = Convert.ToInt32(selectedRow.Cells[2].Value);
-                Global.tempPkey = id;
+                string id = (string)selectedRow.Cells["Name"].Value;
+                Global.tempPkeyName = id;
 
                 editQuantity.ShowDialog();
 
@@ -421,7 +414,7 @@ namespace Warehouse_IO.View.InboundSource
             if (productListDatagridView.SelectedRows.Count > 0)
             {
                 DataGridViewRow selectedRow = productListDatagridView.CurrentRow;
-                int id = Convert.ToInt32(selectedRow.Cells[2].Value);
+                string id = (string)selectedRow.Cells["Name"].Value;
                 product = new Product(id);
                 if (edit.RemoveProduct(product))
                 {
@@ -444,9 +437,13 @@ namespace Warehouse_IO.View.InboundSource
             edit.UpdateProduct();
             if (EditShipment())
             {
-                if (!edit.Change())
+                if (edit.Change())
                 {
-                    MessageBox.Show(this,"Can't update shipment in database");
+                    MessageBox.Show(this, "Update shipment in database");
+                }
+                else
+                {
+                    MessageBox.Show(this, "Can't update shipment in database");
                     isSuccess = false;
                 }
             }
@@ -497,7 +494,7 @@ namespace Warehouse_IO.View.InboundSource
             {
                 if (item.Name.ToLower().Contains(searchText))
                 {
-                    productListBox.Items.Add(item.Name);
+                    productListBox.Items.Add(item.ID);
                 }
             }
         }

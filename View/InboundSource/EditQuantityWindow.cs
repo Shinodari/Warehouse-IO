@@ -17,7 +17,7 @@ namespace Warehouse_IO.View.InboundSource
             double qty = double.Parse(EditTextBox.Text);
             if (qty > 0)
             {
-                Product product = new Product(Global.tempPkey);
+                Product product = new Product(Global.tempPkeyName);
                 editQty = product.GetQuantity(qty);
                 EditTextBox.Text = "";
                 Close();

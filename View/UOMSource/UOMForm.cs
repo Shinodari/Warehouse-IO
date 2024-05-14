@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using Warehouse_IO.WHIO.Model;
 using Warehouse_IO.Common;
 using Warehouse_IO.View.ParentFormComponents;
+using System.Data;
 
 namespace Warehouse_IO.View.UOMSource
 {
@@ -34,32 +35,28 @@ namespace Warehouse_IO.View.UOMSource
         public void UpdateDatagridView()
         {
             list = UOM.GetUOMList();
-            bind.DataSource = list;
-            list.Sort((x, y) => x.Quantity.CompareTo(y.Quantity));
-            dataGridView.DataSource = bind;
+            DataTable dataTable = new DataTable();
+            dataTable.Columns.Add("ID");
+            dataTable.Columns.Add("Quantity",typeof(double));
+            dataTable.Columns.Add("Unit");
+            dataTable.Columns.Add("Package");
+            dataTable.Columns.Add("Description");
 
-            dataGridView.CellFormatting += DataGridView_CellFormatting;
-        }
-        private void DataGridView_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
-        {
-            if (e.ColumnIndex == 3 || e.ColumnIndex == 4)
+            foreach (UOM uom in list)
             {
-                if (dataGridView.Rows[e.RowIndex].DataBoundItem != null)
-                {
-                    UOM uom = (UOM)dataGridView.Rows[e.RowIndex].DataBoundItem;
+                DataRow row = dataTable.NewRow();
+                row["ID"] = uom.ID;
+                row["Quantity"] = uom.Quantity;
+                row["Unit"] = uom.Unit.Name;
+                row["Package"] = uom.Package.Name;
+                row["Description"] = uom.Name;
 
-                    if (e.ColumnIndex == 3)
-                    {
-                        e.Value = uom.Unit.Name;
-                    }
-                    else if (e.ColumnIndex == 4)
-                    {
-                        e.Value = uom.Package.Name;
-                    }
-                }
+                dataTable.Rows.Add(row);
             }
+            dataTable.DefaultView.Sort = "Quantity ASC";
+            dataGridView.DataSource = dataTable.DefaultView;
         }
-
+        
         private void a_Click(object sender, EventArgs e)
         {
             add = new AddUOM();

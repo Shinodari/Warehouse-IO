@@ -5,7 +5,6 @@ using Warehouse_IO.WHIO.Model;
 using Warehouse_IO.Common;
 using Warehouse_IO.View.ParentFormComponents;
 using System.Data;
-using System.Linq;
 
 namespace Warehouse_IO.View.InboundSource
 {

@@ -18,7 +18,7 @@ namespace Warehouse_IO.View.ProductSource
         }
         protected override void AttemptRemove()
         {
-            remove = new Product(Global.tempPkey);
+            remove = new Product(Global.tempPkeyName);
             if (remove.Remove())
             {
                 MessageBox.Show(this, "Removed Success");
