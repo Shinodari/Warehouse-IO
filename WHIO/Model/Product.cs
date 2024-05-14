@@ -7,8 +7,8 @@ namespace Warehouse_IO.WHIO.Model
 {
     class Product
     {
-        int id;
-        public int ID { get { return id; } }
+        string id;
+        public string ID { get { return id; }set { id = value; } }
         string name;
         public string Name { get { return name; }set { name = value; } }
         UOM uom;
@@ -34,7 +34,7 @@ namespace Warehouse_IO.WHIO.Model
                     {
                         if (reader.Read())
                         {
-                            id = Convert.ToInt32(reader["ID"]);
+                            id = reader["ID"].ToString();
                             name = reader["Name"].ToString();
                             uom = new UOM(Convert.ToInt32(reader["UOMID"]));
                             dimension = new Dimension(Convert.ToInt32(reader["DimensionID"]));
@@ -50,12 +50,13 @@ namespace Warehouse_IO.WHIO.Model
             }
         }
 
-        public Product(int id)
+        public Product(string id)
         {
             CheckAndUpdateField("ID", id.ToString());
         }
-        public Product(string name,UOM uom,Dimension dimension)
+        public Product(string id,string name,UOM uom,Dimension dimension)
         {
+            this.id = id;
             this.name = name;
             this.uom = uom;
             this.dimension = dimension;
@@ -70,8 +71,9 @@ namespace Warehouse_IO.WHIO.Model
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    string insert = "INSERT INTO product (ID, Name, UOMID, DimensionID) VALUES (NULL, @name, @uom, @dimension)";
+                    string insert = "INSERT INTO product (ID, Name, UOMID, DimensionID) VALUES (@id, @name, @uom, @dimension)";
                     cmd.CommandText = insert;
+                    cmd.Parameters.AddWithValue("@id", id);
                     cmd.Parameters.AddWithValue("@name", name);
                     cmd.Parameters.AddWithValue("@uom", uom.ID);
                     cmd.Parameters.AddWithValue("@dimension", dimension.ID);
@@ -161,7 +163,7 @@ namespace Warehouse_IO.WHIO.Model
                     {
                         while (reader.Read())
                         {
-                            int id = Convert.ToInt32(reader["ID"]);
+                            string id = reader["ID"].ToString();
                             Product item = new Product(id);
                             productList.Add(item);
                         }

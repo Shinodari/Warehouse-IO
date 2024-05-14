@@ -71,7 +71,7 @@ namespace Warehouse_IO.WHIO.Model
                     {
                         while (reader.Read())
                         {
-                            int product = Convert.ToInt32(reader["ProductID"]);
+                            string product = reader["ProductID"].ToString();
                             Product item = new Product(product);
                             int qty = Convert.ToInt32(reader["Quantity"]);
                             QuantityOfProductList.Add(item, qty);

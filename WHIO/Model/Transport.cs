@@ -174,6 +174,10 @@ namespace Warehouse_IO.WHIO.Model
             }
             public int GetHashCode(Product obj)
             {
+                if (obj.ID == null)
+                {
+                    return 0;
+                }
                 return obj.ID.GetHashCode();
             }
         }
