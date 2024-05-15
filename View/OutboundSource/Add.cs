@@ -6,6 +6,8 @@ using MySql.Data.MySqlClient;
 using Warehouse_IO.WHIO.Model;
 using Warehouse_IO.View.Add_Edit_Remove_Components;
 using Warehouse_IO.Common;
+using Excel = Microsoft.Office.Interop.Excel;
+using System.Runtime.InteropServices;
 
 namespace Warehouse_IO.View.OutboundSource
 {
@@ -27,8 +29,7 @@ namespace Warehouse_IO.View.OutboundSource
 
         //Variable for tracking deliveryplace after filtered
         private readonly Dictionary<string, Deliveryplace> deliveryplaceNameToDeliveryplace = new Dictionary<string, Deliveryplace>();
-        private readonly Dictionary<string, Product> productNameToProduct = new Dictionary<string, Product>();
-
+       
         //Variable for create selected object on CreateNewShipment()
         Supplier supplier;
         Truck truck;
@@ -42,6 +43,12 @@ namespace Warehouse_IO.View.OutboundSource
 
         //Event to Invoke Update Outbound List
         public event EventHandler UpdateGrid;
+
+        //Variable for Importfile
+        Excel.Application excelApp;
+        Excel.Workbook workbook;
+        Excel.Worksheet worksheet;
+        Excel.Range range;
 
         public Add()
         {
@@ -107,8 +114,6 @@ namespace Warehouse_IO.View.OutboundSource
             {
                 string displayedName = product.ID;
                 productListBox.Items.Add(displayedName);
-
-                productNameToProduct[displayedName] = product;
             }
         }
 
@@ -560,6 +565,86 @@ namespace Warehouse_IO.View.OutboundSource
                 {
                     productListBox.Items.Add(item.ID);
                 }
+            }
+        }
+
+        //Import Product File Event
+        private void importFileButton_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.InitialDirectory = "c:\\";
+            openFileDialog.Filter = "Excel Files (*.xlsx)|*.xlsx";
+            openFileDialog.FilterIndex = 1;
+            openFileDialog.RestoreDirectory = true;
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                // Get the path of specified file
+                string filePath = openFileDialog.FileName;
+
+                // Read the Excel file and update the DataGridView
+                ImportExcelData(filePath);
+            }
+        }
+
+        private void ImportExcelData(string filePath)
+        {
+            try
+            {
+                // Create Excel Application
+                excelApp = new Excel.Application();
+                workbook = excelApp.Workbooks.Open(filePath);
+                worksheet = workbook.Sheets[1];
+                range = worksheet.UsedRange;
+
+                //Rethrive data from file to update field algorithm
+                for (int row = 2;row <= range.Rows.Count; row++)
+                {
+                    double kgs = 0;
+                    int kgsToQuantity = 0;
+
+                    string item = (range.Cells[row, 4] as Excel.Range).Value2?.ToString();
+                    product = new Product(item);
+                    if(product == null)
+                    {
+                        MessageBox.Show(this, "Product can't find in Database");
+                    }
+
+                    string allocateQty = (range.Cells[row, 7] as Excel.Range).Value2?.ToString();
+                    if (double.TryParse(allocateQty, out kgs))
+                    {
+                        kgsToQuantity = product.GetQuantity(kgs);
+                    }
+                    else MessageBox.Show(this, "Fail to convert Kgs to Quantity at product :" + item);
+
+                    if (!newOutbound.QuantityOfProductList.ContainsKey(product))
+                    {
+                        newOutbound.AddProduct(product, kgsToQuantity);
+                    }
+                    else if (newOutbound.QuantityOfProductList.ContainsKey(product))
+                    {
+                        newOutbound.ChangeQuantityOfProduct(product, newOutbound.QuantityOfProductList[product] + kgsToQuantity);
+                    }
+                }
+                UpdateProductGridView();
+                MessageBox.Show("Data imported successfully.", "Import Success");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred while importing the data: {ex.Message}", "Import Error");
+            }
+            finally
+            {
+                // Clean up
+                if (range != null) Marshal.ReleaseComObject(range);
+                if (worksheet != null) Marshal.ReleaseComObject(worksheet);
+                if (workbook != null)
+                {
+                    workbook.Close(false);
+                    Marshal.ReleaseComObject(workbook);
+                }
+                excelApp.Quit();
+                Marshal.ReleaseComObject(excelApp);
             }
         }
     }

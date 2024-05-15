@@ -24,9 +24,6 @@ namespace Warehouse_IO.View.InboundSource
         private List<Truck> selectedTruck = new List<Truck>();
         private List<int> storageID = new List<int>();
 
-        //Variable for tracking product after filtered
-        private readonly Dictionary<string, Product> productNameToProduct = new Dictionary<string, Product>();
-
         //Variable to to compare if it's changed
         string inv;
 
@@ -114,8 +111,6 @@ namespace Warehouse_IO.View.InboundSource
             {
                 string displayedName = product.ID;
                 productListBox.Items.Add(displayedName);
-
-                productNameToProduct[displayedName] = product;
             }
         }
 

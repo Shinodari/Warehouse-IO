@@ -33,7 +33,6 @@ namespace Warehouse_IO.View.OutboundSource
 
         //Variable for tracking deliveryplace after sorted
         private readonly Dictionary<string, Deliveryplace> deliveryplaceNameToDeliveryplace = new Dictionary<string, Deliveryplace>();
-        private readonly Dictionary<string, Product> productNameToProduct = new Dictionary<string, Product>();
 
         //Edit quantity pop-Up window components
         EditQuantityWindow editQuantity;
@@ -76,6 +75,7 @@ namespace Warehouse_IO.View.OutboundSource
             UpdateTruckGridView();
             UpdateProductGridView();
             UpdateDeliveryplaceGridView();
+            importFileButton.Visible = false;
         }
 
         private void updateComponent()
@@ -116,8 +116,6 @@ namespace Warehouse_IO.View.OutboundSource
             {
                 string displayedName = product.ID;
                 productListBox.Items.Add(displayedName);
-
-                productNameToProduct[displayedName] = product;
             }
         }
 

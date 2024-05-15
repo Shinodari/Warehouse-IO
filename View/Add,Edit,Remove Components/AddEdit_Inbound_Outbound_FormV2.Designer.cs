@@ -63,6 +63,7 @@
             this.productListBox = new System.Windows.Forms.ListBox();
             this.doneButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
+            this.importButton = new System.Windows.Forms.Button();
             this.shipmentGroupBox.SuspendLayout();
             this.importShipmentGroupBox.SuspendLayout();
             this.truckGroupBox.SuspendLayout();
@@ -285,6 +286,7 @@
             // 
             // productGroupBox
             // 
+            this.productGroupBox.Controls.Add(this.importButton);
             this.productGroupBox.Controls.Add(this.productNameSearchTextBox);
             this.productGroupBox.Controls.Add(this.removeProductButton);
             this.productGroupBox.Controls.Add(this.editProductQuantityButton);
@@ -361,9 +363,9 @@
             // 
             // addProductButton
             // 
-            this.addProductButton.Location = new System.Drawing.Point(151, 341);
+            this.addProductButton.Location = new System.Drawing.Point(76, 341);
             this.addProductButton.Name = "addProductButton";
-            this.addProductButton.Size = new System.Drawing.Size(74, 23);
+            this.addProductButton.Size = new System.Drawing.Size(62, 23);
             this.addProductButton.TabIndex = 32;
             this.addProductButton.Text = "Add";
             this.addProductButton.UseVisualStyleBackColor = true;
@@ -409,6 +411,15 @@
             this.cancelButton.TabIndex = 41;
             this.cancelButton.Text = "Cancel";
             this.cancelButton.UseVisualStyleBackColor = true;
+            // 
+            // importButton
+            // 
+            this.importButton.Location = new System.Drawing.Point(150, 341);
+            this.importButton.Name = "importButton";
+            this.importButton.Size = new System.Drawing.Size(75, 23);
+            this.importButton.TabIndex = 306;
+            this.importButton.Text = "Import";
+            this.importButton.UseVisualStyleBackColor = true;
             // 
             // AddEdit_Inbound_Outbound_FormV2
             // 
@@ -478,5 +489,6 @@
         protected System.Windows.Forms.GroupBox importShipmentGroupBox;
         protected System.Windows.Forms.CheckBox IsInterCheckBox;
         protected System.Windows.Forms.TextBox productNameSearchTextBox;
+        protected System.Windows.Forms.Button importButton;
     }
 }

@@ -99,6 +99,10 @@
             // 
             this.productNameSearchTextBox.TextChanged += new System.EventHandler(this.productTextBox_TextChanged);
             // 
+            // importFileButton
+            // 
+            this.importFileButton.Click += new System.EventHandler(this.importFileButton_Click);
+            // 
             // Add
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
