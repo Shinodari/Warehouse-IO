@@ -40,6 +40,9 @@ namespace Warehouse_IO.View.OutboundSource
         public void UpdateDatagridView()
         {
             outboundlist = Outbound.GetOutboundList();
+
+            var sortedOutboundList = outboundlist.OrderByDescending(inbound => inbound.DeliveryDate).Take(100).ToList();
+
             DataTable dataTable = new DataTable();
             dataTable.Columns.Add("Invoice");
             dataTable.Columns.Add("Date", typeof(DateTime));
@@ -52,7 +55,7 @@ namespace Warehouse_IO.View.OutboundSource
 
             double totalM3 = 0.0;
 
-            foreach (Outbound outbound in outboundlist)
+            foreach (Outbound outbound in sortedOutboundList)
             {
                 DataRow row = dataTable.NewRow();
                 row["Invoice"] = outbound.InvoiceNo;
@@ -97,7 +100,7 @@ namespace Warehouse_IO.View.OutboundSource
                 // Reset totalM3 for the next inbound shipment
                 totalM3 = 0.0;
             }
-            dataTable.DefaultView.Sort = "Date DESC";
+
             dataGridView.DataSource = dataTable.DefaultView;
             dataGridView.Columns["ID"].Visible = false;
         }
@@ -147,6 +150,12 @@ namespace Warehouse_IO.View.OutboundSource
         private void OnUpdate(object sender, EventArgs e)
         {
             UpdateDatagridView();
+        }
+
+        private void searchTextBox_TextChanged(object sender, EventArgs e)
+        {
+            string filterText = searchTextBox.Text;
+            (dataGridView.DataSource as DataView).RowFilter = $"Invoice LIKE '%{filterText}%' OR Customer LIKE '%{filterText}%' OR Place LIKE '%{filterText}%'";
         }
     }
 }

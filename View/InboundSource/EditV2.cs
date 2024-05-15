@@ -5,6 +5,8 @@ using System.Data;
 using Warehouse_IO.WHIO.Model;
 using Warehouse_IO.View.Add_Edit_Remove_Components;
 using Warehouse_IO.Common;
+using Excel = Microsoft.Office.Interop.Excel;
+using System.Runtime.InteropServices;
 
 namespace Warehouse_IO.View.InboundSource
 {
@@ -39,6 +41,12 @@ namespace Warehouse_IO.View.InboundSource
 
         //Event to Invoke Update Inbound List
         public event EventHandler UpdateGrid;
+
+        //Variable for Importfile
+        Excel.Application excelApp;
+        Excel.Workbook workbook;
+        Excel.Worksheet worksheet;
+        Excel.Range range;
 
         public EditV2()
         {
@@ -170,7 +178,7 @@ namespace Warehouse_IO.View.InboundSource
         private bool EditShipment()
         {
             bool isSuccess = true;
-            if(edit.Supplier.Name != (supplierComboBox.SelectedItem as Supplier)?.Name)
+            if (edit.Supplier.Name != (supplierComboBox.SelectedItem as Supplier)?.Name)
             {
                 int selectedSupplierIndex = supplierComboBox.SelectedIndex;
                 if (selectedSupplierIndex >= 0 && selectedSupplierIndex < supplierID.Count)
@@ -200,10 +208,10 @@ namespace Warehouse_IO.View.InboundSource
                 edit.DeliveryDate = deliveryDatedateTimePicker.Value;
                 MessageBox.Show(this, "Delivery date Edited");
             }
-            if(edit.Storage.Name != (storageLocationComboBox.SelectedItem as Storage)?.Name)
+            if (edit.Storage.Name != (storageLocationComboBox.SelectedItem as Storage)?.Name)
             {
                 int selectedStorageIndex = storageLocationComboBox.SelectedIndex;
-                if(selectedStorageIndex >= 0 && selectedStorageIndex < storageID.Count)
+                if (selectedStorageIndex >= 0 && selectedStorageIndex < storageID.Count)
                 {
                     int selectedStorageID = storageID[selectedStorageIndex];
                     storage = new Storage(selectedStorageID);
@@ -211,10 +219,10 @@ namespace Warehouse_IO.View.InboundSource
                     MessageBox.Show(this, "Storage Edited");
                 }
             }
-            if(edit.Inter != IsInterCheckBox.Checked)
+            if (edit.Inter != IsInterCheckBox.Checked)
             {
                 edit.Inter = IsInterCheckBox.Checked;
-                if(edit.Inter == true)
+                if (edit.Inter == true)
                 {
                     MessageBox.Show(this, "Change status to Import");
                 }
@@ -334,16 +342,16 @@ namespace Warehouse_IO.View.InboundSource
             {
                 string selectedName = (string)productListBox.SelectedItem;
 
-                    product = new Product(selectedName);
-                    if (!edit.QuantityOfProductList.ContainsKey(product))
-                    {
-                        double kgs = double.Parse(productQuantityTextBox.Text);
-                        int kgsToQuantity = product.GetQuantity(kgs);
-                        edit.AddProduct(product, kgsToQuantity);
-                        productQuantityTextBox.Text = "";
-                        UpdateProductGridView();
-                    }
-                    else MessageBox.Show(this, "Same product is added");
+                product = new Product(selectedName);
+                if (!edit.QuantityOfProductList.ContainsKey(product))
+                {
+                    double kgs = double.Parse(productQuantityTextBox.Text);
+                    int kgsToQuantity = product.GetQuantity(kgs);
+                    edit.AddProduct(product, kgsToQuantity);
+                    productQuantityTextBox.Text = "";
+                    UpdateProductGridView();
+                }
+                else MessageBox.Show(this, "Same product is added");
             }
         }
         private void addProductButton_Click(object sender, EventArgs e)
@@ -491,6 +499,89 @@ namespace Warehouse_IO.View.InboundSource
                 {
                     productListBox.Items.Add(item.ID);
                 }
+            }
+        }
+
+        //Import Product File Event
+        private void importButton_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.InitialDirectory = "c:\\";
+            openFileDialog.Filter = "Excel Files (*.xlsx)|*.xlsx";
+            openFileDialog.FilterIndex = 1;
+            openFileDialog.RestoreDirectory = true;
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                // Get the path of specified file
+                string filePath = openFileDialog.FileName;
+
+                // Read the Excel file and update the DataGridView
+                ImportExcelData(filePath);
+            }
+        }
+
+        private void ImportExcelData(string filePath)
+        {
+            string item = string.Empty;
+            try
+            {
+                // Create Excel Application
+                excelApp = new Excel.Application();
+                workbook = excelApp.Workbooks.Open(filePath);
+                worksheet = workbook.Sheets[1];
+                range = worksheet.UsedRange;
+
+                //Rethrive data from file to update field algorithm
+                for (int row = 2; row <= range.Rows.Count; row++)
+                {
+                    double kgs = 0;
+                    int kgsToQuantity = 0;
+
+                    item = (range.Cells[row, 3] as Excel.Range).Value2?.ToString();
+                    product = new Product(item);
+                    if (product == null)
+                    {
+                        MessageBox.Show(this, "Product can't find in Database");
+                    }
+
+                    string allocateQty = (range.Cells[row, 10] as Excel.Range).Value2?.ToString();
+                    if (double.TryParse(allocateQty, out kgs))
+                    {
+                        kgsToQuantity = product.GetQuantity(kgs);
+                    }
+                    else MessageBox.Show(this, "Fail to convert Kgs to Quantity at product :" + item);
+
+                    if (!edit.QuantityOfProductList.ContainsKey(product))
+                    {
+                        edit.AddProduct(product, kgsToQuantity);
+                    }
+                    else if (edit.QuantityOfProductList.ContainsKey(product))
+                    {
+                        edit.ChangeQuantityOfProduct(product, edit.QuantityOfProductList[product] + kgsToQuantity);
+                    }
+                }
+                UpdateProductGridView();
+                MessageBox.Show("Data imported successfully.", "Import Success");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Cant Import Part : '{item}'");
+                edit.QuantityOfProductList.Clear();
+                UpdateProductGridView();
+            }
+            finally
+            {
+                // Clean up
+                if (range != null) Marshal.ReleaseComObject(range);
+                if (worksheet != null) Marshal.ReleaseComObject(worksheet);
+                if (workbook != null)
+                {
+                    workbook.Close(false);
+                    Marshal.ReleaseComObject(workbook);
+                }
+                excelApp.Quit();
+                Marshal.ReleaseComObject(excelApp);
             }
         }
     }

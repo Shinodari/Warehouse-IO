@@ -505,6 +505,7 @@ namespace Warehouse_IO.View.InboundSource
 
         private void ImportExcelData(string filePath)
         {
+            string item = string.Empty;
             try
             {
                 // Create Excel Application
@@ -519,7 +520,7 @@ namespace Warehouse_IO.View.InboundSource
                     double kgs = 0;
                     int kgsToQuantity = 0;
 
-                    string item = (range.Cells[row, 3] as Excel.Range).Value2?.ToString();
+                    item = (range.Cells[row, 3] as Excel.Range).Value2?.ToString();
                     product = new Product(item);
                     if (product == null)
                     {
@@ -547,7 +548,9 @@ namespace Warehouse_IO.View.InboundSource
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"An error occurred while importing the data: {ex.Message}", "Import Error");
+                MessageBox.Show($"Cant Import Part : '{item}'");
+                newInbound.QuantityOfProductList.Clear();
+                UpdateProductGridView();
             }
             finally
             {

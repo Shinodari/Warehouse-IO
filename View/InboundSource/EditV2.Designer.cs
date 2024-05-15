@@ -83,6 +83,10 @@
             // 
             this.productNameSearchTextBox.TextChanged += new System.EventHandler(this.productNameSearchTextBox_TextChanged);
             // 
+            // importButton
+            // 
+            this.importButton.Click += new System.EventHandler(this.importButton_Click);
+            // 
             // EditV2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);

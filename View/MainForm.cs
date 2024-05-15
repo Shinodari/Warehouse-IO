@@ -20,6 +20,7 @@ namespace Warehouse_IO
 {
     public partial class MainForm : Form
     {
+
         Log_In_Window loginWindow;
         DepartmentForm dep;
         StorageLocationForm sto;
@@ -41,6 +42,7 @@ namespace Warehouse_IO
             InitializeComponent();
             DisableMainForm();
             loginWindow = new Log_In_Window();
+
         }
         private void DisableMainForm()
         {

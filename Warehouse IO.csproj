@@ -290,11 +290,29 @@
     <Compile Include="View\Dimensions\UnitOfVolumeSource\UnitOfVolumeForm.Designer.cs">
       <DependentUpon>UnitOfVolumeForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\In-Out_ActivityForm\InboundItemForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\In-Out_ActivityForm\InboundItemForm.Designer.cs">
+      <DependentUpon>InboundItemForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\In-Out_ActivityForm\InOutActivityForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="View\In-Out_ActivityForm\InOutActivityForm.Designer.cs">
       <DependentUpon>InOutActivityForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\In-Out_ActivityForm\ItemlistPerShipmentForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\In-Out_ActivityForm\ItemlistPerShipmentForm.Designer.cs">
+      <DependentUpon>ItemlistPerShipmentForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\In-Out_ActivityForm\OutboundItemForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\In-Out_ActivityForm\OutboundItemForm.Designer.cs">
+      <DependentUpon>OutboundItemForm.cs</DependentUpon>
     </Compile>
     <Compile Include="View\InboundSource\AddV2.cs">
       <SubType>Form</SubType>
@@ -640,8 +658,17 @@
     <EmbeddedResource Include="View\Dimensions\UnitOfVolumeSource\UnitOfVolumeForm.resx">
       <DependentUpon>UnitOfVolumeForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="View\In-Out_ActivityForm\InboundItemForm.resx">
+      <DependentUpon>InboundItemForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\In-Out_ActivityForm\InOutActivityForm.resx">
       <DependentUpon>InOutActivityForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\In-Out_ActivityForm\ItemlistPerShipmentForm.resx">
+      <DependentUpon>ItemlistPerShipmentForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\In-Out_ActivityForm\OutboundItemForm.resx">
+      <DependentUpon>OutboundItemForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\InboundSource\AddV2.resx">
       <DependentUpon>AddV2.cs</DependentUpon>

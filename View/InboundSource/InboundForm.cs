@@ -5,6 +5,7 @@ using Warehouse_IO.WHIO.Model;
 using Warehouse_IO.Common;
 using Warehouse_IO.View.ParentFormComponents;
 using System.Data;
+using System.Linq;
 
 namespace Warehouse_IO.View.InboundSource
 {
@@ -38,6 +39,9 @@ namespace Warehouse_IO.View.InboundSource
         public void UpdateDatagridView()
         {
             inboundlist = Inbound.GetInboundList();
+
+            var sortedInboundList = inboundlist.OrderByDescending(inbound => inbound.DeliveryDate).Take(100).ToList();
+
             DataTable dataTable = new DataTable();
             dataTable.Columns.Add("Invoice");
             dataTable.Columns.Add("Date", typeof(DateTime));
@@ -51,7 +55,7 @@ namespace Warehouse_IO.View.InboundSource
 
             double totalM3 = 0.0; // Accumulate total M3 for the shipment
 
-            foreach (Inbound inbound in inboundlist)
+            foreach (Inbound inbound in sortedInboundList)
             {
                 DataRow row = dataTable.NewRow();
                 row["Invoice"] = inbound.InvoiceNo;
@@ -75,7 +79,6 @@ namespace Warehouse_IO.View.InboundSource
                 }
 
                 row["Total Quantity"] = totalQuantity;
-                // No need to calculate M3 in the loop anymore, totalM3 is already accumulated
                 row["Total M3"] = totalM3.ToString("0.00");
                 row["Import"] = inbound.Inter;
                 row["Inbound ID"] = inbound.ID;
@@ -86,11 +89,10 @@ namespace Warehouse_IO.View.InboundSource
                 // Reset totalM3 for the next inbound shipment
                 totalM3 = 0.0;
             }
-            dataTable.DefaultView.Sort = "Date DESC";
+
             dataGridView.DataSource = dataTable.DefaultView;
             dataGridView.Columns["Inbound ID"].Visible = false;
             dataGridView.Columns["Storage ID"].Visible = false;
-
         }
 
         private void a_Click(object sender, EventArgs e)
@@ -146,6 +148,12 @@ namespace Warehouse_IO.View.InboundSource
         private void OnUpdate(object sender, EventArgs e)
         {
             UpdateDatagridView();
-        } 
+        }
+
+        private void searchTextBox_TextChanged(object sender, EventArgs e)
+        {
+            string filterText = searchTextBox.Text;
+            (dataGridView.DataSource as DataView).RowFilter = $"Invoice LIKE '%{filterText}%' OR Customer LIKE '%{filterText}%'";
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Warehouse_IO.WHIO.Model;
+﻿using System.Collections.Generic;
+using Warehouse_IO.WHIO.Model;
 
 namespace Warehouse_IO.Common
 {
