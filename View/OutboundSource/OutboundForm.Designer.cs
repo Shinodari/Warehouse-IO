@@ -49,19 +49,21 @@
             // 
             // searchTextBox
             // 
-            this.searchTextBox.Location = new System.Drawing.Point(518, 3);
+            this.searchTextBox.Location = new System.Drawing.Point(691, 4);
+            this.searchTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.searchTextBox.Name = "searchTextBox";
-            this.searchTextBox.Size = new System.Drawing.Size(261, 20);
+            this.searchTextBox.Size = new System.Drawing.Size(347, 22);
             this.searchTextBox.TabIndex = 24;
             this.searchTextBox.TextChanged += new System.EventHandler(this.searchTextBox_TextChanged);
             // 
             // OutboundForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(886, 721);
+            this.ClientSize = new System.Drawing.Size(1181, 887);
             this.Controls.Add(this.searchTextBox);
             this.Location = new System.Drawing.Point(0, 0);
+            this.Margin = new System.Windows.Forms.Padding(5);
             this.Name = "OutboundForm";
             this.Text = "Outbound";
             this.Load += new System.EventHandler(this.OutboundForm_Load);

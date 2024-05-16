@@ -194,6 +194,12 @@
     <Compile Include="View\Add,Edit,Remove Components\RemoveForm.Designer.cs">
       <DependentUpon>RemoveForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\CreateUseForm\CreateUser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\CreateUseForm\CreateUser.Designer.cs">
+      <DependentUpon>CreateUser.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\DeliveryplaceSource\Add.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -223,6 +229,12 @@
     </Compile>
     <Compile Include="View\DepartmentFormSource\Add.Designer.cs">
       <DependentUpon>Add.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\DepartmentFormSource\departmentAddStorage_Deliveryplace.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\DepartmentFormSource\departmentAddStorage_Deliveryplace.Designer.cs">
+      <DependentUpon>departmentAddStorage_Deliveryplace.cs</DependentUpon>
     </Compile>
     <Compile Include="View\DepartmentFormSource\DepartmentForm.cs">
       <SubType>Form</SubType>
@@ -616,6 +628,9 @@
     <EmbeddedResource Include="View\Add,Edit,Remove Components\RemoveForm.resx">
       <DependentUpon>RemoveForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="View\CreateUseForm\CreateUser.resx">
+      <DependentUpon>CreateUser.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\DeliveryplaceSource\DeliveryplaceForm.resx">
       <DependentUpon>DeliveryplaceForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -627,6 +642,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="View\DepartmentFormSource\Add.resx">
       <DependentUpon>Add.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\DepartmentFormSource\departmentAddStorage_Deliveryplace.resx">
+      <DependentUpon>departmentAddStorage_Deliveryplace.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\DepartmentFormSource\DepartmentForm.resx">
       <DependentUpon>DepartmentForm.cs</DependentUpon>

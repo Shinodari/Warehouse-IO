@@ -5,14 +5,16 @@ using System.Collections.Generic;
 
 namespace Warehouse_IO.WHIO.Model
 {
-    class Department
+    public class Department
     {
         int id;
         public int ID { get { return id; } }
         string name;
         public string Name { get { return name; } set { name = value; } }
         List<Storage> storagelist;
-        public List<Storage> StorageList { get { return storagelist; } }
+        public List<Storage> StorageList { get { return storagelist; }set { storagelist = value; } }
+        List<Deliveryplace> deliveryplacelist;
+        public List<Deliveryplace> DeliveryplaceList { get { return deliveryplacelist; }set { deliveryplacelist = value; } }
 
         static string connstr = Settings.Default.CONNECTION_STRING;
         void getstoragelist()
@@ -34,6 +36,36 @@ namespace Warehouse_IO.WHIO.Model
                             int storageID = Convert.ToInt32(reader["StorageID"]);
                             Storage item = new Storage(storageID);
                             storagelist.Add(item);
+                        }
+                    }
+                }
+            }
+            catch (MySqlException e) { }
+            finally
+            {
+                if (conn != null && conn.State != ConnectionState.Closed)
+                    conn.Close();
+            }
+        }
+        void getdeliveryplacelist()
+        {
+            MySqlConnection conn = null;
+            try
+            {
+                conn = new MySqlConnection(connstr);
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    string check = "SELECT DeliveryplaceID FROM departmenthavedeliveryplace WHERE DepartmentID = @id";
+                    cmd.CommandText = check;
+                    cmd.Parameters.AddWithValue("@id", id);
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            int deliveryID = Convert.ToInt32(reader["DeliveryplaceID"]);
+                            Deliveryplace item = new Deliveryplace(deliveryID);
+                            deliveryplacelist.Add(item);
                         }
                     }
                 }
@@ -77,8 +109,10 @@ namespace Warehouse_IO.WHIO.Model
         public Department(int id)
         {
             storagelist = new List<Storage>();
+            deliveryplacelist = new List<Deliveryplace>();
             this.CheckAndUpdateField("ID",id.ToString());
             getstoragelist();
+            getdeliveryplacelist();
         }
         public Department(string name)
         {
@@ -178,12 +212,11 @@ namespace Warehouse_IO.WHIO.Model
         {
             if (sto != null)
             {
-                storagelist.Remove(sto);
-                return true;
+                int removeCount = storagelist.RemoveAll(st => st.ID == sto.ID);
+                return removeCount > 0;
             }
             else return false;
         }
-
         public bool UpdateStorage()
         {
             MySqlConnection conn = null;
@@ -193,18 +226,18 @@ namespace Warehouse_IO.WHIO.Model
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    string delete = "DELETE FROM departmenthavestorage WHERE ID = @id";
+                    string delete = "DELETE FROM departmenthavestorage WHERE DepartmentID = @id";
                     cmd.CommandText = delete;
                     cmd.Parameters.AddWithValue("@id", id);
                     cmd.ExecuteNonQuery();
 
                     string insert = $"INSERT INTO departmenthavestorage (DepartmentID, StorageID) VALUES (@id, @sto)";
                     cmd.CommandText = insert;
-                    foreach (Storage t in storagelist)
+                    foreach (Storage sto in storagelist)
                     {
                         cmd.Parameters.Clear();
                         cmd.Parameters.AddWithValue("@id", id);
-                        cmd.Parameters.AddWithValue("@sto", t.ID);
+                        cmd.Parameters.AddWithValue("@sto", sto.ID);
                         cmd.ExecuteNonQuery();
                     }
                 }
@@ -220,7 +253,62 @@ namespace Warehouse_IO.WHIO.Model
                     conn.Close();
             }
         }
-      
+
+        public bool AddDeliveryplace(Deliveryplace del)
+        {
+            if (del != null)
+            {
+                deliveryplacelist.Add(del);
+                return true;
+            }
+            else return false;
+        }
+        public bool RemoveDeliveryplace(Deliveryplace del)
+        {
+            if (del != null)
+            {
+                int removeCount = deliveryplacelist.RemoveAll(dp => dp.ID == del.ID);
+                return removeCount > 0;
+            }
+            return false;
+        }
+        public bool UpdateDeliveryplace()
+        {
+            MySqlConnection conn = null;
+            try
+            {
+                conn = new MySqlConnection(connstr);
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    string delete = "DELETE FROM departmenthavedeliveryplace WHERE DepartmentID = @id";
+                    cmd.CommandText = delete;
+                    cmd.Parameters.AddWithValue("@id", id);
+                    cmd.ExecuteNonQuery();
+
+                    string insert = $"INSERT INTO departmenthavedeliveryplace (DepartmentID, DeliveryplaceID) VALUES (@id, @del)";
+                    cmd.CommandText = insert;
+                    foreach (Deliveryplace del in deliveryplacelist)
+                    {
+                        cmd.Parameters.Clear();
+                        cmd.Parameters.AddWithValue("@id", id);
+                        cmd.Parameters.AddWithValue("@del", del.ID);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+                return true;
+            }
+            catch (MySqlException e)
+            {
+                return false;
+            }
+            finally
+            {
+                if (conn != null && conn.State != ConnectionState.Closed)
+                    conn.Close();
+            }
+        }
+
         public static List<Department> GetDepartmentList()
         {
             MySqlConnection conn = null;
@@ -252,5 +340,6 @@ namespace Warehouse_IO.WHIO.Model
             }
             return departmentList;
         }
+
     }
 }

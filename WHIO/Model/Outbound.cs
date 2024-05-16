@@ -371,8 +371,8 @@ namespace Warehouse_IO.WHIO.Model
         {
             if (deliveryplace != null)
             {
-                int removeCound = deliveryplacelist.RemoveAll(dp => dp.ID == deliveryplace.ID);
-                return removeCound > 0;
+                int removeCount = deliveryplacelist.RemoveAll(dp => dp.ID == deliveryplace.ID);
+                return removeCount > 0;
             }
             return false;
         }

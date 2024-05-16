@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using Warehouse_IO.Common;
 using Warehouse_IO.View;
+using Warehouse_IO.View.CreateUseForm;
 using Warehouse_IO.View.DeliveryplaceSource;
 using Warehouse_IO.View.Dimension.UnitOfVolumeSource;
 using Warehouse_IO.View.Dimensions.DimensionSource;
@@ -36,6 +37,7 @@ namespace Warehouse_IO
         OutboundForm outbound;
         DeliveryplaceForm deliveryplace;
         InOutActivityForm inoutactivity;
+        CreateUserForm usermanagement;
 
         public MainForm()
         {
@@ -228,6 +230,15 @@ namespace Warehouse_IO
 
             DisableMainForm();
             inoutactivity.returnMain += EventToActiveAdmin;
+        }
+        private void click_UserManagement(object sender, EventArgs e)
+        {
+            usermanagement = new CreateUserForm();
+            usermanagement.MdiParent = this;
+            usermanagement.Show();
+
+            DisableMainForm();
+            usermanagement.returnMain += EventToActiveAdmin;
         }
     }
 }

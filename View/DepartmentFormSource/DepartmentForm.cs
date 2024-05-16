@@ -4,6 +4,8 @@ using System.Windows.Forms;
 using Warehouse_IO.WHIO.Model;
 using Warehouse_IO.Common;
 using Warehouse_IO.View.DepartmentFormSource;
+using System.Data;
+using System.Text;
 
 namespace Warehouse_IO
 {
@@ -12,36 +14,60 @@ namespace Warehouse_IO
         private Add add;
         private Edit edit;
         private Remove remove;
+        private departmentAddStorage_Deliveryplace addStorageandDelplace;
+
         MainForm main;
 
-        List<Department> dep;
-        BindingSource depBind;
+        List<Department> departmentList;
+
         public event EventHandler returnMain;
 
         public DepartmentForm()
         {
             InitializeComponent();
-            dep = new List<Department>();
-            UpdateDepDatagridView();
+            departmentList = new List<Department>();
             main = new MainForm();
+
+            depGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+
+            UpdateDepDatagridView();
+        }
+        private void DepartmentForm_Load(object sender, EventArgs e)
+        {
+            WindowState = FormWindowState.Maximized;
         }
 
         public void UpdateDepDatagridView()
         {
-            dep = Department.GetDepartmentList();
-            depBind = new BindingSource(dep, null);
-            dep.Sort((x, y) => x.ID.CompareTo(y.ID));
-            depGridView.DataSource = depBind;
-        }
+            departmentList = Department.GetDepartmentList();
 
-        private void dataGridView_CellClick1(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex >= 0)
+            DataTable dataTable = new DataTable();
+            dataTable.Columns.Add("ID", typeof(int));
+            dataTable.Columns.Add("Department");
+            dataTable.Columns.Add("Storage");
+
+            foreach(Department dep in departmentList)
             {
-                Global.tempPkey = -1;
-                DataGridViewRow row = depGridView.Rows[e.RowIndex];
-                Global.tempPkey = (int)row.Cells[0].Value;
+                DataRow row = dataTable.NewRow();
+                row["ID"] = dep.ID;
+                row["Department"] = dep.Name;
+
+                StringBuilder storageOnDep = new StringBuilder();
+                if(dep.StorageList != null)
+                {
+                    foreach(Storage sto in dep.StorageList)
+                    {
+                        storageOnDep.Append(sto.Name).Append(" / ");
+                    }
+                    if (storageOnDep.Length > 0)
+                    {
+                        storageOnDep.Length -= 2;
+                    }
+                    row["Storage"] = storageOnDep.ToString();
+                }
+                dataTable.Rows.Add(row);
             }
+            depGridView.DataSource = dataTable.DefaultView;
         }
 
         private void addDepButton(object sender, EventArgs e)
@@ -68,6 +94,21 @@ namespace Warehouse_IO
             remove.UpdateGrid += OnUpdate;
             remove.ShowDialog();
         }
+        private void addStorage_DelplaceButton_Click(object sender, EventArgs e)
+        {
+            Global.tempPkey = -1;
+            DataGridViewRow selectedRow = depGridView.CurrentRow;
+            int value = (int)selectedRow.Cells[0].Value;
+
+            Global.tempPkey = value;
+
+            addStorageandDelplace = new departmentAddStorage_Deliveryplace();
+            addStorageandDelplace.Owner = main;
+
+            addStorageandDelplace.UpdateGrid += OnUpdate;
+            addStorageandDelplace.ShowDialog();
+        }
+
         private void exitDepButton(object sender, EventArgs e)
         {
             returnMain?.Invoke(this, EventArgs.Empty);
@@ -76,11 +117,6 @@ namespace Warehouse_IO
         private void OnUpdate(object sender, EventArgs e)
         {
             UpdateDepDatagridView();
-        }
-
-        private void DepartmentForm_Load(object sender, EventArgs e)
-        {
-            WindowState = FormWindowState.Maximized;
         }
     }
 }

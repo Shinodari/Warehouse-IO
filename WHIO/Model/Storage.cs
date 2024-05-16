@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Warehouse_IO.WHIO.Model
 {
-    class Storage
+    public class Storage
     {
         int id;
         public int ID { get { return id; } }

@@ -1,18 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using Warehouse_IO.Authentication;
 using Warehouse_IO.WHIO.Model;
 
 namespace Warehouse_IO.Common
 {
-    public static class Global
+    public class Global
     {
-        public static bool isadmin;
-
+        //Property for sending parameter object to other class
         public static int tempPkey;
         public static string tempPkeyName;
-
         public static int tempStorageKey;
-
         public static string packageTempName;
         public static string unitOfUOMTempName;
+        public static bool isadmin;
     }
 }

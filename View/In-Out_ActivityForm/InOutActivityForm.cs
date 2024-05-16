@@ -214,7 +214,12 @@ namespace Warehouse_IO.View.In_Out_ActivityForm
             outboundDataGridView.Columns["Outbound ID"].Visible = false;
         }
 
-        private void inboundDataGridView_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void OnUpdate(object sender, EventArgs e)
+        {
+            UpdateInboundDatagridView();
+        }
+
+        private void inboundDataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             Global.tempPkey = -1;
             Global.tempStorageKey = -1;
@@ -232,7 +237,7 @@ namespace Warehouse_IO.View.In_Out_ActivityForm
             inboundItemlist.ShowDialog();
         }
 
-        private void outboundDataGridView_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void outboundDataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             Global.tempPkey = -1;
             DataGridViewRow selectedRow = outboundDataGridView.CurrentRow;
@@ -246,12 +251,5 @@ namespace Warehouse_IO.View.In_Out_ActivityForm
             outboundItemlist.UpdateGrid += OnUpdate;
             outboundItemlist.ShowDialog();
         }
-
-        private void OnUpdate(object sender, EventArgs e)
-        {
-            UpdateInboundDatagridView();
-        }
-
-        
     }
 }

@@ -62,8 +62,7 @@ namespace Warehouse_IO.View.OutboundSource
             //Create instance for edit quantity pop-Up window components
             editQuantity = new EditQuantityWindow();
             main = new MainForm();
-
-            //Set truck & product gridview auto adjust cell
+         
             deliveryPlaceDatagridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             truckDataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             productListDatagridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;

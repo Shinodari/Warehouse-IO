@@ -5,7 +5,7 @@ using System.Data;
 
 namespace Warehouse_IO.WHIO.Model
 {
-    class Product
+    public class Product
     {
         string id;
         public string ID { get { return id; }set { id = value; } }

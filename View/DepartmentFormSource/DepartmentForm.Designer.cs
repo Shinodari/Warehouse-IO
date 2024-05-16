@@ -34,15 +34,16 @@
             this.x = new System.Windows.Forms.Button();
             this.depGridView = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
+            this.addStorage_DelplaceButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.depGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // a
             // 
-            this.a.Location = new System.Drawing.Point(550, 28);
-            this.a.Margin = new System.Windows.Forms.Padding(2);
+            this.a.Location = new System.Drawing.Point(862, 33);
+            this.a.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.a.Name = "a";
-            this.a.Size = new System.Drawing.Size(96, 55);
+            this.a.Size = new System.Drawing.Size(128, 68);
             this.a.TabIndex = 20;
             this.a.Text = "Add";
             this.a.UseVisualStyleBackColor = true;
@@ -50,10 +51,10 @@
             // 
             // e
             // 
-            this.e.Location = new System.Drawing.Point(550, 88);
-            this.e.Margin = new System.Windows.Forms.Padding(2);
+            this.e.Location = new System.Drawing.Point(862, 107);
+            this.e.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.e.Name = "e";
-            this.e.Size = new System.Drawing.Size(96, 55);
+            this.e.Size = new System.Drawing.Size(128, 68);
             this.e.TabIndex = 21;
             this.e.Text = "Edit";
             this.e.UseVisualStyleBackColor = true;
@@ -61,10 +62,10 @@
             // 
             // r
             // 
-            this.r.Location = new System.Drawing.Point(550, 148);
-            this.r.Margin = new System.Windows.Forms.Padding(2);
+            this.r.Location = new System.Drawing.Point(862, 181);
+            this.r.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.r.Name = "r";
-            this.r.Size = new System.Drawing.Size(96, 55);
+            this.r.Size = new System.Drawing.Size(128, 68);
             this.r.TabIndex = 22;
             this.r.Text = "Remove";
             this.r.UseVisualStyleBackColor = true;
@@ -72,10 +73,10 @@
             // 
             // x
             // 
-            this.x.Location = new System.Drawing.Point(550, 447);
-            this.x.Margin = new System.Windows.Forms.Padding(2);
+            this.x.Location = new System.Drawing.Point(863, 638);
+            this.x.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.x.Name = "x";
-            this.x.Size = new System.Drawing.Size(96, 55);
+            this.x.Size = new System.Drawing.Size(128, 68);
             this.x.TabIndex = 23;
             this.x.Text = "Exit";
             this.x.UseVisualStyleBackColor = true;
@@ -85,32 +86,41 @@
             // 
             this.depGridView.AllowUserToResizeColumns = false;
             this.depGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.depGridView.Location = new System.Drawing.Point(9, 28);
-            this.depGridView.Margin = new System.Windows.Forms.Padding(2);
+            this.depGridView.Location = new System.Drawing.Point(12, 34);
+            this.depGridView.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.depGridView.Name = "depGridView";
             this.depGridView.ReadOnly = true;
             this.depGridView.RowTemplate.Height = 24;
             this.depGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.depGridView.Size = new System.Drawing.Size(537, 474);
+            this.depGridView.Size = new System.Drawing.Size(844, 672);
             this.depGridView.TabIndex = 10;
-            this.depGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_CellClick1);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(9, 7);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label1.Location = new System.Drawing.Point(12, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(81, 13);
+            this.label1.Size = new System.Drawing.Size(108, 17);
             this.label1.TabIndex = 5;
             this.label1.Text = "Department List";
             // 
+            // addStorage_DelplaceButton
+            // 
+            this.addStorage_DelplaceButton.Location = new System.Drawing.Point(863, 339);
+            this.addStorage_DelplaceButton.Name = "addStorage_DelplaceButton";
+            this.addStorage_DelplaceButton.Size = new System.Drawing.Size(128, 68);
+            this.addStorage_DelplaceButton.TabIndex = 24;
+            this.addStorage_DelplaceButton.Text = "Add Storage & Delivery Place";
+            this.addStorage_DelplaceButton.UseVisualStyleBackColor = true;
+            this.addStorage_DelplaceButton.Click += new System.EventHandler(this.addStorage_DelplaceButton_Click);
+            // 
             // DepartmentForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(656, 519);
+            this.ClientSize = new System.Drawing.Size(1002, 717);
             this.ControlBox = false;
+            this.Controls.Add(this.addStorage_DelplaceButton);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.depGridView);
             this.Controls.Add(this.x);
@@ -118,7 +128,7 @@
             this.Controls.Add(this.e);
             this.Controls.Add(this.a);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
-            this.Margin = new System.Windows.Forms.Padding(2);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "DepartmentForm";
@@ -141,5 +151,6 @@
         private System.Windows.Forms.Button x;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView depGridView;
+        private System.Windows.Forms.Button addStorage_DelplaceButton;
     }
 }

@@ -8,7 +8,7 @@ using System.Collections.Generic;
 
 namespace Warehouse_IO.Authentication
 {
-    class User
+    public class User
     {
         int id;
         public int ID { get { return id; } }

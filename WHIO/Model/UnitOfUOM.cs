@@ -4,7 +4,7 @@ using System.Data;
 
 namespace Warehouse_IO.WHIO.Model
 {
-    class UnitOfUOM : Unit
+    public class UnitOfUOM : Unit
     {
         static string connstr = Settings.Default.CONNECTION_STRING;
 

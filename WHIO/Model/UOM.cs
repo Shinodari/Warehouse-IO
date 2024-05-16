@@ -6,7 +6,7 @@ using System.Data;
 
 namespace Warehouse_IO.WHIO.Model
 {
-    class UOM
+    public class UOM
     {
         int id;
         public int ID { get { return id; } }

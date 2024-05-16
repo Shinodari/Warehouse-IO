@@ -3,7 +3,7 @@ using System.Data;
 
 namespace Warehouse_IO.WHIO.Model
 {
-    abstract class Unit
+    public abstract class Unit
     {
         string name;
         public string Name { get { return name; }set { name = value; } }
