@@ -57,11 +57,11 @@ namespace Warehouse_IO.View.In_Out_ActivityForm
             dataTable.Columns.Add("Customer");
             dataTable.Columns.Add("Storage");
             dataTable.Columns.Add("Truck");
-            dataTable.Columns.Add("Total Quantity", typeof(int));
+            dataTable.Columns.Add("Detail");
             dataTable.Columns.Add("TotalM3", typeof(double));
 
-            dataTable.Columns.Add("Inbound ID", typeof(int));
-            dataTable.Columns.Add("Storage ID", typeof(int));
+            dataTable.Columns.Add("Inbound ID", typeof(int)); // column 7
+            dataTable.Columns.Add("Storage ID", typeof(int)); // column 8
 
 
             DateTime currentDate = DateTime.Today;
@@ -109,7 +109,7 @@ namespace Warehouse_IO.View.In_Out_ActivityForm
                     }
                 }
 
-                row["Total Quantity"] = totalQuantity;
+                row["Detail"] = inbound.Detail;
                 row["TotalM3"] = totalM3.ToString("0.00");
 
                 row["Inbound ID"] = inbound.ID;
@@ -138,10 +138,10 @@ namespace Warehouse_IO.View.In_Out_ActivityForm
             dataTable.Columns.Add("Customer");
             dataTable.Columns.Add("Delivery Place");
             dataTable.Columns.Add("Truck");
-            dataTable.Columns.Add("Total Quantity", typeof(int));
+            dataTable.Columns.Add("Details");
             dataTable.Columns.Add("TotalM3", typeof(double));
 
-            dataTable.Columns.Add("Outbound ID", typeof(int));
+            dataTable.Columns.Add("Outbound ID", typeof(int)); // column 7
 
             DateTime currentDate = DateTime.Today;
 
@@ -199,7 +199,7 @@ namespace Warehouse_IO.View.In_Out_ActivityForm
                     }
                 }
 
-                row["Total Quantity"] = totalQuantity;
+                row["Details"] = outbound.Detail;
                 row["TotalM3"] = totalM3.ToString("0.00");
 
                 row["Outbound ID"] = outbound.ID;

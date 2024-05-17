@@ -25,6 +25,9 @@ namespace Warehouse_IO.WHIO.Model
         bool inter;
         public bool Inter { get { return inter; }set { inter = value; } }
 
+        string detail;
+        public string Detail { get { return detail; }set { detail = value; } }
+
         static string connstr = Settings.Default.CONNECTION_STRING;
 
         string GetTableNameFromClassName()
@@ -56,6 +59,7 @@ namespace Warehouse_IO.WHIO.Model
                                 deliverydate = reader.GetDateTime(reader.GetOrdinal("DeliveryDate"));
                                 supplier = new Supplier(Convert.ToInt32(reader["SupplierID"]));
                                 inter = reader.GetBoolean("IsInter");
+                                detail = reader["Detail"].ToString();
                             }
                         }
                     }
@@ -74,7 +78,7 @@ namespace Warehouse_IO.WHIO.Model
             truckquantitypershipmentlist = new Dictionary<Truck, int>(new TruckEqualityComparer());
             CheckAndUpdateField(id.ToString());
         }
-        public Transport(string invoiceNo,DateTime deliveryDate,Supplier supplier,bool isinter)
+        public Transport(string invoiceNo,DateTime deliveryDate,Supplier supplier,bool isinter,string detail)
         {
             quantityofproductlist = new Dictionary<Product, int>(new ProductEqualityComparer());
             truckquantitypershipmentlist = new Dictionary<Truck, int>(new TruckEqualityComparer());
@@ -82,6 +86,7 @@ namespace Warehouse_IO.WHIO.Model
             deliverydate = deliveryDate;
             this.supplier = supplier;
             this.inter = isinter;
+            this.detail = detail;
         }
 
         public abstract bool Create();

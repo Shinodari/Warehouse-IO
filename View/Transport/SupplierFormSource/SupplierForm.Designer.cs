@@ -47,7 +47,7 @@
             this.supGridView.ReadOnly = true;
             this.supGridView.RowTemplate.Height = 24;
             this.supGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.supGridView.Size = new System.Drawing.Size(541, 474);
+            this.supGridView.Size = new System.Drawing.Size(766, 682);
             this.supGridView.TabIndex = 10;
             this.supGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_CellClick);
             // 
@@ -63,7 +63,7 @@
             // 
             // x
             // 
-            this.x.Location = new System.Drawing.Point(554, 447);
+            this.x.Location = new System.Drawing.Point(779, 655);
             this.x.Margin = new System.Windows.Forms.Padding(2);
             this.x.Name = "x";
             this.x.Size = new System.Drawing.Size(96, 55);
@@ -74,7 +74,7 @@
             // 
             // r
             // 
-            this.r.Location = new System.Drawing.Point(554, 148);
+            this.r.Location = new System.Drawing.Point(779, 148);
             this.r.Margin = new System.Windows.Forms.Padding(2);
             this.r.Name = "r";
             this.r.Size = new System.Drawing.Size(96, 55);
@@ -85,7 +85,7 @@
             // 
             // e
             // 
-            this.e.Location = new System.Drawing.Point(554, 88);
+            this.e.Location = new System.Drawing.Point(779, 88);
             this.e.Margin = new System.Windows.Forms.Padding(2);
             this.e.Name = "e";
             this.e.Size = new System.Drawing.Size(96, 55);
@@ -96,7 +96,7 @@
             // 
             // a
             // 
-            this.a.Location = new System.Drawing.Point(554, 28);
+            this.a.Location = new System.Drawing.Point(779, 28);
             this.a.Margin = new System.Windows.Forms.Padding(2);
             this.a.Name = "a";
             this.a.Size = new System.Drawing.Size(96, 55);
@@ -109,7 +109,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(652, 515);
+            this.ClientSize = new System.Drawing.Size(886, 721);
             this.ControlBox = false;
             this.Controls.Add(this.x);
             this.Controls.Add(this.r);

@@ -41,6 +41,8 @@
             this.supplierComboBox = new System.Windows.Forms.ComboBox();
             this.invoiceTextBox = new System.Windows.Forms.TextBox();
             this.truckGroupBox = new System.Windows.Forms.GroupBox();
+            this.truckDetailLabel = new System.Windows.Forms.Label();
+            this.truckInDetailTextBox = new System.Windows.Forms.TextBox();
             this.productQuantityLabel = new System.Windows.Forms.Label();
             this.removeTruckButton = new System.Windows.Forms.Button();
             this.editTruckQuantityButton = new System.Windows.Forms.Button();
@@ -51,6 +53,7 @@
             this.truckListBox = new System.Windows.Forms.ListBox();
             this.truckLabel = new System.Windows.Forms.Label();
             this.productGroupBox = new System.Windows.Forms.GroupBox();
+            this.importButton = new System.Windows.Forms.Button();
             this.productNameSearchTextBox = new System.Windows.Forms.TextBox();
             this.removeProductButton = new System.Windows.Forms.Button();
             this.editProductQuantityButton = new System.Windows.Forms.Button();
@@ -63,7 +66,6 @@
             this.productListBox = new System.Windows.Forms.ListBox();
             this.doneButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
-            this.importButton = new System.Windows.Forms.Button();
             this.shipmentGroupBox.SuspendLayout();
             this.importShipmentGroupBox.SuspendLayout();
             this.truckGroupBox.SuspendLayout();
@@ -188,6 +190,8 @@
             // 
             // truckGroupBox
             // 
+            this.truckGroupBox.Controls.Add(this.truckDetailLabel);
+            this.truckGroupBox.Controls.Add(this.truckInDetailTextBox);
             this.truckGroupBox.Controls.Add(this.productQuantityLabel);
             this.truckGroupBox.Controls.Add(this.removeTruckButton);
             this.truckGroupBox.Controls.Add(this.editTruckQuantityButton);
@@ -204,6 +208,22 @@
             this.truckGroupBox.TabStop = false;
             this.truckGroupBox.Text = "Truck Details";
             // 
+            // truckDetailLabel
+            // 
+            this.truckDetailLabel.AutoSize = true;
+            this.truckDetailLabel.Location = new System.Drawing.Point(538, 16);
+            this.truckDetailLabel.Name = "truckDetailLabel";
+            this.truckDetailLabel.Size = new System.Drawing.Size(71, 13);
+            this.truckDetailLabel.TabIndex = 204;
+            this.truckDetailLabel.Text = "Truck Detail :";
+            // 
+            // truckInDetailTextBox
+            // 
+            this.truckInDetailTextBox.Location = new System.Drawing.Point(538, 36);
+            this.truckInDetailTextBox.Name = "truckInDetailTextBox";
+            this.truckInDetailTextBox.Size = new System.Drawing.Size(337, 20);
+            this.truckInDetailTextBox.TabIndex = 26;
+            // 
             // productQuantityLabel
             // 
             this.productQuantityLabel.AutoSize = true;
@@ -215,7 +235,7 @@
             // 
             // removeTruckButton
             // 
-            this.removeTruckButton.Location = new System.Drawing.Point(787, 219);
+            this.removeTruckButton.Location = new System.Drawing.Point(432, 219);
             this.removeTruckButton.Name = "removeTruckButton";
             this.removeTruckButton.Size = new System.Drawing.Size(100, 23);
             this.removeTruckButton.TabIndex = 25;
@@ -224,7 +244,7 @@
             // 
             // editTruckQuantityButton
             // 
-            this.editTruckQuantityButton.Location = new System.Drawing.Point(421, 219);
+            this.editTruckQuantityButton.Location = new System.Drawing.Point(302, 219);
             this.editTruckQuantityButton.Name = "editTruckQuantityButton";
             this.editTruckQuantityButton.Size = new System.Drawing.Size(100, 23);
             this.editTruckQuantityButton.TabIndex = 24;
@@ -264,7 +284,7 @@
             this.truckDataGridView.Name = "truckDataGridView";
             this.truckDataGridView.ReadOnly = true;
             this.truckDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.truckDataGridView.Size = new System.Drawing.Size(585, 196);
+            this.truckDataGridView.Size = new System.Drawing.Size(230, 196);
             this.truckDataGridView.TabIndex = 23;
             // 
             // truckListBox
@@ -304,6 +324,15 @@
             this.productGroupBox.TabStop = false;
             this.productGroupBox.Text = "Product Details";
             // 
+            // importButton
+            // 
+            this.importButton.Location = new System.Drawing.Point(150, 341);
+            this.importButton.Name = "importButton";
+            this.importButton.Size = new System.Drawing.Size(75, 23);
+            this.importButton.TabIndex = 306;
+            this.importButton.Text = "Import";
+            this.importButton.UseVisualStyleBackColor = true;
+            // 
             // productNameSearchTextBox
             // 
             this.productNameSearchTextBox.Location = new System.Drawing.Point(76, 22);
@@ -322,7 +351,7 @@
             // 
             // editProductQuantityButton
             // 
-            this.editProductQuantityButton.Location = new System.Drawing.Point(421, 341);
+            this.editProductQuantityButton.Location = new System.Drawing.Point(432, 341);
             this.editProductQuantityButton.Name = "editProductQuantityButton";
             this.editProductQuantityButton.Size = new System.Drawing.Size(100, 23);
             this.editProductQuantityButton.TabIndex = 34;
@@ -412,15 +441,6 @@
             this.cancelButton.Text = "Cancel";
             this.cancelButton.UseVisualStyleBackColor = true;
             // 
-            // importButton
-            // 
-            this.importButton.Location = new System.Drawing.Point(150, 341);
-            this.importButton.Name = "importButton";
-            this.importButton.Size = new System.Drawing.Size(75, 23);
-            this.importButton.TabIndex = 306;
-            this.importButton.Text = "Import";
-            this.importButton.UseVisualStyleBackColor = true;
-            // 
             // AddEdit_Inbound_Outbound_FormV2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -490,5 +510,7 @@
         protected System.Windows.Forms.CheckBox IsInterCheckBox;
         protected System.Windows.Forms.TextBox productNameSearchTextBox;
         protected System.Windows.Forms.Button importButton;
+        protected System.Windows.Forms.TextBox truckInDetailTextBox;
+        protected System.Windows.Forms.Label truckDetailLabel;
     }
 }

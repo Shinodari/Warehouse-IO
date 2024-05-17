@@ -38,6 +38,7 @@ namespace Warehouse_IO
         DeliveryplaceForm deliveryplace;
         InOutActivityForm inoutactivity;
         CreateUserForm usermanagement;
+        Edit_ConnectionStringForm editConn;
 
         public MainForm()
         {
@@ -69,8 +70,8 @@ namespace Warehouse_IO
         }
         public void EnableMainFormUser()
         {
-            mainMenuStrip.Items["inbondToolStripMenuItem"].Enabled = true;
-            mainMenuStrip.Items["outbondToolStripMenuItem"].Enabled = true;
+            //mainMenuStrip.Items["inbondToolStripMenuItem"].Enabled = true;
+            //mainMenuStrip.Items["outbondToolStripMenuItem"].Enabled = true;
             mainMenuStrip.Items["inOutActivityToolStripMenuItem"].Enabled = true;
         }
         private void EventToActiveUser(object sender, EventArgs e)
@@ -239,6 +240,16 @@ namespace Warehouse_IO
 
             DisableMainForm();
             usermanagement.returnMain += EventToActiveAdmin;
+        }
+
+        private void click_EditConn(object sender, EventArgs e)
+        {
+            editConn = new Edit_ConnectionStringForm();
+            editConn.MdiParent = this;
+            editConn.Show();
+
+            DisableMainForm();
+            editConn.returnMain += EventToActiveAdmin;
         }
     }
 }

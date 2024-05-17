@@ -116,7 +116,7 @@ namespace Warehouse_IO.WHIO.Model
                     conn.Close();
             }
         }
-        public Outbound(string invoiceNo, DateTime deliveryDate, Supplier supplier, bool isinter) : base(invoiceNo, deliveryDate, supplier, isinter) { }
+        public Outbound(string invoiceNo, DateTime deliveryDate, Supplier supplier, bool isinter,string detail) : base(invoiceNo, deliveryDate, supplier, isinter,detail) { }
 
         //Method only for Outbound (not in Transport)
         public static List<Outbound> GetOutboundList()
@@ -160,12 +160,13 @@ namespace Warehouse_IO.WHIO.Model
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    string insert = $"INSERT INTO outbound (ID, InvoiceNo, DeliveryDate, SupplierID, IsInter) VALUES (NULL, @invoice, @date, @sup, @isinter)";
+                    string insert = $"INSERT INTO outbound (ID, InvoiceNo, DeliveryDate, SupplierID, IsInter, Detail) VALUES (NULL, @invoice, @date, @sup, @isinter, @detail)";
                     cmd.CommandText = insert;
                     cmd.Parameters.AddWithValue("@invoice", InvoiceNo);
                     cmd.Parameters.AddWithValue("@date", DeliveryDate);
                     cmd.Parameters.AddWithValue("@sup", Supplier.ID);
                     cmd.Parameters.AddWithValue("@isinter", Inter);
+                    cmd.Parameters.AddWithValue("detail", Detail);
                     cmd.ExecuteNonQuery();
                 }
                 return true;
@@ -190,12 +191,13 @@ namespace Warehouse_IO.WHIO.Model
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    string update = $"UPDATE outbound SET InvoiceNo = @invoice, DeliveryDate = @date, SupplierID = @sup, IsInter = @isinter WHERE ID = @id ";
+                    string update = $"UPDATE outbound SET InvoiceNo = @invoice, DeliveryDate = @date, SupplierID = @sup, IsInter = @isinter, Detail = @detail WHERE ID = @id ";
                     cmd.CommandText = update;
                     cmd.Parameters.AddWithValue("@invoice", InvoiceNo);
                     cmd.Parameters.AddWithValue("@date", DeliveryDate);
                     cmd.Parameters.AddWithValue("@sup", Supplier.ID);
                     cmd.Parameters.AddWithValue("@isinter", Inter);
+                    cmd.Parameters.AddWithValue("@detail",Detail);
                     cmd.Parameters.AddWithValue("@id", ID);
                     cmd.ExecuteNonQuery();
                 }

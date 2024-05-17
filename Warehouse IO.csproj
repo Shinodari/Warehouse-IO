@@ -302,6 +302,12 @@
     <Compile Include="View\Dimensions\UnitOfVolumeSource\UnitOfVolumeForm.Designer.cs">
       <DependentUpon>UnitOfVolumeForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\Edit_ConnectionStringForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Edit_ConnectionStringForm.Designer.cs">
+      <DependentUpon>Edit_ConnectionStringForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\In-Out_ActivityForm\InboundItemForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -675,6 +681,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="View\Dimensions\UnitOfVolumeSource\UnitOfVolumeForm.resx">
       <DependentUpon>UnitOfVolumeForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Edit_ConnectionStringForm.resx">
+      <DependentUpon>Edit_ConnectionStringForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\In-Out_ActivityForm\InboundItemForm.resx">
       <DependentUpon>InboundItemForm.cs</DependentUpon>

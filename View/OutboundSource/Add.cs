@@ -213,7 +213,7 @@ namespace Warehouse_IO.View.OutboundSource
                 return;
             }
 
-            add = new Outbound(invoiceTextBox.Text, deliverydate, supplier, IsInterCheckBox.Checked);
+            add = new Outbound(invoiceTextBox.Text, deliverydate, supplier, IsInterCheckBox.Checked, truckOutDetailTextBox.Text);
 
             if (add.Create())
             {

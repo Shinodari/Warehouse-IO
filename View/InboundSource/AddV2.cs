@@ -198,7 +198,7 @@ namespace Warehouse_IO.View.InboundSource
                 storage = new Storage(selectedStorageID);
             }
 
-            add = new Inbound(invoiceTextBox.Text, deliverydate, supplier, storage, IsInterCheckBox.Checked);
+            add = new Inbound(invoiceTextBox.Text, deliverydate, supplier, storage, IsInterCheckBox.Checked, truckInDetailTextBox.Text);
 
             if (add.Create())
             {

@@ -88,5 +88,10 @@ namespace Warehouse_IO.View.CreateUseForm
             returnMain?.Invoke(this, EventArgs.Empty);
             Close();
         }
+
+        private void CreateUserForm_Load(object sender, EventArgs e)
+        {
+            WindowState = FormWindowState.Maximized;
+        }
     }
 }

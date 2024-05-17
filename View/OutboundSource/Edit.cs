@@ -64,6 +64,7 @@ namespace Warehouse_IO.View.OutboundSource
             invoiceTextBox.Text = edit.InvoiceNo;
             deliveryDatedateTimePicker.Value = edit.DeliveryDate;
             IsInterCheckBox.Checked = edit.Inter;
+            truckOutDetailTextBox.Text = edit.Detail;
             //Create instance for update components
             supplierList = new List<Supplier>();
             truckList = new List<Truck>();
@@ -236,7 +237,11 @@ namespace Warehouse_IO.View.OutboundSource
                 }
                 else MessageBox.Show(this, "Change status to Domestic");
             }
-                return isSuccess;
+            if (truckOutDetailTextBox.Text != null)
+            {
+                edit.Detail = truckOutDetailTextBox.Text;
+            }
+            return isSuccess;
         }
         private void createShipmentButton_Click(object sender, EventArgs e)
         {

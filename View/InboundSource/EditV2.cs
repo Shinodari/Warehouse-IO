@@ -64,6 +64,7 @@ namespace Warehouse_IO.View.InboundSource
             deliveryDatedateTimePicker.Value = edit.DeliveryDate;
             storageLocationComboBox.Text = edit.Storage.Name;
             IsInterCheckBox.Checked = edit.Inter;
+            truckInDetailTextBox.Text = edit.Detail;
             //Create instance for update components
             supplierList = new List<Supplier>();
             truckList = new List<Truck>();
@@ -227,6 +228,10 @@ namespace Warehouse_IO.View.InboundSource
                     MessageBox.Show(this, "Change status to Import");
                 }
                 else MessageBox.Show(this, "Change status to Domestic");
+            }
+            if(truckInDetailTextBox.Text != null)
+            {
+                edit.Detail = truckInDetailTextBox.Text;
             }
             return isSuccess;
         }
