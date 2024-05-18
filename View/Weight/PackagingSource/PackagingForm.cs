@@ -13,14 +13,14 @@ namespace Warehouse_IO.View.Weight.PackagingSource
         private Remove remove;
         MainForm main;
 
-        List<Package> packlist;
+        List<PackageForGetList> packlist;
         BindingSource bind;
         public event EventHandler returnMain;
 
         public PackagingForm()
         {
             InitializeComponent();
-            packlist = new List<Package>();
+            packlist = new List<PackageForGetList>();
             UpdateDatagridView();
             main = new MainForm();
         }

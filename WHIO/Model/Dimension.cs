@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using Warehouse_IO.View.Dimensions.DimensionSource;
 
 namespace Warehouse_IO.WHIO.Model
 {
@@ -19,6 +20,8 @@ namespace Warehouse_IO.WHIO.Model
         public double Height { get { return height; }set { height = value; } }
         UnitOfDimension unit;
         public UnitOfDimension Unit { get { return unit; }set { unit = value; } }
+        double m3;
+        public double M3 { get { return m3; }set { m3 = value; } }
 
         static string connstr = Settings.Default.CONNECTION_STRING;
 
@@ -44,6 +47,7 @@ namespace Warehouse_IO.WHIO.Model
                             length = Convert.ToDouble(reader["Length"]);
                             height = Convert.ToDouble(reader["Height"]);
                             unit = new UnitOfDimension (reader["UnitOfDimensionName"].ToString());
+                            m3 = Convert.ToDouble(reader["M3"]);
                         }
                     }
                 }
@@ -64,6 +68,7 @@ namespace Warehouse_IO.WHIO.Model
             this.length = length;
             this.height = height;
             this.unit = unit;
+            this.m3 = (width * length * height) / 1000000;
         }
 
         public bool Create()
@@ -75,13 +80,14 @@ namespace Warehouse_IO.WHIO.Model
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    string insert = "INSERT INTO dimension (ID, Name, Width, Length, Height, UnitOfDimensionName) VALUES (NULL, @name, @width, @length, @height, @unit)";
+                    string insert = "INSERT INTO dimension (ID, Name, Width, Length, Height, UnitOfDimensionName, M3) VALUES (NULL, @name, @width, @length, @height, @unit, @m3)";
                     cmd.CommandText = insert;
                     cmd.Parameters.AddWithValue("@name", name);
                     cmd.Parameters.AddWithValue("@width", width);
                     cmd.Parameters.AddWithValue("@length", length);
                     cmd.Parameters.AddWithValue("@height", height);
                     cmd.Parameters.AddWithValue("@unit", unit.Name);
+                    cmd.Parameters.AddWithValue("@m3", m3);
                     cmd.ExecuteNonQuery();
                 }
                 return true;
@@ -98,6 +104,7 @@ namespace Warehouse_IO.WHIO.Model
         }
         public bool Change()
         {
+            this.m3 = (width * length * height) / 1000000;
             MySqlConnection conn = null;
             try
             {
@@ -105,13 +112,14 @@ namespace Warehouse_IO.WHIO.Model
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    string update = "UPDATE dimension SET Name = @name, Width = @width, Length = @length, Height = @height, UnitOfDimensionName = @unit WHERE ID = @id ";
+                    string update = "UPDATE dimension SET Name = @name, Width = @width, Length = @length, Height = @height, UnitOfDimensionName = @unit, M3 = @m3 WHERE ID = @id ";
                     cmd.CommandText = update;
                     cmd.Parameters.AddWithValue("@name", name);
                     cmd.Parameters.AddWithValue("@width", width);
                     cmd.Parameters.AddWithValue("@length", length);
                     cmd.Parameters.AddWithValue("@height", height);
                     cmd.Parameters.AddWithValue("@unit", unit.Name);
+                    cmd.Parameters.AddWithValue("@m3", m3);
                     cmd.Parameters.AddWithValue("@id", id);
                     cmd.ExecuteNonQuery();
                 }
@@ -154,10 +162,10 @@ namespace Warehouse_IO.WHIO.Model
             }
         }
 
-        public static List<Dimension> GetDimensionList()
+        public static List<DimensionForGetList> GetDimensionList()
         {
             MySqlConnection conn = null;
-            List<Dimension> dimensionlist = new List<Dimension>();
+            List<DimensionForGetList> dimensionlist = new List<DimensionForGetList>();
             try
             {
                 conn = new MySqlConnection(connstr);
@@ -171,8 +179,14 @@ namespace Warehouse_IO.WHIO.Model
                         while (reader.Read())
                         {
                             int id = Convert.ToInt32(reader["ID"]);
-                            Dimension item = new Dimension(id);
-                            dimensionlist.Add(item);
+                            double m3 = Convert.ToDouble(reader["M3"]);
+                            double width = Convert.ToDouble(reader["Width"]);
+                            double length = Convert.ToDouble(reader["Length"]);
+                            double height = Convert.ToDouble(reader["Height"]);
+                            string unitofvo = reader["UnitOfDimensionName"].ToString();
+                            string detail = reader["Name"].ToString();
+
+                            dimensionlist.Add(new DimensionForGetList(id,m3,width,length,height,unitofvo,detail));
                         }
                     }
                 }
@@ -184,10 +198,6 @@ namespace Warehouse_IO.WHIO.Model
                     conn.Close();
             }
             return dimensionlist;
-        }
-        public double GetM3()
-        {
-            return width * length * height/1000000;
         }
     }
 }

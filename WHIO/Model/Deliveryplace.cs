@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using Warehouse_IO.View.DeliveryplaceSource;
 
 namespace Warehouse_IO.WHIO.Model
 {
@@ -133,10 +134,10 @@ namespace Warehouse_IO.WHIO.Model
             }
         }
 
-        public static List<Deliveryplace> GetDeliveryplaceList()
+        public static List<DeliveryplaceForGetList> GetDeliveryplaceList()
         {
             MySqlConnection conn = null;
-            List<Deliveryplace> deliveryplaceList = new List<Deliveryplace>();
+            List<DeliveryplaceForGetList> deliveryplaceList = new List<DeliveryplaceForGetList>();
             try
             {
                 conn = new MySqlConnection(connstr);
@@ -150,8 +151,8 @@ namespace Warehouse_IO.WHIO.Model
                         while (reader.Read())
                         {
                             int id = Convert.ToInt32(reader["ID"]);
-                            Deliveryplace item = new Deliveryplace(id);
-                            deliveryplaceList.Add(item);
+                            string name = reader["Name"].ToString();
+                            deliveryplaceList.Add(new DeliveryplaceForGetList(id, name));
                         }
                     }
                 }

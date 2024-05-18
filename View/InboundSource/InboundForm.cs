@@ -5,6 +5,7 @@ using Warehouse_IO.WHIO.Model;
 using Warehouse_IO.Common;
 using Warehouse_IO.View.ParentFormComponents;
 using System.Data;
+using Warehouse_IO.View.In_Out_ActivityForm;
 using System.Linq;
 
 namespace Warehouse_IO.View.InboundSource
@@ -17,14 +18,17 @@ namespace Warehouse_IO.View.InboundSource
 
         MainForm main;
 
-        List<Inbound> inboundlist;
+        BindingSource bindingSource;
+        List<InboundActivity> inboundlist;
+        List<InboundActivity> listforsearch;
 
         public event EventHandler returnMain;
 
         public InboundForm()
         {
             InitializeComponent();
-            inboundlist = new List<Inbound>();
+            bindingSource = new BindingSource();
+            inboundlist = new List<InboundActivity>();
             main = new MainForm();
 
             dataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
@@ -40,59 +44,21 @@ namespace Warehouse_IO.View.InboundSource
         {
             inboundlist = Inbound.GetInboundList();
 
-            var sortedInboundList = inboundlist.OrderByDescending(inbound => inbound.DeliveryDate).Take(100).ToList();
+            bindingSource.DataSource = inboundlist;
+            dataGridView.DataSource = bindingSource;
 
-            DataTable dataTable = new DataTable();
-            dataTable.Columns.Add("Invoice");
-            dataTable.Columns.Add("Date", typeof(DateTime));
-            dataTable.Columns.Add("Customer");
-            dataTable.Columns.Add("Storage");
-            dataTable.Columns.Add("Total Quantity", typeof(int));
-            dataTable.Columns.Add("Total M3", typeof(double));
-            dataTable.Columns.Add("Import", typeof(bool));
-            dataTable.Columns.Add("Inbound ID", typeof(int));
-            dataTable.Columns.Add("Storage ID", typeof(int));
-
-            double totalM3 = 0.0; // Accumulate total M3 for the shipment
-
-            foreach (Inbound inbound in sortedInboundList)
+            if (dataGridView.Columns["StorageID"] != null)
             {
-                DataRow row = dataTable.NewRow();
-                row["Invoice"] = inbound.InvoiceNo;
-                row["Date"] = inbound.DeliveryDate.ToString("dd MMM yy");
-                row["Customer"] = inbound.Supplier.Name;
-                row["Storage"] = inbound.Storage.Name;
-
-                int totalQuantity = 0; // Accumulate total quantity for the shipment
-
-                foreach (KeyValuePair<Product, int> productQty in inbound.QuantityOfProductList)
-                {
-                    totalQuantity += productQty.Value; // Add individual quantity to total
-
-                    // Check if product has a dimension
-                    Warehouse_IO.WHIO.Model.Dimension dimension = productQty.Key.Dimension;
-                    if (dimension != null)
-                    {
-                        double m3PerUnit = dimension.GetM3();
-                        totalM3 += productQty.Value * m3PerUnit; // Add M3 per item to total M3
-                    }
-                }
-
-                row["Total Quantity"] = totalQuantity;
-                row["Total M3"] = totalM3.ToString("0.00");
-                row["Import"] = inbound.Inter;
-                row["Inbound ID"] = inbound.ID;
-                row["Storage ID"] = inbound.Storage.ID;
-
-                dataTable.Rows.Add(row);
-
-                // Reset totalM3 for the next inbound shipment
-                totalM3 = 0.0;
+                dataGridView.Columns["StorageID"].Visible = false;
             }
-
-            dataGridView.DataSource = dataTable.DefaultView;
-            dataGridView.Columns["Inbound ID"].Visible = false;
-            dataGridView.Columns["Storage ID"].Visible = false;
+            if (dataGridView.Columns["InboundID"] != null)
+            {
+                dataGridView.Columns["InboundID"].Visible = false;
+            }
+            if (dataGridView.Columns["Date"] != null)
+            {
+                dataGridView.Columns["Date"].DefaultCellStyle.Format = "MMM dd, yyyy";
+            }
         }
 
         private void a_Click(object sender, EventArgs e)
@@ -109,8 +75,8 @@ namespace Warehouse_IO.View.InboundSource
             Global.tempPkey = -1;
             Global.tempStorageKey = -1;
             DataGridViewRow selectedRow = dataGridView.CurrentRow;
-            int value = (int)selectedRow.Cells[7].Value;
-            int storageKey = (int)selectedRow.Cells[8].Value;
+            int value = (int)selectedRow.Cells["InboundID"].Value;
+            int storageKey = (int)selectedRow.Cells["StorageID"].Value;
 
             Global.tempStorageKey = storageKey;
             Global.tempPkey = value;
@@ -127,8 +93,8 @@ namespace Warehouse_IO.View.InboundSource
             Global.tempPkey = -1;
             Global.tempStorageKey = -1;
             DataGridViewRow selectedRow = dataGridView.CurrentRow;
-            int value = (int)selectedRow.Cells[7].Value;
-            int storageKey = (int)selectedRow.Cells[8].Value;
+            int value = (int)selectedRow.Cells["InboundID"].Value;
+            int storageKey = (int)selectedRow.Cells["StorageID"].Value;
 
             Global.tempStorageKey = storageKey;
             Global.tempPkey = value;
@@ -152,8 +118,16 @@ namespace Warehouse_IO.View.InboundSource
 
         private void searchTextBox_TextChanged(object sender, EventArgs e)
         {
-            string filterText = searchTextBox.Text;
-            (dataGridView.DataSource as DataView).RowFilter = $"Invoice LIKE '%{filterText}%' OR Customer LIKE '%{filterText}%'";
+            string filterText = searchTextBox.Text.ToLower();
+            listforsearch = inboundlist.Where(i => i.Invoice.ToLower().Contains(filterText)
+            || i.Customer.ToLower().Contains(filterText)).ToList();
+
+            updateSearchdataGridView();
+        }
+        public void updateSearchdataGridView()
+        {
+            bindingSource.DataSource = listforsearch;
+            dataGridView.DataSource = bindingSource;
         }
     }
 }

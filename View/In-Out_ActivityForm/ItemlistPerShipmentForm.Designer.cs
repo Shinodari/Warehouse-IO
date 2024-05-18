@@ -37,34 +37,32 @@
             // 
             this.itemListDataGridView.AllowUserToAddRows = false;
             this.itemListDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.itemListDataGridView.Location = new System.Drawing.Point(16, 15);
-            this.itemListDataGridView.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.itemListDataGridView.Location = new System.Drawing.Point(12, 12);
             this.itemListDataGridView.MultiSelect = false;
             this.itemListDataGridView.Name = "itemListDataGridView";
             this.itemListDataGridView.ReadOnly = true;
             this.itemListDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.itemListDataGridView.Size = new System.Drawing.Size(1160, 834);
+            this.itemListDataGridView.Size = new System.Drawing.Size(869, 705);
             this.itemListDataGridView.TabIndex = 0;
             // 
             // closeButton
             // 
-            this.closeButton.Location = new System.Drawing.Point(1076, 857);
-            this.closeButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.closeButton.Location = new System.Drawing.Point(887, 12);
             this.closeButton.Name = "closeButton";
-            this.closeButton.Size = new System.Drawing.Size(100, 28);
+            this.closeButton.Size = new System.Drawing.Size(109, 69);
             this.closeButton.TabIndex = 1;
             this.closeButton.Text = "Close";
             this.closeButton.UseVisualStyleBackColor = true;
             // 
             // ItemlistPerShipmentForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1192, 897);
+            this.ClientSize = new System.Drawing.Size(1008, 729);
+            this.ControlBox = false;
             this.Controls.Add(this.closeButton);
             this.Controls.Add(this.itemListDataGridView);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "ItemlistPerShipmentForm";

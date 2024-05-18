@@ -14,14 +14,14 @@ namespace Warehouse_IO.View
         private Remove remove;
         MainForm main;
 
-        List<Storage> sto;
+        List<StorageForGetList> sto;
         BindingSource stoBind;
         public event EventHandler returnMain;
 
         public StorageLocationForm()
         {
             InitializeComponent();
-            sto = new List<Storage>();
+            sto = new List<StorageForGetList>();
             UpdateDepDatagridView();
             main = new MainForm();
         }

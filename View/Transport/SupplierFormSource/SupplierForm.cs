@@ -14,14 +14,14 @@ namespace Warehouse_IO.View.SupplierFormSource
         private Remove remove;
         MainForm main;
 
-        List<Supplier> sup;
+        List<SupplierForGetList> sup;
         BindingSource supBind;
         public event EventHandler returnMain;
 
         public SupplierForm()
         {
             InitializeComponent();
-            sup = new List<Supplier>();
+            sup = new List<SupplierForGetList>();
             UpdateSupDatagridView();
             main = new MainForm();
         }

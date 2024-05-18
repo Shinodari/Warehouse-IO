@@ -14,8 +14,6 @@ namespace Warehouse_IO.View.In_Out_ActivityForm
 
         MainForm main;
 
-        public event EventHandler UpdateGrid;
-
         public InboundItemForm()
         {
             InitializeComponent();
@@ -57,7 +55,6 @@ namespace Warehouse_IO.View.In_Out_ActivityForm
 
         private void closeButton_Click(object sender, EventArgs e)
         {
-            UpdateGrid?.Invoke(this, EventArgs.Empty);
             Close();
         }
     }

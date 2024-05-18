@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using Warehouse_IO.View.In_Out_ActivityForm;
 
 namespace Warehouse_IO.WHIO.Model
 {
@@ -88,26 +89,77 @@ namespace Warehouse_IO.WHIO.Model
             this.storage = storage;
         }
 
-        public static List<Inbound> GetInboundList()
+        public static List<InboundActivity> GetInboundList()
         {
             MySqlConnection conn = null;
-            List<Inbound> inboundList = new List<Inbound>();
+            List<InboundActivity> inboundList = new List<InboundActivity>();
             try
             {
                 conn = new MySqlConnection(connstr);
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    string updateArrayList = "SELECT * FROM inbound";
+                    string updateArrayList = @"
+                    SELECT
+    i.DeliveryDate,
+    i.InvoiceNo,
+    c.Name AS Customer,
+    s.Name AS Storage,
+    GROUP_CONCAT(CONCAT(t.Name, ' (', it.Quantity, ')') SEPARATOR ', ') AS Truck,
+    i.Detail,
+    i.IsInter,
+    s.ID AS StorageID,
+    i.ID AS InboundID
+FROM
+    inbound i
+LEFT JOIN
+    supplier c ON i.SupplierID = c.ID
+LEFT JOIN
+    storage s ON i.StorageID = s.ID
+LEFT JOIN
+    inboundtruck it ON it.InboundID = i.ID
+LEFT JOIN
+    truck t ON it.TruckID = t.id
+GROUP BY
+    i.DeliveryDate,
+    i.InvoiceNo,
+    c.Name,
+    s.Name,
+    i.Detail,
+    i.IsInter,
+    s.ID,
+    i.ID
+ORDER BY
+    i.DeliveryDate DESC
+LIMIT
+    50;
+                    ";
+                    
                     cmd.CommandText = updateArrayList;
                     using (var reader = cmd.ExecuteReader())
                     {
                         while (reader.Read())
                         {
-                            int id = Convert.ToInt32(reader["ID"]);
-                            Storage sto = new Storage(Convert.ToInt32(reader["StorageID"]));
-                            Inbound item = new Inbound(id,sto);
-                            inboundList.Add(item);
+                            DateTime date = reader.GetDateTime(reader.GetOrdinal("DeliveryDate"));
+                            string invoice = reader.GetString(reader.GetOrdinal("InvoiceNo"));
+                            string customer = reader.GetString(reader.GetOrdinal("Customer"));
+                            string storage = reader.GetString(reader.GetOrdinal("Storage"));
+                            string truck = reader.GetString(reader.GetOrdinal("Truck"));
+                            string detail;
+                            object detailObj = reader?.GetValue(reader.GetOrdinal("Detail"));
+                            if (detailObj != DBNull.Value && detailObj != null)
+                            {
+                                detail = detailObj.ToString();
+                            }
+                            else
+                            {
+                                detail = "-";
+                            }
+                            bool import = reader.GetBoolean(reader.GetOrdinal("IsInter"));
+                            int storageId = reader.GetInt32(reader.GetOrdinal("StorageID"));
+                            int inboundId = reader.GetInt32(reader.GetOrdinal("InboundID"));
+
+                            inboundList.Add(new InboundActivity(date,invoice,customer,storage, truck, detail,import,storageId,inboundId));
                         }
                     }
                 }

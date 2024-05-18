@@ -14,14 +14,14 @@ namespace Warehouse_IO.View.DeliveryplaceSource
         private Remove remove;
         MainForm main;
 
-        List<Deliveryplace> deliveryplaceList;
+        List<DeliveryplaceForGetList> deliveryplaceList;
         BindingSource bind;
         public event EventHandler returnMain;
 
         public DeliveryplaceForm()
         {
             InitializeComponent();
-            deliveryplaceList = new List<Deliveryplace>();
+            deliveryplaceList = new List<DeliveryplaceForGetList>();
             main = new MainForm();
 
             dataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;

@@ -14,7 +14,7 @@ namespace Warehouse_IO.View.TruckFormSource
         private Remove remove;
         MainForm main;
 
-        List<Truck> truck;
+        List<TruckForGetList> truck;
         BindingSource truckBind;
         public event EventHandler returnMain;
 
@@ -22,7 +22,7 @@ namespace Warehouse_IO.View.TruckFormSource
         {
             InitializeComponent();
             truckGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-            truck = new List<Truck>();
+            truck = new List<TruckForGetList>();
             UpdateTruckDatagridView();
             main = new MainForm();
         }

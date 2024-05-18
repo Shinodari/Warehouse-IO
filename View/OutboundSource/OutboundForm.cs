@@ -6,7 +6,7 @@ using Warehouse_IO.Common;
 using Warehouse_IO.View.ParentFormComponents;
 using System.Data;
 using System.Linq;
-using System.Text;
+using Warehouse_IO.View.In_Out_ActivityForm;
 
 namespace Warehouse_IO.View.OutboundSource
 {
@@ -18,14 +18,17 @@ namespace Warehouse_IO.View.OutboundSource
 
         MainForm main;
 
-        List<Outbound> outboundlist;
+        BindingSource bindingSource;
+        List<OutboundActivity> outboundlist;
+        List<OutboundActivity> listforsearch;
 
         public event EventHandler returnMain;
 
         public OutboundForm()
         {
             InitializeComponent();
-            outboundlist = new List<Outbound>();
+            bindingSource = new BindingSource();
+            outboundlist = new List<OutboundActivity>();
             main = new MainForm();
 
             dataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
@@ -41,68 +44,18 @@ namespace Warehouse_IO.View.OutboundSource
         {
             outboundlist = Outbound.GetOutboundList();
 
-            var sortedOutboundList = outboundlist.OrderByDescending(inbound => inbound.DeliveryDate).Take(100).ToList();
+            bindingSource.DataSource = outboundlist;
+            dataGridView.DataSource = bindingSource;
 
-            DataTable dataTable = new DataTable();
-            dataTable.Columns.Add("Invoice");
-            dataTable.Columns.Add("Date", typeof(DateTime));
-            dataTable.Columns.Add("Customer");
-            dataTable.Columns.Add("Place");
-            dataTable.Columns.Add("Total Quantity", typeof(int));
-            dataTable.Columns.Add("TotalM3", typeof(double));
-            dataTable.Columns.Add("Import", typeof(bool));
-            dataTable.Columns.Add("ID", typeof(int));
-
-            double totalM3 = 0.0;
-
-            foreach (Outbound outbound in sortedOutboundList)
+            if (dataGridView.Columns["OutboundID"] != null)
             {
-                DataRow row = dataTable.NewRow();
-                row["Invoice"] = outbound.InvoiceNo;
-                row["Date"] = outbound.DeliveryDate.ToString("dd MMM yy");
-                row["Customer"] = outbound.Supplier.Name;
-
-                StringBuilder deliveryPlaces = new StringBuilder();
-                if(outbound.DeliveryplaceList != null)
-                {
-                    foreach (Deliveryplace deliveryplace in outbound.DeliveryplaceList)
-                    {
-                        deliveryPlaces.Append(deliveryplace.Name).Append(" / ");
-                    }
-                    if (deliveryPlaces.Length > 0)
-                        deliveryPlaces.Length -= 2;
-
-                    row["Place"] = deliveryPlaces.ToString();
-                }
-
-                int totalQuantity = 0;
-
-                foreach (KeyValuePair<Product, int> productQty in outbound.QuantityOfProductList)
-                {
-                    totalQuantity += productQty.Value; // Add individual quantity to total
-
-                    // Check if product has a dimension
-                    Warehouse_IO.WHIO.Model.Dimension dimension = productQty.Key.Dimension;
-                    if (dimension != null)
-                    {
-                        double m3PerUnit = dimension.GetM3();
-                        totalM3 += productQty.Value * m3PerUnit; // Add M3 per item to total M3
-                    }
-                }
-
-                row["Total Quantity"] = totalQuantity;
-                row["TotalM3"] = totalM3.ToString("0.00");
-                row["Import"] = outbound.Inter;
-                row["ID"] = outbound.ID;
-
-                dataTable.Rows.Add(row);
-
-                // Reset totalM3 for the next inbound shipment
-                totalM3 = 0.0;
+                dataGridView.Columns["OutboundID"].Visible = false;
+            }
+            if (dataGridView.Columns["Date"] != null)
+            {
+                dataGridView.Columns["Date"].DefaultCellStyle.Format = "MMM dd, yyyy";
             }
 
-            dataGridView.DataSource = dataTable.DefaultView;
-            dataGridView.Columns["ID"].Visible = false;
         }
 
         private void a_Click(object sender, EventArgs e)
@@ -154,8 +107,16 @@ namespace Warehouse_IO.View.OutboundSource
 
         private void searchTextBox_TextChanged(object sender, EventArgs e)
         {
-            string filterText = searchTextBox.Text;
-            (dataGridView.DataSource as DataView).RowFilter = $"Invoice LIKE '%{filterText}%' OR Customer LIKE '%{filterText}%' OR Place LIKE '%{filterText}%'";
+            string filterText = searchTextBox.Text.ToLower();
+            listforsearch = outboundlist.Where(i => i.Invoice.ToLower().Contains(filterText)
+            || i.Customer.ToLower().Contains(filterText)).ToList();
+
+            updateSearchdataGridView();
+        }
+        public void updateSearchdataGridView()
+        {
+            bindingSource.DataSource = listforsearch;
+            dataGridView.DataSource = bindingSource;
         }
     }
 }

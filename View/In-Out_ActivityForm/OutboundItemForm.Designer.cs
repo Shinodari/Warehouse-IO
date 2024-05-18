@@ -32,13 +32,13 @@
             // 
             // closeButton
             // 
-            this.closeButton.Click += new System.EventHandler(this.closeButton_Click);
+            this.closeButton.Click += new System.EventHandler(this.closeButton_Click_1);
             // 
             // OutboundItemForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(894, 729);
+            this.ClientSize = new System.Drawing.Size(1008, 729);
             this.Name = "OutboundItemForm";
             this.Text = "OutboundItemForm";
             this.ResumeLayout(false);

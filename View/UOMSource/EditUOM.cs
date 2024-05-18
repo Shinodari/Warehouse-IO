@@ -4,14 +4,16 @@ using System.Windows.Forms;
 using Warehouse_IO.WHIO.Model;
 using Warehouse_IO.Common;
 using Warehouse_IO.View.Add_Edit_Remove_Components;
+using Warehouse_IO.View.Weight.PackagingSource;
+using Warehouse_IO.View.Weight.UnitOfWeightSource;
 
 namespace Warehouse_IO.View.UOMSource
 {
     public partial class EditUOM : AddEditUOMForm
     {
         UOM edit;
-        List<Package> packageList;
-        List<UnitOfUOM> unitofUomList;
+        List<PackageForGetList> packageList;
+        List<UnitOfUOMForGetList> unitofUomList;
 
         double value;
         bool conversionFailed = false;
@@ -22,8 +24,8 @@ namespace Warehouse_IO.View.UOMSource
         {
             InitializeComponent();
             edit = new UOM(Global.tempPkey);
-            packageList = new List<Package>();
-            unitofUomList = new List<UnitOfUOM>();
+            packageList = new List<PackageForGetList>();
+            unitofUomList = new List<UnitOfUOMForGetList>();
             updateList();
 
             nameTextBox.Text = edit.Name.ToString();

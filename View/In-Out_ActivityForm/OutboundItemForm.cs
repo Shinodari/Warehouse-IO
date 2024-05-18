@@ -13,8 +13,6 @@ namespace Warehouse_IO.View.In_Out_ActivityForm
 
         MainForm main;
 
-        public event EventHandler UpdateGrid;
-
         public OutboundItemForm()
         {
             InitializeComponent();
@@ -52,9 +50,8 @@ namespace Warehouse_IO.View.In_Out_ActivityForm
             itemListDataGridView.DataSource = datatable.DefaultView;
         }
 
-        private void closeButton_Click(object sender, EventArgs e)
+        private void closeButton_Click_1(object sender, EventArgs e)
         {
-            UpdateGrid?.Invoke(this, EventArgs.Empty);
             Close();
         }
     }

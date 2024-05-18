@@ -206,6 +206,7 @@
     <Compile Include="View\DeliveryplaceSource\Add.Designer.cs">
       <DependentUpon>Add.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\DeliveryplaceSource\DeliveryplaceForGetList.cs" />
     <Compile Include="View\DeliveryplaceSource\DeliveryplaceForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -236,6 +237,7 @@
     <Compile Include="View\DepartmentFormSource\departmentAddStorage_Deliveryplace.Designer.cs">
       <DependentUpon>departmentAddStorage_Deliveryplace.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\DepartmentFormSource\DepartmentForGetList.cs" />
     <Compile Include="View\DepartmentFormSource\DepartmentForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -260,6 +262,7 @@
     <Compile Include="View\Dimensions\DimensionSource\Add.Designer.cs">
       <DependentUpon>Add.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\Dimensions\DimensionSource\DimensionForGetList.cs" />
     <Compile Include="View\Dimensions\DimensionSource\DimensionsForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -308,6 +311,7 @@
     <Compile Include="View\Edit_ConnectionStringForm.Designer.cs">
       <DependentUpon>Edit_ConnectionStringForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\In-Out_ActivityForm\InboundActivity.cs" />
     <Compile Include="View\In-Out_ActivityForm\InboundItemForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -326,6 +330,7 @@
     <Compile Include="View\In-Out_ActivityForm\ItemlistPerShipmentForm.Designer.cs">
       <DependentUpon>ItemlistPerShipmentForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\In-Out_ActivityForm\OutboundActivity.cs" />
     <Compile Include="View\In-Out_ActivityForm\OutboundItemForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -434,6 +439,7 @@
     <Compile Include="View\ProductSource\Edit.Designer.cs">
       <DependentUpon>Edit.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\ProductSource\ProductForDataGridView.cs" />
     <Compile Include="View\ProductSource\ProductForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -464,6 +470,7 @@
     <Compile Include="View\StorageFormSource\Remove.Designer.cs">
       <DependentUpon>Remove.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\StorageFormSource\StorageForGetList.cs" />
     <Compile Include="View\StorageFormSource\StorageLocationForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -488,6 +495,7 @@
     <Compile Include="View\Transport\SupplierFormSource\Remove.Designer.cs">
       <DependentUpon>Remove.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\Transport\SupplierFormSource\SupplierForGetList.cs" />
     <Compile Include="View\Transport\SupplierFormSource\SupplierForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -512,6 +520,7 @@
     <Compile Include="View\Transport\TruckFormSource\Remove.Designer.cs">
       <DependentUpon>Remove.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\Transport\TruckFormSource\TruckForGetList.cs" />
     <Compile Include="View\Transport\TruckFormSource\TruckForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -536,6 +545,7 @@
     <Compile Include="View\UOMSource\Remove.Designer.cs">
       <DependentUpon>Remove.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\UOMSource\UOMForGetList.cs" />
     <Compile Include="View\UOMSource\UOMForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -554,6 +564,7 @@
     <Compile Include="View\Weight\PackagingSource\Edit.Designer.cs">
       <DependentUpon>Edit.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\Weight\PackagingSource\PackageForGetList.cs" />
     <Compile Include="View\Weight\PackagingSource\PackagingForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -584,6 +595,7 @@
     <Compile Include="View\Weight\UnitOfWeightSource\Remove.Designer.cs">
       <DependentUpon>Remove.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\Weight\UnitOfWeightSource\UnitOfUOMForGetList.cs" />
     <Compile Include="View\Weight\UnitOfWeightSource\UnitOfWeightForm.cs">
       <SubType>Form</SubType>
     </Compile>

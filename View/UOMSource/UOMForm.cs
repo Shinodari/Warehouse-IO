@@ -15,7 +15,7 @@ namespace Warehouse_IO.View.UOMSource
         private Remove remove;
         MainForm main;
 
-        List<UOM> list;
+        List<UOMForGetList> list;
         BindingSource bind = new BindingSource();
         public event EventHandler returnMain;
 
@@ -23,7 +23,7 @@ namespace Warehouse_IO.View.UOMSource
         {
             InitializeComponent();
             dataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-            list = new List<UOM>();
+            list = new List<UOMForGetList>();
             UpdateDatagridView();
             main = new MainForm();
         }
@@ -42,14 +42,14 @@ namespace Warehouse_IO.View.UOMSource
             dataTable.Columns.Add("Package");
             dataTable.Columns.Add("Description");
 
-            foreach (UOM uom in list)
+            foreach (UOMForGetList uom in list)
             {
                 DataRow row = dataTable.NewRow();
                 row["ID"] = uom.ID;
                 row["Quantity"] = uom.Quantity;
-                row["Unit"] = uom.Unit.Name;
-                row["Package"] = uom.Package.Name;
-                row["Description"] = uom.Name;
+                row["Unit"] = uom.Unit;
+                row["Package"] = uom.Package;
+                row["Description"] = uom.Details;
 
                 dataTable.Rows.Add(row);
             }

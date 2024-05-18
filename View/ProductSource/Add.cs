@@ -3,6 +3,7 @@ using Warehouse_IO.View.Add_Edit_Remove_Components;
 using System;
 using System.Windows.Forms;
 using System.Collections.Generic;
+using Warehouse_IO.View.UOMSource;
 
 namespace Warehouse_IO.View.ProductSource
 {
@@ -11,12 +12,12 @@ namespace Warehouse_IO.View.ProductSource
         Product add;
         UOM uom;
         Warehouse_IO.WHIO.Model.Dimension dimension;
-        List<UOM> uomList;
-        List<Warehouse_IO.WHIO.Model.Dimension> dimensionList;
+        List<UOMForGetList> uomList;
+        List<Warehouse_IO.View.Dimensions.DimensionSource.DimensionForGetList> dimensionList;
 
         //Variable for tracking Dimension and UOM in listBox
-        private readonly Dictionary<string, UOM> uomforSearchList = new Dictionary<string, UOM>();
-        private readonly Dictionary<string, Warehouse_IO.WHIO.Model.Dimension> dimensionforSearchList = new Dictionary<string, Warehouse_IO.WHIO.Model.Dimension>();
+        private readonly Dictionary<string, UOMForGetList> uomforSearchList = new Dictionary<string, UOMForGetList>();
+        private readonly Dictionary<string, Warehouse_IO.View.Dimensions.DimensionSource.DimensionForGetList> dimensionforSearchList = new Dictionary<string, Warehouse_IO.View.Dimensions.DimensionSource.DimensionForGetList>();
 
         public event EventHandler UpdateGrid;
 
@@ -27,8 +28,8 @@ namespace Warehouse_IO.View.ProductSource
             UoMListBox.KeyPress += AddButton_KeyPress;
             dimensionListBox.KeyPress += AddButton_KeyPress;
 
-            dimensionList = new List<Warehouse_IO.WHIO.Model.Dimension>();
-            uomList = new List<UOM>();
+            dimensionList = new List<Warehouse_IO.View.Dimensions.DimensionSource.DimensionForGetList>();
+            uomList = new List<UOMForGetList>();
             updateList();
         }
 
@@ -36,23 +37,23 @@ namespace Warehouse_IO.View.ProductSource
         {
             dimensionList = Warehouse_IO.WHIO.Model.Dimension.GetDimensionList();
             uomList = UOM.GetUOMList();
-            dimensionList.Sort((x, y) => x.GetM3().CompareTo(y.GetM3()));
+            dimensionList.Sort((x, y) => x.M3.CompareTo(y.M3));
             uomList.Sort((x, y) => x.Quantity.CompareTo(y.Quantity));
 
             UoMListBox.Items.Clear();
             dimensionListBox.Items.Clear();
 
-            foreach (Warehouse_IO.WHIO.Model.Dimension dimension in dimensionList)
+            foreach (Warehouse_IO.View.Dimensions.DimensionSource.DimensionForGetList dimension in dimensionList)
             {
                 int dimensionId = dimension.ID;
-                string formattedDimension = $"{dimension.GetM3()} // {dimension.Unit.Name} {dimension.Name}";
+                string formattedDimension = $"{dimension.M3} // {dimension.UnitOfVolume}";
                 dimensionListBox.Items.Add(formattedDimension);
 
                 dimensionforSearchList[formattedDimension] = dimension;
             }
-            foreach (UOM uom in uomList)
+            foreach (UOMForGetList uom in uomList)
             {
-                string formattedUOM = $"{uom.Quantity}{uom.Unit.Name}/{uom.Package.Name} {uom.Name}";
+                string formattedUOM = $"{uom.Quantity}{uom.Unit}/{uom.Package} {uom.Details}";
                 UoMListBox.Items.Add(formattedUOM);
 
                 uomforSearchList[formattedUOM] = uom;
@@ -71,7 +72,7 @@ namespace Warehouse_IO.View.ProductSource
                 string selectedUOMName = (string)UoMListBox.SelectedItem;
                 if(uomforSearchList.ContainsKey(selectedUOMName))
                 {
-                    UOM selectedUOM = uomforSearchList[selectedUOMName];
+                    UOMForGetList selectedUOM = uomforSearchList[selectedUOMName];
                     int selectedID = selectedUOM.ID;
 
                     uom = new UOM(selectedID);
@@ -87,7 +88,7 @@ namespace Warehouse_IO.View.ProductSource
                 string selectedDimensionName = (string)dimensionListBox.SelectedItem;
                 if (dimensionforSearchList.ContainsKey(selectedDimensionName))
                 {
-                    Warehouse_IO.WHIO.Model.Dimension selectedDimension = dimensionforSearchList[selectedDimensionName];
+                    Warehouse_IO.View.Dimensions.DimensionSource.DimensionForGetList selectedDimension = dimensionforSearchList[selectedDimensionName];
                     int selectedID = selectedDimension.ID;
 
                     dimension = new WHIO.Model.Dimension(selectedID);
@@ -131,9 +132,9 @@ namespace Warehouse_IO.View.ProductSource
 
             UoMListBox.Items.Clear();
 
-            foreach (UOM item in uomList)
+            foreach (UOMForGetList item in uomList)
             {
-                string formattedDimension = $"{item.Quantity}{item.Unit.Name}/{item.Package.Name} {item.Name}";
+                string formattedDimension = $"{item.Quantity}{item.Unit}/{item.Package}";
                 if (formattedDimension.ToLower().Contains(searchText))
                 {
                     UoMListBox.Items.Add(formattedDimension);
@@ -148,9 +149,9 @@ namespace Warehouse_IO.View.ProductSource
 
             dimensionListBox.Items.Clear();
 
-            foreach (Warehouse_IO.WHIO.Model.Dimension item in dimensionList)
+            foreach (Warehouse_IO.View.Dimensions.DimensionSource.DimensionForGetList item in dimensionList)
             {
-                string formattedDimension = $"{item.GetM3()} // {item.Unit.Name} {item.Name}";
+                string formattedDimension = $"{item.M3} // {item.UnitOfVolume} {item.Details}";
                 if (formattedDimension.ToLower().Contains(searchText))
                 {
                     dimensionListBox.Items.Add(formattedDimension);

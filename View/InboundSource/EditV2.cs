@@ -7,6 +7,10 @@ using Warehouse_IO.View.Add_Edit_Remove_Components;
 using Warehouse_IO.Common;
 using Excel = Microsoft.Office.Interop.Excel;
 using System.Runtime.InteropServices;
+using Warehouse_IO.View.ProductSource;
+using Warehouse_IO.View.Transport.SupplierFormSource;
+using Warehouse_IO.View.Transport.TruckFormSource;
+using Warehouse_IO.View.StorageFormSource;
 
 namespace Warehouse_IO.View.InboundSource
 {
@@ -15,10 +19,10 @@ namespace Warehouse_IO.View.InboundSource
         Inbound edit;
 
         //Variables for update components
-        List<Supplier> supplierList;
-        List<Truck> truckList;
-        List<Storage> storageList;
-        List<Product> productList;
+        List<SupplierForGetList> supplierList;
+        List<TruckForGetList> truckList;
+        List<StorageForGetList> storageList;
+        List<ProductForDataGridView> productList;
 
         //Variable for compare selected Index when edit shipment
         private List<int> supplierID = new List<int>();
@@ -66,10 +70,10 @@ namespace Warehouse_IO.View.InboundSource
             IsInterCheckBox.Checked = edit.Inter;
             truckInDetailTextBox.Text = edit.Detail;
             //Create instance for update components
-            supplierList = new List<Supplier>();
-            truckList = new List<Truck>();
-            storageList = new List<Storage>();
-            productList = new List<Product>();
+            supplierList = new List<SupplierForGetList>();
+            truckList = new List<TruckForGetList>();
+            storageList = new List<StorageForGetList>();
+            productList = new List<ProductForDataGridView>();
 
             //Create instance for edit quantity pop-Up window components
             editQuantity = new EditQuantityWindow();
@@ -87,18 +91,18 @@ namespace Warehouse_IO.View.InboundSource
         private void updateComponent()
         {
             supplierList = Supplier.GetSupplierList();
-            supplierList.Sort((x, y) => x.Name.CompareTo(y.Name));
+            supplierList.Sort((x, y) => x.name.CompareTo(y.name));
             supplierComboBox.Items.Clear();
-            foreach (Supplier supplier in supplierList)
+            foreach (SupplierForGetList supplier in supplierList)
             {
-                supplierComboBox.Items.Add(supplier.Name);
+                supplierComboBox.Items.Add(supplier.name);
                 supplierID.Add(supplier.ID);
             }
 
             truckList = Truck.GetTruckList();
             truckList.Sort((x, y) => x.Description.CompareTo(y.Description));
             truckListBox.Items.Clear();
-            foreach (Truck truck in truckList)
+            foreach (TruckForGetList truck in truckList)
             {
                 truckListBox.Items.Add(truck.Name);
                 truckID.Add(truck.ID);
@@ -107,18 +111,18 @@ namespace Warehouse_IO.View.InboundSource
             storageList = Storage.GetStorage();
             storageList.Sort((x, y) => x.Name.CompareTo(y.Name));
             storageLocationComboBox.Items.Clear();
-            foreach (Storage storage in storageList)
+            foreach (StorageForGetList storage in storageList)
             {
                 storageLocationComboBox.Items.Add(storage.Name);
                 storageID.Add(storage.ID);
             }
 
-            productList = Product.GetProductList();
-            productList.Sort((x, y) => x.ID.CompareTo(y.ID));
+            productList = Product.GetAdjustedProductList();
+            productList.Sort((x, y) => x.Name.CompareTo(y.Name));
             productListBox.Items.Clear();
-            foreach (Product product in productList)
+            foreach (ProductForDataGridView product in productList)
             {
-                string displayedName = product.ID;
+                string displayedName = product.Name;
                 productListBox.Items.Add(displayedName);
             }
         }
@@ -161,7 +165,7 @@ namespace Warehouse_IO.View.InboundSource
                 Warehouse_IO.WHIO.Model.Dimension dimension = product.Dimension;
                 if (dimension != null)
                 {
-                    double m3PerUnit = dimension.GetM3();
+                    double m3PerUnit = dimension.M3;
                     double totalM3PerItem = quantity * m3PerUnit;
                     row["M3"] = totalM3PerItem.ToString("0.00");
                 }
@@ -498,11 +502,11 @@ namespace Warehouse_IO.View.InboundSource
 
             productListBox.Items.Clear();
 
-            foreach (Product item in productList)
+            foreach (ProductForDataGridView item in productList)
             {
                 if (item.Name.ToLower().Contains(searchText))
                 {
-                    productListBox.Items.Add(item.ID);
+                    productListBox.Items.Add(item.Details);
                 }
             }
         }

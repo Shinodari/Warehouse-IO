@@ -9,5 +9,6 @@ namespace Warehouse_IO.View.In_Out_ActivityForm
         {
             InitializeComponent();
         }
+
     }
 }

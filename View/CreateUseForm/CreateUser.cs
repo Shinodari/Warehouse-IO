@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Warehouse_IO.Authentication;
 using System.Windows.Forms;
 using Warehouse_IO.WHIO.Model;
+using Warehouse_IO.View.DepartmentFormSource;
 
 namespace Warehouse_IO.View.CreateUseForm
 {
@@ -11,7 +12,7 @@ namespace Warehouse_IO.View.CreateUseForm
         User user;
         Department department;
 
-        List<Department> departmentlist;
+        List<DepartmentForGetList> departmentlist;
 
         private List<int> departmentID = new List<int>();
 
@@ -20,7 +21,7 @@ namespace Warehouse_IO.View.CreateUseForm
         public CreateUserForm()
         {
             InitializeComponent();
-            departmentlist = new List<Department>();
+            departmentlist = new List<DepartmentForGetList>();
             main = new MainForm();
             updatecomponent();
         }
@@ -29,10 +30,10 @@ namespace Warehouse_IO.View.CreateUseForm
         {
             departmentlist = Department.GetDepartmentList();
             departmentComboBox.Items.Clear();
-            foreach(Department dep in departmentlist)
+            foreach(DepartmentForGetList dep in departmentlist)
             {
-                departmentComboBox.Items.Add(dep.Name);
-                departmentID.Add(dep.ID);
+                departmentComboBox.Items.Add(dep.DepartmentName);
+                departmentID.Add(dep.DepartmentID);
             }
         }
 

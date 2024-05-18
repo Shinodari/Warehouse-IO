@@ -5,7 +5,6 @@ using Warehouse_IO.WHIO.Model;
 using Warehouse_IO.Common;
 using Warehouse_IO.View.DepartmentFormSource;
 using System.Data;
-using System.Text;
 
 namespace Warehouse_IO
 {
@@ -18,14 +17,14 @@ namespace Warehouse_IO
 
         MainForm main;
 
-        List<Department> departmentList;
+        List<DepartmentForGetList> departmentList;
 
         public event EventHandler returnMain;
 
         public DepartmentForm()
         {
             InitializeComponent();
-            departmentList = new List<Department>();
+            departmentList = new List<DepartmentForGetList>();
             main = new MainForm();
 
             depGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
@@ -46,25 +45,12 @@ namespace Warehouse_IO
             dataTable.Columns.Add("Department");
             dataTable.Columns.Add("Storage");
 
-            foreach(Department dep in departmentList)
+            foreach(DepartmentForGetList dep in departmentList)
             {
                 DataRow row = dataTable.NewRow();
-                row["ID"] = dep.ID;
-                row["Department"] = dep.Name;
-
-                StringBuilder storageOnDep = new StringBuilder();
-                if(dep.StorageList != null)
-                {
-                    foreach(Storage sto in dep.StorageList)
-                    {
-                        storageOnDep.Append(sto.Name).Append(" / ");
-                    }
-                    if (storageOnDep.Length > 0)
-                    {
-                        storageOnDep.Length -= 2;
-                    }
-                    row["Storage"] = storageOnDep.ToString();
-                }
+                row["ID"] = dep.DepartmentID;
+                row["Department"] = dep.DepartmentName;
+                row["Storage"] = dep.Storgae;
                 dataTable.Rows.Add(row);
             }
             depGridView.DataSource = dataTable.DefaultView;

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using Warehouse_IO.View.Transport.SupplierFormSource;
 
 namespace Warehouse_IO.WHIO.Model
 {
@@ -133,10 +134,10 @@ namespace Warehouse_IO.WHIO.Model
             }
         }
 
-        public static List<Supplier> GetSupplierList()
+        public static List<SupplierForGetList> GetSupplierList()
         {
             MySqlConnection conn = null;
-            List<Supplier> supplierList = new List<Supplier>();
+            List<SupplierForGetList> supplierList = new List<SupplierForGetList>();
             try
             {
                 conn = new MySqlConnection(connstr);
@@ -150,8 +151,8 @@ namespace Warehouse_IO.WHIO.Model
                             while (reader.Read())
                             {
                                 int id = Convert.ToInt32(reader["ID"]);
-                                Supplier item = new Supplier(id);
-                                supplierList.Add(item);
+                                string name = reader["Name"].ToString();
+                                supplierList.Add(new SupplierForGetList(id,name));
                             }
                         }
                     }

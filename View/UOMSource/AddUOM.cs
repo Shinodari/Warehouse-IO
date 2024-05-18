@@ -3,6 +3,8 @@ using Warehouse_IO.View.Add_Edit_Remove_Components;
 using System;
 using System.Windows.Forms;
 using System.Collections.Generic;
+using Warehouse_IO.View.Weight.PackagingSource;
+using Warehouse_IO.View.Weight.UnitOfWeightSource;
 
 namespace Warehouse_IO.View.UOMSource
 {
@@ -10,9 +12,9 @@ namespace Warehouse_IO.View.UOMSource
     {
         UOM add;
         Package package;
-        List<Package> packageList;
+        List<PackageForGetList> packageList;
         UnitOfUOM unitofUom;
-        List<UnitOfUOM> unitofUomList;
+        List<UnitOfUOMForGetList> unitofUomList;
 
         double value = 1;
 
@@ -27,8 +29,8 @@ namespace Warehouse_IO.View.UOMSource
             perPackageListBox.KeyPress += addButton_KeyPress;
             cancelButton.Click += cancelButton_Click;
 
-            packageList = new List<Package>();
-            unitofUomList = new List<UnitOfUOM>();
+            packageList = new List<PackageForGetList>();
+            unitofUomList = new List<UnitOfUOMForGetList>();
             updateList();
         }
 
@@ -42,11 +44,11 @@ namespace Warehouse_IO.View.UOMSource
             unitOfWeightListBox.Items.Clear();
             perPackageListBox.Items.Clear();
 
-            foreach (Package package in packageList)
+            foreach (PackageForGetList package in packageList)
             {
                 perPackageListBox.Items.Add(package.Name);
             }
-            foreach (UnitOfUOM unitOfUOM in unitofUomList)
+            foreach (UnitOfUOMForGetList unitOfUOM in unitofUomList)
             {
                 unitOfWeightListBox.Items.Add(unitOfUOM.Name);
             }

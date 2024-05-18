@@ -5,6 +5,7 @@ using Warehouse_IO.WHIO.Model;
 using Warehouse_IO.Common;
 using Warehouse_IO.View.ParentFormComponents;
 using System.Data;
+using System.Linq;
 
 namespace Warehouse_IO.View.ProductSource
 {
@@ -15,19 +16,23 @@ namespace Warehouse_IO.View.ProductSource
         private Remove remove;
         MainForm main;
 
-        List<Product> productList;
-        UOM uom;
-        Warehouse_IO.WHIO.Model.Dimension dimension;
-        BindingSource bind = new BindingSource();
+        List<ProductForDataGridView> productfordatagridview;
+        List<ProductForDataGridView> listforsearch;
+
+        BindingSource bindingSource;
+
         public event EventHandler returnMain;
 
         public ProductForm()
         {
             InitializeComponent();
             dataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-            productList = new List<Product>();
-            UpdateDatagridView();
+
             main = new MainForm();
+            productfordatagridview = new List<ProductForDataGridView>();
+            bindingSource = new BindingSource();
+
+            UpdateDatagridView();
         }
 
         private void ProductForm_Load(object sender, EventArgs e)
@@ -36,29 +41,10 @@ namespace Warehouse_IO.View.ProductSource
         }
         public void UpdateDatagridView()
         {
-            productList = Product.GetProductList();
-            DataTable dataTable = new DataTable();
-            dataTable.Columns.Add("Name");
-            dataTable.Columns.Add("Details");
-            dataTable.Columns.Add("M3",typeof(double));
-            dataTable.Columns.Add("Weight",typeof(double));
-            dataTable.Columns.Add("Unit");
-            dataTable.Columns.Add("Package");
+            productfordatagridview = Product.GetAdjustedProductList();
 
-            foreach (Product product in productList)
-            {
-                DataRow row = dataTable.NewRow();
-                row["Name"] = product.ID;
-                row["Details"] = product.Name ;
-                row["M3"] = product.Dimension.GetM3();
-                row["Weight"] = product.UOM.Quantity;
-                row["Unit"] = product.UOM.Unit.Name;
-                row["Package"] = product.UOM.Package.Name;
-
-                dataTable.Rows.Add(row);
-            }
-            dataTable.DefaultView.Sort = "Name ASC";
-            dataGridView.DataSource = dataTable.DefaultView;
+            bindingSource.DataSource = productfordatagridview;
+            dataGridView.DataSource = bindingSource;
         }
 
         private void a_Click(object sender, EventArgs e)
@@ -107,8 +93,15 @@ namespace Warehouse_IO.View.ProductSource
 
         private void searchProductNameTextBox_TextChanged(object sender, EventArgs e)
         {
-            string filterText = searchProductNameTextBox.Text;
-            (dataGridView.DataSource as DataView).RowFilter = $"Name LIKE '%{filterText}%' OR Details LIKE '%{filterText}%'";
+            string filterText = searchProductNameTextBox.Text.ToLower();
+            listforsearch = productfordatagridview.Where(p => p.Details.ToLower().Contains(filterText)).ToList();
+
+            UpdateFilterProduct();
+        }
+        public void UpdateFilterProduct()
+        {
+            bindingSource.DataSource = listforsearch;
+            dataGridView.DataSource = bindingSource;
         }
     }
 }

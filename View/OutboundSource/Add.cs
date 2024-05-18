@@ -8,6 +8,10 @@ using Warehouse_IO.View.Add_Edit_Remove_Components;
 using Warehouse_IO.Common;
 using Excel = Microsoft.Office.Interop.Excel;
 using System.Runtime.InteropServices;
+using Warehouse_IO.View.ProductSource;
+using Warehouse_IO.View.Transport.SupplierFormSource;
+using Warehouse_IO.View.Transport.TruckFormSource;
+using Warehouse_IO.View.DeliveryplaceSource;
 
 namespace Warehouse_IO.View.OutboundSource
 {
@@ -18,17 +22,17 @@ namespace Warehouse_IO.View.OutboundSource
         static string connstr = Settings.Default.CONNECTION_STRING; //After create shipment ask shipment ID to Database
 
         //Variable for update components
-        List<Supplier> supplierList;
-        List<Truck> truckList;
-        List<Deliveryplace> deliveryplaceList;
-        List<Product> productList;
+        List<SupplierForGetList> supplierList;
+        List<TruckForGetList> truckList;
+        List<DeliveryplaceForGetList> deliveryplaceList;
+        List<ProductForDataGridView> productList;
 
         //Variable for compare selected Index when create shipment
         private List<int> supplierID = new List<int>();
         private List<int> truckID = new List<int>();
 
         //Variable for tracking deliveryplace after filtered
-        private readonly Dictionary<string, Deliveryplace> deliveryplaceNameToDeliveryplace = new Dictionary<string, Deliveryplace>();
+        private readonly Dictionary<string, DeliveryplaceForGetList> deliveryplaceNameToDeliveryplace = new Dictionary<string, DeliveryplaceForGetList>();
        
         //Variable for create selected object on CreateNewShipment()
         Supplier supplier;
@@ -54,10 +58,10 @@ namespace Warehouse_IO.View.OutboundSource
         {
             InitializeComponent();
             //Create instance for update components
-            supplierList = new List<Supplier>();
-            truckList = new List<Truck>();
-            deliveryplaceList = new List<Deliveryplace>();
-            productList = new List<Product>();
+            supplierList = new List<SupplierForGetList>();
+            truckList = new List<TruckForGetList>();
+            deliveryplaceList = new List<DeliveryplaceForGetList>();
+            productList = new List<ProductForDataGridView>();
 
             //Create instance for edit quantity pop-Up window components
             editQuantity = new EditQuantityWindow();
@@ -78,18 +82,18 @@ namespace Warehouse_IO.View.OutboundSource
         private void updateComponent()
         {
             supplierList = Supplier.GetSupplierList();
-            supplierList.Sort((x, y) => x.Name.CompareTo(y.Name));
+            supplierList.Sort((x, y) => x.name.CompareTo(y.name));
             supplierComboBox.Items.Clear();
-            foreach (Supplier supplier in supplierList)
+            foreach (SupplierForGetList supplier in supplierList)
             {
-                supplierComboBox.Items.Add(supplier.Name);
+                supplierComboBox.Items.Add(supplier.name);
                 supplierID.Add(supplier.ID);
             }
 
             deliveryplaceList = Deliveryplace.GetDeliveryplaceList();
             deliveryplaceList.Sort((x, y) => x.Name.CompareTo(y.Name));
             deliveryplaceListBox.Items.Clear();
-            foreach (Deliveryplace delivery in deliveryplaceList)
+            foreach (DeliveryplaceForGetList delivery in deliveryplaceList)
             {
                 string displayedName = delivery.Name;
                 deliveryplaceListBox.Items.Add(displayedName);
@@ -100,18 +104,18 @@ namespace Warehouse_IO.View.OutboundSource
             truckList = Truck.GetTruckList();
             truckList.Sort((x, y) => x.Description.CompareTo(y.Description));
             truckListBox.Items.Clear();
-            foreach (Truck truck in truckList)
+            foreach (TruckForGetList truck in truckList)
             {
                 truckListBox.Items.Add(truck.Name);
                 truckID.Add(truck.ID);
             }
 
-            productList = Product.GetProductList();
-            productList.Sort((x, y) => x.ID.CompareTo(y.ID));
+            productList = Product.GetAdjustedProductList();
+            productList.Sort((x, y) => x.Details.CompareTo(y.Details));
             productListBox.Items.Clear();
-            foreach (Product product in productList)
+            foreach (ProductForDataGridView product in productList)
             {
-                string displayedName = product.ID;
+                string displayedName = product.Details;
                 productListBox.Items.Add(displayedName);
             }
         }
@@ -154,7 +158,7 @@ namespace Warehouse_IO.View.OutboundSource
                 Warehouse_IO.WHIO.Model.Dimension dimension = product.Dimension;
                 if (dimension != null)
                 {
-                    double m3PerUnit = dimension.GetM3();
+                    double m3PerUnit = dimension.M3;
                     double totalM3PerItem = quantity * m3PerUnit;
                     row["M3"] = totalM3PerItem.ToString("0.00");
                 }
@@ -454,7 +458,7 @@ namespace Warehouse_IO.View.OutboundSource
 
                 if (deliveryplaceNameToDeliveryplace.ContainsKey(selectedName))
                 {
-                    Deliveryplace selectedDeliveryplace = deliveryplaceNameToDeliveryplace[selectedName];
+                    DeliveryplaceForGetList selectedDeliveryplace = deliveryplaceNameToDeliveryplace[selectedName];
                     int selectedDeliveryplaceID = selectedDeliveryplace.ID;
 
                     deliveryplace = new Deliveryplace(selectedDeliveryplaceID);
@@ -542,7 +546,7 @@ namespace Warehouse_IO.View.OutboundSource
 
             deliveryplaceListBox.Items.Clear();
 
-            foreach(Deliveryplace item in deliveryplaceList)
+            foreach(DeliveryplaceForGetList item in deliveryplaceList)
             {
                 if (item.Name.ToLower().Contains(searchText))
                 {
@@ -558,11 +562,11 @@ namespace Warehouse_IO.View.OutboundSource
 
             productListBox.Items.Clear();
 
-            foreach (Product item in productList)
+            foreach (ProductForDataGridView item in productList)
             {
                 if (item.Name.ToLower().Contains(searchText))
                 {
-                    productListBox.Items.Add(item.ID);
+                    productListBox.Items.Add(item.Details);
                 }
             }
         }

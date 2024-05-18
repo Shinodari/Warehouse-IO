@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using Warehouse_IO.View.In_Out_ActivityForm;
 
 namespace Warehouse_IO.WHIO.Model
 {
@@ -119,25 +120,75 @@ namespace Warehouse_IO.WHIO.Model
         public Outbound(string invoiceNo, DateTime deliveryDate, Supplier supplier, bool isinter,string detail) : base(invoiceNo, deliveryDate, supplier, isinter,detail) { }
 
         //Method only for Outbound (not in Transport)
-        public static List<Outbound> GetOutboundList()
+        public static List<OutboundActivity> GetOutboundList()
         {
             MySqlConnection conn = null;
-            List<Outbound> outboundList = new List<Outbound>();
+            List<OutboundActivity> outboundList = new List<OutboundActivity>();
             try
             {
                 conn = new MySqlConnection(connstr);
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    string updateArrayList = "SELECT * FROM outbound";
+                    string updateArrayList = @"
+                    SELECT
+                    o.DeliveryDate,
+                    o.InvoiceNo,
+                    c.Name AS Customer,
+                    GROUP_CONCAT(DISTINCT dp.Name SEPARATOR ', ') AS DeliveryPlaces,
+                    GROUP_CONCAT(DISTINCT CONCAT(t.Name, ' (', ot.Quantity, ')') SEPARATOR ', ') AS Trucks,
+                    o.Detail,
+                    o.IsInter,
+                    o.ID AS OutboundID
+                    FROM
+                    outbound o
+                    LEFT JOIN
+                    supplier c ON o.SupplierID = c.ID
+                    LEFT JOIN
+                    outbounddeliveryplace odp ON odp.OutboundID = o.ID
+                    LEFT JOIN
+                    deliveryplace dp ON odp.DeliveryPlaceID = dp.ID
+                    LEFT JOIN
+                    outboundtruck ot ON ot.OutboundID = o.ID
+                    LEFT JOIN
+                    truck t ON ot.TruckID = t.ID
+                    GROUP BY
+                    o.DeliveryDate,
+                    o.InvoiceNo,
+                    c.Name,
+                    o.Detail,
+                    o.IsInter,
+                    o.ID
+                    ORDER BY
+                    o.DeliveryDate DESC
+                    LIMIT
+                    100;
+                    ";
+
                     cmd.CommandText = updateArrayList;
                     using (var reader = cmd.ExecuteReader())
                     {
                         while (reader.Read())
                         {
-                            int id = Convert.ToInt32(reader["ID"]);
-                            Outbound item = new Outbound(id);
-                            outboundList.Add(item);
+                            DateTime date = reader.GetDateTime(reader.GetOrdinal("DeliveryDate"));
+                            string invoice = reader.GetString(reader.GetOrdinal("InvoiceNo"));
+                            string customer = reader.GetString(reader.GetOrdinal("Customer"));
+                            string deliveryplace = reader.GetString(reader.GetOrdinal("DeliveryPlaces"));
+                            string truck = reader.GetString(reader.GetOrdinal("trucks"));
+                            string detail;
+                            object detailObj = reader?.GetValue(reader.GetOrdinal("Detail"));
+                            if (detailObj != DBNull.Value && detailObj != null)
+                            {
+                                detail = detailObj.ToString();
+                            }
+                            else
+                            {
+                                detail = "-";
+                            }
+                            bool export = reader.GetBoolean(reader.GetOrdinal("IsInter"));
+                            int outboundid = reader.GetInt32(reader.GetOrdinal("OutboundID"));
+
+                            outboundList.Add(new OutboundActivity(date, invoice, customer, deliveryplace, truck, detail, export, outboundid));
                         }
                     }
                 }

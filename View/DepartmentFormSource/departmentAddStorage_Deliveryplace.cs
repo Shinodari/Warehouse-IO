@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Data;
 using System.Windows.Forms;
 using Warehouse_IO.Common;
+using Warehouse_IO.View.DeliveryplaceSource;
+using Warehouse_IO.View.StorageFormSource;
 using Warehouse_IO.WHIO.Model;
 
 namespace Warehouse_IO.View.DepartmentFormSource
@@ -14,15 +16,15 @@ namespace Warehouse_IO.View.DepartmentFormSource
         Deliveryplace deliveryplace;
 
         //Variable for update components
-        List<Storage> storagelist;
-        List<Deliveryplace> deliveryplacelist;
+        List<StorageForGetList> storagelist;
+        List<DeliveryplaceForGetList> deliveryplacelist;
 
         //Variable for compare selected Index in Listbox (No search)
         private List<int> storageID = new List<int>();
         private List<int> deliveryplaceID = new List<int>();
 
         //Variable for compare selected Index in Listbox (With search)
-        private readonly Dictionary<string, Deliveryplace> deliveryplaceNameToDeliveryplace = new Dictionary<string, Deliveryplace>();
+        private readonly Dictionary<string, DeliveryplaceForGetList> deliveryplaceNameToDeliveryplace = new Dictionary<string, DeliveryplaceForGetList>();
 
         MainForm main;
 
@@ -33,8 +35,8 @@ namespace Warehouse_IO.View.DepartmentFormSource
             InitializeComponent();
             department = new Department(Global.tempPkey);
             //Create instance for update components
-            storagelist = new List<Storage>();
-            deliveryplacelist = new List<Deliveryplace>();
+            storagelist = new List<StorageForGetList>();
+            deliveryplacelist = new List<DeliveryplaceForGetList>();
 
             main = new MainForm();
 
@@ -52,7 +54,7 @@ namespace Warehouse_IO.View.DepartmentFormSource
             storagelist = Storage.GetStorage();
             storagelist.Sort((x, y) => x.Name.CompareTo(y.Name));
             storageListBox.Items.Clear();
-            foreach(Storage sto in storagelist)
+            foreach(StorageForGetList sto in storagelist)
             {
                 string displayedName = sto.Name;
                 storageListBox.Items.Add(displayedName);
@@ -62,7 +64,7 @@ namespace Warehouse_IO.View.DepartmentFormSource
             deliveryplacelist = Deliveryplace.GetDeliveryplaceList();
             deliveryplacelist.Sort((x, y) => x.Name.CompareTo(y.Name));
             deliveryplaceListBox.Items.Clear();
-            foreach (Deliveryplace delivery in deliveryplacelist)
+            foreach (DeliveryplaceForGetList delivery in deliveryplacelist)
             {
                 string displayedName = delivery.Name;
                 deliveryplaceListBox.Items.Add(displayedName);
@@ -164,7 +166,7 @@ namespace Warehouse_IO.View.DepartmentFormSource
 
                 if (deliveryplaceNameToDeliveryplace.ContainsKey(selectedName))
                 {
-                    Deliveryplace selectedDeliveryplace = deliveryplaceNameToDeliveryplace[selectedName];
+                    DeliveryplaceForGetList selectedDeliveryplace = deliveryplaceNameToDeliveryplace[selectedName];
                     int selectedDeliveryplaceID = selectedDeliveryplace.ID;
 
                     deliveryplace = new Deliveryplace(selectedDeliveryplaceID);
@@ -263,7 +265,7 @@ namespace Warehouse_IO.View.DepartmentFormSource
 
             deliveryplaceListBox.Items.Clear();
 
-            foreach (Deliveryplace item in deliveryplacelist)
+            foreach (DeliveryplaceForGetList item in deliveryplacelist)
             {
                 if (item.Name.ToLower().Contains(searchText))
                 {

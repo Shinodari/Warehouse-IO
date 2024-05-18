@@ -13,14 +13,14 @@ namespace Warehouse_IO.View.Weight.UnitOfWeightSource
         private Remove remove;
         MainForm main;
 
-        List<UnitOfUOM> unitOfW;
+        List<UnitOfUOMForGetList> unitOfW;
         BindingSource uBind;
         public event EventHandler returnMain;
 
         public UnitOfWeightForm()
         {
             InitializeComponent();
-            unitOfW = new List<UnitOfUOM>();
+            unitOfW = new List<UnitOfUOMForGetList>();
             UpdateDatagridView();
             main = new MainForm();
         }

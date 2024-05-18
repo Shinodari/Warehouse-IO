@@ -14,7 +14,7 @@ namespace Warehouse_IO.View.Dimensions.DimensionSource
         private Remove remove;
         MainForm main;
 
-        List<Warehouse_IO.WHIO.Model.Dimension> list;
+        List<Warehouse_IO.View.Dimensions.DimensionSource.DimensionForGetList> list;
         BindingSource bind = new BindingSource();
         public event EventHandler returnMain;
 
@@ -22,7 +22,7 @@ namespace Warehouse_IO.View.Dimensions.DimensionSource
         {
             InitializeComponent();
             dataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-            list = new List<Warehouse_IO.WHIO.Model.Dimension>();
+            list = new List<Warehouse_IO.View.Dimensions.DimensionSource.DimensionForGetList>();
             UpdateDatagridView();
             main = new MainForm();
         }
@@ -43,20 +43,19 @@ namespace Warehouse_IO.View.Dimensions.DimensionSource
             dataTable.Columns.Add("Height", typeof(double));
             dataTable.Columns.Add("Description");
 
-            foreach (Warehouse_IO.WHIO.Model.Dimension dimension in list)
+            foreach (Warehouse_IO.View.Dimensions.DimensionSource.DimensionForGetList dimension in list)
             {
                 DataRow row = dataTable.NewRow();
                 row["ID"] = dimension.ID;
-                row["M3"] = dimension.GetM3();
-                row["Unit"] = dimension.Unit.Name;
+                row["M3"] = dimension.M3;
+                row["Unit"] = dimension.UnitOfVolume;
                 row["Width"] = dimension.Width;
                 row["Length"] = dimension.Length;
                 row["Height"] = dimension.Height;
-                row["Description"] = dimension.Name;
+                row["Description"] = dimension.Details;
 
                 dataTable.Rows.Add(row);
             }
-            dataTable.DefaultView.Sort = "M3 ASC";
             dataGridView.DataSource = dataTable.DefaultView;
         }
 

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using Warehouse_IO.View.Transport.TruckFormSource;
 
 namespace Warehouse_IO.WHIO.Model
 {
@@ -140,10 +141,10 @@ namespace Warehouse_IO.WHIO.Model
             }
         }
 
-        public static List<Truck> GetTruckList()
+        public static List<TruckForGetList> GetTruckList()
         {
             MySqlConnection conn = null;
-            List<Truck> truckList = new List<Truck>();
+            List<TruckForGetList> truckList = new List<TruckForGetList>();
             try
             {
                 conn = new MySqlConnection(connstr);
@@ -157,8 +158,9 @@ namespace Warehouse_IO.WHIO.Model
                             while (reader.Read())
                             {
                                 int id = Convert.ToInt32(reader["ID"]);
-                                Truck item = new Truck(id);
-                                truckList.Add(item);
+                                string name = reader["Name"].ToString();
+                                string des = reader["Description"].ToString();
+                                truckList.Add(new TruckForGetList(id,name,des));
                             }
                         }
                     }
