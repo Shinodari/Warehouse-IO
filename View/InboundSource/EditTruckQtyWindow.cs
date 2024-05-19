@@ -1,24 +1,26 @@
 ﻿using System.Windows.Forms;
 using Warehouse_IO.Common;
 using Warehouse_IO.WHIO.Model;
+using Warehouse_IO.View.Add_Edit_Remove_Components;
 
 namespace Warehouse_IO.View.InboundSource
 {
-    public partial class EditQuantityWindow : Form
+    public partial class EditTruckQtyWindow : EditForm
     {
         public static int editQty;
 
-        public EditQuantityWindow()
+        public EditTruckQtyWindow()
         {
             InitializeComponent();
         }
+
         private void EditQuantity()
         {
-            double qty = double.Parse(EditTextBox.Text);
+            int qty = int.Parse(EditTextBox.Text);
             if (qty > 0)
             {
-                Product product = new WHIO.Model.Product(Global.tempPkeyName);
-                editQty = product.GetQuantity(qty);
+                Truck truck = new WHIO.Model.Truck(Global.tempPkey);
+                editQty = qty;
                 EditTextBox.Text = "";
                 Close();
             }
@@ -27,7 +29,7 @@ namespace Warehouse_IO.View.InboundSource
 
         private void EditTextBox_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if(e.KeyChar == (char)Keys.Enter)
+            if (e.KeyChar == (char)Keys.Enter)
             {
                 EditQuantity();
             }

@@ -21,10 +21,6 @@ namespace Warehouse_IO.View.DepartmentFormSource
 
         //Variable for compare selected Index in Listbox (No search)
         private List<int> storageID = new List<int>();
-        private List<int> deliveryplaceID = new List<int>();
-
-        //Variable for compare selected Index in Listbox (With search)
-        private readonly Dictionary<string, DeliveryplaceForGetList> deliveryplaceNameToDeliveryplace = new Dictionary<string, DeliveryplaceForGetList>();
 
         MainForm main;
 
@@ -67,9 +63,8 @@ namespace Warehouse_IO.View.DepartmentFormSource
             foreach (DeliveryplaceForGetList delivery in deliveryplacelist)
             {
                 string displayedName = delivery.Name;
-                deliveryplaceListBox.Items.Add(displayedName);
-
-                deliveryplaceNameToDeliveryplace[displayedName] = delivery;
+                DelPlaceWrapper delwrap = new DelPlaceWrapper(displayedName, delivery.ID);
+                deliveryplaceListBox.Items.Add(delwrap);
             }
         }
 
@@ -162,22 +157,16 @@ namespace Warehouse_IO.View.DepartmentFormSource
         {
             if (deliveryplaceListBox.SelectedIndex >= 0)
             {
-                string selectedName = (string)deliveryplaceListBox.SelectedItem;
+                DelPlaceWrapper selectedWrap = (DelPlaceWrapper)deliveryplaceListBox.SelectedItem;
+                int delid = selectedWrap.DelID;
+                deliveryplace = new Deliveryplace(delid);
 
-                if (deliveryplaceNameToDeliveryplace.ContainsKey(selectedName))
+                if (!department.DeliveryplaceList.Contains(deliveryplace))
                 {
-                    DeliveryplaceForGetList selectedDeliveryplace = deliveryplaceNameToDeliveryplace[selectedName];
-                    int selectedDeliveryplaceID = selectedDeliveryplace.ID;
-
-                    deliveryplace = new Deliveryplace(selectedDeliveryplaceID);
                     department.AddDeliveryplace(deliveryplace);
-                    deliveryPlaceTextBox.Text = "";
                     UpdateDeliveryplaceGridView();
                 }
-                else
-                {
-                    MessageBox.Show(this, "Selected item not found in list.");
-                }
+                else MessageBox.Show(this, "Same deliveryplace is added");
             }
             else
             {
@@ -262,18 +251,32 @@ namespace Warehouse_IO.View.DepartmentFormSource
         private void deliveryPlaceTextBox_TextChanged(object sender, EventArgs e)
         {
             string searchText = deliveryPlaceTextBox.Text.ToLower();
-
             deliveryplaceListBox.Items.Clear();
 
             foreach (DeliveryplaceForGetList item in deliveryplacelist)
             {
                 if (item.Name.ToLower().Contains(searchText))
                 {
-                    deliveryplaceListBox.Items.Add(item.Name);
+                    DelPlaceWrapper delwrap = new DelPlaceWrapper(item.Name, item.ID);
+                    deliveryplaceListBox.Items.Add(delwrap);
                 }
             }
         }
+        public class DelPlaceWrapper
+        {
+            public string DelString { get; set; }
+            public int DelID { get; set; }
 
+            public DelPlaceWrapper(string delstring,int delid)
+            {
+                this.DelString = delstring;
+                this.DelID = delid;
+            }
+            public override string ToString()
+            {
+                return DelString;
+            }
+        }
         
     }
 }

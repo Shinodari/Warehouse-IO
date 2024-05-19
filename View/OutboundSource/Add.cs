@@ -31,9 +31,6 @@ namespace Warehouse_IO.View.OutboundSource
         private List<int> supplierID = new List<int>();
         private List<int> truckID = new List<int>();
 
-        //Variable for tracking deliveryplace after filtered
-        private readonly Dictionary<string, DeliveryplaceForGetList> deliveryplaceNameToDeliveryplace = new Dictionary<string, DeliveryplaceForGetList>();
-       
         //Variable for create selected object on CreateNewShipment()
         Supplier supplier;
         Truck truck;
@@ -43,6 +40,7 @@ namespace Warehouse_IO.View.OutboundSource
 
         //Edit quantity pop-Up window components
         EditQuantityWindow editQuantity;
+        EditTruckQtyWindow editTruckQty;
         MainForm main;
 
         //Event to Invoke Update Outbound List
@@ -65,6 +63,7 @@ namespace Warehouse_IO.View.OutboundSource
 
             //Create instance for edit quantity pop-Up window components
             editQuantity = new EditQuantityWindow();
+            editTruckQty = new EditTruckQtyWindow();
             main = new MainForm();
          
             deliveryPlaceDatagridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
@@ -96,9 +95,8 @@ namespace Warehouse_IO.View.OutboundSource
             foreach (DeliveryplaceForGetList delivery in deliveryplaceList)
             {
                 string displayedName = delivery.Name;
-                deliveryplaceListBox.Items.Add(displayedName);
-
-                deliveryplaceNameToDeliveryplace[displayedName] = delivery;
+                DelPlaceWrapper delwrap = new DelPlaceWrapper(displayedName, delivery.ID);
+                deliveryplaceListBox.Items.Add(delwrap);
             }
 
             truckList = Truck.GetTruckList();
@@ -312,14 +310,14 @@ namespace Warehouse_IO.View.OutboundSource
         {
             if (truckDataGridView.SelectedRows.Count > 0)
             {
-                editQuantity.Owner = main;
+                editTruckQty.Owner = main;
 
                 DataGridViewRow selectedRow = truckDataGridView.CurrentRow;
                 int id = Convert.ToInt32(selectedRow.Cells[2].Value);
 
-                editQuantity.ShowDialog();
+                editTruckQty.ShowDialog();
 
-                int newQty = EditQuantityWindow.editQty;
+                int newQty = EditTruckQtyWindow.editQty;
                 truck = new Truck(id);
                 if (newOutbound.ChangeQuantityOfTruck(truck, newQty))
                 {
@@ -339,8 +337,16 @@ namespace Warehouse_IO.View.OutboundSource
             if (truckDataGridView.SelectedRows.Count > 0)
             {
                 DataGridViewRow selectedRow = truckDataGridView.CurrentRow;
-                int id = Convert.ToInt32(selectedRow.Cells[2].Value);
-                truck = new WHIO.Model.Truck(id);
+                int id = 0; // Default value
+                object cellValue = selectedRow.Cells["ID"].Value;
+                if (cellValue != null && int.TryParse(cellValue.ToString(), out id))
+                {
+                    truck = new Truck(id);
+                }
+                else
+                {
+                    MessageBox.Show(this, "No item selected");
+                }
                 if (newOutbound.RemoveTruck(truck))
                 {
                     UpdateTruckGridView();
@@ -454,22 +460,12 @@ namespace Warehouse_IO.View.OutboundSource
         {
             if (deliveryplaceListBox.SelectedIndex >= 0)
             {
-                string selectedName = (string)deliveryplaceListBox.SelectedItem;
-
-                if (deliveryplaceNameToDeliveryplace.ContainsKey(selectedName))
-                {
-                    DeliveryplaceForGetList selectedDeliveryplace = deliveryplaceNameToDeliveryplace[selectedName];
-                    int selectedDeliveryplaceID = selectedDeliveryplace.ID;
-
-                    deliveryplace = new Deliveryplace(selectedDeliveryplaceID);
-                    newOutbound.AddDeliveryPlace(deliveryplace);
-                    deliveryPlaceTextBox.Text = "";
-                    UpdateDeliveryplaceGridView();
-                }
-                else
-                {
-                    MessageBox.Show(this, "Selected item not found in list.");
-                }
+                DelPlaceWrapper selectedWrap = (DelPlaceWrapper)deliveryplaceListBox.SelectedItem;
+                int delid = selectedWrap.DelID;
+                deliveryplace = new Deliveryplace(delid);
+                newOutbound.AddDeliveryPlace(deliveryplace);
+                deliveryPlaceTextBox.Text = "";
+                UpdateDeliveryplaceGridView();
             }
             else
             {
@@ -489,8 +485,16 @@ namespace Warehouse_IO.View.OutboundSource
         private void RemoveDeliveryPlaceFromShipment()
         {
             DataGridViewRow selectedRow = deliveryPlaceDatagridView.CurrentRow;
-            int id = Convert.ToInt32(selectedRow.Cells[1].Value);
-            deliveryplace = new Deliveryplace(id);
+            int id = 0; // Default value
+            object cellValue = selectedRow.Cells["ID"].Value;
+            if (cellValue != null && int.TryParse(cellValue.ToString(), out id))
+            {
+                deliveryplace = new Deliveryplace(id);
+            }
+            else
+            {
+                MessageBox.Show(this,"No item selected");
+            }
             if (newOutbound.RemoveDeliveryPlace(deliveryplace))
             {
                 UpdateDeliveryplaceGridView();
@@ -550,8 +554,26 @@ namespace Warehouse_IO.View.OutboundSource
             {
                 if (item.Name.ToLower().Contains(searchText))
                 {
-                    deliveryplaceListBox.Items.Add(item.Name);
+                    DelPlaceWrapper dilwrap = new DelPlaceWrapper(item.Name,item.ID);
+                    deliveryplaceListBox.Items.Add(dilwrap);
                 }
+            }
+        }
+
+        public class DelPlaceWrapper
+        {
+            public string formatDel { get; set; }
+            public int DelID { get; set; }
+
+            public DelPlaceWrapper(string format,int delid)
+            {
+                this.formatDel = format;
+                this.DelID = delid;
+            }
+
+            public override string ToString()
+            {
+                return formatDel;
             }
         }
 

@@ -202,8 +202,13 @@ namespace Warehouse_IO.WHIO.Model
 
         public int GetQuantity(double kgs)
         {
+            if (uom == null)
+            {
+                return 0;
+            }
+
             int uomQuantity = (int)uom.Quantity;
-            return (int) Math.Ceiling(kgs/ uomQuantity);
+            return (int)Math.Ceiling(kgs / uomQuantity);
         }
     }
 }

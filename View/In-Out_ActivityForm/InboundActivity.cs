@@ -13,8 +13,9 @@ namespace Warehouse_IO.View.In_Out_ActivityForm
         public bool Import { get; set; }
         public int StorageID { get; set; }
         public int InboundID { get; set; }
+        public double M3 { get; set; }
 
-        public InboundActivity(DateTime date, string invoice, string customer, string storage,string truck,string detail,bool import,int storageid,int inboundid)
+        public InboundActivity(DateTime date, string invoice, string customer, string storage,string truck,string detail,bool import,int storageid,int inboundid,double m3)
         {
             this.Date = date;
             this.Invoice = invoice;
@@ -25,6 +26,7 @@ namespace Warehouse_IO.View.In_Out_ActivityForm
             this.Import = import;
             this.StorageID = storageid;
             this.InboundID = inboundid;
+            this.M3 = m3;
         }        
     }
 

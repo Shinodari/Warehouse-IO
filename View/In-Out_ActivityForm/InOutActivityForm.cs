@@ -13,6 +13,7 @@ namespace Warehouse_IO.View.In_Out_ActivityForm
 
         private InboundItemForm inboundItemlist;
         private OutboundItemForm outboundItemlist;
+        private DateTimePickerForm datepickform;
 
         BindingSource inbindingSource;
         BindingSource outbindingSource;
@@ -65,6 +66,10 @@ namespace Warehouse_IO.View.In_Out_ActivityForm
             {
                 inboundDataGridView.Columns["InboundID"].Visible = false;
             }
+            if (inboundDataGridView.Columns["M3"] != null)
+            {
+                inboundDataGridView.Columns["M3"].Visible = false;
+            }
             if (inboundDataGridView.Columns["Date"] != null)
             {
                 inboundDataGridView.Columns["Date"].DefaultCellStyle.Format = "MMM dd, yyyy";
@@ -81,6 +86,10 @@ namespace Warehouse_IO.View.In_Out_ActivityForm
             if (outboundDataGridView.Columns["OutboundID"] != null)
             {
                 outboundDataGridView.Columns["OutboundID"].Visible = false;
+            }
+            if (outboundDataGridView.Columns["M3"] != null)
+            {
+                outboundDataGridView.Columns["M3"].Visible = false;
             }
             if (outboundDataGridView.Columns["Date"] != null)
             {
@@ -123,6 +132,14 @@ namespace Warehouse_IO.View.In_Out_ActivityForm
             outboundItemlist.Owner = main;
 
             outboundItemlist.ShowDialog();
+        }
+
+        private void createReportButton_Click(object sender, EventArgs e)
+        {
+            datepickform = new DateTimePickerForm();
+            datepickform.Owner = main;
+
+            datepickform.ShowDialog();
         }
     }
 }

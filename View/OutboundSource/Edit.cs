@@ -37,11 +37,9 @@ namespace Warehouse_IO.View.OutboundSource
         Product product;
         Deliveryplace deliveryplace;
 
-        //Variable for tracking deliveryplace after sorted
-        private readonly Dictionary<string, DeliveryplaceForGetList> deliveryplaceNameToDeliveryplace = new Dictionary<string, DeliveryplaceForGetList>();
-
         //Edit quantity pop-Up window components
         EditQuantityWindow editQuantity;
+        EditTruckQtyWindow editTruckQty;
         MainForm main;
 
         //Event to Invoke Update Outbound List
@@ -77,6 +75,7 @@ namespace Warehouse_IO.View.OutboundSource
 
             //Create instance for edit quantity pop-Up window components
             editQuantity = new EditQuantityWindow();
+            editTruckQty = new EditTruckQtyWindow();
             main = new MainForm();
 
             //Set truck & product gridview auto adjust cell
@@ -107,9 +106,8 @@ namespace Warehouse_IO.View.OutboundSource
             foreach (DeliveryplaceForGetList delivery in deliveryplaceList)
             {
                 string displayedName = delivery.Name;
+                DelPlaceWrapper delwrap = new DelPlaceWrapper(displayedName, delivery.ID);
                 deliveryplaceListBox.Items.Add(displayedName);
-
-                deliveryplaceNameToDeliveryplace[displayedName] = delivery;
             }
 
             truckList = Truck.GetTruckList();
@@ -310,14 +308,14 @@ namespace Warehouse_IO.View.OutboundSource
         {
             if (truckDataGridView.SelectedRows.Count > 0)
             {
-                editQuantity.Owner = main;
+                editTruckQty.Owner = main;
 
                 DataGridViewRow selectedRow = truckDataGridView.CurrentRow;
                 int id = Convert.ToInt32(selectedRow.Cells[2].Value);
 
-                editQuantity.ShowDialog();
+                editTruckQty.ShowDialog();
 
-                int newQty = EditQuantityWindow.editQty;
+                int newQty = EditTruckQtyWindow.editQty;
                 truck = new Truck(id);
                 if (edit.ChangeQuantityOfTruck(truck, newQty))
                 {
@@ -452,22 +450,12 @@ namespace Warehouse_IO.View.OutboundSource
         {
             if (deliveryplaceListBox.SelectedIndex >= 0)
             {
-                string selectedName = (string)deliveryplaceListBox.SelectedItem;
-
-                if (deliveryplaceNameToDeliveryplace.ContainsKey(selectedName))
-                {
-                    DeliveryplaceForGetList selectedDeliveryplace = deliveryplaceNameToDeliveryplace[selectedName];
-                    int selectedDeliveryplaceID = selectedDeliveryplace.ID;
-
-                    deliveryplace = new Deliveryplace(selectedDeliveryplaceID);
-                    edit.AddDeliveryPlace(deliveryplace);
-                    deliveryPlaceTextBox.Text = "";
-                    UpdateDeliveryplaceGridView();
-                }
-                else
-                {
-                    MessageBox.Show(this, "Selected item not found in list.");
-                }
+                DelPlaceWrapper selectedWrap = (DelPlaceWrapper)deliveryplaceListBox.SelectedItem;
+                int delid = selectedWrap.DelID;
+                deliveryplace = new Deliveryplace(delid);
+                edit.AddDeliveryPlace(deliveryplace);
+                deliveryPlaceTextBox.Text = "";
+                UpdateDeliveryplaceGridView();
             }
             else
             {
@@ -566,10 +554,28 @@ namespace Warehouse_IO.View.OutboundSource
             {
                 if (item.Name.ToLower().Contains(searchText))
                 {
-                    deliveryplaceListBox.Items.Add(item.Name);
+                    DelPlaceWrapper dilwrap = new DelPlaceWrapper(item.Name, item.ID);
+                    deliveryplaceListBox.Items.Add(dilwrap);
                 }
             }
         }
+        public class DelPlaceWrapper
+        {
+            public string formatDel { get; set; }
+            public int DelID { get; set; }
+
+            public DelPlaceWrapper(string format, int delid)
+            {
+                this.formatDel = format;
+                this.DelID = delid;
+            }
+
+            public override string ToString()
+            {
+                return formatDel;
+            }
+        }
+
         //Searching product algorithm
         private void productNameSearchTextBox_TextChanged(object sender, EventArgs e)
         {

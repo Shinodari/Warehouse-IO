@@ -33,6 +33,7 @@
             this.closeButton = new System.Windows.Forms.Button();
             this.inboundActivityLabel = new System.Windows.Forms.Label();
             this.outboundActivityLabel = new System.Windows.Forms.Label();
+            this.createReportButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.inboundDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.outboundDataGridView)).BeginInit();
             this.SuspendLayout();
@@ -51,7 +52,7 @@
             this.inboundDataGridView.RowHeadersVisible = false;
             this.inboundDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.inboundDataGridView.Size = new System.Drawing.Size(866, 316);
-            this.inboundDataGridView.TabIndex = 0;
+            this.inboundDataGridView.TabIndex = 10;
             this.inboundDataGridView.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.inboundDataGridView_CellDoubleClick);
             // 
             // outboundDataGridView
@@ -68,7 +69,7 @@
             this.outboundDataGridView.RowHeadersVisible = false;
             this.outboundDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.outboundDataGridView.Size = new System.Drawing.Size(866, 316);
-            this.outboundDataGridView.TabIndex = 1;
+            this.outboundDataGridView.TabIndex = 20;
             this.outboundDataGridView.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.outboundDataGridView_CellDoubleClick);
             // 
             // closeButton
@@ -76,7 +77,7 @@
             this.closeButton.Location = new System.Drawing.Point(774, 687);
             this.closeButton.Name = "closeButton";
             this.closeButton.Size = new System.Drawing.Size(104, 26);
-            this.closeButton.TabIndex = 2;
+            this.closeButton.TabIndex = 60;
             this.closeButton.Text = "Close";
             this.closeButton.UseVisualStyleBackColor = true;
             this.closeButton.Click += new System.EventHandler(this.closeButton_Click);
@@ -87,7 +88,7 @@
             this.inboundActivityLabel.Location = new System.Drawing.Point(9, 8);
             this.inboundActivityLabel.Name = "inboundActivityLabel";
             this.inboundActivityLabel.Size = new System.Drawing.Size(83, 13);
-            this.inboundActivityLabel.TabIndex = 3;
+            this.inboundActivityLabel.TabIndex = 101;
             this.inboundActivityLabel.Text = "Inbound Activity";
             // 
             // outboundActivityLabel
@@ -96,8 +97,18 @@
             this.outboundActivityLabel.Location = new System.Drawing.Point(12, 349);
             this.outboundActivityLabel.Name = "outboundActivityLabel";
             this.outboundActivityLabel.Size = new System.Drawing.Size(91, 13);
-            this.outboundActivityLabel.TabIndex = 4;
+            this.outboundActivityLabel.TabIndex = 102;
             this.outboundActivityLabel.Text = "Outbound Activity";
+            // 
+            // createReportButton
+            // 
+            this.createReportButton.Location = new System.Drawing.Point(664, 687);
+            this.createReportButton.Name = "createReportButton";
+            this.createReportButton.Size = new System.Drawing.Size(104, 26);
+            this.createReportButton.TabIndex = 50;
+            this.createReportButton.Text = "Create Report";
+            this.createReportButton.UseVisualStyleBackColor = true;
+            this.createReportButton.Click += new System.EventHandler(this.createReportButton_Click);
             // 
             // InOutActivityForm
             // 
@@ -105,6 +116,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(890, 725);
             this.ControlBox = false;
+            this.Controls.Add(this.createReportButton);
             this.Controls.Add(this.outboundActivityLabel);
             this.Controls.Add(this.inboundActivityLabel);
             this.Controls.Add(this.closeButton);
@@ -131,5 +143,6 @@
         private System.Windows.Forms.Button closeButton;
         private System.Windows.Forms.Label inboundActivityLabel;
         private System.Windows.Forms.Label outboundActivityLabel;
+        private System.Windows.Forms.Button createReportButton;
     }
 }

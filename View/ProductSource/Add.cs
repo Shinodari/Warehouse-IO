@@ -15,10 +15,6 @@ namespace Warehouse_IO.View.ProductSource
         List<UOMForGetList> uomList;
         List<Warehouse_IO.View.Dimensions.DimensionSource.DimensionForGetList> dimensionList;
 
-        //Variable for tracking Dimension and UOM in listBox
-        private readonly Dictionary<string, UOMForGetList> uomforSearchList = new Dictionary<string, UOMForGetList>();
-        private readonly Dictionary<string, Warehouse_IO.View.Dimensions.DimensionSource.DimensionForGetList> dimensionforSearchList = new Dictionary<string, Warehouse_IO.View.Dimensions.DimensionSource.DimensionForGetList>();
-
         public event EventHandler UpdateGrid;
 
         public Add()
@@ -42,21 +38,19 @@ namespace Warehouse_IO.View.ProductSource
 
             UoMListBox.Items.Clear();
             dimensionListBox.Items.Clear();
-
+            //Dynamic listbox need to track by dictionary
             foreach (Warehouse_IO.View.Dimensions.DimensionSource.DimensionForGetList dimension in dimensionList)
             {
-                int dimensionId = dimension.ID;
                 string formattedDimension = $"{dimension.M3} // {dimension.UnitOfVolume}";
-                dimensionListBox.Items.Add(formattedDimension);
-
-                dimensionforSearchList[formattedDimension] = dimension;
+                DimensionWrapper dimwrap = new DimensionWrapper(formattedDimension, dimension.ID);
+                dimensionListBox.Items.Add(dimwrap);
             }
+            //Dynamic listbox need to track by dictionary
             foreach (UOMForGetList uom in uomList)
             {
                 string formattedUOM = $"{uom.Quantity}{uom.Unit}/{uom.Package} {uom.Details}";
-                UoMListBox.Items.Add(formattedUOM);
-
-                uomforSearchList[formattedUOM] = uom;
+                UOMWrapper uomwrap = new UOMWrapper(formattedUOM, uom.ID);
+                UoMListBox.Items.Add(uomwrap);
             }
         }
 
@@ -69,14 +63,9 @@ namespace Warehouse_IO.View.ProductSource
             }
             if (UoMListBox.SelectedIndex >=0)
             {
-                string selectedUOMName = (string)UoMListBox.SelectedItem;
-                if(uomforSearchList.ContainsKey(selectedUOMName))
-                {
-                    UOMForGetList selectedUOM = uomforSearchList[selectedUOMName];
-                    int selectedID = selectedUOM.ID;
-
-                    uom = new UOM(selectedID);
-                }
+                UOMWrapper selectedWrap = (UOMWrapper)UoMListBox.SelectedItem;
+                int uomid = selectedWrap.UomID;
+                uom = new UOM(uomid);
             }
             else
             {
@@ -85,14 +74,9 @@ namespace Warehouse_IO.View.ProductSource
             }
             if (dimensionListBox.SelectedIndex >= 0)
             {
-                string selectedDimensionName = (string)dimensionListBox.SelectedItem;
-                if (dimensionforSearchList.ContainsKey(selectedDimensionName))
-                {
-                    Warehouse_IO.View.Dimensions.DimensionSource.DimensionForGetList selectedDimension = dimensionforSearchList[selectedDimensionName];
-                    int selectedID = selectedDimension.ID;
-
-                    dimension = new WHIO.Model.Dimension(selectedID);
-                }
+                DimensionWrapper selectedWrap = (DimensionWrapper)dimensionListBox.SelectedItem;
+                int dimid = selectedWrap.DimensionID;
+                dimension = new WHIO.Model.Dimension(dimid);
             }
             else
             {
@@ -137,7 +121,8 @@ namespace Warehouse_IO.View.ProductSource
                 string formattedDimension = $"{item.Quantity}{item.Unit}/{item.Package}";
                 if (formattedDimension.ToLower().Contains(searchText))
                 {
-                    UoMListBox.Items.Add(formattedDimension);
+                    UOMWrapper uomwrap = new UOMWrapper(formattedDimension, item.ID);
+                    UoMListBox.Items.Add(uomwrap);
                 }
             }
         }
@@ -146,7 +131,6 @@ namespace Warehouse_IO.View.ProductSource
         private void dimensionSearchTextBox_TextChanged(object sender, EventArgs e)
         {
             string searchText = dimensionSearchTextBox.Text.ToLower();
-
             dimensionListBox.Items.Clear();
 
             foreach (Warehouse_IO.View.Dimensions.DimensionSource.DimensionForGetList item in dimensionList)
@@ -154,8 +138,41 @@ namespace Warehouse_IO.View.ProductSource
                 string formattedDimension = $"{item.M3} // {item.UnitOfVolume} {item.Details}";
                 if (formattedDimension.ToLower().Contains(searchText))
                 {
-                    dimensionListBox.Items.Add(formattedDimension);
+                    DimensionWrapper dimwrap = new DimensionWrapper(formattedDimension, item.ID);
+                    dimensionListBox.Items.Add(dimwrap);
                 }
+            }
+        }
+        public class DimensionWrapper
+        {
+            public string FormattedDimension { get; set; }
+            public int DimensionID { get; set; }
+
+            public DimensionWrapper(string formattedDimension, int dimensionID)
+            {
+                FormattedDimension = formattedDimension;
+                DimensionID = dimensionID;
+            }
+
+            public override string ToString()
+            {
+                return FormattedDimension;
+            }
+        }
+        public class UOMWrapper
+        {
+            public string FormattedUOM { get; set; }
+            public int UomID { get; set; }
+
+            public UOMWrapper(string formatUOM, int uomID)
+            {
+                FormattedUOM = formatUOM;
+                UomID = uomID;
+            }
+
+            public override string ToString()
+            {
+                return FormattedUOM;
             }
         }
     }

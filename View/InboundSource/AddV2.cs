@@ -41,6 +41,7 @@ namespace Warehouse_IO.View.InboundSource
 
         //Edit quantity pop-Up window components
         EditQuantityWindow editQuantity;
+        EditTruckQtyWindow editTruckQty;
         MainForm main;
 
         //Event to Invoke Update Inbound List
@@ -63,6 +64,7 @@ namespace Warehouse_IO.View.InboundSource
 
             //Create instance for edit quantity pop-Up window components
             editQuantity = new EditQuantityWindow();
+            editTruckQty = new EditTruckQtyWindow();
             main = new MainForm();
 
             //Set truck & product gridview auto adjust cell
@@ -106,7 +108,7 @@ namespace Warehouse_IO.View.InboundSource
             }
 
             productList = Product.GetAdjustedProductList();
-            productList.Sort((x, y) => x.Details.CompareTo(y.Details));
+            productList.Sort((x, y) => x.Name.CompareTo(y.Name));
             productListBox.Items.Clear();
             foreach (ProductForDataGridView product in productList)
             {
@@ -200,6 +202,11 @@ namespace Warehouse_IO.View.InboundSource
             {
                 int selectedStorageID = storageID[selectStorageIndex];
                 storage = new Storage(selectedStorageID);
+            }
+            else
+            {
+                MessageBox.Show(this, "Please select Storage");
+                return;
             }
 
             add = new Inbound(invoiceTextBox.Text, deliverydate, supplier, storage, IsInterCheckBox.Checked, truckInDetailTextBox.Text);
@@ -299,14 +306,14 @@ namespace Warehouse_IO.View.InboundSource
         {
             if (truckDataGridView.SelectedRows.Count > 0)
             {
-                editQuantity.Owner = main;
+                editTruckQty.Owner = main;
 
                 DataGridViewRow selectedRow = truckDataGridView.CurrentRow;
-                int id = Convert.ToInt32(selectedRow.Cells[2].Value);
+                int id = Convert.ToInt32(selectedRow.Cells["ID"].Value);
 
-                editQuantity.ShowDialog();
+                editTruckQty.ShowDialog();
 
-                int newQty = EditQuantityWindow.editQty;
+                int newQty = EditTruckQtyWindow.editQty;
                 truck = new Truck(id);
                 if (newInbound.ChangeQuantityOfTruck(truck, newQty))
                 {
@@ -326,8 +333,16 @@ namespace Warehouse_IO.View.InboundSource
             if (truckDataGridView.SelectedRows.Count > 0)
             {
                 DataGridViewRow selectedRow = truckDataGridView.CurrentRow;
-                int id = Convert.ToInt32(selectedRow.Cells[2].Value);
-                truck = new WHIO.Model.Truck(id);
+                int id = 0; // Default value
+                object cellValue = selectedRow.Cells["ID"].Value;
+                if (cellValue != null && int.TryParse(cellValue.ToString(), out id))
+                {
+                    truck = new Truck(id);
+                }
+                else
+                {
+                    MessageBox.Show(this, "No item selected");
+                }
                 if (newInbound.RemoveTruck(truck))
                 {
                     UpdateTruckGridView();
@@ -483,7 +498,7 @@ namespace Warehouse_IO.View.InboundSource
             {
                 if (item.Name.ToLower().Contains(searchText))
                 {
-                    productListBox.Items.Add(item.Details);
+                    productListBox.Items.Add(item.Name);
                 }
             }
         }

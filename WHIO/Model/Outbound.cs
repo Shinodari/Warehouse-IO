@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using Warehouse_IO.Chart;
 using Warehouse_IO.View.In_Out_ActivityForm;
 
 namespace Warehouse_IO.WHIO.Model
@@ -131,38 +132,44 @@ namespace Warehouse_IO.WHIO.Model
                 using (var cmd = conn.CreateCommand())
                 {
                     string updateArrayList = @"
-                    SELECT
-                    o.DeliveryDate,
-                    o.InvoiceNo,
-                    c.Name AS Customer,
-                    GROUP_CONCAT(DISTINCT dp.Name SEPARATOR ', ') AS DeliveryPlaces,
-                    GROUP_CONCAT(DISTINCT CONCAT(t.Name, ' (', ot.Quantity, ')') SEPARATOR ', ') AS Trucks,
-                    o.Detail,
-                    o.IsInter,
-                    o.ID AS OutboundID
-                    FROM
-                    outbound o
-                    LEFT JOIN
-                    supplier c ON o.SupplierID = c.ID
-                    LEFT JOIN
-                    outbounddeliveryplace odp ON odp.OutboundID = o.ID
-                    LEFT JOIN
-                    deliveryplace dp ON odp.DeliveryPlaceID = dp.ID
-                    LEFT JOIN
-                    outboundtruck ot ON ot.OutboundID = o.ID
-                    LEFT JOIN
-                    truck t ON ot.TruckID = t.ID
-                    GROUP BY
-                    o.DeliveryDate,
-                    o.InvoiceNo,
-                    c.Name,
-                    o.Detail,
-                    o.IsInter,
-                    o.ID
-                    ORDER BY
-                    o.DeliveryDate DESC
-                    LIMIT
-                    100;
+SELECT
+  o.DeliveryDate,
+  o.InvoiceNo,
+  c.Name AS Customer,
+  GROUP_CONCAT(DISTINCT dp.Name SEPARATOR ', ') AS DeliveryPlaces,
+  GROUP_CONCAT(DISTINCT CONCAT(t.Name, ' (', ot.Quantity, ')') SEPARATOR ', ') AS Trucks,
+  o.Detail,
+  o.IsInter,
+  o.ID AS OutboundID,
+  (SELECT SUM(d.M3 * oq.Quantity)
+   FROM outboundquantityofproductlist oq
+   JOIN product p ON oq.ProductID = p.ID
+   JOIN dimension d ON p.DimensionID = d.ID
+   WHERE oq.OutboundID = o.ID) AS M3
+FROM
+  outbound o
+LEFT JOIN
+  supplier c ON o.SupplierID = c.ID
+LEFT JOIN
+  outbounddeliveryplace odp ON odp.OutboundID = o.ID
+LEFT JOIN
+  deliveryplace dp ON odp.DeliveryPlaceID = dp.ID
+LEFT JOIN
+  outboundtruck ot ON ot.OutboundID = o.ID
+LEFT JOIN
+  truck t ON ot.TruckID = t.ID
+GROUP BY
+  o.DeliveryDate,
+  o.InvoiceNo,
+  c.Name,
+  o.Detail,
+  o.IsInter,
+  o.ID
+ORDER BY
+  o.DeliveryDate DESC
+LIMIT
+  300;
+
                     ";
 
                     cmd.CommandText = updateArrayList;
@@ -187,8 +194,50 @@ namespace Warehouse_IO.WHIO.Model
                             }
                             bool export = reader.GetBoolean(reader.GetOrdinal("IsInter"));
                             int outboundid = reader.GetInt32(reader.GetOrdinal("OutboundID"));
+                            double m3 = reader.GetDouble(reader.GetOrdinal("M3"));
 
-                            outboundList.Add(new OutboundActivity(date, invoice, customer, deliveryplace, truck, detail, export, outboundid));
+                            outboundList.Add(new OutboundActivity(date, invoice, customer, deliveryplace, truck, detail, export, outboundid, m3));
+                        }
+                    }
+                }
+            }
+            catch (MySqlException e) { }
+            finally
+            {
+                if (conn != null && conn.State != ConnectionState.Closed)
+                    conn.Close();
+            }
+            return outboundList;
+        }
+
+        public static List<OutBoundTruckForChart> GetTruckOutboundList()
+        {
+            MySqlConnection conn = null;
+            List<OutBoundTruckForChart> outboundList = new List<OutBoundTruckForChart>();
+            try
+            {
+                conn = new MySqlConnection(connstr);
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    string updateArrayList = @"
+                    SELECT o.DeliveryDate, t.Name AS TruckName, ot.Quantity
+                    FROM outbound AS o
+                    INNER JOIN outboundtruck AS ot ON o.ID = ot.OutboundID
+                    INNER JOIN truck AS t ON ot.TruckID = t.ID
+                    WHERE t.ID IN (12, 13, 14, 15, 16)
+                    ORDER BY
+                    o.DeliveryDate DESC;
+                    ";
+                    cmd.CommandText = updateArrayList;
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            DateTime date = reader.GetDateTime(reader.GetOrdinal("DeliveryDate"));
+                            string typename = reader.GetString(reader.GetOrdinal("TruckName"));
+                            int qty = reader.GetInt32(reader.GetOrdinal("Quantity"));
+                            outboundList.Add(new OutBoundTruckForChart(date, typename, qty));
                         }
                     }
                 }

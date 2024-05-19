@@ -1,5 +1,4 @@
-﻿using Warehouse_IO.Authentication;
-using Warehouse_IO.WHIO.Model;
+﻿using System;
 
 namespace Warehouse_IO.Common
 {
@@ -12,5 +11,11 @@ namespace Warehouse_IO.Common
         public static string packageTempName;
         public static string unitOfUOMTempName;
         public static bool isadmin;
+
+        public static DateTime fromDate1Timeline;
+        public static DateTime toDate1Timeline;
+
+        public static DateTime fromDate2Timeline;
+        public static DateTime toDate2Timeline;
     }
 }

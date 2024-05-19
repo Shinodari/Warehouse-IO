@@ -55,6 +55,10 @@ namespace Warehouse_IO.View.InboundSource
             {
                 dataGridView.Columns["InboundID"].Visible = false;
             }
+            if (dataGridView.Columns["M3"] != null)
+            {
+                dataGridView.Columns["M3"].Visible = false;
+            }
             if (dataGridView.Columns["Date"] != null)
             {
                 dataGridView.Columns["Date"].DefaultCellStyle.Format = "MMM dd, yyyy";

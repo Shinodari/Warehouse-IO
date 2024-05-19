@@ -123,6 +123,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Transactions" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -140,6 +141,14 @@
   <ItemGroup>
     <Compile Include="Authentication\Login.cs" />
     <Compile Include="Authentication\User.cs" />
+    <Compile Include="Chart\InboundTruckForChart.cs" />
+    <Compile Include="Chart\OutBoundTruckForChart.cs" />
+    <Compile Include="Chart\OverallOperation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Chart\OverallOperation.Designer.cs">
+      <DependentUpon>OverallOperation.cs</DependentUpon>
+    </Compile>
     <Compile Include="Common\Global.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -311,6 +320,12 @@
     <Compile Include="View\Edit_ConnectionStringForm.Designer.cs">
       <DependentUpon>Edit_ConnectionStringForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\In-Out_ActivityForm\DateTimePickerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\In-Out_ActivityForm\DateTimePickerForm.Designer.cs">
+      <DependentUpon>DateTimePickerForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\In-Out_ActivityForm\InboundActivity.cs" />
     <Compile Include="View\In-Out_ActivityForm\InboundItemForm.cs">
       <SubType>Form</SubType>
@@ -348,6 +363,12 @@
     </Compile>
     <Compile Include="View\InboundSource\EditQuantityWindow.Designer.cs">
       <DependentUpon>EditQuantityWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\InboundSource\EditTruckQtyWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\InboundSource\EditTruckQtyWindow.Designer.cs">
+      <DependentUpon>EditTruckQtyWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="View\InboundSource\EditV2.cs">
       <SubType>Form</SubType>
@@ -408,6 +429,12 @@
     </Compile>
     <Compile Include="View\OutboundSource\EditQuantityWindow.Designer.cs">
       <DependentUpon>EditQuantityWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\OutboundSource\EditTruckQtyWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\OutboundSource\EditTruckQtyWindow.Designer.cs">
+      <DependentUpon>EditTruckQtyWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="View\OutboundSource\OutboundForm.cs">
       <SubType>Form</SubType>
@@ -617,6 +644,9 @@
     <Compile Include="WHIO\Model\Transport.cs" />
     <Compile Include="WHIO\Model\Storage.cs" />
     <Compile Include="WHIO\Model\Department.cs" />
+    <EmbeddedResource Include="Chart\OverallOperation.resx">
+      <DependentUpon>OverallOperation.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -697,6 +727,9 @@
     <EmbeddedResource Include="View\Edit_ConnectionStringForm.resx">
       <DependentUpon>Edit_ConnectionStringForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="View\In-Out_ActivityForm\DateTimePickerForm.resx">
+      <DependentUpon>DateTimePickerForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\In-Out_ActivityForm\InboundItemForm.resx">
       <DependentUpon>InboundItemForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -714,6 +747,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="View\InboundSource\EditQuantityWindow.resx">
       <DependentUpon>EditQuantityWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\InboundSource\EditTruckQtyWindow.resx">
+      <DependentUpon>EditTruckQtyWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\InboundSource\EditV2.resx">
       <DependentUpon>EditV2.cs</DependentUpon>
@@ -741,6 +777,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="View\OutboundSource\EditQuantityWindow.resx">
       <DependentUpon>EditQuantityWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\OutboundSource\EditTruckQtyWindow.resx">
+      <DependentUpon>EditTruckQtyWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\OutboundSource\OutboundForm.resx">
       <DependentUpon>OutboundForm.cs</DependentUpon>
