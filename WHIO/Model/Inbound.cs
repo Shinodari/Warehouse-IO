@@ -85,7 +85,7 @@ namespace Warehouse_IO.WHIO.Model
                     conn.Close();
             }
         }
-        public Inbound(string invoiceNo, DateTime deliveryDate, Supplier supplier, Storage storage, bool isinter,string detail) : base(invoiceNo, deliveryDate, supplier, isinter,detail)
+        public Inbound(string invoiceNo, DateTime deliveryDate, Supplier supplier, Storage storage, bool isinter,string detail,bool iscomplete) : base(invoiceNo, deliveryDate, supplier, isinter,detail, iscomplete)
         {
             this.storage = storage;
         }
@@ -111,6 +111,7 @@ namespace Warehouse_IO.WHIO.Model
                     i.IsInter,
                     s.ID AS StorageID,
                     i.ID AS InboundID,
+                    i.IsComplete,
                     (SELECT SUM(d.M3 * iq.Quantity)
                     FROM inboundquantityofproductlist iq
                     JOIN product p ON iq.ProductID = p.ID
@@ -134,7 +135,8 @@ namespace Warehouse_IO.WHIO.Model
                     i.Detail,
                     i.IsInter,
                     s.ID,
-                    i.ID
+                    i.ID,
+                    i.IsComplete
                     ORDER BY
                     i.DeliveryDate DESC
                     LIMIT
@@ -155,6 +157,7 @@ namespace Warehouse_IO.WHIO.Model
                             bool import;
                             int storageId;
                             int inboundId;
+                            bool iscomplete;
                             double m3;
 
                             try
@@ -186,13 +189,13 @@ namespace Warehouse_IO.WHIO.Model
                                 {
                                     detail = "";
                                 }
-
                                 import = reader.GetBoolean(reader.GetOrdinal("IsInter"));
                                 storageId = reader.GetInt32(reader.GetOrdinal("StorageID"));
                                 inboundId = reader.GetInt32(reader.GetOrdinal("InboundID"));
+                                iscomplete = reader.GetBoolean(reader.GetOrdinal("IsComplete"));
                                 m3 = reader.GetDouble(reader.GetOrdinal("M3"));
 
-                                inboundList.Add(new InboundActivity(date, invoice, customer, storage, truck, detail, import, storageId, inboundId, m3));
+                                inboundList.Add(new InboundActivity(date, invoice, customer, storage, truck, detail, import, storageId, inboundId,iscomplete, m3));
                             }
                             catch (NullReferenceException)
                             {
@@ -223,13 +226,13 @@ namespace Warehouse_IO.WHIO.Model
                 using (var cmd = conn.CreateCommand())
                 {
                     string updateArrayList = @"
-SELECT i.DeliveryDate, t.Name AS TruckName, it.Quantity
-FROM inbound AS i
-INNER JOIN inboundtruck AS it ON i.ID = it.InboundID
-INNER JOIN truck AS t ON it.TruckID = t.ID
-WHERE t.ID IN (12, 13)
-ORDER BY
-i.DeliveryDate DESC;
+                    SELECT i.DeliveryDate, t.Name AS TruckName, it.Quantity
+                    FROM inbound AS i
+                    INNER JOIN inboundtruck AS it ON i.ID = it.InboundID
+                    INNER JOIN truck AS t ON it.TruckID = t.ID
+                    WHERE t.ID IN (12, 13)
+                    ORDER BY
+                    i.DeliveryDate DESC;
                     ";
                     cmd.CommandText = updateArrayList;
                     using (var reader = cmd.ExecuteReader())
@@ -263,7 +266,7 @@ i.DeliveryDate DESC;
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    string insert = $"INSERT INTO inbound (ID, InvoiceNo, DeliveryDate, SupplierID, StorageID, IsInter, Detail) VALUES (NULL, @invoice, @date, @sup, @sto, @isinter, @detail)";
+                    string insert = $"INSERT INTO inbound (ID, InvoiceNo, DeliveryDate, SupplierID, StorageID, IsInter, Detail, IsComplete) VALUES (NULL, @invoice, @date, @sup, @sto, @isinter, @detail, @iscom)";
                     cmd.CommandText = insert;
                     cmd.Parameters.AddWithValue("@invoice", InvoiceNo);
                     cmd.Parameters.AddWithValue("@date", DeliveryDate);
@@ -271,6 +274,7 @@ i.DeliveryDate DESC;
                     cmd.Parameters.AddWithValue("@sto", Storage.ID);
                     cmd.Parameters.AddWithValue("@isinter", Inter);
                     cmd.Parameters.AddWithValue("detail", Detail);
+                    cmd.Parameters.AddWithValue("@iscom", IsComplete);
                     cmd.ExecuteNonQuery();
                 }
                 return true;
@@ -295,7 +299,7 @@ i.DeliveryDate DESC;
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    string update = $"UPDATE inbound SET InvoiceNo = @invoice, DeliveryDate = @date, SupplierID = @sup, StorageID = @sto, IsInter = @isinter, Detail = @detail WHERE ID = @id ";
+                    string update = $"UPDATE inbound SET InvoiceNo = @invoice, DeliveryDate = @date, SupplierID = @sup, StorageID = @sto, IsInter = @isinter, Detail = @detail, IsComplete = @iscom WHERE ID = @id ";
                     cmd.CommandText = update;
                     cmd.Parameters.AddWithValue("@invoice", InvoiceNo);
                     cmd.Parameters.AddWithValue("@date", DeliveryDate);
@@ -303,6 +307,7 @@ i.DeliveryDate DESC;
                     cmd.Parameters.AddWithValue("@sto", Storage.ID);
                     cmd.Parameters.AddWithValue("@isinter", Inter);
                     cmd.Parameters.AddWithValue("@detail", Detail);
+                    cmd.Parameters.AddWithValue("@iscom", IsComplete);
                     cmd.Parameters.AddWithValue("@id", ID);
                     cmd.ExecuteNonQuery();
                 }

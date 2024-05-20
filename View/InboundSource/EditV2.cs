@@ -479,6 +479,7 @@ namespace Warehouse_IO.View.InboundSource
             UpdateProductGridView();
             updateComponent();
         }
+
         //Check all are good before done!!
         private bool CheckAllThings()
         {

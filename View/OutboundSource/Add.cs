@@ -220,7 +220,7 @@ namespace Warehouse_IO.View.OutboundSource
                 return;
             }
 
-            add = new Outbound(invoiceTextBox.Text, deliverydate, supplier, IsInterCheckBox.Checked, truckOutDetailTextBox.Text);
+            add = new Outbound(invoiceTextBox.Text, deliverydate, supplier, IsInterCheckBox.Checked, truckOutDetailTextBox.Text,false);
 
             if (add.Create())
             {

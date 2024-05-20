@@ -28,6 +28,9 @@ namespace Warehouse_IO.WHIO.Model
         string detail;
         public string Detail { get { return detail; }set { detail = value; } }
 
+        bool iscomplete;
+        public bool IsComplete { get { return iscomplete; }set { iscomplete = value; } }
+
         static string connstr = Settings.Default.CONNECTION_STRING;
 
         string GetTableNameFromClassName()
@@ -60,7 +63,8 @@ namespace Warehouse_IO.WHIO.Model
                                 supplier = new Supplier(Convert.ToInt32(reader["SupplierID"]));
                                 inter = reader.GetBoolean("IsInter");
                                 detail = reader["Detail"].ToString();
-                            }
+                                iscomplete = reader.GetBoolean("IsComplete");
+                        }
                         }
                     }
             }
@@ -78,7 +82,7 @@ namespace Warehouse_IO.WHIO.Model
             truckquantitypershipmentlist = new Dictionary<Truck, int>(new TruckEqualityComparer());
             CheckAndUpdateField(id.ToString());
         }
-        public Transport(string invoiceNo,DateTime deliveryDate,Supplier supplier,bool isinter,string detail)
+        public Transport(string invoiceNo,DateTime deliveryDate,Supplier supplier,bool isinter,string detail,bool iscomplete)
         {
             quantityofproductlist = new Dictionary<Product, int>(new ProductEqualityComparer());
             truckquantitypershipmentlist = new Dictionary<Truck, int>(new TruckEqualityComparer());
@@ -87,6 +91,7 @@ namespace Warehouse_IO.WHIO.Model
             this.supplier = supplier;
             this.inter = isinter;
             this.detail = detail;
+            this.iscomplete = iscomplete;
         }
 
         public abstract bool Create();

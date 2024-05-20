@@ -12,10 +12,11 @@ namespace Warehouse_IO.View.In_Out_ActivityForm
         public string Details { get; set; }
         public bool Export { get; set; }
         public int OutboundID { get; set; }
+        public bool Iscomplete { get; set; }
         public double M3 { get; set; }
 
 
-        public OutboundActivity(DateTime date, string invoice, string customer, string deliveryplace, string truck, string detail,bool isinter, int outboundid,double m3)
+        public OutboundActivity(DateTime date, string invoice, string customer, string deliveryplace, string truck, string detail,bool isinter, int outboundid,bool iscomplete,double m3)
         {
             this.Date = date;
             this.Invoice = invoice;
@@ -25,6 +26,7 @@ namespace Warehouse_IO.View.In_Out_ActivityForm
             this.Details = detail;
             this.Export = isinter;
             this.OutboundID = outboundid;
+            this.Iscomplete = iscomplete;
             this.M3 = m3;
         }
     }

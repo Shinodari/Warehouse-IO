@@ -118,7 +118,7 @@ namespace Warehouse_IO.WHIO.Model
                     conn.Close();
             }
         }
-        public Outbound(string invoiceNo, DateTime deliveryDate, Supplier supplier, bool isinter,string detail) : base(invoiceNo, deliveryDate, supplier, isinter,detail) { }
+        public Outbound(string invoiceNo, DateTime deliveryDate, Supplier supplier, bool isinter,string detail,bool iscomplete) : base(invoiceNo, deliveryDate, supplier, isinter,detail,iscomplete) { }
 
         //Method only for Outbound (not in Transport)
         public static List<OutboundActivity> GetOutboundList()
@@ -141,6 +141,7 @@ SELECT
   o.Detail,
   o.IsInter,
   o.ID AS OutboundID,
+  o.IsComplete,
   (SELECT SUM(d.M3 * oq.Quantity)
    FROM outboundquantityofproductlist oq
    JOIN product p ON oq.ProductID = p.ID
@@ -164,7 +165,8 @@ GROUP BY
   c.Name,
   o.Detail,
   o.IsInter,
-  o.ID
+  o.ID,
+  o.IsComplete
 ORDER BY
   o.DeliveryDate DESC
 LIMIT
@@ -194,9 +196,10 @@ LIMIT
                             }
                             bool export = reader.GetBoolean(reader.GetOrdinal("IsInter"));
                             int outboundid = reader.GetInt32(reader.GetOrdinal("OutboundID"));
+                            bool iscom = reader.GetBoolean(reader.GetOrdinal("IsComplete"));
                             double m3 = reader.GetDouble(reader.GetOrdinal("M3"));
 
-                            outboundList.Add(new OutboundActivity(date, invoice, customer, deliveryplace, truck, detail, export, outboundid, m3));
+                            outboundList.Add(new OutboundActivity(date, invoice, customer, deliveryplace, truck, detail, export, outboundid,iscom, m3));
                         }
                     }
                 }
@@ -260,13 +263,14 @@ LIMIT
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    string insert = $"INSERT INTO outbound (ID, InvoiceNo, DeliveryDate, SupplierID, IsInter, Detail) VALUES (NULL, @invoice, @date, @sup, @isinter, @detail)";
+                    string insert = $"INSERT INTO outbound (ID, InvoiceNo, DeliveryDate, SupplierID, IsInter, Detail, IsComplete) VALUES (NULL, @invoice, @date, @sup, @isinter, @detail, @iscom)";
                     cmd.CommandText = insert;
                     cmd.Parameters.AddWithValue("@invoice", InvoiceNo);
                     cmd.Parameters.AddWithValue("@date", DeliveryDate);
                     cmd.Parameters.AddWithValue("@sup", Supplier.ID);
                     cmd.Parameters.AddWithValue("@isinter", Inter);
                     cmd.Parameters.AddWithValue("detail", Detail);
+                    cmd.Parameters.AddWithValue("@iscom", IsComplete);
                     cmd.ExecuteNonQuery();
                 }
                 return true;
@@ -291,13 +295,14 @@ LIMIT
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    string update = $"UPDATE outbound SET InvoiceNo = @invoice, DeliveryDate = @date, SupplierID = @sup, IsInter = @isinter, Detail = @detail WHERE ID = @id ";
+                    string update = $"UPDATE outbound SET InvoiceNo = @invoice, DeliveryDate = @date, SupplierID = @sup, IsInter = @isinter, Detail = @detail, IsComplete = @iscom WHERE ID = @id ";
                     cmd.CommandText = update;
                     cmd.Parameters.AddWithValue("@invoice", InvoiceNo);
                     cmd.Parameters.AddWithValue("@date", DeliveryDate);
                     cmd.Parameters.AddWithValue("@sup", Supplier.ID);
                     cmd.Parameters.AddWithValue("@isinter", Inter);
                     cmd.Parameters.AddWithValue("@detail",Detail);
+                    cmd.Parameters.AddWithValue("@iscom", IsComplete);
                     cmd.Parameters.AddWithValue("@id", ID);
                     cmd.ExecuteNonQuery();
                 }

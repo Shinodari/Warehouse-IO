@@ -54,6 +54,8 @@
             this.inboundDataGridView.Size = new System.Drawing.Size(866, 316);
             this.inboundDataGridView.TabIndex = 10;
             this.inboundDataGridView.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.inboundDataGridView_CellDoubleClick);
+            this.inboundDataGridView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.inboundDataGridView_KeyDown);
+            this.inboundDataGridView.KeyUp += new System.Windows.Forms.KeyEventHandler(this.inboundDataGridView_KeyUp);
             // 
             // outboundDataGridView
             // 
@@ -71,6 +73,8 @@
             this.outboundDataGridView.Size = new System.Drawing.Size(866, 316);
             this.outboundDataGridView.TabIndex = 20;
             this.outboundDataGridView.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.outboundDataGridView_CellDoubleClick);
+            this.outboundDataGridView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.outboundDataGridView_KeyDown);
+            this.outboundDataGridView.KeyUp += new System.Windows.Forms.KeyEventHandler(this.outboundDataGridView_KeyUp);
             // 
             // closeButton
             // 
