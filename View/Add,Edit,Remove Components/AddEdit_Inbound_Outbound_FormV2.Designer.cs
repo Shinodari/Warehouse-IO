@@ -66,6 +66,8 @@
             this.productListBox = new System.Windows.Forms.ListBox();
             this.doneButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
+            this.createProductButton = new System.Windows.Forms.Button();
+            this.createTruckButton = new System.Windows.Forms.Button();
             this.shipmentGroupBox.SuspendLayout();
             this.importShipmentGroupBox.SuspendLayout();
             this.truckGroupBox.SuspendLayout();
@@ -190,6 +192,7 @@
             // 
             // truckGroupBox
             // 
+            this.truckGroupBox.Controls.Add(this.createTruckButton);
             this.truckGroupBox.Controls.Add(this.truckDetailLabel);
             this.truckGroupBox.Controls.Add(this.truckInDetailTextBox);
             this.truckGroupBox.Controls.Add(this.productQuantityLabel);
@@ -306,6 +309,7 @@
             // 
             // productGroupBox
             // 
+            this.productGroupBox.Controls.Add(this.createProductButton);
             this.productGroupBox.Controls.Add(this.importButton);
             this.productGroupBox.Controls.Add(this.productNameSearchTextBox);
             this.productGroupBox.Controls.Add(this.removeProductButton);
@@ -441,6 +445,24 @@
             this.cancelButton.Text = "Cancel";
             this.cancelButton.UseVisualStyleBackColor = true;
             // 
+            // createProductButton
+            // 
+            this.createProductButton.Location = new System.Drawing.Point(302, 341);
+            this.createProductButton.Name = "createProductButton";
+            this.createProductButton.Size = new System.Drawing.Size(100, 23);
+            this.createProductButton.TabIndex = 307;
+            this.createProductButton.Text = "Create Product";
+            this.createProductButton.UseVisualStyleBackColor = true;
+            // 
+            // createTruckButton
+            // 
+            this.createTruckButton.Location = new System.Drawing.Point(538, 185);
+            this.createTruckButton.Name = "createTruckButton";
+            this.createTruckButton.Size = new System.Drawing.Size(100, 23);
+            this.createTruckButton.TabIndex = 205;
+            this.createTruckButton.Text = "Create Truck";
+            this.createTruckButton.UseVisualStyleBackColor = true;
+            // 
             // AddEdit_Inbound_Outbound_FormV2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -512,5 +534,7 @@
         protected System.Windows.Forms.Button importButton;
         protected System.Windows.Forms.TextBox truckInDetailTextBox;
         protected System.Windows.Forms.Label truckDetailLabel;
+        protected System.Windows.Forms.Button createTruckButton;
+        protected System.Windows.Forms.Button createProductButton;
     }
 }

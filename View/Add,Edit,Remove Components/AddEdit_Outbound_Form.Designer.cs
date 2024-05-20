@@ -39,6 +39,7 @@
             this.supplierComboBox = new System.Windows.Forms.ComboBox();
             this.invoiceTextBox = new System.Windows.Forms.TextBox();
             this.deliveryPlaceGroupBox = new System.Windows.Forms.GroupBox();
+            this.createDeliveryplaceButton = new System.Windows.Forms.Button();
             this.placeLabel = new System.Windows.Forms.Label();
             this.deliveryplaceListLabel = new System.Windows.Forms.Label();
             this.removePlaceButton = new System.Windows.Forms.Button();
@@ -59,6 +60,7 @@
             this.truckListBox = new System.Windows.Forms.ListBox();
             this.truckLabel = new System.Windows.Forms.Label();
             this.productGroupBox = new System.Windows.Forms.GroupBox();
+            this.createProductButton = new System.Windows.Forms.Button();
             this.importFileButton = new System.Windows.Forms.Button();
             this.productNameSearchTextBox = new System.Windows.Forms.TextBox();
             this.removeProductButton = new System.Windows.Forms.Button();
@@ -72,6 +74,7 @@
             this.productListBox = new System.Windows.Forms.ListBox();
             this.doneButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
+            this.createTruckButton = new System.Windows.Forms.Button();
             this.shipmentGroupBox.SuspendLayout();
             this.exportShipmentGroupbox.SuspendLayout();
             this.deliveryPlaceGroupBox.SuspendLayout();
@@ -179,6 +182,7 @@
             // 
             // deliveryPlaceGroupBox
             // 
+            this.deliveryPlaceGroupBox.Controls.Add(this.createDeliveryplaceButton);
             this.deliveryPlaceGroupBox.Controls.Add(this.placeLabel);
             this.deliveryPlaceGroupBox.Controls.Add(this.deliveryplaceListLabel);
             this.deliveryPlaceGroupBox.Controls.Add(this.removePlaceButton);
@@ -192,6 +196,15 @@
             this.deliveryPlaceGroupBox.TabIndex = 200;
             this.deliveryPlaceGroupBox.TabStop = false;
             this.deliveryPlaceGroupBox.Text = "Delivery Place";
+            // 
+            // createDeliveryplaceButton
+            // 
+            this.createDeliveryplaceButton.Location = new System.Drawing.Point(401, 104);
+            this.createDeliveryplaceButton.Name = "createDeliveryplaceButton";
+            this.createDeliveryplaceButton.Size = new System.Drawing.Size(132, 23);
+            this.createDeliveryplaceButton.TabIndex = 203;
+            this.createDeliveryplaceButton.Text = "Create Delivery Place";
+            this.createDeliveryplaceButton.UseVisualStyleBackColor = true;
             // 
             // placeLabel
             // 
@@ -257,6 +270,7 @@
             // 
             // truckGroupBox
             // 
+            this.truckGroupBox.Controls.Add(this.createTruckButton);
             this.truckGroupBox.Controls.Add(this.truckDetailLabel);
             this.truckGroupBox.Controls.Add(this.truckOutDetailTextBox);
             this.truckGroupBox.Controls.Add(this.productQuantityLabel);
@@ -373,6 +387,7 @@
             // 
             // productGroupBox
             // 
+            this.productGroupBox.Controls.Add(this.createProductButton);
             this.productGroupBox.Controls.Add(this.importFileButton);
             this.productGroupBox.Controls.Add(this.productNameSearchTextBox);
             this.productGroupBox.Controls.Add(this.removeProductButton);
@@ -390,6 +405,15 @@
             this.productGroupBox.TabIndex = 300;
             this.productGroupBox.TabStop = false;
             this.productGroupBox.Text = "Product Details";
+            // 
+            // createProductButton
+            // 
+            this.createProductButton.Location = new System.Drawing.Point(324, 48);
+            this.createProductButton.Name = "createProductButton";
+            this.createProductButton.Size = new System.Drawing.Size(75, 45);
+            this.createProductButton.TabIndex = 306;
+            this.createProductButton.Text = "Create Product";
+            this.createProductButton.UseVisualStyleBackColor = true;
             // 
             // importFileButton
             // 
@@ -418,7 +442,7 @@
             // 
             // editProductQuantityButton
             // 
-            this.editProductQuantityButton.Location = new System.Drawing.Point(437, 191);
+            this.editProductQuantityButton.Location = new System.Drawing.Point(401, 192);
             this.editProductQuantityButton.Name = "editProductQuantityButton";
             this.editProductQuantityButton.Size = new System.Drawing.Size(100, 23);
             this.editProductQuantityButton.TabIndex = 34;
@@ -508,6 +532,15 @@
             this.cancelButton.Text = "Cancel";
             this.cancelButton.UseVisualStyleBackColor = true;
             // 
+            // createTruckButton
+            // 
+            this.createTruckButton.Location = new System.Drawing.Point(541, 209);
+            this.createTruckButton.Name = "createTruckButton";
+            this.createTruckButton.Size = new System.Drawing.Size(100, 23);
+            this.createTruckButton.TabIndex = 405;
+            this.createTruckButton.Text = "Create Truck";
+            this.createTruckButton.UseVisualStyleBackColor = true;
+            // 
             // AddEdit_Outbound_Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -589,5 +622,8 @@
         protected System.Windows.Forms.Button importFileButton;
         protected System.Windows.Forms.TextBox truckOutDetailTextBox;
         protected System.Windows.Forms.Label truckDetailLabel;
+        protected System.Windows.Forms.Button createDeliveryplaceButton;
+        protected System.Windows.Forms.Button createProductButton;
+        protected System.Windows.Forms.Button createTruckButton;
     }
 }

@@ -43,6 +43,11 @@ namespace Warehouse_IO.View.OutboundSource
         EditTruckQtyWindow editTruckQty;
         MainForm main;
 
+        //Add product & truck object
+        private ProductSource.Add addProduct;
+        private Transport.TruckFormSource.Add addTruck;
+        private DeliveryplaceSource.Add addDel;
+
         //Event to Invoke Update Outbound List
         public event EventHandler UpdateGrid;
 
@@ -359,6 +364,18 @@ namespace Warehouse_IO.View.OutboundSource
             RemoveTruckFromShipment();
         }
 
+        private void createTruckButton_Click(object sender, EventArgs e)
+        {
+            addTruck = new Transport.TruckFormSource.Add();
+            addTruck.Owner = main;
+
+            addTruck.UpdateGrid += OnUpdateT;
+            addTruck.ShowDialog();
+        }
+        private void OnUpdateT(object sender, EventArgs e)
+        {
+            updateComponent();
+        }
         //Add product to shipment
         private void AddProductToShipment()
         {
@@ -454,6 +471,19 @@ namespace Warehouse_IO.View.OutboundSource
         {
             RemoveProductFromShipment();
         }
+        //Create New Product
+        private void createProductButton_Click(object sender, EventArgs e)
+        {
+            addProduct = new ProductSource.Add();
+            addProduct.Owner = main;
+
+            addProduct.UpdateGrid += OnUpdateP;
+            addProduct.ShowDialog();
+        }
+        private void OnUpdateP(object sender, EventArgs e)
+        {
+            updateComponent();
+        }
 
         //Add Deliveryplace to shipment
         private void AddDeliveryplace()
@@ -480,7 +510,15 @@ namespace Warehouse_IO.View.OutboundSource
         {
             AddDeliveryplace();
         }
+        //Create Deliveryplace
+        private void createDeliveryplaceButton_Click(object sender, EventArgs e)
+        {
+            addDel = new DeliveryplaceSource.Add();
+            addDel.Owner = main;
 
+            addDel.UpdateGrid += OnUpdateP;
+            addDel.ShowDialog();
+        }
         //Remove Deliveryplace from shipment
         private void RemoveDeliveryPlaceFromShipment()
         {

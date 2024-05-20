@@ -87,6 +87,14 @@
             // 
             this.importButton.Click += new System.EventHandler(this.importButton_Click);
             // 
+            // createTruckButton
+            // 
+            this.createTruckButton.Click += new System.EventHandler(this.createTruckButton_Click);
+            // 
+            // createProductButton
+            // 
+            this.createProductButton.Click += new System.EventHandler(this.createProductButton_Click);
+            // 
             // EditV2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);

@@ -44,6 +44,10 @@ namespace Warehouse_IO.View.InboundSource
         EditTruckQtyWindow editTruckQty;
         MainForm main;
 
+        //Add product & truck object
+        private ProductSource.Add addProduct;
+        private Transport.TruckFormSource.Add addTruck;
+
         //Event to Invoke Update Inbound List
         public event EventHandler UpdateGrid;
 
@@ -354,6 +358,18 @@ namespace Warehouse_IO.View.InboundSource
             RemoveTruckFromShipment();
         }
 
+        private void createTruckButton_Click(object sender, EventArgs e)
+        {
+            addTruck = new Transport.TruckFormSource.Add();
+            addTruck.Owner = main;
+
+            addTruck.UpdateGrid += OnUpdateT;
+            addTruck.ShowDialog();
+        }
+        private void OnUpdateT(object sender, EventArgs e)
+        {
+            updateComponent();
+        }
         //Add product to shipment
         private void AddProductToShipment()
         {
@@ -449,7 +465,20 @@ namespace Warehouse_IO.View.InboundSource
         {
             RemoveProductFromShipment();
         }
+        //Create New Product
+        private void createProductButton_Click(object sender, EventArgs e)
+        {
+            addProduct = new ProductSource.Add();
+            addProduct.Owner = main;
 
+            addProduct.UpdateGrid += OnUpdateP;
+            addProduct.ShowDialog();
+        }
+        private void OnUpdateP(object sender, EventArgs e)
+        {
+            UpdateProductGridView();
+            updateComponent();
+        }
         //Check all are good before done!!
         private bool CheckAllThings()
         {

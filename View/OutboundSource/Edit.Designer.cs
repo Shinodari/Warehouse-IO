@@ -103,6 +103,18 @@
             // 
             this.importFileButton.Click += new System.EventHandler(this.importFileButton_Click);
             // 
+            // createDeliveryplaceButton
+            // 
+            this.createDeliveryplaceButton.Click += new System.EventHandler(this.createDeliveryplaceButton_Click);
+            // 
+            // createProductButton
+            // 
+            this.createProductButton.Click += new System.EventHandler(this.createProductButton_Click);
+            // 
+            // createTruckButton
+            // 
+            this.createTruckButton.Click += new System.EventHandler(this.createTruckButton_Click);
+            // 
             // Edit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
