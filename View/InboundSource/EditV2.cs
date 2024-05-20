@@ -516,7 +516,7 @@ namespace Warehouse_IO.View.InboundSource
             {
                 if (item.Name.ToLower().Contains(searchText))
                 {
-                    productListBox.Items.Add(item.Details);
+                    productListBox.Items.Add(item.Name);
                 }
             }
         }

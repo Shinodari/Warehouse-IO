@@ -120,11 +120,11 @@ namespace Warehouse_IO.View.OutboundSource
             }
 
             productList = Product.GetAdjustedProductList();
-            productList.Sort((x, y) => x.Details.CompareTo(y.Details));
+            productList.Sort((x, y) => x.Name.CompareTo(y.Name));
             productListBox.Items.Clear();
             foreach (ProductForDataGridView product in productList)
             {
-                string displayedName = product.Details;
+                string displayedName = product.Name;
                 productListBox.Items.Add(displayedName);
             }
         }
@@ -587,7 +587,7 @@ namespace Warehouse_IO.View.OutboundSource
             {
                 if (item.Name.ToLower().Contains(searchText))
                 {
-                    productListBox.Items.Add(item.Details);
+                    productListBox.Items.Add(item.Name);
                 }
             }
         }
