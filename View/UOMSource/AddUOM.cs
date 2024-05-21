@@ -63,6 +63,7 @@ namespace Warehouse_IO.View.UOMSource
             catch (FormatException)
             {
                 MessageBox.Show("Invalid Quantity Format");
+                return;
             }
             if (unitOfWeightListBox.SelectedItem != null)
             {

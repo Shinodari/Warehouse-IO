@@ -121,6 +121,10 @@ namespace Warehouse_IO.View.In_Out_ActivityForm
             {
                 outboundDataGridView.Columns["M3"].Visible = false;
             }
+            if (outboundDataGridView.Columns["IsComplete"] != null)
+            {
+                outboundDataGridView.Columns["IsComplete"].Visible = false;
+            }
             if (outboundDataGridView.Columns["Date"] != null)
             {
                 outboundDataGridView.Columns["Date"].DefaultCellStyle.Format = "MMM dd, yyyy";
@@ -270,6 +274,12 @@ namespace Warehouse_IO.View.In_Out_ActivityForm
             {
                 previousRowIndex = outboundDataGridView.CurrentCell.RowIndex;
             }
+        }
+        //Refresh datagridview;
+        private void refreshGridButton_Click(object sender, EventArgs e)
+        {
+            UpdateInboundDatagridView();
+            UpdateOutboundDatagridView();
         }
     }
 }

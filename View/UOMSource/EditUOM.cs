@@ -60,36 +60,41 @@ namespace Warehouse_IO.View.UOMSource
             }
         }
 
-        private void AttemptEdit()
+        private bool AttemptEdit()
         {
+            bool isSuccess = true;
             try
             {
                 value = convertToDouble(quantityTextBox.Text);
+                edit.Quantity = value;
             }
             catch (FormatException)
             {
                 MessageBox.Show("Invalid Quantity Format");
-                conversionFailed = true;
+                isSuccess = false;
             }
-            if (conversionFailed)
+            if (unitOfWeightListBox.SelectedItem != null)
             {
-                MessageBox.Show("Create Fail");
-                conversionFailed = false;
-                return;
+                string selectedUnitOfWeight = unitOfWeightListBox.SelectedItem.ToString();
+                edit.Unit.Name = selectedUnitOfWeight;
             }
-            string selectedUnitOfWeight = unitOfWeightListBox.SelectedItem.ToString();
-            string selectedPerPackage = perPackageListBox.SelectedItem.ToString();
-            edit.Quantity = value;
-            edit.Unit.Name = selectedUnitOfWeight;
-            edit.Package.Name = selectedPerPackage;
+            else
+            {
+                MessageBox.Show("Please select Unit of weight");
+                isSuccess = false;
+            }
+            if(perPackageListBox.SelectedItem != null)
+            {
+                string selectedPerPackage = perPackageListBox.SelectedItem.ToString();
+                edit.Package.Name = selectedPerPackage;
+            }
+            else
+            {
+                MessageBox.Show("Please select Unit of weight");
+                isSuccess = false;
+            }
             edit.Name = nameTextBox.Text;
-            if (edit.Change())
-            {
-                MessageBox.Show(this, "Change Completed");
-                Close();
-                UpdateGrid?.Invoke(this, EventArgs.Empty);
-            }
-            else MessageBox.Show(this, "Change Fail");
+            return isSuccess;
         }
         private double convertToDouble(string text)
         {
@@ -103,13 +108,31 @@ namespace Warehouse_IO.View.UOMSource
 
         private void addButton_Click(object sender, EventArgs e)
         {
-            AttemptEdit();
+            if (AttemptEdit())
+            {
+                if (edit.Change())
+                {
+                    MessageBox.Show(this, "Edit complete");
+                    Close();
+                }
+                else MessageBox.Show(this, "Edit in Database Fails");
+            }
+            else return;
         }
         private void addButton_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == (char)Keys.Enter)
             {
-                AttemptEdit();
+                if (AttemptEdit())
+                {
+                    if (edit.Change())
+                    {
+                        MessageBox.Show(this, "Edit complete");
+                        Close();
+                    }
+                    else MessageBox.Show(this, "Edit in Database Fails");
+                }
+                else return;
             }
         }
         private void cancelButton_Click(object sender, EventArgs e)

@@ -36,7 +36,7 @@ namespace Warehouse_IO.View.UOMSource
         {
             list = UOM.GetUOMList();
             DataTable dataTable = new DataTable();
-            dataTable.Columns.Add("ID");
+            dataTable.Columns.Add("ID",typeof(int));
             dataTable.Columns.Add("Quantity",typeof(double));
             dataTable.Columns.Add("Unit");
             dataTable.Columns.Add("Package");
@@ -69,7 +69,7 @@ namespace Warehouse_IO.View.UOMSource
         {
             Global.tempPkey = -1;
             DataGridViewRow selectedRow = dataGridView.CurrentRow;
-            int value = (int)selectedRow.Cells[0].Value;
+            int value = (int)selectedRow.Cells["ID"].Value;
             Global.tempPkey = value;
 
             edit = new EditUOM();
@@ -82,7 +82,7 @@ namespace Warehouse_IO.View.UOMSource
         {
             Global.tempPkey = -1;
             DataGridViewRow selectedRow = dataGridView.CurrentRow;
-            int value = (int)selectedRow.Cells[0].Value;
+            int value = (int)selectedRow.Cells["ID"].Value;
             Global.tempPkey = value;
 
             remove = new Remove();
