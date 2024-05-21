@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using Warehouse_IO.WHIO.Model;
 using Warehouse_IO.Common;
 using Warehouse_IO.View.ParentFormComponents;
 using System.Data;
 using System.Linq;
-using Warehouse_IO.View.In_Out_ActivityForm;
+using Warehouse_IO.Control;
 
 namespace Warehouse_IO.View.OutboundSource
 {
@@ -42,7 +41,7 @@ namespace Warehouse_IO.View.OutboundSource
 
         public void UpdateDatagridView()
         {
-            outboundlist = Outbound.GetOutboundList();
+            outboundlist = OutboundActivity.GetOutboundList();
 
             bindingSource.DataSource = outboundlist;
             dataGridView.DataSource = bindingSource;

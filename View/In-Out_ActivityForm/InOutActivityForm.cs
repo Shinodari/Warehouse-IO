@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using Warehouse_IO.Common;
 using Warehouse_IO.WHIO.Model;
+using Warehouse_IO.Control;
 
 namespace Warehouse_IO.View.In_Out_ActivityForm
 {
@@ -62,7 +63,7 @@ namespace Warehouse_IO.View.In_Out_ActivityForm
 
         public void UpdateInboundDatagridView()
         {
-            inboundactivitylist = Inbound.GetInboundList();
+            inboundactivitylist = InboundActivity.GetInboundList();
 
             inbindingSource.DataSource = inboundactivitylist;
             inboundDataGridView.DataSource = inbindingSource;
@@ -108,7 +109,7 @@ namespace Warehouse_IO.View.In_Out_ActivityForm
 
         public void UpdateOutboundDatagridView()
         {
-            outboundactivitylist = Outbound.GetOutboundList();
+            outboundactivitylist = OutboundActivity.GetOutboundList();
 
             outbindingSource.DataSource = outboundactivitylist;
             outboundDataGridView.DataSource = outbindingSource;

@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-using Warehouse_IO.View.UOMSource;
 
 namespace Warehouse_IO.WHIO.Model
 {
@@ -152,10 +151,10 @@ namespace Warehouse_IO.WHIO.Model
             }
         }
 
-        public static List<UOMForGetList> GetUOMList()
+        public static List<UOM> GetAllUOMList()
         {
             MySqlConnection conn = null;
-            List<UOMForGetList> uomlist = new List<UOMForGetList>();
+            List<UOM> uomlist = new List<UOM>();
             try
             {
                 conn = new MySqlConnection(connstr);
@@ -169,12 +168,8 @@ namespace Warehouse_IO.WHIO.Model
                             while (reader.Read())
                             {
                                 int id = Convert.ToInt32(reader["ID"]);
-                                double quantity = Convert.ToDouble(reader["Quantity"]);
-                                string unit = reader["UnitOfUOMName"].ToString();
-                                string pack = reader["PackageName"].ToString();
-                                string des = reader["Name"].ToString();
-
-                            uomlist.Add(new UOMForGetList(id,quantity,unit,pack,des));
+                            UOM uom = new Model.UOM(id);
+                            uomlist.Add(uom);
                             }
                         }
                     }

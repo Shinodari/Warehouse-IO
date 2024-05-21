@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using Warehouse_IO.WHIO.Model;
+using Warehouse_IO.Control;
 using Warehouse_IO.Common;
 using Warehouse_IO.View.StorageFormSource;
 
@@ -32,7 +32,7 @@ namespace Warehouse_IO.View
 
         public void UpdateDepDatagridView()
         {
-            sto = Storage.GetStorage();
+            sto = StorageForGetList.GetStorage();
             stoBind = new BindingSource(sto, null);
             sto.Sort((x, y) => x.ID.CompareTo(y.ID));
             stoGridView.DataSource = stoBind;

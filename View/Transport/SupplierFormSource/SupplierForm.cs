@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using Warehouse_IO.WHIO.Model;
+using Warehouse_IO.Control;
 using Warehouse_IO.Common;
 using Warehouse_IO.View.Transport.SupplierFormSource;
 
@@ -31,7 +31,7 @@ namespace Warehouse_IO.View.SupplierFormSource
         }
         public void UpdateSupDatagridView()
         {
-            sup = Supplier.GetSupplierList();
+            sup = SupplierForGetList.GetSupplierList();
             supBind = new BindingSource(sup, null);
             sup.Sort((x, y) => x.ID.CompareTo(y.ID));
             supGridView.DataSource = sup;

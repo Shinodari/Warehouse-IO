@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Data;
 using System.Windows.Forms;
 using Warehouse_IO.Common;
-using Warehouse_IO.View.DeliveryplaceSource;
-using Warehouse_IO.View.StorageFormSource;
 using Warehouse_IO.WHIO.Model;
+using Warehouse_IO.Control;
+using System.Linq;
 
 namespace Warehouse_IO.View.DepartmentFormSource
 {
@@ -26,6 +26,7 @@ namespace Warehouse_IO.View.DepartmentFormSource
 
         //Event to Invoke Update department gridview
         public event EventHandler UpdateGrid;
+
         public departmentAddStorage_Deliveryplace()
         {
             InitializeComponent();
@@ -47,7 +48,7 @@ namespace Warehouse_IO.View.DepartmentFormSource
 
         private void updateComponent()
         {
-            storagelist = Storage.GetStorage();
+            storagelist = StorageForGetList.GetStorage();
             storagelist.Sort((x, y) => x.Name.CompareTo(y.Name));
             storageListBox.Items.Clear();
             foreach(StorageForGetList sto in storagelist)
@@ -57,7 +58,7 @@ namespace Warehouse_IO.View.DepartmentFormSource
                 storageID.Add(sto.ID);
             }
 
-            deliveryplacelist = Deliveryplace.GetDeliveryplaceList();
+            deliveryplacelist = DeliveryplaceForGetList.GetDeliveryplaceList();
             deliveryplacelist.Sort((x, y) => x.Name.CompareTo(y.Name));
             deliveryplaceListBox.Items.Clear();
             foreach (DeliveryplaceForGetList delivery in deliveryplacelist)
@@ -110,7 +111,7 @@ namespace Warehouse_IO.View.DepartmentFormSource
                     int selectedStorageID = storageID[selectedStorageIndex];
                     storage = new Storage(selectedStorageID);
 
-                    if (!department.StorageList.Contains(storage))
+                    if (!department.StorageList.Any(s => s.ID == selectedStorageID))
                     {
                         department.AddStorage(storage);
                         UpdateStorageGridView();
@@ -161,7 +162,7 @@ namespace Warehouse_IO.View.DepartmentFormSource
                 int delid = selectedWrap.DelID;
                 deliveryplace = new Deliveryplace(delid);
 
-                if (!department.DeliveryplaceList.Contains(deliveryplace))
+                if (!department.DeliveryplaceList.Any(d => d.ID == delid))
                 {
                     department.AddDeliveryplace(deliveryplace);
                     UpdateDeliveryplaceGridView();
@@ -244,7 +245,10 @@ namespace Warehouse_IO.View.DepartmentFormSource
                 UpdateGrid?.Invoke(this, EventArgs.Empty);
                 Close();
             }
-            return;
+            else
+            {
+                return;
+            }
         }
 
         //Searching deliveryplace algorithm

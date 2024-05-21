@@ -2,7 +2,6 @@
 using MySql.Data.MySqlClient;
 using System.Data;
 using System.Collections.Generic;
-using Warehouse_IO.View.StorageFormSource;
 
 namespace Warehouse_IO.WHIO.Model
 {
@@ -133,10 +132,10 @@ namespace Warehouse_IO.WHIO.Model
             }
         }
 
-        public static List<StorageForGetList> GetStorage()
+        public static List<Storage> GetAllStorage()
         {
             MySqlConnection conn = null;
-            List<StorageForGetList> storageList = new List<StorageForGetList>();
+            List<Storage> storageList = new List<Storage>();
             try
             {
                 conn = new MySqlConnection(connstr);
@@ -150,8 +149,8 @@ namespace Warehouse_IO.WHIO.Model
                             while (reader.Read())
                             {
                                 int id = Convert.ToInt32(reader["ID"]);
-                                string name = reader["Name"].ToString();
-                                storageList.Add(new StorageForGetList(id,name));
+                            Storage sto = new Model.Storage(id);
+                                storageList.Add(sto);
                             }
                         }
                     }

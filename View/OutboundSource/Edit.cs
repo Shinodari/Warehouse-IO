@@ -7,10 +7,7 @@ using Warehouse_IO.View.Add_Edit_Remove_Components;
 using Warehouse_IO.Common;
 using Excel = Microsoft.Office.Interop.Excel;
 using System.Runtime.InteropServices;
-using Warehouse_IO.View.ProductSource;
-using Warehouse_IO.View.Transport.SupplierFormSource;
-using Warehouse_IO.View.Transport.TruckFormSource;
-using Warehouse_IO.View.DeliveryplaceSource;
+using Warehouse_IO.Control;
 
 namespace Warehouse_IO.View.OutboundSource
 {
@@ -96,7 +93,7 @@ namespace Warehouse_IO.View.OutboundSource
 
         private void updateComponent()
         {
-            supplierList = Supplier.GetSupplierList();
+            supplierList = SupplierForGetList.GetSupplierList();
             supplierList.Sort((x, y) => x.name.CompareTo(y.name));
             supplierComboBox.Items.Clear();
             foreach (SupplierForGetList supplier in supplierList)
@@ -105,7 +102,7 @@ namespace Warehouse_IO.View.OutboundSource
                 supplierID.Add(supplier.ID);
             }
 
-            deliveryplaceList = Deliveryplace.GetDeliveryplaceList();
+            deliveryplaceList = DeliveryplaceForGetList.GetDeliveryplaceList();
             deliveryplaceList.Sort((x, y) => x.Name.CompareTo(y.Name));
             deliveryplaceListBox.Items.Clear();
             foreach (DeliveryplaceForGetList delivery in deliveryplaceList)
@@ -115,7 +112,7 @@ namespace Warehouse_IO.View.OutboundSource
                 deliveryplaceListBox.Items.Add(displayedName);
             }
 
-            truckList = Truck.GetTruckList();
+            truckList = TruckForGetList.GetTruckList();
             truckList.Sort((x, y) => x.Description.CompareTo(y.Description));
             truckListBox.Items.Clear();
             foreach (TruckForGetList truck in truckList)
@@ -124,7 +121,7 @@ namespace Warehouse_IO.View.OutboundSource
                 truckID.Add(truck.ID);
             }
 
-            productList = Product.GetAdjustedProductList();
+            productList = ProductForDataGridView.GetAdjustedProductList();
             productList.Sort((x, y) => x.Name.CompareTo(y.Name));
             productListBox.Items.Clear();
             foreach (ProductForDataGridView product in productList)

@@ -3,7 +3,7 @@ using Warehouse_IO.View.Add_Edit_Remove_Components;
 using System;
 using System.Windows.Forms;
 using System.Collections.Generic;
-using Warehouse_IO.View.UOMSource;
+using Warehouse_IO.Control;
 
 namespace Warehouse_IO.View.ProductSource
 {
@@ -13,7 +13,7 @@ namespace Warehouse_IO.View.ProductSource
         UOM uom;
         Warehouse_IO.WHIO.Model.Dimension dimension;
         List<UOMForGetList> uomList;
-        List<Warehouse_IO.View.Dimensions.DimensionSource.DimensionForGetList> dimensionList;
+        List<DimensionForGetList> dimensionList;
 
         public event EventHandler UpdateGrid;
 
@@ -24,22 +24,22 @@ namespace Warehouse_IO.View.ProductSource
             UoMListBox.KeyPress += AddButton_KeyPress;
             dimensionListBox.KeyPress += AddButton_KeyPress;
 
-            dimensionList = new List<Warehouse_IO.View.Dimensions.DimensionSource.DimensionForGetList>();
+            dimensionList = new List<DimensionForGetList>();
             uomList = new List<UOMForGetList>();
             updateList();
         }
 
         private void updateList()
         {
-            dimensionList = Warehouse_IO.WHIO.Model.Dimension.GetDimensionList();
-            uomList = UOM.GetUOMList();
+            dimensionList = DimensionForGetList.GetDimensionList();
+            uomList = UOMForGetList.GetUOMList();
             dimensionList.Sort((x, y) => x.M3.CompareTo(y.M3));
             uomList.Sort((x, y) => x.Quantity.CompareTo(y.Quantity));
 
             UoMListBox.Items.Clear();
             dimensionListBox.Items.Clear();
             //Dynamic listbox need to track by dictionary
-            foreach (Warehouse_IO.View.Dimensions.DimensionSource.DimensionForGetList dimension in dimensionList)
+            foreach (DimensionForGetList dimension in dimensionList)
             {
                 string formattedDimension = $"{dimension.M3} // {dimension.UnitOfVolume}";
                 DimensionWrapper dimwrap = new DimensionWrapper(formattedDimension, dimension.ID);
@@ -133,7 +133,7 @@ namespace Warehouse_IO.View.ProductSource
             string searchText = dimensionSearchTextBox.Text.ToLower();
             dimensionListBox.Items.Clear();
 
-            foreach (Warehouse_IO.View.Dimensions.DimensionSource.DimensionForGetList item in dimensionList)
+            foreach (DimensionForGetList item in dimensionList)
             {
                 string formattedDimension = $"{item.M3} // {item.UnitOfVolume} {item.Details}";
                 if (formattedDimension.ToLower().Contains(searchText))

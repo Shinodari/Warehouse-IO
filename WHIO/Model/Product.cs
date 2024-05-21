@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-using Warehouse_IO.View.ProductSource;
 
 namespace Warehouse_IO.WHIO.Model
 {
@@ -148,30 +147,17 @@ namespace Warehouse_IO.WHIO.Model
             }
         }
 
-        public static List<ProductForDataGridView> GetAdjustedProductList()
+        public static List<Product> GetAllProductList()
         {
             MySqlConnection conn = null;
-            List<ProductForDataGridView> adjustedproductlist = new List<ProductForDataGridView>();
+            List<Product> productlist = new List<Product>();
             try
             {
                 conn = new MySqlConnection(connstr);
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    string query = @"
-                    SELECT 
-                    p.ID,
-                    p.Name,
-                    d.M3,
-                    u.Quantity,
-                    u.UnitOfUOMName,
-                    u.PackageName
-                    FROM
-                    product p
-                    LEFT JOIN
-                    dimension d ON p.DimensionID = d.ID
-                    LEFT JOIN
-                    uom u ON p.UOMID = u.ID";
+                    string query = "SELECT * FROM product";
 
                     cmd.CommandText = query;
 
@@ -180,13 +166,8 @@ namespace Warehouse_IO.WHIO.Model
                         while (reader.Read())
                         {
                             string id = reader["ID"].ToString();
-                            string name = reader["Name"].ToString();
-                            double? m3 = reader["M3"] != DBNull.Value ? (double?)Convert.ToDouble(reader["M3"]) : null;
-                            double? weight = reader["Quantity"] != DBNull.Value ? (double?)Convert.ToDouble(reader["Quantity"]) : null;
-                            string uomname = reader["UnitOfUOMName"].ToString();
-                            string packname = reader["PackageName"].ToString();
-
-                            adjustedproductlist.Add(new ProductForDataGridView(id, name, m3, weight, uomname, packname));
+                            Product pro = new Product(id);
+                            productlist.Add(pro);
                         }
                     }
                 }
@@ -197,7 +178,7 @@ namespace Warehouse_IO.WHIO.Model
                 if (conn != null && conn.State != ConnectionState.Closed)
                     conn.Close();
             }
-            return adjustedproductlist;
+            return productlist;
         }
 
         public int GetQuantity(double kgs)

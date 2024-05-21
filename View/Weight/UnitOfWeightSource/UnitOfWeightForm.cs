@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using Warehouse_IO.WHIO.Model;
 using Warehouse_IO.Common;
+using Warehouse_IO.Control;
 
 namespace Warehouse_IO.View.Weight.UnitOfWeightSource
 {
@@ -31,7 +31,7 @@ namespace Warehouse_IO.View.Weight.UnitOfWeightSource
         }
         public void UpdateDatagridView()
         {
-            unitOfW = UnitOfUOM.GetUnitOfUOM();
+            unitOfW = UnitOfUOMForGetList.GetUnitOfUOM();
             uBind = new BindingSource(unitOfW, null);
             unitOfW.Sort((x, y) => x.Name.CompareTo(y.Name));
             UnitOfUOMGridView.DataSource = uBind;

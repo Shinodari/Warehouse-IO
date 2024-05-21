@@ -3,8 +3,7 @@ using Warehouse_IO.View.Add_Edit_Remove_Components;
 using System;
 using System.Windows.Forms;
 using System.Collections.Generic;
-using Warehouse_IO.View.Weight.PackagingSource;
-using Warehouse_IO.View.Weight.UnitOfWeightSource;
+using Warehouse_IO.Control;
 
 namespace Warehouse_IO.View.UOMSource
 {
@@ -36,8 +35,8 @@ namespace Warehouse_IO.View.UOMSource
 
         private void updateList()
         {
-            packageList = Package.GetPackageList();
-            unitofUomList = UnitOfUOM.GetUnitOfUOM();
+            packageList = PackageForGetList.GetPackageList();
+            unitofUomList = UnitOfUOMForGetList.GetUnitOfUOM();
             packageList.Sort((x, y) => x.Name.CompareTo(y.Name));
             unitofUomList.Sort((x, y) => x.Name.CompareTo(y.Name));
 

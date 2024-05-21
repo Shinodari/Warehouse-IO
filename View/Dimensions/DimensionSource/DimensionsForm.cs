@@ -4,6 +4,7 @@ using System.Data;
 using System.Windows.Forms;
 using Warehouse_IO.Common;
 using Warehouse_IO.View.ParentFormComponents;
+using Warehouse_IO.Control;
 
 namespace Warehouse_IO.View.Dimensions.DimensionSource
 {
@@ -14,7 +15,7 @@ namespace Warehouse_IO.View.Dimensions.DimensionSource
         private Remove remove;
         MainForm main;
 
-        List<Warehouse_IO.View.Dimensions.DimensionSource.DimensionForGetList> list;
+        List<DimensionForGetList> list;
         BindingSource bind = new BindingSource();
         public event EventHandler returnMain;
 
@@ -22,7 +23,7 @@ namespace Warehouse_IO.View.Dimensions.DimensionSource
         {
             InitializeComponent();
             dataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-            list = new List<Warehouse_IO.View.Dimensions.DimensionSource.DimensionForGetList>();
+            list = new List<DimensionForGetList>();
             UpdateDatagridView();
             main = new MainForm();
         }
@@ -33,7 +34,7 @@ namespace Warehouse_IO.View.Dimensions.DimensionSource
         }
         public void UpdateDatagridView()
         {
-            list = Warehouse_IO.WHIO.Model.Dimension.GetDimensionList();
+            list = DimensionForGetList.GetDimensionList();
             DataTable dataTable = new DataTable();
             dataTable.Columns.Add("ID", typeof(int));
             dataTable.Columns.Add("M3", typeof(double));
@@ -43,7 +44,7 @@ namespace Warehouse_IO.View.Dimensions.DimensionSource
             dataTable.Columns.Add("Height", typeof(double));
             dataTable.Columns.Add("Description");
 
-            foreach (Warehouse_IO.View.Dimensions.DimensionSource.DimensionForGetList dimension in list)
+            foreach (DimensionForGetList dimension in list)
             {
                 DataRow row = dataTable.NewRow();
                 row["ID"] = dimension.ID;

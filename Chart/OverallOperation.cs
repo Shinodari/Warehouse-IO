@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 using Warehouse_IO.Common;
-using Warehouse_IO.View.In_Out_ActivityForm;
-using Warehouse_IO.WHIO.Model;
+using Warehouse_IO.Control;
 
 namespace Warehouse_IO.Chart
 {
@@ -116,11 +114,11 @@ namespace Warehouse_IO.Chart
             outboundTruckChart.Series.Add(oubTsereies4);
             outboundTruckChart.Series.Add(oubTsereies5);
 
-            inboundList = Inbound.GetInboundList();
-            outboundList = Outbound.GetOutboundList();
+            inboundList = InboundActivity.GetInboundList();
+            outboundList = OutboundActivity.GetOutboundList();
 
-            inboundTruckList = Inbound.GetTruckInboundList();
-            outboundTruckList = Outbound.GetTruckOutboundList();
+            inboundTruckList = InboundTruckForChart.GetTruckInboundList();
+            outboundTruckList = OutBoundTruckForChart.GetTruckOutboundList();
 
             UpdateInboundChart();
             UpdateOutboundChart();

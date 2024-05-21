@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using Warehouse_IO.WHIO.Model;
+using Warehouse_IO.Control;
 using Warehouse_IO.Common;
 using Warehouse_IO.View.Transport.TruckFormSource;
 
@@ -33,7 +33,7 @@ namespace Warehouse_IO.View.TruckFormSource
         }
         public void UpdateTruckDatagridView()
         {
-            truck = Truck.GetTruckList();
+            truck = TruckForGetList.GetTruckList();
             truckBind = new BindingSource(truck, null);
             truck.Sort((x, y) => x.ID.CompareTo(y.ID));
             truckGridView.DataSource = truck;

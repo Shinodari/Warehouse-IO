@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using Warehouse_IO.WHIO.Model;
 using Warehouse_IO.Common;
 using Warehouse_IO.View.DepartmentFormSource;
 using System.Data;
+using Warehouse_IO.Control;
 
 namespace Warehouse_IO
 {
@@ -38,7 +38,7 @@ namespace Warehouse_IO
 
         public void UpdateDepDatagridView()
         {
-            departmentList = Department.GetDepartmentList();
+            departmentList = DepartmentForGetList.GetDepartmentList();
 
             DataTable dataTable = new DataTable();
             dataTable.Columns.Add("ID", typeof(int));

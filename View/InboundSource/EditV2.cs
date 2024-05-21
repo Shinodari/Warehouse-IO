@@ -7,10 +7,7 @@ using Warehouse_IO.View.Add_Edit_Remove_Components;
 using Warehouse_IO.Common;
 using Excel = Microsoft.Office.Interop.Excel;
 using System.Runtime.InteropServices;
-using Warehouse_IO.View.ProductSource;
-using Warehouse_IO.View.Transport.SupplierFormSource;
-using Warehouse_IO.View.Transport.TruckFormSource;
-using Warehouse_IO.View.StorageFormSource;
+using Warehouse_IO.Control;
 
 namespace Warehouse_IO.View.InboundSource
 {
@@ -96,7 +93,7 @@ namespace Warehouse_IO.View.InboundSource
 
         private void updateComponent()
         {
-            supplierList = Supplier.GetSupplierList();
+            supplierList = SupplierForGetList.GetSupplierList();
             supplierList.Sort((x, y) => x.name.CompareTo(y.name));
             supplierComboBox.Items.Clear();
             foreach (SupplierForGetList supplier in supplierList)
@@ -105,7 +102,7 @@ namespace Warehouse_IO.View.InboundSource
                 supplierID.Add(supplier.ID);
             }
 
-            truckList = Truck.GetTruckList();
+            truckList = TruckForGetList.GetTruckList();
             truckList.Sort((x, y) => x.Description.CompareTo(y.Description));
             truckListBox.Items.Clear();
             foreach (TruckForGetList truck in truckList)
@@ -114,7 +111,7 @@ namespace Warehouse_IO.View.InboundSource
                 truckID.Add(truck.ID);
             }
 
-            storageList = Storage.GetStorage();
+            storageList = StorageForGetList.GetStorage();
             storageList.Sort((x, y) => x.Name.CompareTo(y.Name));
             storageLocationComboBox.Items.Clear();
             foreach (StorageForGetList storage in storageList)
@@ -123,7 +120,7 @@ namespace Warehouse_IO.View.InboundSource
                 storageID.Add(storage.ID);
             }
 
-            productList = Product.GetAdjustedProductList();
+            productList = ProductForDataGridView.GetAdjustedProductList();
             productList.Sort((x, y) => x.Name.CompareTo(y.Name));
             productListBox.Items.Clear();
             foreach (ProductForDataGridView product in productList)

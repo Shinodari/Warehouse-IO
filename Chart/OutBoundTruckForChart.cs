@@ -1,4 +1,7 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
+using System.Collections.Generic;
+using System.Data;
 
 namespace Warehouse_IO.Chart
 {
@@ -8,11 +11,54 @@ namespace Warehouse_IO.Chart
         public string TypeName { get; set; }
         public int Quantity { get; set; }
 
+        static string connstr = Settings.Default.CONNECTION_STRING;
+
         public OutBoundTruckForChart(DateTime date,string typename,int qty)
         {
             this.Date = date;
             this.TypeName = typename;
             this.Quantity = qty;
+        }
+
+        public static List<OutBoundTruckForChart> GetTruckOutboundList()
+        {
+            MySqlConnection conn = null;
+            List<OutBoundTruckForChart> outboundList = new List<OutBoundTruckForChart>();
+            try
+            {
+                conn = new MySqlConnection(connstr);
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    string updateArrayList = @"
+                    SELECT o.DeliveryDate, t.Name AS TruckName, ot.Quantity
+                    FROM outbound AS o
+                    INNER JOIN outboundtruck AS ot ON o.ID = ot.OutboundID
+                    INNER JOIN truck AS t ON ot.TruckID = t.ID
+                    WHERE t.ID IN (12, 13, 14, 15, 16)
+                    ORDER BY
+                    o.DeliveryDate DESC;
+                    ";
+                    cmd.CommandText = updateArrayList;
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            DateTime date = reader.GetDateTime(reader.GetOrdinal("DeliveryDate"));
+                            string typename = reader.GetString(reader.GetOrdinal("TruckName"));
+                            int qty = reader.GetInt32(reader.GetOrdinal("Quantity"));
+                            outboundList.Add(new OutBoundTruckForChart(date, typename, qty));
+                        }
+                    }
+                }
+            }
+            catch (MySqlException e) { }
+            finally
+            {
+                if (conn != null && conn.State != ConnectionState.Closed)
+                    conn.Close();
+            }
+            return outboundList;
         }
     }
 }

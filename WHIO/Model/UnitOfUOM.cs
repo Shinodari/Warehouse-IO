@@ -1,7 +1,6 @@
 ﻿using MySql.Data.MySqlClient;
 using System.Collections.Generic;
 using System.Data;
-using Warehouse_IO.View.Weight.UnitOfWeightSource;
 
 namespace Warehouse_IO.WHIO.Model
 {
@@ -20,9 +19,9 @@ namespace Warehouse_IO.WHIO.Model
             else oldname = Name;
         }
 
-        public static List<UnitOfUOMForGetList> GetUnitOfUOM()
+        public static List<UnitOfUOM> GetAllUnitOfUOM()
         {
-            List<UnitOfUOMForGetList> unitofuomlist = new List<UnitOfUOMForGetList>();
+            List<UnitOfUOM> unitofuomlist = new List<UnitOfUOM>();
             MySqlConnection conn = null;
             try
             {
@@ -37,7 +36,8 @@ namespace Warehouse_IO.WHIO.Model
                             while (reader.Read())
                             {
                                 string name = reader["Name"].ToString();
-                                unitofuomlist.Add(new UnitOfUOMForGetList(name));
+                            UnitOfUOM unitofuom = new UnitOfUOM(name);
+                                unitofuomlist.Add(unitofuom);
                             }
                         }
                     }

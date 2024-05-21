@@ -4,8 +4,7 @@ using System.Windows.Forms;
 using Warehouse_IO.WHIO.Model;
 using Warehouse_IO.Common;
 using Warehouse_IO.View.Add_Edit_Remove_Components;
-using Warehouse_IO.View.Weight.PackagingSource;
-using Warehouse_IO.View.Weight.UnitOfWeightSource;
+using Warehouse_IO.Control;
 
 namespace Warehouse_IO.View.UOMSource
 {
@@ -16,7 +15,6 @@ namespace Warehouse_IO.View.UOMSource
         List<UnitOfUOMForGetList> unitofUomList;
 
         double value;
-        bool conversionFailed = false;
 
         public event EventHandler UpdateGrid;
 
@@ -42,8 +40,8 @@ namespace Warehouse_IO.View.UOMSource
 
         private void updateList()
         {
-            packageList = Package.GetPackageList();
-            unitofUomList = UnitOfUOM.GetUnitOfUOM();
+            packageList = PackageForGetList.GetPackageList();
+            unitofUomList = UnitOfUOMForGetList.GetUnitOfUOM();
             packageList.Sort((x, y) => x.Name.CompareTo(y.Name));
             unitofUomList.Sort((x, y) => x.Name.CompareTo(y.Name));
 
@@ -114,6 +112,7 @@ namespace Warehouse_IO.View.UOMSource
                 {
                     MessageBox.Show(this, "Edit complete");
                     Close();
+                    UpdateGrid?.Invoke(this, EventArgs.Empty);
                 }
                 else MessageBox.Show(this, "Edit in Database Fails");
             }
@@ -129,6 +128,7 @@ namespace Warehouse_IO.View.UOMSource
                     {
                         MessageBox.Show(this, "Edit complete");
                         Close();
+                        UpdateGrid?.Invoke(this, EventArgs.Empty);
                     }
                     else MessageBox.Show(this, "Edit in Database Fails");
                 }

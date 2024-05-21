@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using Warehouse_IO.WHIO.Model;
 using Warehouse_IO.Common;
 using Warehouse_IO.View.ParentFormComponents;
+using Warehouse_IO.Control;
 
 namespace Warehouse_IO.View.DeliveryplaceSource
 {
@@ -35,7 +35,7 @@ namespace Warehouse_IO.View.DeliveryplaceSource
 
         private void UpdateDatagridView()
         {
-            deliveryplaceList = Deliveryplace.GetDeliveryplaceList();
+            deliveryplaceList = DeliveryplaceForGetList.GetDeliveryplaceList();
             bind = new BindingSource(deliveryplaceList, null);
             deliveryplaceList.Sort((x, y) => x.Name.CompareTo(y.Name));
             dataGridView.DataSource = bind;

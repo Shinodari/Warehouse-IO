@@ -1,7 +1,6 @@
 ﻿using MySql.Data.MySqlClient;
 using System.Collections.Generic;
 using System.Data;
-using Warehouse_IO.View.Weight.PackagingSource;
 
 namespace Warehouse_IO.WHIO.Model
 {
@@ -20,9 +19,9 @@ namespace Warehouse_IO.WHIO.Model
             else oldname = Name;
         }
 
-        public static List<PackageForGetList> GetPackageList()
+        public static List<Package> GetAllPackageList()
         {
-            List<PackageForGetList> packagelist = new List<PackageForGetList>();
+            List<Package> packagelist = new List<Package>();
             MySqlConnection conn = null;
             try
             {
@@ -37,7 +36,8 @@ namespace Warehouse_IO.WHIO.Model
                             while (reader.Read())
                             {
                                 string name = reader["Name"].ToString();
-                                packagelist.Add(new PackageForGetList(name));
+                            Package pack = new Model.Package(name);
+                                packagelist.Add(pack);
                             }
                         }
                     }

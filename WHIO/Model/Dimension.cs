@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-using Warehouse_IO.View.Dimensions.DimensionSource;
 
 namespace Warehouse_IO.WHIO.Model
 {
@@ -162,10 +161,10 @@ namespace Warehouse_IO.WHIO.Model
             }
         }
 
-        public static List<DimensionForGetList> GetDimensionList()
+        public static List<Dimension> GetAllDimensionList()
         {
             MySqlConnection conn = null;
-            List<DimensionForGetList> dimensionlist = new List<DimensionForGetList>();
+            List<Dimension> dimensionlist = new List<Dimension>();
             try
             {
                 conn = new MySqlConnection(connstr);
@@ -179,14 +178,8 @@ namespace Warehouse_IO.WHIO.Model
                         while (reader.Read())
                         {
                             int id = Convert.ToInt32(reader["ID"]);
-                            double m3 = Convert.ToDouble(reader["M3"]);
-                            double width = Convert.ToDouble(reader["Width"]);
-                            double length = Convert.ToDouble(reader["Length"]);
-                            double height = Convert.ToDouble(reader["Height"]);
-                            string unitofvo = reader["UnitOfDimensionName"].ToString();
-                            string detail = reader["Name"].ToString();
-
-                            dimensionlist.Add(new DimensionForGetList(id,m3,width,length,height,unitofvo,detail));
+                            Dimension di = new Dimension(id);
+                            dimensionlist.Add(di);
                         }
                     }
                 }

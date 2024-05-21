@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Warehouse_IO.Authentication;
 using System.Windows.Forms;
 using Warehouse_IO.WHIO.Model;
-using Warehouse_IO.View.DepartmentFormSource;
+using Warehouse_IO.Control;
 
 namespace Warehouse_IO.View.CreateUseForm
 {
@@ -28,7 +28,7 @@ namespace Warehouse_IO.View.CreateUseForm
 
         private void updatecomponent()
         {
-            departmentlist = Department.GetDepartmentList();
+            departmentlist = DepartmentForGetList.GetDepartmentList();
             departmentComboBox.Items.Clear();
             foreach(DepartmentForGetList dep in departmentlist)
             {
