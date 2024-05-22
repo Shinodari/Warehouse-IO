@@ -39,6 +39,7 @@
             this.from2TimelineLabel = new System.Windows.Forms.Label();
             this.to2TimelineLabel = new System.Windows.Forms.Label();
             this.generateButton = new System.Windows.Forms.Button();
+            this.customerComboBox = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // firstFormDatePicker
@@ -125,7 +126,7 @@
             // 
             // generateButton
             // 
-            this.generateButton.Location = new System.Drawing.Point(213, 309);
+            this.generateButton.Location = new System.Drawing.Point(146, 310);
             this.generateButton.Name = "generateButton";
             this.generateButton.Size = new System.Drawing.Size(75, 50);
             this.generateButton.TabIndex = 106;
@@ -133,11 +134,20 @@
             this.generateButton.UseVisualStyleBackColor = true;
             this.generateButton.Click += new System.EventHandler(this.generateButton_Click);
             // 
+            // customerComboBox
+            // 
+            this.customerComboBox.FormattingEnabled = true;
+            this.customerComboBox.Location = new System.Drawing.Point(225, 310);
+            this.customerComboBox.Name = "customerComboBox";
+            this.customerComboBox.Size = new System.Drawing.Size(121, 21);
+            this.customerComboBox.TabIndex = 107;
+            // 
             // DateTimePickerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(484, 410);
+            this.Controls.Add(this.customerComboBox);
             this.Controls.Add(this.generateButton);
             this.Controls.Add(this.to2TimelineLabel);
             this.Controls.Add(this.from2TimelineLabel);
@@ -173,5 +183,6 @@
         private System.Windows.Forms.Label from2TimelineLabel;
         private System.Windows.Forms.Label to2TimelineLabel;
         private System.Windows.Forms.Button generateButton;
+        private System.Windows.Forms.ComboBox customerComboBox;
     }
 }

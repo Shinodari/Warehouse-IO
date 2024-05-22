@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 using Warehouse_IO.Common;
-using Warehouse_IO.Control;
 
 namespace Warehouse_IO.Chart
 {
-    public partial class ChartDisplayForm : Form
+    public partial class ByCustomerOperation : Form
     {
         DateTime from1Timeline = Global.fromDate1Timeline;
         DateTime to1Timeline = Global.toDate1Timeline;
@@ -15,13 +14,13 @@ namespace Warehouse_IO.Chart
         DateTime from2Timeline = Global.fromDate2Timeline;
         DateTime to2Timeline = Global.toDate2Timeline;
 
-        List<InboundActivity> inboundList;
-        List<OutboundActivity> outboundList;
+        List<InboundVolumeByCustomer> inboundListByCustomer;
+        List<OutboundVolumeByCustomer> outboundListByCustomer;
 
-        List<InboundTruckForChart> inboundTruckList;
-        List<OutBoundTruckForChart> outboundTruckList;
+        List<InboundTruckByCustomer> inboundTruckListByCustomer;
+        List<OutboundTruckByCustomer> outboundTruckListByCustomer;
 
-        public ChartDisplayForm()
+        public ByCustomerOperation()
         {
             InitializeComponent();
 
@@ -52,7 +51,6 @@ namespace Warehouse_IO.Chart
                 ChartType = SeriesChartType.Line,
                 Color = System.Drawing.Color.Red
             };
-
             // Create a new series for Inbound Truck
             Series inbTsereies1 = new Series("20F")
             {
@@ -64,7 +62,6 @@ namespace Warehouse_IO.Chart
                 ChartType = SeriesChartType.Column,
                 Color = System.Drawing.Color.Red
             };
-
             // Create a new series for OutBound Truck
             Series oubTsereies1 = new Series("4W")
             {
@@ -114,20 +111,20 @@ namespace Warehouse_IO.Chart
             outboundTruckChart.Series.Add(oubTsereies4);
             outboundTruckChart.Series.Add(oubTsereies5);
 
-            inboundList = InboundActivity.GetInboundList();
-            outboundList = OutboundActivity.GetOutboundList();
+            inboundListByCustomer = InboundVolumeByCustomer.GetInboundListByCustomer(Global.tempPkeyName);
+            outboundListByCustomer = OutboundVolumeByCustomer.GetOutboundListByCustomer(Global.tempPkeyName);
 
-            inboundTruckList = InboundTruckForChart.GetTruckInboundList();
-            outboundTruckList = OutBoundTruckForChart.GetTruckOutboundList();
+            inboundTruckListByCustomer = InboundTruckByCustomer.GetTruckInboundListByCustomer(Global.tempPkeyName);
+            outboundTruckListByCustomer = OutboundTruckByCustomer.GetTruckOutboundListByCustomer(Global.tempPkeyName);
 
-            UpdateInboundChart();
-            UpdateOutboundChart();
+            UpdateInboundChartByCustomer();
+            UpdateOutboundChartByCustomer();
 
-            UpdateTruckInboundChart();
-            UpdateTruckOutboundChart();
+            UpdateTruckInboundChartByCustomer();
+            UpdateTruckOutboundChartByCustomer();
         }
 
-        private void UpdateInboundChart()
+        private void UpdateInboundChartByCustomer()
         {
             inboundChart.Series[0].Points.Clear();
             inboundChart.Series[1].Points.Clear();
@@ -145,7 +142,7 @@ namespace Warehouse_IO.Chart
                 DateTime currentDateTimeline1 = from1Timeline.AddDays(day - 1);
                 DateTime currentDateTimeline2 = from2Timeline.AddDays(day - 1);
 
-                foreach (InboundActivity inb in inboundList)
+                foreach (InboundVolumeByCustomer inb in inboundListByCustomer)
                 {
                     if (inb.Date.Date == currentDateTimeline1.Date)
                     {
@@ -168,7 +165,8 @@ namespace Warehouse_IO.Chart
                 }
             }
         }
-        private void UpdateOutboundChart()
+
+        private void UpdateOutboundChartByCustomer()
         {
             outboundChart.Series[0].Points.Clear();
             outboundChart.Series[1].Points.Clear();
@@ -186,7 +184,7 @@ namespace Warehouse_IO.Chart
                 DateTime currentDateTimeline1 = from1Timeline.AddDays(day - 1);
                 DateTime currentDateTimeline2 = from2Timeline.AddDays(day - 1);
 
-                foreach (OutboundActivity oub in outboundList)
+                foreach (OutboundVolumeByCustomer oub in outboundListByCustomer)
                 {
                     if (oub.Date.Date == currentDateTimeline1.Date)
                     {
@@ -210,7 +208,7 @@ namespace Warehouse_IO.Chart
             }
         }
 
-        private void UpdateTruckInboundChart()
+        private void UpdateTruckInboundChartByCustomer()
         {
             for (int i = 0; i < inboundTruckChart.Series.Count; i++)
             {
@@ -221,7 +219,7 @@ namespace Warehouse_IO.Chart
             int counter20FCurrentTime = 0;
             int counter40FCurrentTime = 0;
 
-            foreach(InboundTruckForChart inbT in inboundTruckList)
+            foreach (InboundTruckByCustomer inbT in inboundTruckListByCustomer)
             {
                 if (inbT.Date.Date >= from2Timeline.Date && inbT.Date.Date <= to2Timeline.Date)
                 {
@@ -253,7 +251,7 @@ namespace Warehouse_IO.Chart
             inboundTruckChart.Series[1].Points[1].Label = counter40FCurrentTime.ToString();
         }
 
-        private void UpdateTruckOutboundChart()
+        private void UpdateTruckOutboundChartByCustomer()
         {
             for (int i = 0; i < outboundTruckChart.Series.Count; i++)
             {
@@ -272,7 +270,7 @@ namespace Warehouse_IO.Chart
             int counter20FCurrentTime = 0;
             int counter40FCurrentTime = 0;
 
-            foreach (OutBoundTruckForChart oubT in outboundTruckList)
+            foreach (OutboundTruckByCustomer oubT in outboundTruckListByCustomer)
             {
                 if (oubT.Date.Date >= from2Timeline.Date && oubT.Date.Date <= to2Timeline.Date)
                 {
@@ -297,23 +295,23 @@ namespace Warehouse_IO.Chart
                 }
                 else if (oubT.Date.Date >= from1Timeline.Date && oubT.Date.Date <= to1Timeline.Date)
                 {
-                    switch(oubT.TypeName)
+                    switch (oubT.TypeName)
                     {
                         case "4W":
                             counter4WLastTime += oubT.Quantity;
-                        break;
+                            break;
                         case "6W":
                             counter6WLastTime += oubT.Quantity;
-                        break;
+                            break;
                         case "10W":
                             counter10WLastTime += oubT.Quantity;
-                        break;
+                            break;
                         case "20F":
                             counter20FLastTime += oubT.Quantity;
-                        break;
+                            break;
                         default:
                             counter40FLastTime += oubT.Quantity;
-                        break;
+                            break;
                     }
                 }
             }
@@ -348,5 +346,5 @@ namespace Warehouse_IO.Chart
             outboundTruckChart.Series[4].Points[0].Label = counter40FLastTime.ToString();
             outboundTruckChart.Series[4].Points[1].Label = counter40FCurrentTime.ToString();
         }
-    }       
+    }
 }

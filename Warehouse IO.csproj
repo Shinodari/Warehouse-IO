@@ -141,8 +141,18 @@
   <ItemGroup>
     <Compile Include="Authentication\Login.cs" />
     <Compile Include="Authentication\User.cs" />
+    <Compile Include="Chart\ByCustomerOperation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Chart\ByCustomerOperation.Designer.cs">
+      <DependentUpon>ByCustomerOperation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Chart\InboundTruckByCustomer.cs" />
     <Compile Include="Chart\InboundTruckForChart.cs" />
+    <Compile Include="Chart\InboundVolumeByCustomer.cs" />
+    <Compile Include="Chart\OutboundTruckByCustomer.cs" />
     <Compile Include="Chart\OutBoundTruckForChart.cs" />
+    <Compile Include="Chart\OutboundVolumeByCustomer.cs" />
     <Compile Include="Chart\OverallOperation.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -644,6 +654,9 @@
     <Compile Include="WHIO\Model\Transport.cs" />
     <Compile Include="WHIO\Model\Storage.cs" />
     <Compile Include="WHIO\Model\Department.cs" />
+    <EmbeddedResource Include="Chart\ByCustomerOperation.resx">
+      <DependentUpon>ByCustomerOperation.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Chart\OverallOperation.resx">
       <DependentUpon>OverallOperation.cs</DependentUpon>
     </EmbeddedResource>
