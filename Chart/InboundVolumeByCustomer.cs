@@ -34,22 +34,36 @@ namespace Warehouse_IO.Chart
                     SELECT
                     i.DeliveryDate,
                     s.Name AS Customer,
-                    (
-                    SELECT SUM(d.M3 * iq.Quantity)
-                    FROM inboundquantityofproductlist iq
-                    JOIN product p ON iq.ProductID = p.ID
-                    JOIN dimension d ON p.DimensionID = d.ID
-                    WHERE iq.InboundID = i.ID
-                    AND s.Name = @customerName
-                    ) AS M3
+                    sub.M3
                     FROM
                     inbound i
                     LEFT JOIN
                     supplier s ON i.SupplierID = s.ID
-                    WHERE s.Name = @customerName
+                    LEFT JOIN (
+                    SELECT 
+                    iq.InboundID,
+                    SUM(d.M3 * iq.Quantity) AS M3
+                    FROM 
+                    inboundquantityofproductlist iq
+                    JOIN 
+                    product p ON iq.ProductID = p.ID
+                    JOIN 
+                    dimension d ON p.DimensionID = d.ID
+                    JOIN 
+                    inbound i ON iq.InboundID = i.ID
+                    JOIN 
+                    supplier s ON i.SupplierID = s.ID
+                    WHERE 
+                    s.Name = @customerName
+                    GROUP BY 
+                    iq.InboundID
+                    ) sub ON i.ID = sub.InboundID
+                    WHERE 
+                    s.Name = @customerName
                     GROUP BY
                     i.DeliveryDate,
-                    s.Name
+                    s.Name,
+                    sub.M3
                     ORDER BY
                     i.DeliveryDate DESC;
                     ";
