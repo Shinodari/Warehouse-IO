@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 using Warehouse_IO.Common;
@@ -24,6 +25,8 @@ namespace Warehouse_IO.Chart
         {
             InitializeComponent();
 
+            customerLabel.Text = Global.tempPkeyName;
+
             fFDateLabel.Text = from1Timeline.ToString("MMM, dd yyyy");
             ftlToLabel.Text = to1Timeline.ToString("MMM, dd yyyy");
             sFDateLabel.Text = from2Timeline.ToString("MMM, dd yyyy");
@@ -33,67 +36,85 @@ namespace Warehouse_IO.Chart
             Series inbSeries1 = new Series("Inbound History")
             {
                 ChartType = SeriesChartType.Line,
-                Color = System.Drawing.Color.DarkBlue
+                Color = System.Drawing.Color.DarkBlue,
+                BorderWidth = 3
             };
             Series inbSeries2 = new Series("Inbound Present")
             {
                 ChartType = SeriesChartType.Line,
-                Color = System.Drawing.Color.Red
+                Color = System.Drawing.Color.Red,
+                BorderWidth = 3
             };
             // Create a new series for Outbound M3
             Series oubSeries1 = new Series("Outbound History")
             {
                 ChartType = SeriesChartType.Line,
-                Color = System.Drawing.Color.DarkBlue
+                Color = System.Drawing.Color.DarkBlue,
+                BorderWidth = 3
             };
             Series oubSeries2 = new Series("Outbound Present")
             {
                 ChartType = SeriesChartType.Line,
-                Color = System.Drawing.Color.Red
+                Color = System.Drawing.Color.Red,
+                BorderWidth = 3
             };
             // Create a new series for Inbound Truck
             Series inbTsereies1 = new Series("20F")
             {
                 ChartType = SeriesChartType.Column,
-                Color = System.Drawing.Color.DarkBlue
+                Color = System.Drawing.Color.Violet,
+                BorderColor = System.Drawing.Color.Black,
+                BorderWidth = 1
             };
             Series inbTsereies2 = new Series("40F")
             {
                 ChartType = SeriesChartType.Column,
-                Color = System.Drawing.Color.Red
+                Color = System.Drawing.Color.Tan,
+                BorderColor = System.Drawing.Color.Black,
+                BorderWidth = 1
             };
             // Create a new series for OutBound Truck
             Series oubTsereies1 = new Series("4W")
             {
                 ChartType = SeriesChartType.Column,
-                Color = System.Drawing.Color.DarkBlue
+                Color = System.Drawing.Color.DarkBlue,
+                BorderColor = System.Drawing.Color.Black,
+                BorderWidth = 1
             };
             Series oubTsereies2 = new Series("6W")
             {
                 ChartType = SeriesChartType.Column,
-                Color = System.Drawing.Color.Red
+                Color = System.Drawing.Color.Red,
+                BorderColor = System.Drawing.Color.Black,
+                BorderWidth = 1
             };
             Series oubTsereies3 = new Series("10W")
             {
                 ChartType = SeriesChartType.Column,
-                Color = System.Drawing.Color.Lime
+                Color = System.Drawing.Color.Lime,
+                BorderColor = System.Drawing.Color.Black,
+                BorderWidth = 1
             };
             Series oubTsereies4 = new Series("20F")
             {
                 ChartType = SeriesChartType.Column,
-                Color = System.Drawing.Color.Violet
+                Color = System.Drawing.Color.Violet,
+                BorderColor = System.Drawing.Color.Black,
+                BorderWidth = 1
             };
             Series oubTsereies5 = new Series("40F")
             {
                 ChartType = SeriesChartType.Column,
-                Color = System.Drawing.Color.Tan
+                Color = System.Drawing.Color.Tan,
+                BorderColor = System.Drawing.Color.Black,
+                BorderWidth = 1
             };
 
-            //Chart Title
-            inboundChart.Titles.Add("Inbound M3 cumulative");
-            outboundChart.Titles.Add("Outbound M3 cumulative");
-            inboundTruckChart.Titles.Add("Container Un-Stuffing Comparision");
-            outboundTruckChart.Titles.Add("Container & Truck Stuffing Comparision");
+            // Chart Title
+            inboundChart.Titles.Add(new Title("Inbound M3 cumulative", Docking.Top, new Font("Arial", 12, FontStyle.Bold), Color.Black));
+            outboundChart.Titles.Add(new Title("Outbound M3 cumulative", Docking.Top, new Font("Arial", 12, FontStyle.Bold), Color.Black));
+            inboundTruckChart.Titles.Add(new Title("Container Un-Stuffing Comparison", Docking.Top, new Font("Arial", 12, FontStyle.Bold), Color.Black));
+            outboundTruckChart.Titles.Add(new Title("Container & Truck Stuffing Comparison", Docking.Top, new Font("Arial", 12, FontStyle.Bold), Color.Black));
 
             // Add the series to the chart
             inboundChart.Series.Add(inbSeries1);

@@ -28,14 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend5 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea6 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend6 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea7 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend7 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea8 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend8 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             this.inboundChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.outboundChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.inboundTruckChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
@@ -48,6 +48,7 @@
             this.sToDateLabel = new System.Windows.Forms.Label();
             this.ftlToLabel = new System.Windows.Forms.Label();
             this.stlDateLabel = new System.Windows.Forms.Label();
+            this.overallLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.inboundChart)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.outboundChart)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.inboundTruckChart)).BeginInit();
@@ -56,12 +57,12 @@
             // 
             // inboundChart
             // 
-            chartArea5.Name = "ChartArea1";
-            this.inboundChart.ChartAreas.Add(chartArea5);
-            legend5.BackImageAlignment = System.Windows.Forms.DataVisualization.Charting.ChartImageAlignmentStyle.Top;
-            legend5.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top;
-            legend5.Name = "Legend1";
-            this.inboundChart.Legends.Add(legend5);
+            chartArea1.Name = "ChartArea1";
+            this.inboundChart.ChartAreas.Add(chartArea1);
+            legend1.BackImageAlignment = System.Windows.Forms.DataVisualization.Charting.ChartImageAlignmentStyle.Top;
+            legend1.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top;
+            legend1.Name = "Legend1";
+            this.inboundChart.Legends.Add(legend1);
             this.inboundChart.Location = new System.Drawing.Point(4, 4);
             this.inboundChart.Name = "inboundChart";
             this.inboundChart.Size = new System.Drawing.Size(500, 300);
@@ -70,11 +71,11 @@
             // 
             // outboundChart
             // 
-            chartArea6.Name = "ChartArea1";
-            this.outboundChart.ChartAreas.Add(chartArea6);
-            legend6.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top;
-            legend6.Name = "Legend1";
-            this.outboundChart.Legends.Add(legend6);
+            chartArea2.Name = "ChartArea1";
+            this.outboundChart.ChartAreas.Add(chartArea2);
+            legend2.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top;
+            legend2.Name = "Legend1";
+            this.outboundChart.Legends.Add(legend2);
             this.outboundChart.Location = new System.Drawing.Point(507, 4);
             this.outboundChart.Name = "outboundChart";
             this.outboundChart.Size = new System.Drawing.Size(500, 300);
@@ -83,11 +84,11 @@
             // 
             // inboundTruckChart
             // 
-            chartArea7.Name = "ChartArea1";
-            this.inboundTruckChart.ChartAreas.Add(chartArea7);
-            legend7.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top;
-            legend7.Name = "Legend1";
-            this.inboundTruckChart.Legends.Add(legend7);
+            chartArea3.Name = "ChartArea1";
+            this.inboundTruckChart.ChartAreas.Add(chartArea3);
+            legend3.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top;
+            legend3.Name = "Legend1";
+            this.inboundTruckChart.Legends.Add(legend3);
             this.inboundTruckChart.Location = new System.Drawing.Point(4, 417);
             this.inboundTruckChart.Name = "inboundTruckChart";
             this.inboundTruckChart.Size = new System.Drawing.Size(500, 300);
@@ -96,11 +97,11 @@
             // 
             // outboundTruckChart
             // 
-            chartArea8.Name = "ChartArea1";
-            this.outboundTruckChart.ChartAreas.Add(chartArea8);
-            legend8.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top;
-            legend8.Name = "Legend1";
-            this.outboundTruckChart.Legends.Add(legend8);
+            chartArea4.Name = "ChartArea1";
+            this.outboundTruckChart.ChartAreas.Add(chartArea4);
+            legend4.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top;
+            legend4.Name = "Legend1";
+            this.outboundTruckChart.Legends.Add(legend4);
             this.outboundTruckChart.Location = new System.Drawing.Point(507, 417);
             this.outboundTruckChart.Name = "outboundTruckChart";
             this.outboundTruckChart.Size = new System.Drawing.Size(500, 300);
@@ -110,80 +111,99 @@
             // firstTimelineLabel
             // 
             this.firstTimelineLabel.AutoSize = true;
-            this.firstTimelineLabel.Location = new System.Drawing.Point(196, 330);
+            this.firstTimelineLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.firstTimelineLabel.Location = new System.Drawing.Point(53, 334);
             this.firstTimelineLabel.Name = "firstTimelineLabel";
-            this.firstTimelineLabel.Size = new System.Drawing.Size(124, 13);
+            this.firstTimelineLabel.Size = new System.Drawing.Size(158, 16);
             this.firstTimelineLabel.TabIndex = 4;
             this.firstTimelineLabel.Text = "First Timeline From date :";
             // 
             // secondTimelineLabel
             // 
             this.secondTimelineLabel.AutoSize = true;
-            this.secondTimelineLabel.Location = new System.Drawing.Point(178, 370);
+            this.secondTimelineLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.secondTimelineLabel.Location = new System.Drawing.Point(35, 374);
             this.secondTimelineLabel.Name = "secondTimelineLabel";
-            this.secondTimelineLabel.Size = new System.Drawing.Size(142, 13);
+            this.secondTimelineLabel.Size = new System.Drawing.Size(180, 16);
             this.secondTimelineLabel.TabIndex = 5;
             this.secondTimelineLabel.Text = "Second Timeline From date :";
             // 
             // fFDateLabel
             // 
             this.fFDateLabel.AutoSize = true;
-            this.fFDateLabel.Location = new System.Drawing.Point(384, 330);
+            this.fFDateLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.fFDateLabel.Location = new System.Drawing.Point(241, 334);
             this.fFDateLabel.Name = "fFDateLabel";
-            this.fFDateLabel.Size = new System.Drawing.Size(35, 13);
+            this.fFDateLabel.Size = new System.Drawing.Size(45, 16);
             this.fFDateLabel.TabIndex = 6;
             this.fFDateLabel.Text = "label1";
             // 
             // sFDateLabel
             // 
             this.sFDateLabel.AutoSize = true;
-            this.sFDateLabel.Location = new System.Drawing.Point(384, 370);
+            this.sFDateLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.sFDateLabel.Location = new System.Drawing.Point(241, 374);
             this.sFDateLabel.Name = "sFDateLabel";
-            this.sFDateLabel.Size = new System.Drawing.Size(35, 13);
+            this.sFDateLabel.Size = new System.Drawing.Size(45, 16);
             this.sFDateLabel.TabIndex = 7;
             this.sFDateLabel.Text = "label2";
             // 
             // fToDateLabel
             // 
             this.fToDateLabel.AutoSize = true;
-            this.fToDateLabel.Location = new System.Drawing.Point(521, 330);
+            this.fToDateLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.fToDateLabel.Location = new System.Drawing.Point(378, 334);
             this.fToDateLabel.Name = "fToDateLabel";
-            this.fToDateLabel.Size = new System.Drawing.Size(50, 13);
+            this.fToDateLabel.Size = new System.Drawing.Size(61, 16);
             this.fToDateLabel.TabIndex = 8;
             this.fToDateLabel.Text = "To date :";
             // 
             // sToDateLabel
             // 
             this.sToDateLabel.AutoSize = true;
-            this.sToDateLabel.Location = new System.Drawing.Point(521, 370);
+            this.sToDateLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.sToDateLabel.Location = new System.Drawing.Point(378, 374);
             this.sToDateLabel.Name = "sToDateLabel";
-            this.sToDateLabel.Size = new System.Drawing.Size(50, 13);
+            this.sToDateLabel.Size = new System.Drawing.Size(61, 16);
             this.sToDateLabel.TabIndex = 9;
             this.sToDateLabel.Text = "To date :";
             // 
             // ftlToLabel
             // 
             this.ftlToLabel.AutoSize = true;
-            this.ftlToLabel.Location = new System.Drawing.Point(657, 330);
+            this.ftlToLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ftlToLabel.Location = new System.Drawing.Point(514, 334);
             this.ftlToLabel.Name = "ftlToLabel";
-            this.ftlToLabel.Size = new System.Drawing.Size(35, 13);
+            this.ftlToLabel.Size = new System.Drawing.Size(45, 16);
             this.ftlToLabel.TabIndex = 10;
             this.ftlToLabel.Text = "label2";
             // 
             // stlDateLabel
             // 
             this.stlDateLabel.AutoSize = true;
-            this.stlDateLabel.Location = new System.Drawing.Point(657, 370);
+            this.stlDateLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.stlDateLabel.Location = new System.Drawing.Point(514, 374);
             this.stlDateLabel.Name = "stlDateLabel";
-            this.stlDateLabel.Size = new System.Drawing.Size(35, 13);
+            this.stlDateLabel.Size = new System.Drawing.Size(45, 16);
             this.stlDateLabel.TabIndex = 11;
             this.stlDateLabel.Text = "label2";
+            // 
+            // overallLabel
+            // 
+            this.overallLabel.AutoSize = true;
+            this.overallLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.overallLabel.Location = new System.Drawing.Point(711, 332);
+            this.overallLabel.Name = "overallLabel";
+            this.overallLabel.Size = new System.Drawing.Size(182, 55);
+            this.overallLabel.TabIndex = 25;
+            this.overallLabel.Text = "Overall";
             // 
             // ChartDisplayForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1008, 729);
+            this.Controls.Add(this.overallLabel);
             this.Controls.Add(this.stlDateLabel);
             this.Controls.Add(this.ftlToLabel);
             this.Controls.Add(this.sToDateLabel);
@@ -224,5 +244,6 @@
         private System.Windows.Forms.Label sToDateLabel;
         private System.Windows.Forms.Label ftlToLabel;
         private System.Windows.Forms.Label stlDateLabel;
+        private System.Windows.Forms.Label overallLabel;
     }
 }
