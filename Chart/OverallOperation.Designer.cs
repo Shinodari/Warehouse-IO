@@ -28,14 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend5 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea6 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend6 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea7 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend7 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea8 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend8 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             this.inboundChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.outboundChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.inboundTruckChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
@@ -49,6 +49,7 @@
             this.ftlToLabel = new System.Windows.Forms.Label();
             this.stlDateLabel = new System.Windows.Forms.Label();
             this.overallLabel = new System.Windows.Forms.Label();
+            this.exportChartButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.inboundChart)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.outboundChart)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.inboundTruckChart)).BeginInit();
@@ -57,12 +58,12 @@
             // 
             // inboundChart
             // 
-            chartArea1.Name = "ChartArea1";
-            this.inboundChart.ChartAreas.Add(chartArea1);
-            legend1.BackImageAlignment = System.Windows.Forms.DataVisualization.Charting.ChartImageAlignmentStyle.Top;
-            legend1.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top;
-            legend1.Name = "Legend1";
-            this.inboundChart.Legends.Add(legend1);
+            chartArea5.Name = "ChartArea1";
+            this.inboundChart.ChartAreas.Add(chartArea5);
+            legend5.BackImageAlignment = System.Windows.Forms.DataVisualization.Charting.ChartImageAlignmentStyle.Top;
+            legend5.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top;
+            legend5.Name = "Legend1";
+            this.inboundChart.Legends.Add(legend5);
             this.inboundChart.Location = new System.Drawing.Point(4, 4);
             this.inboundChart.Name = "inboundChart";
             this.inboundChart.Size = new System.Drawing.Size(500, 300);
@@ -71,11 +72,11 @@
             // 
             // outboundChart
             // 
-            chartArea2.Name = "ChartArea1";
-            this.outboundChart.ChartAreas.Add(chartArea2);
-            legend2.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top;
-            legend2.Name = "Legend1";
-            this.outboundChart.Legends.Add(legend2);
+            chartArea6.Name = "ChartArea1";
+            this.outboundChart.ChartAreas.Add(chartArea6);
+            legend6.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top;
+            legend6.Name = "Legend1";
+            this.outboundChart.Legends.Add(legend6);
             this.outboundChart.Location = new System.Drawing.Point(507, 4);
             this.outboundChart.Name = "outboundChart";
             this.outboundChart.Size = new System.Drawing.Size(500, 300);
@@ -84,11 +85,11 @@
             // 
             // inboundTruckChart
             // 
-            chartArea3.Name = "ChartArea1";
-            this.inboundTruckChart.ChartAreas.Add(chartArea3);
-            legend3.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top;
-            legend3.Name = "Legend1";
-            this.inboundTruckChart.Legends.Add(legend3);
+            chartArea7.Name = "ChartArea1";
+            this.inboundTruckChart.ChartAreas.Add(chartArea7);
+            legend7.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top;
+            legend7.Name = "Legend1";
+            this.inboundTruckChart.Legends.Add(legend7);
             this.inboundTruckChart.Location = new System.Drawing.Point(4, 417);
             this.inboundTruckChart.Name = "inboundTruckChart";
             this.inboundTruckChart.Size = new System.Drawing.Size(500, 300);
@@ -97,11 +98,11 @@
             // 
             // outboundTruckChart
             // 
-            chartArea4.Name = "ChartArea1";
-            this.outboundTruckChart.ChartAreas.Add(chartArea4);
-            legend4.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top;
-            legend4.Name = "Legend1";
-            this.outboundTruckChart.Legends.Add(legend4);
+            chartArea8.Name = "ChartArea1";
+            this.outboundTruckChart.ChartAreas.Add(chartArea8);
+            legend8.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top;
+            legend8.Name = "Legend1";
+            this.outboundTruckChart.Legends.Add(legend8);
             this.outboundTruckChart.Location = new System.Drawing.Point(507, 417);
             this.outboundTruckChart.Name = "outboundTruckChart";
             this.outboundTruckChart.Size = new System.Drawing.Size(500, 300);
@@ -198,11 +199,22 @@
             this.overallLabel.TabIndex = 25;
             this.overallLabel.Text = "Overall";
             // 
+            // exportChartButton
+            // 
+            this.exportChartButton.Location = new System.Drawing.Point(942, 334);
+            this.exportChartButton.Name = "exportChartButton";
+            this.exportChartButton.Size = new System.Drawing.Size(60, 50);
+            this.exportChartButton.TabIndex = 26;
+            this.exportChartButton.Text = "Export Chart";
+            this.exportChartButton.UseVisualStyleBackColor = true;
+            this.exportChartButton.Click += new System.EventHandler(this.exportChartButton_Click);
+            // 
             // ChartDisplayForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1008, 729);
+            this.Controls.Add(this.exportChartButton);
             this.Controls.Add(this.overallLabel);
             this.Controls.Add(this.stlDateLabel);
             this.Controls.Add(this.ftlToLabel);
@@ -245,5 +257,6 @@
         private System.Windows.Forms.Label ftlToLabel;
         private System.Windows.Forms.Label stlDateLabel;
         private System.Windows.Forms.Label overallLabel;
+        private System.Windows.Forms.Button exportChartButton;
     }
 }

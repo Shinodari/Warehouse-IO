@@ -485,6 +485,15 @@ namespace Warehouse_IO.View.InboundSource
             {
                 newInbound.UpdateProduct();
                 newInbound.UpdateTruck();
+                if(truckInDetailTextBox.Text != null)
+                {
+                    newInbound.Detail = truckInDetailTextBox.Text;
+                    if (newInbound.Change())
+                    {
+                        MessageBox.Show(this, "Update shipment details");
+                    }
+                    else MessageBox.Show(this, "Update shipment details fail");
+                }
                 if (newInbound.TruckQuantityPerShipmentList.Values.Count == 0 && newInbound.QuantityOfProductList.Values.Count == 0)
                 {
                     if (MessageBox.Show(this, "Shipment has no trucks or products. Remove shipment?", "Empty Shipment", MessageBoxButtons.YesNo) == DialogResult.Yes)

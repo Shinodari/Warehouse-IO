@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 using Warehouse_IO.Common;
@@ -366,6 +367,54 @@ namespace Warehouse_IO.Chart
 
             outboundTruckChart.Series[4].Points[0].Label = counter40FLastTime.ToString();
             outboundTruckChart.Series[4].Points[1].Label = counter40FCurrentTime.ToString();
+        }
+        //Event to pop up save path dialog box
+        private void exportChartButton_Click(object sender, EventArgs e)
+        {
+            Bitmap bitmap = CaptureFormAsImage(this);
+
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+
+            saveFileDialog.Filter = "PNG Image|*.png|JPEG Image|*.jpg|Bitmap Image|*.bmp";
+            saveFileDialog.Title = "Save the captured form as an image";
+            saveFileDialog.FileName = "CapturedChart.png";
+
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                string filePath = saveFileDialog.FileName;
+                bitmap.Save(filePath, GetImageFormat(filePath));
+                MessageBox.Show(this, "Chart Exported");
+            }
+        }
+        //Method to capture form to png
+        private Bitmap CaptureFormAsImage(Form form)
+        {
+            Bitmap bitmap = new Bitmap(form.ClientSize.Width, form.ClientSize.Height);
+
+            using (Graphics g = Graphics.FromImage(bitmap))
+            {
+                // Offset the drawing to capture the client area correctly
+                g.CopyFromScreen(form.PointToScreen(new Point(0, 0)), Point.Empty, form.ClientSize);
+            }
+
+            return bitmap;
+        }
+        //Method to set format capture
+        private System.Drawing.Imaging.ImageFormat GetImageFormat(string filePath)
+        {
+            // Determine the image format based on the file extension
+            switch (Path.GetExtension(filePath).ToLower())
+            {
+                case ".bmp":
+                    return System.Drawing.Imaging.ImageFormat.Bmp;
+                case ".jpg":
+                case ".jpeg":
+                    return System.Drawing.Imaging.ImageFormat.Jpeg;
+                case ".png":
+                    return System.Drawing.Imaging.ImageFormat.Png;
+                default:
+                    throw new NotSupportedException("File extension is not supported");
+            }
         }
     }
 }

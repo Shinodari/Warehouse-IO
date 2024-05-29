@@ -123,7 +123,7 @@ namespace Warehouse_IO.View.InboundSource
         {
             string filterText = searchTextBox.Text.ToLower();
             listforsearch = inboundlist.Where(i => i.Invoice.ToLower().Contains(filterText)
-            || i.Customer.ToLower().Contains(filterText)).ToList();
+            || i.Customer.ToLower().Contains(filterText) || i.Truck.ToLower().Contains(filterText)).ToList();
 
             updateSearchdataGridView();
         }
